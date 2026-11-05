@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80">
+  <rect width="160" height="80" fill="#FFE500" rx="6"/>
+  <!-- Dr. Fixit Mascot Illustration -->
+  <g transform="translate(14, 8)">
+    <!-- Yellow Hardhat -->
+    <path d="M12 18 C12 6, 32 6, 32 18 Z" fill="#FFC107"/>
+    <rect x="8" y="16" width="28" height="4.5" rx="2" fill="#FFA000"/>
+    <!-- Face & Beard -->
+    <circle cx="22" cy="23" r="8" fill="#FFE0B2"/>
+    <path d="M15 25 C15 32, 29 32, 29 25 Z" fill="#EEEEEE"/>
+    <circle cx="19" cy="22" r="1" fill="#424242"/>
+    <circle cx="25" cy="22" r="1" fill="#424242"/>
+    <!-- Glasses -->
+    <rect x="17" y="20" width="4" height="3" fill="none" stroke="#212121" stroke-width="0.8"/>
+    <rect x="23" y="20" width="4" height="3" fill="none" stroke="#212121" stroke-width="0.8"/>
+    <line x1="21" y1="21" x2="23" y2="21" stroke="#212121" stroke-width="0.8"/>
+    <!-- Suit & Tie -->
+    <path d="M12 32 L32 32 L35 48 L9 48 Z" fill="#455A64"/>
+    <polygon points="22,32 19,44 22,46 25,44" fill="#FFFFFF"/>
+    <polygon points="22,34 20,42 22,48 24,42" fill="#D32F2F"/>
+  </g>
+  <!-- Text DR. FIXIT -->
+  <text x="100" y="32" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="20" fill="#004BA0" text-anchor="middle">DR.</text>
+  <text x="100" y="52" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="21" fill="#004BA0" text-anchor="middle">FIXIT</text>
+  <!-- Blue Banner -->
+  <rect x="4" y="58" width="152" height="18" fill="#004BA0" rx="3"/>
+  <text x="80" y="70.5" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="7.5" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.6">FOR HEALTHY CONSTRUCTION</text>
+</svg>
+

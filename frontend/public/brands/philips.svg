@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80">
+  <rect width="160" height="80" fill="#FFFFFF" rx="6"/>
+  <!-- Philips Crest Shield -->
+  <g transform="translate(56, 12)">
+    <rect width="48" height="54" rx="12" fill="#0B5ED7"/>
+    <text x="24" y="18" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="9" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">PHILIPS</text>
+    <circle cx="14" cy="30" r="2.5" fill="#FFFFFF"/>
+    <circle cx="34" cy="30" r="2.5" fill="#FFFFFF"/>
+    <circle cx="24" cy="40" r="2" fill="#FFFFFF"/>
+    <path d="M6 34 Q24 24 42 34 Q24 44 6 34" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+  </g>
+</svg>
+

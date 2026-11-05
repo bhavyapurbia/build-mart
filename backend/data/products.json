@@ -1,0 +1,2065 @@
+[
+  {
+    "_id": "f50450c0764398f3eeeaaf4f",
+    "name": "UltraTech Super Portland Pozzolana Cement (PPC)",
+    "category": "Cement & Steel",
+    "subcategory": "Cement Bags",
+    "brand": "UltraTech",
+    "price": 395,
+    "mrp": 440,
+    "unit": "50kg Bag",
+    "stock": 450,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "UltraTech Super is an engineered PPC cement produced with micro-fine particles providing exceptional compressive strength, resistance to cracks, and superior finishing for concrete slabs and brick masonry.",
+    "specifications": [
+      {
+        "key": "Grade",
+        "value": "PPC (IS 1489 Part 1)"
+      },
+      {
+        "key": "Package Weight",
+        "value": "50 kg"
+      },
+      {
+        "key": "Initial Setting Time",
+        "value": "≥ 30 minutes"
+      },
+      {
+        "key": "Application",
+        "value": "RCC Slabs, Columns, Foundation, Plastering"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "ultratech-super-portland-pozzolana-cement-ppc",
+    "sku": "BM-780921",
+    "discount": 10,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 45,
+    "createdAt": "2026-11-05T15:42:44.800Z",
+    "updatedAt": "2026-11-05T15:42:44.800Z"
+  },
+  {
+    "_id": "e0da821d601da7dbfa2d7107",
+    "name": "Tata Tiscon 550D TMT Rebar (12mm)",
+    "category": "Cement & Steel",
+    "subcategory": "TMT Bars",
+    "brand": "Tata Tiscon",
+    "price": 840,
+    "mrp": 960,
+    "unit": "12m Piece",
+    "stock": 300,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Tata Tiscon 550D is India’s first GreenPro certified rebar manufactured using virgin iron ore and primary steelmaking. High ductility protects structures against seismic shocks.",
+    "specifications": [
+      {
+        "key": "Diameter",
+        "value": "12 mm"
+      },
+      {
+        "key": "Grade",
+        "value": "Fe 550D"
+      },
+      {
+        "key": "Length per Piece",
+        "value": "12 meters"
+      },
+      {
+        "key": "Standard",
+        "value": "IS 1786:2008"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "tata-tiscon-550d-tmt-rebar-12mm",
+    "sku": "BM-941279",
+    "discount": 13,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 44,
+    "createdAt": "2026-11-05T15:42:44.806Z",
+    "updatedAt": "2026-11-05T15:42:44.806Z"
+  },
+  {
+    "_id": "3148237ad8940c534a9ff568",
+    "name": "Tata Tiscon 550D TMT Rebar (16mm)",
+    "category": "Cement & Steel",
+    "subcategory": "TMT Bars",
+    "brand": "Tata Tiscon",
+    "price": 1480,
+    "mrp": 1650,
+    "unit": "12m Piece",
+    "stock": 200,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Heavy structural 16mm Fe 550D rebar designed for multi-storey beams, heavy civil footings, and structural pillars.",
+    "specifications": [
+      {
+        "key": "Diameter",
+        "value": "16 mm"
+      },
+      {
+        "key": "Grade",
+        "value": "Fe 550D"
+      },
+      {
+        "key": "Standard",
+        "value": "IS 1786"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "tata-tiscon-550d-tmt-rebar-16mm",
+    "sku": "BM-311117",
+    "discount": 10,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 71,
+    "createdAt": "2026-11-05T15:42:44.812Z",
+    "updatedAt": "2026-11-05T15:42:44.812Z"
+  },
+  {
+    "_id": "938625a6ada7bc18660de5fd",
+    "name": "ACC Gold Water Shield Water Repellent Cement",
+    "category": "Cement & Steel",
+    "subcategory": "Different Cement Brands",
+    "brand": "ACC",
+    "price": 435,
+    "mrp": 490,
+    "unit": "50kg Bag",
+    "stock": 180,
+    "isDeal": true,
+    "isFeatured": false,
+    "description": "ACC Gold Water Shield is a premium water-repellent cement with unique silane additives that shield home walls from seepage and efflorescence from day one.",
+    "specifications": [
+      {
+        "key": "Type",
+        "value": "Hydrophobic Engineered Cement"
+      },
+      {
+        "key": "Weight",
+        "value": "50 kg"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "acc-gold-water-shield-water-repellent-cement",
+    "sku": "BM-880112",
+    "discount": 11,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 28,
+    "createdAt": "2026-11-05T15:42:44.819Z",
+    "updatedAt": "2026-11-05T15:42:44.819Z"
+  },
+  {
+    "_id": "37a7f44730dee36ffff1d143",
+    "name": "GI Annealed Rebar Binding Wire (18 Gauge)",
+    "category": "Cement & Steel",
+    "subcategory": "Binding Materials",
+    "brand": "Tata Tiscon",
+    "price": 115,
+    "mrp": 140,
+    "unit": "1 Kg Bundle",
+    "stock": 500,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Soft annealed zinc-coated GI wire ensures easy manual knotting of TMT rebar intersections without snapping.",
+    "specifications": [
+      {
+        "key": "Gauge",
+        "value": "18 SWG (1.2mm)"
+      },
+      {
+        "key": "Finish",
+        "value": "Rust-Resistant Annealed Galvanized"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "gi-annealed-rebar-binding-wire-18-gauge",
+    "sku": "BM-376592",
+    "discount": 18,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 50,
+    "createdAt": "2026-11-05T15:42:44.826Z",
+    "updatedAt": "2026-11-05T15:42:44.826Z"
+  },
+  {
+    "_id": "7d769a2aecbc4512dd297c16",
+    "name": "Kajaria Eternity 600x1200mm Glazed Vitrified Tiles (Statwario Marble)",
+    "category": "Tiles & Adhesives",
+    "subcategory": "Floor Tiles",
+    "brand": "Kajaria",
+    "price": 1480,
+    "mrp": 1850,
+    "unit": "Box (2 Pcs / 15.5 Sq.Ft)",
+    "stock": 120,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Stunning Italian Calacatta Statuario marble finish double-charged vitrified floor tiles with high abrasion resistance (PEI IV) and mirror gloss finish.",
+    "specifications": [
+      {
+        "key": "Dimensions",
+        "value": "600 x 1200 mm"
+      },
+      {
+        "key": "Finish",
+        "value": "High Gloss Polished"
+      },
+      {
+        "key": "Thickness",
+        "value": "9 mm"
+      },
+      {
+        "key": "Coverage",
+        "value": "15.5 Sq. Ft per Box"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "kajaria-eternity-600x1200mm-glazed-vitrified-tiles-statwario-marble",
+    "sku": "BM-814994",
+    "discount": 20,
+    "isActive": true,
+    "rating": 4.6,
+    "reviewsCount": 12,
+    "createdAt": "2026-11-05T15:42:44.834Z",
+    "updatedAt": "2026-11-05T15:42:44.834Z"
+  },
+  {
+    "_id": "893e9e05a2e276b36681fb74",
+    "name": "Roff New Construction Tile Adhesive (T01 Gray)",
+    "category": "Tiles & Adhesives",
+    "subcategory": "Tile Adhesives",
+    "brand": "Pidilite",
+    "price": 360,
+    "mrp": 420,
+    "unit": "20kg Bag",
+    "stock": 250,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Polymer modified cementitious adhesive specifically designed for fixing ceramic, terracotta and small format vitrified tiles on internal floors and walls.",
+    "specifications": [
+      {
+        "key": "Classification",
+        "value": "IS 15477 Type 1"
+      },
+      {
+        "key": "Pot Life",
+        "value": "60 minutes"
+      },
+      {
+        "key": "Coverage",
+        "value": "50-60 sq.ft at 3mm bed"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "roff-new-construction-tile-adhesive-t01-gray",
+    "sku": "BM-660388",
+    "discount": 14,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 91,
+    "createdAt": "2026-11-05T15:42:44.841Z",
+    "updatedAt": "2026-11-05T15:42:44.841Z"
+  },
+  {
+    "_id": "6a83c67bb3eee10f62950008",
+    "name": "Roff Rainbow Epoxy Tile Grout (Stain-Free)",
+    "category": "Tiles & Adhesives",
+    "subcategory": "Tile Grout",
+    "brand": "Pidilite",
+    "price": 850,
+    "mrp": 990,
+    "unit": "1 Kg Kit (Resin + Hardener + Filler)",
+    "stock": 180,
+    "isDeal": true,
+    "isFeatured": false,
+    "description": "Three-part 100% solid epoxy grout impervious to chemical staining, mold, and acid cleaning. Ideal for bathrooms and kitchen counters.",
+    "specifications": [
+      {
+        "key": "Color",
+        "value": "Ivory / Classic White"
+      },
+      {
+        "key": "Joint Width",
+        "value": "1mm - 6mm"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "roff-rainbow-epoxy-tile-grout-stain-free",
+    "sku": "BM-101475",
+    "discount": 14,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 52,
+    "createdAt": "2026-11-05T15:42:44.848Z",
+    "updatedAt": "2026-11-05T15:42:44.848Z"
+  },
+  {
+    "_id": "a7fd7f7df7c20951c8f6eae4",
+    "name": "Cross Tile Levelling Spacers (3mm, Pack of 500)",
+    "category": "Tiles & Adhesives",
+    "subcategory": "Tile Spacers",
+    "brand": "Pidilite",
+    "price": 240,
+    "mrp": 320,
+    "unit": "Pack of 500",
+    "stock": 350,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Precision molded polypropylene tile spacers ensure uniform 3mm grout joints across all floor and wall tile layouts.",
+    "specifications": [
+      {
+        "key": "Joint Spacing",
+        "value": "3 mm"
+      },
+      {
+        "key": "Material",
+        "value": "Virgin PP"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "cross-tile-levelling-spacers-3mm-pack-of-500",
+    "sku": "BM-583248",
+    "discount": 25,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 38,
+    "createdAt": "2026-11-05T15:42:44.855Z",
+    "updatedAt": "2026-11-05T15:42:44.855Z"
+  },
+  {
+    "_id": "e830204bf951e0d4f12ae7ec",
+    "name": "Dr. Fixit LW+ Integral Liquid Waterproofing Compound",
+    "category": "Waterproofing",
+    "subcategory": "Waterproofing Chemicals",
+    "brand": "Dr. Fixit",
+    "price": 195,
+    "mrp": 240,
+    "unit": "1 Liter Bottle",
+    "stock": 400,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Specially formulated plasticizing additive for cement mortar and concrete that improves cohesiveness and prevents water bleeding & capillary action.",
+    "specifications": [
+      {
+        "key": "Dosage",
+        "value": "200 ml per 50kg cement bag"
+      },
+      {
+        "key": "Standard",
+        "value": "IS 2645-2003"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "dr-fixit-lw-integral-liquid-waterproofing-compound",
+    "sku": "BM-234025",
+    "discount": 19,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 62,
+    "createdAt": "2026-11-05T15:42:44.860Z",
+    "updatedAt": "2026-11-05T15:42:44.860Z"
+  },
+  {
+    "_id": "967459c068853d91d0cb0a39",
+    "name": "Dr. Fixit Newcoat Elastomeric Terrace Waterproofing Membrane",
+    "category": "Waterproofing",
+    "subcategory": "Waterproofing Coatings",
+    "brand": "Dr. Fixit",
+    "price": 3650,
+    "mrp": 4400,
+    "unit": "20 Liter Bucket",
+    "stock": 75,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Heavy-duty 3-coat elastomeric coating reinforced with synthetic fibers. Bridges thermal cracks up to 2mm on building roofs and terraces with 10-year durability.",
+    "specifications": [
+      {
+        "key": "Elongation at Break",
+        "value": "> 250%"
+      },
+      {
+        "key": "Coverage",
+        "value": "25-30 sq.ft/liter in 3 coats"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "dr-fixit-newcoat-elastomeric-terrace-waterproofing-membrane",
+    "sku": "BM-197407",
+    "discount": 17,
+    "isActive": true,
+    "rating": 4.6,
+    "reviewsCount": 69,
+    "createdAt": "2026-11-05T15:42:44.866Z",
+    "updatedAt": "2026-11-05T15:42:44.866Z"
+  },
+  {
+    "_id": "9b12acfb6f36e2a6d0a5d9a8",
+    "name": "Dr. Fixit Crack-X Paste Acrylic Flexible Crack Filler",
+    "category": "Waterproofing",
+    "subcategory": "Crack Fillers",
+    "brand": "Dr. Fixit",
+    "price": 210,
+    "mrp": 260,
+    "unit": "1 Kg Tub",
+    "stock": 220,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Single-component acrylic ready-to-use paste for filling plaster cracks up to 5mm on interior and exterior walls.",
+    "specifications": [
+      {
+        "key": "Max Crack Width",
+        "value": "5 mm"
+      },
+      {
+        "key": "Paintability",
+        "value": "Paintable with water-based coatings after 24 hrs"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "dr-fixit-crack-x-paste-acrylic-flexible-crack-filler",
+    "sku": "BM-232639",
+    "discount": 19,
+    "isActive": true,
+    "rating": 4.4,
+    "reviewsCount": 69,
+    "createdAt": "2026-11-05T15:42:44.872Z",
+    "updatedAt": "2026-11-05T15:42:44.872Z"
+  },
+  {
+    "_id": "64b6f07fa7e2c13277265e1f",
+    "name": "Astral CPVC PRO Pipe SDR 11 (1 Inch / 3 Meter)",
+    "category": "CPVC, PVC & GI Fittings",
+    "subcategory": "CPVC Pipes",
+    "brand": "Astral Pipes",
+    "price": 495,
+    "mrp": 580,
+    "unit": "3m Length",
+    "stock": 280,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Astral CPVC PRO is designed for hot and cold potable water distribution up to 93°C. Lead-free, anti-corrosive with NSF-61 safety certification.",
+    "specifications": [
+      {
+        "key": "Nominal Bore",
+        "value": "1 Inch (25mm)"
+      },
+      {
+        "key": "Pressure Rating",
+        "value": "SDR 11 (Class 1)"
+      },
+      {
+        "key": "Length",
+        "value": "3 Meters"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "astral-cpvc-pro-pipe-sdr-11-1-inch-3-meter",
+    "sku": "BM-642124",
+    "discount": 15,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 28,
+    "createdAt": "2026-11-05T15:42:44.878Z",
+    "updatedAt": "2026-11-05T15:42:44.878Z"
+  },
+  {
+    "_id": "9f7190567078e74ed546678b",
+    "name": "Astral CPVC Brass Female Threaded Elbow (1 Inch x 1/2 Inch)",
+    "category": "CPVC, PVC & GI Fittings",
+    "subcategory": "Elbows",
+    "brand": "Astral Pipes",
+    "price": 185,
+    "mrp": 220,
+    "unit": "Piece",
+    "stock": 350,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Molded brass insert elbow for secure transition to bathroom faucets, health sprays, and shower arms.",
+    "specifications": [
+      {
+        "key": "CPVC End",
+        "value": "1 Inch Socket"
+      },
+      {
+        "key": "Thread End",
+        "value": "1/2 Inch Female BSP Brass Insert"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "astral-cpvc-brass-female-threaded-elbow-1-inch-x-1-2-inch",
+    "sku": "BM-951088",
+    "discount": 16,
+    "isActive": true,
+    "rating": 4.6,
+    "reviewsCount": 33,
+    "createdAt": "2026-11-05T15:42:44.885Z",
+    "updatedAt": "2026-11-05T15:42:44.885Z"
+  },
+  {
+    "_id": "a0d4483d78a6d40fb1851a31",
+    "name": "Supreme SWR PVC Drainage Pipe (110mm / 4 Inch, 10 Feet)",
+    "category": "CPVC, PVC & GI Fittings",
+    "subcategory": "PVC Pipes",
+    "brand": "Supreme",
+    "price": 780,
+    "mrp": 920,
+    "unit": "10ft Pipe",
+    "stock": 150,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Supreme ring-fit SWR drainage pipe for non-pressure soil, waste and rainwater drainage with pre-fitted rubber sealing rings.",
+    "specifications": [
+      {
+        "key": "Diameter",
+        "value": "110 mm (4 Inch)"
+      },
+      {
+        "key": "Joint Type",
+        "value": "Solvent / Ring-Fit Rubber"
+      },
+      {
+        "key": "Standard",
+        "value": "IS 13592"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "supreme-swr-pvc-drainage-pipe-110mm-4-inch-10-feet",
+    "sku": "BM-986962",
+    "discount": 15,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 24,
+    "createdAt": "2026-11-05T15:42:44.891Z",
+    "updatedAt": "2026-11-05T15:42:44.891Z"
+  },
+  {
+    "_id": "3022c22568ee5cd6df7198b5",
+    "name": "Zoloto Heavy Brass Ball Valve (1 Inch Screwed)",
+    "category": "CPVC, PVC & GI Fittings",
+    "subcategory": "Valves",
+    "brand": "Astral Pipes",
+    "price": 680,
+    "mrp": 810,
+    "unit": "Piece",
+    "stock": 120,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Full-bore forged brass ball valve with PTFE seat and chrome-plated brass ball for leakproof water tank and line isolation.",
+    "specifications": [
+      {
+        "key": "Size",
+        "value": "1 Inch (25mm)"
+      },
+      {
+        "key": "Rating",
+        "value": "PN 25"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "zoloto-heavy-brass-ball-valve-1-inch-screwed",
+    "sku": "BM-139346",
+    "discount": 16,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 29,
+    "createdAt": "2026-11-05T15:42:44.898Z",
+    "updatedAt": "2026-11-05T15:42:44.898Z"
+  },
+  {
+    "_id": "55cf82024eaa557230dc548a",
+    "name": "Godrej Nav-Tal 8 Levers Heavy Brass Padlock",
+    "category": "Hardware & Locks",
+    "subcategory": "Door Locks",
+    "brand": "Godrej",
+    "price": 520,
+    "mrp": 610,
+    "unit": "Piece",
+    "stock": 160,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Iconic high-security brass padlock with hardened electroplated steel shackle and 8 precision brass levers for uncompromising defense.",
+    "specifications": [
+      {
+        "key": "Levers",
+        "value": "8 Brass Levers"
+      },
+      {
+        "key": "Keys",
+        "value": "3 Nickelled Brass Keys"
+      },
+      {
+        "key": "Material",
+        "value": "Solid Extruded Brass"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "godrej-nav-tal-8-levers-heavy-brass-padlock",
+    "sku": "BM-705047",
+    "discount": 15,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 71,
+    "createdAt": "2026-11-05T15:42:44.904Z",
+    "updatedAt": "2026-11-05T15:42:44.904Z"
+  },
+  {
+    "_id": "7c9910f13640244687519165",
+    "name": "Godrej Classic Mortise Lock Handle Set (Antique Brass Finish)",
+    "category": "Hardware & Locks",
+    "subcategory": "Door Locks",
+    "brand": "Godrej",
+    "price": 2450,
+    "mrp": 2950,
+    "unit": "Complete Set",
+    "stock": 85,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Elegant dual-turn mortise door lock with heavy zinc alloy handles in antique brass finish, 60mm brass double cylinder, and 3 computer keys.",
+    "specifications": [
+      {
+        "key": "Backset",
+        "value": "50 mm"
+      },
+      {
+        "key": "Door Thickness",
+        "value": "30 mm - 50 mm"
+      },
+      {
+        "key": "Keys",
+        "value": "3 Dimple Computer Keys"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "godrej-classic-mortise-lock-handle-set-antique-brass-finish",
+    "sku": "BM-202604",
+    "discount": 17,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 19,
+    "createdAt": "2026-11-05T15:42:44.910Z",
+    "updatedAt": "2026-11-05T15:42:44.910Z"
+  },
+  {
+    "_id": "310e111c073f0778e058a320",
+    "name": "SS 304 Heavy Duty Bearing Door Hinges (5x3x3mm, Pair)",
+    "category": "Hardware & Locks",
+    "subcategory": "Hinges",
+    "brand": "Godrej",
+    "price": 380,
+    "mrp": 460,
+    "unit": "Pair (2 Pcs)",
+    "stock": 240,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Stainless steel grade 304 ball-bearing hinges for heavy solid wood and flush main doors with silent smooth swing.",
+    "specifications": [
+      {
+        "key": "Size",
+        "value": "5 Inch x 3 Inch x 3mm"
+      },
+      {
+        "key": "Material",
+        "value": "SS 304 Non-Magnetic"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "ss-304-heavy-duty-bearing-door-hinges-5x3x3mm-pair",
+    "sku": "BM-170795",
+    "discount": 17,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 61,
+    "createdAt": "2026-11-05T15:42:44.916Z",
+    "updatedAt": "2026-11-05T15:42:44.916Z"
+  },
+  {
+    "_id": "31e5d142bef074cfc2e818b5",
+    "name": "Jaquar Alive Single Lever Basin Mixer Tap",
+    "category": "Bathware",
+    "subcategory": "Bathroom Faucets",
+    "brand": "Jaquar",
+    "price": 3250,
+    "mrp": 3850,
+    "unit": "Piece",
+    "stock": 90,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Precision engineered brass body basin mixer with ceramic cartridge tested for 500,000 cycles and high-gloss chrome finish with Neoperl aerator.",
+    "specifications": [
+      {
+        "key": "Operating Pressure",
+        "value": "0.5 to 5 Bar"
+      },
+      {
+        "key": "Cartridge",
+        "value": "35mm Ceramic"
+      },
+      {
+        "key": "Warranty",
+        "value": "10 Years Jaquar Warranty"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "jaquar-alive-single-lever-basin-mixer-tap",
+    "sku": "BM-935911",
+    "discount": 16,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 52,
+    "createdAt": "2026-11-05T15:42:44.923Z",
+    "updatedAt": "2026-11-05T15:42:44.923Z"
+  },
+  {
+    "_id": "eaadb4bccebc36a737a1fa6e",
+    "name": "Jaquar Rain Overhead Shower (8 Inch Round)",
+    "category": "Bathware",
+    "subcategory": "Shower Fittings",
+    "brand": "Jaquar",
+    "price": 1850,
+    "mrp": 2300,
+    "unit": "Piece",
+    "stock": 110,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Stainless steel ultra-slim 8-inch rainfall overhead shower with anti-lime silicon self-cleaning nozzles and swivel ball joint.",
+    "specifications": [
+      {
+        "key": "Diameter",
+        "value": "200 mm (8 Inch)"
+      },
+      {
+        "key": "Finish",
+        "value": "Chrome Plated SS 304"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "jaquar-rain-overhead-shower-8-inch-round",
+    "sku": "BM-158862",
+    "discount": 20,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 45,
+    "createdAt": "2026-11-05T15:42:44.929Z",
+    "updatedAt": "2026-11-05T15:42:44.929Z"
+  },
+  {
+    "_id": "d30148a24bdd35401b3aaf40",
+    "name": "Cera Vitreous China Tabletop Washbasin (Oval 480mm)",
+    "category": "Bathware",
+    "subcategory": "Washbasins",
+    "brand": "Jaquar",
+    "price": 2150,
+    "mrp": 2700,
+    "unit": "Piece",
+    "stock": 65,
+    "isDeal": true,
+    "isFeatured": false,
+    "description": "Glossy snow-white ceramic tabletop vessel basin with antibacterial glaze that resists lime-scale buildup and soap marks.",
+    "specifications": [
+      {
+        "key": "Dimensions",
+        "value": "480 x 370 x 135 mm"
+      },
+      {
+        "key": "Color",
+        "value": "Glossy Alpine White"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "cera-vitreous-china-tabletop-washbasin-oval-480mm",
+    "sku": "BM-556113",
+    "discount": 20,
+    "isActive": true,
+    "rating": 4.5,
+    "reviewsCount": 35,
+    "createdAt": "2026-11-05T15:42:44.935Z",
+    "updatedAt": "2026-11-05T15:42:44.935Z"
+  },
+  {
+    "_id": "b265b6d28b6328e66ddc360a",
+    "name": "Bosch GWS 600 Professional Angle Grinder (670W, 4 Inch)",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Bosch",
+    "price": 2450,
+    "mrp": 2990,
+    "unit": "Set",
+    "stock": 75,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Ergonomic 670W motor angle grinder with anti-rotation protective guard and armored coils that protect motor against sharp grinding dust.",
+    "specifications": [
+      {
+        "key": "Power Input",
+        "value": "670 W"
+      },
+      {
+        "key": "No-Load Speed",
+        "value": "11,000 RPM"
+      },
+      {
+        "key": "Disc Diameter",
+        "value": "100 mm (4 Inch)"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "bosch-gws-600-professional-angle-grinder-670w-4-inch",
+    "sku": "BM-515802",
+    "discount": 18,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 77,
+    "createdAt": "2026-11-05T15:42:44.941Z",
+    "updatedAt": "2026-11-05T15:42:44.941Z"
+  },
+  {
+    "_id": "9c1aafab421611457ac3cb4d",
+    "name": "Bosch 4-Inch Expert for Marble Diamond Cutting Wheel",
+    "category": "Tools & Accessories",
+    "subcategory": "Cutting Accessories",
+    "brand": "Bosch",
+    "price": 220,
+    "mrp": 280,
+    "unit": "Piece",
+    "stock": 300,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Continuous rim diamond blade for chip-free clean cutting of marble, vitrified tiles, granite, and glazed ceramics.",
+    "specifications": [
+      {
+        "key": "Bore",
+        "value": "20 / 16 mm with reduction ring"
+      },
+      {
+        "key": "Max Speed",
+        "value": "15,300 RPM"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "bosch-4-inch-expert-for-marble-diamond-cutting-wheel",
+    "sku": "BM-456927",
+    "discount": 21,
+    "isActive": true,
+    "rating": 4.6,
+    "reviewsCount": 75,
+    "createdAt": "2026-11-05T15:42:44.948Z",
+    "updatedAt": "2026-11-05T15:42:44.948Z"
+  },
+  {
+    "_id": "b2c0f3cad859fb9969f4b5b4",
+    "name": "Stanley PowerLock Measuring Tape (5 Meter / 16 Feet)",
+    "category": "Tools & Accessories",
+    "subcategory": "Measuring Tools",
+    "brand": "Bosch",
+    "price": 260,
+    "mrp": 320,
+    "unit": "Piece",
+    "stock": 250,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Durable die-cast metal casing with Mylar polyester film coated blade for 10x longer blade life on demanding construction job sites.",
+    "specifications": [
+      {
+        "key": "Blade Length",
+        "value": "5 m (16 ft)"
+      },
+      {
+        "key": "Blade Width",
+        "value": "19 mm"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "stanley-powerlock-measuring-tape-5-meter-16-feet",
+    "sku": "BM-748210",
+    "discount": 19,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 12,
+    "createdAt": "2026-11-05T15:42:44.955Z",
+    "updatedAt": "2026-11-05T15:42:44.955Z"
+  },
+  {
+    "_id": "a14c84a0010217fb30c58717",
+    "name": "Washed Plastering M-Sand (Graded 0-2.36mm)",
+    "category": "Construction Materials",
+    "subcategory": "Sand",
+    "brand": "UltraTech",
+    "price": 45,
+    "mrp": 55,
+    "unit": "50kg Bag",
+    "stock": 800,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Triple-washed manufactured sand with zero silt and organic impurities. Ensures 20% higher mortar strength and silky smooth wall plastering.",
+    "specifications": [
+      {
+        "key": "Fineness Modulus",
+        "value": "1.8 - 2.2"
+      },
+      {
+        "key": "Silt Content",
+        "value": "< 2%"
+      },
+      {
+        "key": "Standard",
+        "value": "IS 383:2016 Zone IV"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "washed-plastering-m-sand-graded-0-2-36mm",
+    "sku": "BM-125653",
+    "discount": 18,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 67,
+    "createdAt": "2026-11-05T15:42:44.962Z",
+    "updatedAt": "2026-11-05T15:42:44.962Z"
+  },
+  {
+    "_id": "43c9938d11a092625bc71049",
+    "name": "Blue Metal 20mm Crushed Granite Aggregate",
+    "category": "Construction Materials",
+    "subcategory": "Aggregate",
+    "brand": "UltraTech",
+    "price": 48,
+    "mrp": 60,
+    "unit": "50kg Bag",
+    "stock": 650,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Clean angular hard-rock granite aggregate ideal for RCC beams, slabs, columns, and foundations. Zero dust content.",
+    "specifications": [
+      {
+        "key": "Nominal Size",
+        "value": "20 mm"
+      },
+      {
+        "key": "Specific Gravity",
+        "value": "2.65"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "blue-metal-20mm-crushed-granite-aggregate",
+    "sku": "BM-974812",
+    "discount": 20,
+    "isActive": true,
+    "rating": 4.6,
+    "reviewsCount": 71,
+    "createdAt": "2026-11-05T15:42:44.969Z",
+    "updatedAt": "2026-11-05T15:42:44.969Z"
+  },
+  {
+    "_id": "8d36c16054b6d96ae10b8f8a",
+    "name": "Birla Aerocon High-Strength AAC Lightweight Blocks (600x200x150mm)",
+    "category": "Construction Materials",
+    "subcategory": "Blocks",
+    "brand": "UltraTech",
+    "price": 68,
+    "mrp": 80,
+    "unit": "Piece",
+    "stock": 1200,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Thermal insulating lightweight AAC blocks reduce structural dead weight by 50% and save up to 30% on masonry jointing mortar.",
+    "specifications": [
+      {
+        "key": "Dimensions",
+        "value": "600 x 200 x 150 mm"
+      },
+      {
+        "key": "Compressive Strength",
+        "value": "≥ 4 N/mm²"
+      },
+      {
+        "key": "Fire Rating",
+        "value": "Up to 4 Hours"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "birla-aerocon-high-strength-aac-lightweight-blocks-600x200x150mm",
+    "sku": "BM-202922",
+    "discount": 15,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 33,
+    "createdAt": "2026-11-05T15:42:44.975Z",
+    "updatedAt": "2026-11-05T15:42:44.975Z"
+  },
+  {
+    "_id": "0807ffec4d48121d48729967",
+    "name": "First-Class Wire-Cut Red Burnt Clay Bricks",
+    "category": "Construction Materials",
+    "subcategory": "Bricks",
+    "brand": "UltraTech",
+    "price": 11,
+    "mrp": 14,
+    "unit": "Piece",
+    "stock": 5000,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Kiln-fired first class red clay bricks with sharp uniform edges, resonant metallic sound on impact, and high crushing strength.",
+    "specifications": [
+      {
+        "key": "Dimensions",
+        "value": "230 x 110 x 70 mm"
+      },
+      {
+        "key": "Water Absorption",
+        "value": "< 15%"
+      }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "first-class-wire-cut-red-burnt-clay-bricks",
+    "sku": "BM-422196",
+    "discount": 21,
+    "isActive": true,
+    "rating": 4.4,
+    "reviewsCount": 12,
+    "createdAt": "2026-11-05T15:42:44.981Z",
+    "updatedAt": "2026-11-05T15:42:44.981Z"
+  },
+  {
+    "_id": "prod_drfixit_lwplus",
+    "name": "Dr. Fixit 101 LW+ Waterproofing Integral Liquid (5 Litre)",
+    "category": "Waterproofing",
+    "subcategory": "Waterproofing Chemicals",
+    "brand": "Dr. Fixit by Pidilite",
+    "price": 640,
+    "mrp": 810,
+    "unit": "5L Can",
+    "stock": 250,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Dr. Fixit 101 LW+ is specially formulated integral liquid waterproofing compound composed of surface active plasticising agents, polymers & additives. Enhances concrete workability and halts capillary seepage.",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "dr-fixit-101-lw-plus-5l",
+    "sku": "BM-DF-101",
+    "discount": 21,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 88,
+    "createdAt": "2026-11-05T18:21:12.876Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_drfixit_pidifin2k",
+    "name": "Dr. Fixit Pidifin 2K Acrylic Cementitious Waterproofing Coating (15 kg)",
+    "category": "Waterproofing",
+    "subcategory": "Waterproofing Coatings",
+    "brand": "Dr. Fixit by Pidilite",
+    "price": 2150,
+    "mrp": 2650,
+    "unit": "15kg Combo Pack",
+    "stock": 120,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Two-component polymer modified cementitious waterproof coating designed for submerged conditions such as water tanks, sunken slabs, basements, and podium decks.",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "dr-fixit-pidifin-2k-15kg",
+    "sku": "BM-DF-2K",
+    "discount": 19,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 42,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_havells_monoblock",
+    "name": "Havells Hi-Flow V2 Heavy Duty Centrifugal Monoblock Water Pump (1 HP)",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Havells India Ltd.",
+    "price": 4890,
+    "mrp": 6490,
+    "unit": "Unit",
+    "stock": 45,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Robust 1 HP copper winding motor with thermal overload protection, designed for continuous water circulation, curing operations and multi-storey site water pumping.",
+    "images": [
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "havells-hi-flow-monoblock-pump-1hp",
+    "sku": "BM-HAV-PUMP1",
+    "discount": 25,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 36,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_havells_exhaust",
+    "name": "Havells Ventilair DB Heavy Duty Exhaust Fan (250mm / 10-Inch)",
+    "category": "Hardware & Locks",
+    "subcategory": "Door Accessories",
+    "brand": "Havells India Ltd.",
+    "price": 1390,
+    "mrp": 1850,
+    "unit": "Unit",
+    "stock": 80,
+    "isDeal": true,
+    "isFeatured": false,
+    "description": "Double ball bearing motor with steel bird guard and metallic blades for high air suction in workshops, cement storage rooms, and site cabins.",
+    "images": [
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "havells-ventilair-exhaust-fan-250mm",
+    "sku": "BM-HAV-EXH250",
+    "discount": 25,
+    "isActive": true,
+    "rating": 4.6,
+    "reviewsCount": 19,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_futura_sink_single",
+    "name": "Futura Stainless Steel Satin Finish Kitchen Sink (24 x 18 x 9 Inch)",
+    "category": "Bathware",
+    "subcategory": "Sanitary Products",
+    "brand": "Futura",
+    "price": 3650,
+    "mrp": 5200,
+    "unit": "Set",
+    "stock": 60,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Manufactured from AISI-304 food-grade stainless steel with sound deadening pads, anti-condensation undercoating, and waste coupling included.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "futura-ss-kitchen-sink-24x18",
+    "sku": "BM-FUT-SINK24",
+    "discount": 30,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 54,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_futura_mixer",
+    "name": "Futura 360° Swivel Brass Sink Mixer with Pull-Out Spray",
+    "category": "Bathware",
+    "subcategory": "Bathroom Faucets",
+    "brand": "Futura",
+    "price": 2450,
+    "mrp": 3800,
+    "unit": "Unit",
+    "stock": 75,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Solid brass construction with multi-layer chrome electroplating, ceramic cartridge, and high-pressure flexible braided inlet pipes.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "futura-brass-swivel-sink-mixer",
+    "sku": "BM-FUT-MIX01",
+    "discount": 36,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 28,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_hettich_hinges",
+    "name": "Hettich Sensys 8645i Soft-Close Concealed Hinges (Pair with Screws)",
+    "category": "Hardware & Locks",
+    "subcategory": "Hinges",
+    "brand": "Hettich India",
+    "price": 320,
+    "mrp": 460,
+    "unit": "Pair",
+    "stock": 500,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Award-winning German integrated soft-closing silent system with 110-degree opening angle, 3D faceplate adjustment, and nickel-plated rust protection.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "hettich-sensys-soft-close-hinges",
+    "sku": "BM-HET-HNG01",
+    "discount": 30,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 110,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_hettich_slides",
+    "name": "Hettich Telescopic Ball Bearing Drawer Slides (18 Inch / 450mm, 45kg)",
+    "category": "Hardware & Locks",
+    "subcategory": "Door Accessories",
+    "brand": "Hettich India",
+    "price": 490,
+    "mrp": 720,
+    "unit": "Set",
+    "stock": 350,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Heavy-duty full extension runner with steel ball cage, high load endurance up to 45 kg, and smooth silent glide for modular architectural joinery.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "hettich-telescopic-drawer-slides-18inch",
+    "sku": "BM-HET-SLD18",
+    "discount": 32,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 85,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_fevicol_sh_10kg",
+    "name": "Fevicol SH Synthetic Resin Adhesive (10 kg Bucket)",
+    "category": "Tiles & Adhesives",
+    "subcategory": "Tile Adhesives",
+    "brand": "Fevicol by Pidilite",
+    "price": 1840,
+    "mrp": 2200,
+    "unit": "10kg Bucket",
+    "stock": 220,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "India's most trusted adhesive brand for bonding wood, plywood, laminate, veneer, MDF and particle board with unmatched bond strength and moisture resistance.",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "fevicol-sh-adhesive-10kg",
+    "sku": "BM-FEV-SH10",
+    "discount": 16,
+    "isActive": true,
+    "rating": 5,
+    "reviewsCount": 195,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_fevicol_marine_5kg",
+    "name": "Fevicol Marine Waterproof Wood Adhesive (5 kg Bucket)",
+    "category": "Tiles & Adhesives",
+    "subcategory": "Tile Adhesives",
+    "brand": "Fevicol by Pidilite",
+    "price": 1180,
+    "mrp": 1450,
+    "unit": "5kg Bucket",
+    "stock": 140,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Specialized waterproof adhesive for areas exposed to moisture and water like kitchens, bathrooms, balconies and external doors.",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "fevicol-marine-waterproof-5kg",
+    "sku": "BM-FEV-MAR5",
+    "discount": 19,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 62,
+    "createdAt": "2026-11-05T18:21:12.881Z",
+    "updatedAt": "2026-11-05T18:21:12.881Z"
+  },
+  {
+    "_id": "prod_goldmedal_batten",
+    "name": "Goldmedal Magic Line LED Batten, Cool Daylight (20W)",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Goldmedal Electricals",
+    "price": 122,
+    "mrp": 395,
+    "unit": "Piece",
+    "stock": 400,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "High-efficiency slim LED batten with 2000 lumens output, surge protection up to 4kV, and glare-free illumination for project work and site illumination.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "goldmedal-magic-line-led-batten-20w",
+    "sku": "BM-GM-LED20",
+    "discount": 69,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 41,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_goldmedal_switch_box",
+    "name": "Goldmedal Curve Modular GI Concealed Metal Gang Box (8 Module)",
+    "category": "Hardware & Locks",
+    "subcategory": "Screws and Fasteners",
+    "brand": "Goldmedal Electricals",
+    "price": 85,
+    "mrp": 140,
+    "unit": "Piece",
+    "stock": 600,
+    "isDeal": false,
+    "isFeatured": false,
+    "description": "Heavy galvanized iron flush metal box with copper earthing terminal, multi-point knockout entry, and corrosion-resistant zinc coat.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "goldmedal-gi-metal-box-8-module",
+    "sku": "BM-GM-BOX8",
+    "discount": 39,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 22,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_jaquar_basin_mixer",
+    "name": "Jaquar Continental Prime Single Lever Basin Mixer with Pop-Up",
+    "category": "Bathware",
+    "subcategory": "Bathroom Faucets",
+    "brand": "Jaquar Group",
+    "price": 2680,
+    "mrp": 3450,
+    "unit": "Unit",
+    "stock": 90,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Solid brass cast body with 450mm flexible inlet braided hoses. Advanced ceramic disc cartridge tested for 500,000 cycles with Jaquar 10-year warranty.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "jaquar-continental-prime-basin-mixer",
+    "sku": "BM-JAQ-BM01",
+    "discount": 22,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 130,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_jaquar_shower",
+    "name": "Jaquar Overhead Single Flow Rain Shower (150mm with 9-Inch Shower Arm)",
+    "category": "Bathware",
+    "subcategory": "Shower Fittings",
+    "brand": "Jaquar Group",
+    "price": 1450,
+    "mrp": 1950,
+    "unit": "Unit",
+    "stock": 110,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Rubit cleaning technology for limescale prevention, uniform water distribution and lustrous chrome plating resistant to hard water corrosion.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "jaquar-overhead-rain-shower-150mm",
+    "sku": "BM-JAQ-SHW01",
+    "discount": 26,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 77,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_luminous_inverter",
+    "name": "Luminous Zelio+ 1100 Pure Sine Wave Intelligent Site Inverter",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Luminous Power Technologies",
+    "price": 5990,
+    "mrp": 7800,
+    "unit": "Unit",
+    "stock": 40,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "32-bit DSP processor, smart LCD display showing battery charge and backup time, bypass switch for emergency site operations, supports up to 900W load.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "luminous-zelio-plus-1100-inverter",
+    "sku": "BM-LUM-INV11",
+    "discount": 23,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 52,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_luminous_battery",
+    "name": "Luminous Red Charge RC 18000 150Ah Tall Tubular Site Battery",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Luminous Power Technologies",
+    "price": 11450,
+    "mrp": 14900,
+    "unit": "Unit",
+    "stock": 25,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Heavy-duty alloy tubular plates for deep cyclic discharge, superior heat tolerance on job sites, and low maintenance acid level float indicators.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "luminous-rc-18000-150ah-battery",
+    "sku": "BM-LUM-BAT150",
+    "discount": 23,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 38,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_philips_strip_5m",
+    "name": "Philips Coveglow LED Strip Light (5 Mtr Reel, Warm White)",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Philips Lighting",
+    "price": 650,
+    "mrp": 1199,
+    "unit": "Reel",
+    "stock": 180,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Uniform high-density LED flex strip with pre-applied 3M adhesive backing, IP20 rated, perfect for cove ceilings, architectural niches, and site showcases.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "philips-coveglow-led-strip-5m",
+    "sku": "BM-PHI-ST5M",
+    "discount": 45,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 65,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_philips_floodlight",
+    "name": "Philips SmartBright Outdoor IP65 Waterproof LED Floodlight (50W)",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Philips Lighting",
+    "price": 1290,
+    "mrp": 2150,
+    "unit": "Unit",
+    "stock": 95,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Rugged die-cast aluminum housing, tempered glass face, 4500 lumens output, IP65 waterproof & dustproof for overnight construction site lighting.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "philips-smartbright-led-floodlight-50w",
+    "sku": "BM-PHI-FLD50",
+    "discount": 40,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 44,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_lorazzo_handle_brass",
+    "name": "Lorazzo Antique Brass Solid Zinc Mortise Door Handle Set (with Lock Body)",
+    "category": "Hardware & Locks",
+    "subcategory": "Handles",
+    "brand": "Lorazzo",
+    "price": 1850,
+    "mrp": 2800,
+    "unit": "Set",
+    "stock": 130,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Premium architectural heavy-duty handle set with brass computerized keys, double turn mortise lock body, and electroplated antique brass protective coat.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "lorazzo-antique-brass-mortise-handle",
+    "sku": "BM-LOR-HDL01",
+    "discount": 34,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 78,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_lorazzo_hinges_5in",
+    "name": "Lorazzo Solid Brass Bearing Butt Hinges 5x3x3mm (Pack of 3 with SS Screws)",
+    "category": "Hardware & Locks",
+    "subcategory": "Hinges",
+    "brand": "Lorazzo",
+    "price": 890,
+    "mrp": 1290,
+    "unit": "Pack of 3",
+    "stock": 200,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Extruded virgin brass hinge with 4 dual ball bearings, suitable for heavy solid wood entrance doors up to 100 kg weight.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "lorazzo-solid-brass-bearing-hinges-5inch",
+    "sku": "BM-LOR-HNG5",
+    "discount": 31,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 39,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_hitech_ss_nails",
+    "name": "Hi-Tech SS Nails Pack (250 gm, 1½ Inch)",
+    "category": "Hardware & Locks",
+    "subcategory": "Screws and Fasteners",
+    "brand": "Hi-Tech",
+    "price": 59,
+    "mrp": 210,
+    "unit": "250g Pack",
+    "stock": 800,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Anti-rust stainless steel wire nails for timber framing, masonry shuttering and exterior carpentry work.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "hi-tech-ss-nails-250gm-1-5inch",
+    "sku": "BM-HIT-NL250",
+    "discount": 72,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 60,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_asian_damp_proof",
+    "name": "Asian Paints SmartCare Damp Proof Advanced (20L)",
+    "category": "Waterproofing",
+    "subcategory": "Waterproofing Coatings",
+    "brand": "Asian Paints",
+    "price": 5550,
+    "mrp": 6774,
+    "unit": "20L Bucket",
+    "stock": 90,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Fibre-reinforced elastomeric liquid waterproofing membrane with crack bridging ability up to 2mm and 8-year waterproofing warranty on terrace slabs.",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "asian-paints-smartcare-damp-proof-20l",
+    "sku": "BM-AP-DP20",
+    "discount": 18,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 114,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_ashirvad_cpvc_elbow",
+    "name": "Ashirvad FlowGuard Plus CPVC 90° Elbow (¾ Inch / 20mm)",
+    "category": "CPVC, PVC & GI Fittings",
+    "subcategory": "Elbows",
+    "brand": "Ashirvad",
+    "price": 16,
+    "mrp": 29,
+    "unit": "Piece",
+    "stock": 1200,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Original FlowGuard Plus NSF/ANSI-14 certified SDR 11 CPVC elbow suitable for hot and cold potable water plumbing up to 93°C.",
+    "images": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "ashirvad-flowguard-cpvc-90-elbow",
+    "sku": "BM-ASH-ELB20",
+    "discount": 45,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 156,
+    "createdAt": "2026-11-05T18:21:12.882Z",
+    "updatedAt": "2026-11-05T18:21:12.882Z"
+  },
+  {
+    "_id": "prod_havells_mcb_32a",
+    "name": "Havells Euro-II 32A Double Pole C-Series MCB (Miniature Circuit Breaker)",
+    "category": "Hardware & Locks",
+    "subcategory": "Screws and Fasteners",
+    "brand": "Havells India Ltd.",
+    "price": 210,
+    "mrp": 340,
+    "unit": "Piece",
+    "stock": 200,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Havells Euro-II series double pole MCB provides robust overload and short circuit protection with 10kA breaking capacity for residential and construction site distribution boxes.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "havells-euro-ii-32a-dp-mcb",
+    "sku": "BM-HAV-MCB32",
+    "discount": 38,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 34,
+    "createdAt": "2026-11-05T18:50:19.957Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_goldmedal_db_box",
+    "name": "Goldmedal 8-Way SPN Double Door Metal Distribution Board (DB Box)",
+    "category": "Hardware & Locks",
+    "subcategory": "Screws and Fasteners",
+    "brand": "Goldmedal Electricals",
+    "price": 780,
+    "mrp": 1150,
+    "unit": "Unit",
+    "stock": 85,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "Deep-drawn galvanized metal distribution board enclosure with reversible door, copper busbar, neutral link, and acrylic blank plates for modular MCB installation.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "goldmedal-8way-spn-db-box",
+    "sku": "BM-GM-DB8",
+    "discount": 32,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewsCount": 22,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_havells_wire_15",
+    "name": "Havells Life Line Plus S3 HRFR PVC Insulated Copper Wire (1.5 sq mm, 90m Red)",
+    "category": "Tools & Accessories",
+    "subcategory": "Construction Tools",
+    "brand": "Havells India Ltd.",
+    "price": 1480,
+    "mrp": 2100,
+    "unit": "90m Coil",
+    "stock": 150,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "100% electrolytic virgin copper conductor with S3 heat resistant flame retardant PVC insulation, certified for up to 1100V with 101% conductivity.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "havells-life-line-wire-1-5sqmm",
+    "sku": "BM-HAV-WR15",
+    "discount": 29,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 88,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_goldmedal_switch_plate",
+    "name": "Goldmedal Curve 2-Gang Modular Switch Plate with 16A Socket & Indicator",
+    "category": "Hardware & Locks",
+    "subcategory": "Screws and Fasteners",
+    "brand": "Goldmedal Electricals",
+    "price": 165,
+    "mrp": 290,
+    "unit": "Set",
+    "stock": 220,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Sleek UV-stabilized polycarbonate white modular plate with 16A heavy power socket, child safety shutter, and indicator rocker switch.",
+    "images": [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "goldmedal-curve-2gang-switch-socket",
+    "sku": "BM-GM-SWP16",
+    "discount": 43,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 45,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_astral_conduit_pipe",
+    "name": "Astral Heavy Duty 25mm PVC Flexible Corrugated Conduit Pipe (50 Mtr Roll)",
+    "category": "CPVC, PVC & GI Fittings",
+    "subcategory": "PVC Pipes",
+    "brand": "Astral Pipes",
+    "price": 490,
+    "mrp": 750,
+    "unit": "50m Roll",
+    "stock": 180,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Non-metallic flexible corrugated conduit pipe for embedding in concrete slabs, brick masonry walls, and false ceiling electrical wiring.",
+    "images": [
+      "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "astral-25mm-pvc-conduit-pipe",
+    "sku": "BM-AST-CND25",
+    "discount": 35,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 52,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_century_marine_ply",
+    "name": "CenturyPly Sainik 710 Boiling Water Proof (BWP) Marine Grade Plywood (19mm, 8x4 Ft)",
+    "category": "Hardware & Locks",
+    "subcategory": "Door Accessories",
+    "brand": "CenturyPly",
+    "price": 2880,
+    "mrp": 3600,
+    "unit": "Sheet (8x4 Ft)",
+    "stock": 90,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Chemically treated 100% hardwood veneers with phenolic resin adhesive, boiling water proof for 72 hours, resistant to termites and borer with 8-year warranty.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "centuryply-sainik-710-marine-ply-19mm",
+    "sku": "BM-CEN-PLY19",
+    "discount": 20,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 76,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_hettich_cargo_basket",
+    "name": "Hettich Cargo Plus Stainless Steel Modular Kitchen Wire Pullout Basket (450mm)",
+    "category": "Hardware & Locks",
+    "subcategory": "Handles",
+    "brand": "Hettich India",
+    "price": 1690,
+    "mrp": 2450,
+    "unit": "Unit",
+    "stock": 70,
+    "isDeal": true,
+    "isFeatured": true,
+    "description": "Heavy SS 304 wire gauge construction with full-extension Quadro telescopic channels, soft-close dampening, and high load capacity up to 35 kg.",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "hettich-cargo-plus-wire-basket-450mm",
+    "sku": "BM-HET-BSK45",
+    "discount": 31,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewsCount": 48,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "prod_asian_putty_40kg",
+    "name": "Asian Paints TruCare Acrylic White Wall Putty (40 kg Bag)",
+    "category": "Paints & Wall Care",
+    "subcategory": "Wall Putty & Primers",
+    "brand": "Asian Paints",
+    "price": 780,
+    "mrp": 890,
+    "unit": "40kg Bag",
+    "stock": 350,
+    "isDeal": false,
+    "isFeatured": true,
+    "description": "White cement based wall putty with re-dispersible polymers providing exceptional surface smoothness, moisture resistance, and bonding for interior and exterior plaster.",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "slug": "asian-paints-trucare-wall-putty-40kg",
+    "sku": "BM-AP-PUT40",
+    "discount": 12,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewsCount": 92,
+    "createdAt": "2026-11-05T18:50:19.971Z",
+    "updatedAt": "2026-11-05T18:50:19.971Z"
+  },
+  {
+    "_id": "paint_asian_royale_20l",
+    "name": "Asian Paints Royale Luxury Emulsion (Brilliant White, 20L)",
+    "slug": "asian-paints-royale-luxury-emulsion-20l",
+    "description": "Premium ultra-smooth washable interior luxury wall paint with Teflon surface protector and anti-bacterial shield.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Interior Emulsions",
+    "brand": "Asian Paints",
+    "price": 6450,
+    "originalPrice": 7850,
+    "discount": 18,
+    "unit": "Bucket",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 45,
+    "isFeatured": true,
+    "isDeal": true,
+    "dealEndsAt": "2026-11-20T23:59:59.000Z",
+    "rating": 4.9,
+    "numReviews": 82,
+    "specifications": {
+      "Finish": "High Sheen Luxury Smooth",
+      "Coverage": "280 - 300 sq.ft / Litre for 2 coats",
+      "Pack Size": "20 Litres",
+      "Washability": "100% Scrub Washable"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "_id": "paint_asian_apex_ultima_20l",
+    "name": "Asian Paints Apex Ultima Exterior Weatherproof Paint (20L)",
+    "slug": "asian-paints-apex-ultima-exterior-paint-20l",
+    "description": "High performance water-based exterior emulsion with colour stay technology and 7-year anti-algal protection.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Exterior Paints",
+    "brand": "Asian Paints",
+    "price": 5890,
+    "originalPrice": 7200,
+    "discount": 18,
+    "unit": "Bucket",
+    "images": [
+      "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 38,
+    "isFeatured": true,
+    "isDeal": true,
+    "dealEndsAt": "2026-11-20T23:59:59.000Z",
+    "rating": 4.8,
+    "numReviews": 64,
+    "specifications": {
+      "Warranty": "7-Year Exterior Protection",
+      "Technology": "Colour Stay & Dirt Resistance",
+      "Pack Size": "20 Litres"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "_id": "paint_asian_tractor_uno_20kg",
+    "name": "Asian Paints Tractor Uno Acrylic Distemper (White, 20kg)",
+    "slug": "asian-paints-tractor-uno-acrylic-distemper-20kg",
+    "description": "Smooth matte finish acrylic washable distemper for long-lasting vibrant interior walls.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Interior Emulsions",
+    "brand": "Asian Paints",
+    "price": 980,
+    "originalPrice": 1580,
+    "discount": 38,
+    "unit": "Bucket",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 65,
+    "isFeatured": false,
+    "isDeal": true,
+    "dealEndsAt": "2026-11-20T23:59:59.000Z",
+    "rating": 4.7,
+    "numReviews": 51,
+    "specifications": {
+      "Finish": "Smooth Matte",
+      "Pack Size": "20 kg",
+      "Coverage": "4.5 - 5 sq.m / kg"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "_id": "paint_birla_opus_style_20l",
+    "name": "Birla Opus Style Pure Interior Emulsion (Super White, 20L)",
+    "slug": "birla-opus-style-pure-interior-emulsion-20l",
+    "description": "Aditya Birla Opus luxury wall paint with rich velvety finish, zero odor and true rich shades.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Interior Emulsions",
+    "brand": "Birla Paint",
+    "price": 5200,
+    "originalPrice": 6500,
+    "discount": 20,
+    "unit": "Bucket",
+    "images": [
+      "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 40,
+    "isFeatured": true,
+    "isDeal": true,
+    "dealEndsAt": "2026-11-20T23:59:59.000Z",
+    "rating": 4.9,
+    "numReviews": 46,
+    "specifications": {
+      "Brand Line": "Birla Opus Style",
+      "Sheen": "Soft Silk Luxury Sheen",
+      "Pack Size": "20 Litres"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "_id": "paint_birla_opus_alldry_20l",
+    "name": "Birla Opus AllDry Exterior Weather-Guard Paint (20L)",
+    "slug": "birla-opus-alldry-exterior-weather-guard-20l",
+    "description": "Heavy-duty exterior shield coating engineered for Indian monsoons and UV sun protection with elastomeric bonding.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Exterior Paints",
+    "brand": "Birla Paint",
+    "price": 5650,
+    "originalPrice": 6990,
+    "discount": 19,
+    "unit": "Bucket",
+    "images": [
+      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 35,
+    "isFeatured": true,
+    "isDeal": true,
+    "dealEndsAt": "2026-11-20T23:59:59.000Z",
+    "rating": 4.8,
+    "numReviews": 39,
+    "specifications": {
+      "Technology": "AllDry Waterproof Guard",
+      "Protection": "UV & Anti-Algal",
+      "Pack Size": "20 Litres"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "_id": "paint_birla_white_putty_40kg",
+    "name": "Birla White WallCare Putty (40 kg Water-Resistant Bag)",
+    "slug": "birla-white-wallcare-putty-40kg",
+    "description": "Original white Portland cement-based putty with HP polymers for ultra-smooth water-resistant wall leveling.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Wall Putty & Primers",
+    "brand": "Birla Paint",
+    "price": 820,
+    "originalPrice": 990,
+    "discount": 17,
+    "unit": "Bag",
+    "images": [
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 120,
+    "isFeatured": true,
+    "isDeal": false,
+    "rating": 5,
+    "numReviews": 115,
+    "specifications": {
+      "Type": "White Cement Putty",
+      "Tensile Adhesion": "> 1.0 N/mm2",
+      "Pack Weight": "40 kg"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "_id": "paint_asian_apcolite_enamel_4l",
+    "name": "Asian Paints Apcolite Premium Gloss Enamel (4L Tin)",
+    "slug": "asian-paints-apcolite-premium-gloss-enamel-4l",
+    "description": "Hard-wearing mirror-like gloss enamel paint for metal gates, grills, wooden doors, and window trims.",
+    "category": "Paints & Wall Care",
+    "subcategory": "Enamels & Wood Finishes",
+    "brand": "Asian Paints",
+    "price": 1320,
+    "originalPrice": 1550,
+    "discount": 15,
+    "unit": "Tin",
+    "images": [
+      "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?auto=format&fit=crop&w=600&q=80"
+    ],
+    "stock": 50,
+    "isFeatured": false,
+    "isDeal": false,
+    "rating": 4.7,
+    "numReviews": 33,
+    "specifications": {
+      "Finish": "Mirror High Gloss",
+      "Suitable Surfaces": "Wood, Mild Steel, MS Gates",
+      "Pack Size": "4 Litres"
+    },
+    "deliveryTime": "30 mins",
+    "isActive": true,
+    "image": "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?auto=format&fit=crop&w=600&q=80"
+  }
+]

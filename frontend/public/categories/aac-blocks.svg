@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(32, 16)">
+    <!-- Lightweight Autoclaved Aerated Concrete (AAC) Blocks -->
+    <polygon points="15,25 70,10 95,25 40,40" fill="#ECEFF1" stroke="#90A4AE" stroke-width="2"/>
+    <polygon points="15,25 40,40 40,65 15,50" fill="#CFD8DC"/>
+    <polygon points="40,40 95,25 95,50 40,65" fill="#B0BEC5"/>
+    <!-- Cellular porous dots -->
+    <circle cx="50" cy="30" r="1.5" fill="#78909C"/>
+    <circle cx="65" cy="22" r="1.5" fill="#78909C"/>
+    <circle cx="55" cy="48" r="1.5" fill="#78909C"/>
+    <circle cx="70" cy="42" r="1.5" fill="#78909C"/>
+    <circle cx="28" cy="42" r="1.5" fill="#78909C"/>
+    <polygon points="25,48 80,33 105,48 50,63" fill="#FFFFFF" stroke="#90A4AE" stroke-width="2"/>
+    <polygon points="25,48 50,63 50,85 25,70" fill="#ECEFF1"/>
+    <polygon points="50,63 105,48 105,70 50,85" fill="#CFD8DC"/>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "fa0c91c876d558f8112efc30",
+    "bookingId": "BM-LBR-1001",
+    "user": "7cd18a1b8514f4e22a335076",
+    "customer": {
+      "name": "Rajesh Sharma",
+      "phone": "+91 98765 43210",
+      "email": "customer@buildmart.com",
+      "workLocation": "Villa 14, Palm Meadows, Whitefield",
+      "city": "Bengaluru",
+      "pincode": "560066"
+    },
+    "labourType": "Mason",
+    "workersRequired": 2,
+    "workCategory": "Brickwork & Plastering",
+    "preferredStartDate": "2026-11-12",
+    "expectedDuration": "3 Days",
+    "additionalInstructions": "Need experienced masons for external wall elevation plastering.",
+    "labourCharges": 4800,
+    "assignedWorkers": [
+      {
+        "name": "Ramesh Kumar",
+        "phone": "+91 98111 22233",
+        "trade": "Senior Mason"
+      },
+      {
+        "name": "Sunil Yadav",
+        "phone": "+91 98222 33344",
+        "trade": "Mason Assistant"
+      }
+    ],
+    "status": "Assigned",
+    "adminNotes": "Supervised team assigned. Daily rate ₹800/mason.",
+    "createdAt": "2026-11-05T15:42:45.016Z",
+    "updatedAt": "2026-11-05T15:42:45.016Z"
+  }
+]

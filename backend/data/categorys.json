@@ -1,0 +1,379 @@
+[
+  {
+    "_id": "ebc3221b74f248c23f154d4e",
+    "name": "Cement & Steel",
+    "slug": "cement-steel",
+    "description": "Portland cement, OPC/PPC bags, high-tensile TMT bars, and binding wire",
+    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+    "icon": "Building2",
+    "order": 1,
+    "subcategories": [
+      {
+        "name": "Cement Bags",
+        "slug": "cement-bags",
+        "description": "50kg standard PPC, OPC 43 & 53 grade cement"
+      },
+      {
+        "name": "Different Cement Brands",
+        "slug": "cement-brands",
+        "description": "UltraTech, ACC, Birla A1, Dalmia"
+      },
+      {
+        "name": "Steel Bars",
+        "slug": "steel-bars",
+        "description": "Structural MS bars, angles, channels"
+      },
+      {
+        "name": "TMT Bars",
+        "slug": "tmt-bars",
+        "description": "Fe 550D TMT rebar 8mm to 32mm"
+      },
+      {
+        "name": "Binding Materials",
+        "slug": "binding-materials",
+        "description": "Annealed GI binding wire, cover blocks"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.713Z",
+    "updatedAt": "2026-11-05T15:42:44.713Z"
+  },
+  {
+    "_id": "6518778ab46fe00ebc948939",
+    "name": "Tiles & Adhesives",
+    "slug": "tiles-adhesives",
+    "description": "Vitrified floor tiles, wall ceramics, heavy-duty tile adhesives, and grouts",
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
+    "icon": "LayoutGrid",
+    "order": 2,
+    "subcategories": [
+      {
+        "name": "Floor Tiles",
+        "slug": "floor-tiles",
+        "description": "Double charged vitrified & porcelain floor tiles"
+      },
+      {
+        "name": "Wall Tiles",
+        "slug": "wall-tiles",
+        "description": "Glossy & matte glazed wall ceramic tiles"
+      },
+      {
+        "name": "Bathroom Tiles",
+        "slug": "bathroom-tiles",
+        "description": "Anti-skid vitrified safety tiles"
+      },
+      {
+        "name": "Tile Adhesives",
+        "slug": "tile-adhesives",
+        "description": "Polymer modified cementitious tile adhesive"
+      },
+      {
+        "name": "Tile Grout",
+        "slug": "tile-grout",
+        "description": "Stain-free epoxy and cementitious tile grout"
+      },
+      {
+        "name": "Tile Spacers",
+        "slug": "tile-spacers",
+        "description": "2mm to 5mm tile levelling clips and spacers"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.718Z",
+    "updatedAt": "2026-11-05T15:42:44.718Z"
+  },
+  {
+    "_id": "3652a00ea199218eb933e79f",
+    "name": "Waterproofing",
+    "slug": "waterproofing",
+    "description": "Roof waterproofing solutions, crystalline coatings, and crack sealants",
+    "image": "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80",
+    "icon": "ShieldCheck",
+    "order": 3,
+    "subcategories": [
+      {
+        "name": "Waterproofing Chemicals",
+        "slug": "waterproofing-chemicals",
+        "description": "Integral waterproofing liquid for concrete"
+      },
+      {
+        "name": "Waterproofing Coatings",
+        "slug": "waterproofing-coatings",
+        "description": "Elastomeric roof and terrace membranes"
+      },
+      {
+        "name": "Roof Waterproofing Products",
+        "slug": "roof-waterproofing",
+        "description": "UV-resistant protective topcoats"
+      },
+      {
+        "name": "Crack Fillers",
+        "slug": "crack-fillers",
+        "description": "Polymer acrylic flexible crack repair paste"
+      },
+      {
+        "name": "Waterproofing Solutions",
+        "slug": "waterproofing-solutions",
+        "description": "Bathroom, sunken slab, and basement protection"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.722Z",
+    "updatedAt": "2026-11-05T15:42:44.722Z"
+  },
+  {
+    "_id": "e52ecbc4704ecf560461ff0c",
+    "name": "CPVC, PVC & GI Fittings",
+    "slug": "cpvc-pvc-gi-fittings",
+    "description": "High-pressure CPVC pipes, drainage PVC, GI pipes, brass valves, and fittings",
+    "image": "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80",
+    "icon": "Wrench",
+    "order": 4,
+    "subcategories": [
+      {
+        "name": "CPVC Pipes",
+        "slug": "cpvc-pipes",
+        "description": "SDR 11 & SDR 13.5 hot & cold plumbing pipes"
+      },
+      {
+        "name": "PVC Pipes",
+        "slug": "pvc-pipes",
+        "description": "SWR drainage, rainwater, and soil pipes"
+      },
+      {
+        "name": "GI Pipes",
+        "slug": "gi-pipes",
+        "description": "Galvanized iron pipes B-class and C-class"
+      },
+      {
+        "name": "Pipe Fittings",
+        "slug": "pipe-fittings",
+        "description": "Solvent weld fittings and threaded adaptors"
+      },
+      {
+        "name": "Elbows",
+        "slug": "elbows",
+        "description": "90-degree and 45-degree plumbing bends"
+      },
+      {
+        "name": "Tees",
+        "slug": "tees",
+        "description": "Equal and reducing tees"
+      },
+      {
+        "name": "Couplings",
+        "slug": "couplings",
+        "description": "Straight socket connectors and unions"
+      },
+      {
+        "name": "Connectors",
+        "slug": "connectors",
+        "description": "Brass male and female threaded connectors"
+      },
+      {
+        "name": "Valves",
+        "slug": "valves",
+        "description": "Brass ball valves, concealed valves, and check valves"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.727Z",
+    "updatedAt": "2026-11-05T15:42:44.727Z"
+  },
+  {
+    "_id": "ad306bd9508fab4a8b2e5a1d",
+    "name": "Hardware & Locks",
+    "slug": "hardware-locks",
+    "description": "Mortise locksets, stainless steel architectural hinges, handles, and tower bolts",
+    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+    "icon": "Lock",
+    "order": 5,
+    "subcategories": [
+      {
+        "name": "Door Locks",
+        "slug": "door-locks",
+        "description": "Main door rim locks, mortise handles & cylinders"
+      },
+      {
+        "name": "Handles",
+        "slug": "handles",
+        "description": "Designer zinc alloy and brass door pulls"
+      },
+      {
+        "name": "Hinges",
+        "slug": "hinges",
+        "description": "SS 304 bearing butt hinges and hydraulic hinges"
+      },
+      {
+        "name": "Tower Bolts",
+        "slug": "tower-bolts",
+        "description": "Heavy-duty brass and stainless barrel bolts"
+      },
+      {
+        "name": "Door Accessories",
+        "slug": "door-accessories",
+        "description": "Door stoppers, eye-viewers, and chain latches"
+      },
+      {
+        "name": "Screws and Fasteners",
+        "slug": "screws-fasteners",
+        "description": "Drywall, self-drilling, and concrete anchors"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.732Z",
+    "updatedAt": "2026-11-05T15:42:44.732Z"
+  },
+  {
+    "_id": "6fba693cd8ea6aec090b1f88",
+    "name": "Bathware",
+    "slug": "bathware",
+    "description": "Vitreous chinaware basins, single-lever brass faucets, showers, and sanitary products",
+    "image": "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80",
+    "icon": "Bath",
+    "order": 6,
+    "subcategories": [
+      {
+        "name": "Washbasins",
+        "slug": "washbasins",
+        "description": "Tabletop, counter, and wall-hung ceramic basins"
+      },
+      {
+        "name": "Bathroom Faucets",
+        "slug": "bathroom-faucets",
+        "description": "Chrome brass basin mixers and pillar taps"
+      },
+      {
+        "name": "Shower Fittings",
+        "slug": "shower-fittings",
+        "description": "Rain showers, hand showers, and shower arms"
+      },
+      {
+        "name": "Bathroom Accessories",
+        "slug": "bathroom-accessories",
+        "description": "Towel bars, soap dishes, and robe hooks"
+      },
+      {
+        "name": "Sanitary Products",
+        "slug": "sanitary-products",
+        "description": "One-piece western commodes, health faucets"
+      },
+      {
+        "name": "Bathroom Fittings",
+        "slug": "bathroom-fittings",
+        "description": "Floor drains, angle cocks, and waste couplings"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.736Z",
+    "updatedAt": "2026-11-05T15:42:44.736Z"
+  },
+  {
+    "_id": "0c28ce3ce40ccdc0fa965e01",
+    "name": "Tools & Accessories",
+    "slug": "tools-accessories",
+    "description": "Construction hand tools, diamond cutting blades, rotary drill bits, and levels",
+    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "icon": "Hammer",
+    "order": 7,
+    "subcategories": [
+      {
+        "name": "Hand Tools",
+        "slug": "hand-tools",
+        "description": "Masonry trowels, claw hammers, and plumb bobs"
+      },
+      {
+        "name": "Measuring Tools",
+        "slug": "measuring-tools",
+        "description": "5m/8m steel measuring tapes, laser distance meters"
+      },
+      {
+        "name": "Construction Tools",
+        "slug": "construction-tools",
+        "description": "Aluminum spirit levels, plastering floats"
+      },
+      {
+        "name": "Cutting Accessories",
+        "slug": "cutting-accessories",
+        "description": "4-inch tile & marble diamond cutting blades"
+      },
+      {
+        "name": "Drilling Accessories",
+        "slug": "drilling-accessories",
+        "description": "SDS-Plus hammer drill bits and hole saws"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.741Z",
+    "updatedAt": "2026-11-05T15:42:44.741Z"
+  },
+  {
+    "_id": "fb95796928a1fe3e418c987d",
+    "name": "Construction Materials",
+    "slug": "construction-materials",
+    "description": "Manufactured M-Sand, 20mm aggregate, red burnt clay bricks, and AAC blocks",
+    "image": "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80",
+    "icon": "HardHat",
+    "order": 8,
+    "subcategories": [
+      {
+        "name": "Sand",
+        "slug": "sand",
+        "description": "Washed M-Sand for plastering and concrete"
+      },
+      {
+        "name": "Aggregate",
+        "slug": "aggregate",
+        "description": "Blue metal 20mm and 40mm crushed stone"
+      },
+      {
+        "name": "Bricks",
+        "slug": "bricks",
+        "description": "First-class wire-cut burnt red clay bricks"
+      },
+      {
+        "name": "Blocks",
+        "slug": "blocks",
+        "description": "Autoclaved Aerated Concrete (AAC) light blocks"
+      },
+      {
+        "name": "Construction Chemicals",
+        "slug": "construction-chemicals",
+        "description": "Concrete curing compounds and retarders"
+      },
+      {
+        "name": "Other Building Materials",
+        "slug": "other-materials",
+        "description": "Gypsum plaster, wall putty, and fiber mesh"
+      }
+    ],
+    "createdAt": "2026-11-05T15:42:44.746Z",
+    "updatedAt": "2026-11-05T15:42:44.746Z"
+  },
+  {
+    "_id": "67cb88a91b2c45e6900f0001",
+    "name": "Paints & Wall Care",
+    "slug": "paints-wall-care",
+    "description": "Interior emulsions, exterior weather-shield paints, wall putty, primers, and enamel wood coatings",
+    "image": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80",
+    "icon": "Paintbrush",
+    "order": 9,
+    "subcategories": [
+      {
+        "name": "Interior Emulsions",
+        "slug": "interior-emulsions",
+        "description": "Royale luxury, Apcolite premium, and Tractor emulsion washable wall paints"
+      },
+      {
+        "name": "Exterior Paints",
+        "slug": "exterior-paints",
+        "description": "Apex Ultima, WeatherCoat, and anti-algal exterior weatherproof paints"
+      },
+      {
+        "name": "Wall Putty & Primers",
+        "slug": "wall-putty-primers",
+        "description": "Birla White wall care putty, acrylic interior & exterior primers"
+      },
+      {
+        "name": "Enamels & Wood Finishes",
+        "slug": "enamels-wood-finishes",
+        "description": "Synthetic enamel gloss paints, metal primer, and wood stainers"
+      }
+    ],
+    "createdAt": "2026-11-06T00:00:00.000Z",
+    "updatedAt": "2026-11-06T00:00:00.000Z"
+  }
+]

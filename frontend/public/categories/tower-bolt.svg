@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(25, 25)">
+    <!-- Heavy Duty Brass Tower Bolt & Screws -->
+    <rect x="15" y="24" width="80" height="22" rx="4" fill="#FBC02D" stroke="#F57F17" stroke-width="2"/>
+    <rect x="5" y="29" width="95" height="12" rx="6" fill="#FFF59D" stroke="#F57F17" stroke-width="1.5"/>
+    <circle cx="75" cy="20" r="5" fill="#E65100"/>
+    <line x1="75" y1="20" x2="75" y2="35" stroke="#E65100" stroke-width="3"/>
+    <!-- Catch socket -->
+    <rect x="105" y="24" width="18" height="22" rx="3" fill="#FBC02D" stroke="#F57F17" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80">
+  <rect width="160" height="80" fill="#FFFFFF" rx="6"/>
+  <!-- Sunset with Elephants -->
+  <g transform="translate(54, 8)">
+    <path d="M0 24 A26 26 0 0 1 52 24 Z" fill="#FFA000"/>
+    <circle cx="16" cy="18" r="7.5" fill="#0D47A1"/>
+    <circle cx="36" cy="18" r="7.5" fill="#0D47A1"/>
+    <circle cx="26" cy="18" r="4.5" fill="#FFFFFF"/>
+  </g>
+  <!-- FEVICOL Text -->
+  <text x="80" y="58" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="22" fill="#0D47A1" text-anchor="middle" letter-spacing="1">FEVICOL</text>
+</svg>
+

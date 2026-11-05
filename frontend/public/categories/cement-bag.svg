@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(42, 14)">
+    <rect x="0" y="0" width="76" height="92" rx="8" fill="#ECEFF1" stroke="#90A4AE" stroke-width="2.5"/>
+    <rect x="8" y="24" width="60" height="42" rx="4" fill="#E53935"/>
+    <text x="38" y="44" font-family="Arial Black, Impact, sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="900">CEMENT</text>
+    <text x="38" y="58" font-family="Arial, sans-serif" font-size="9" fill="#FFF59D" text-anchor="middle" font-weight="800">53 GRADE</text>
+    <text x="38" y="80" font-family="Arial, sans-serif" font-size="9" fill="#37474F" text-anchor="middle" font-weight="800">50 KG NET</text>
+    <line x1="10" y1="8" x2="66" y2="8" stroke="#CFD8DC" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

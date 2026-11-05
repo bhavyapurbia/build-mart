@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(45, 18)">
+    <!-- Overhead Rain Shower with water sprays -->
+    <ellipse cx="35" cy="24" rx="32" ry="10" fill="#CFD8DC" stroke="#78909C" stroke-width="2"/>
+    <path d="M35 14 L35 0 L15 0" stroke="#90A4AE" stroke-width="6" fill="none"/>
+    <!-- Water streams -->
+    <line x1="20" y1="28" x2="20" y2="70" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="28" y1="28" x2="28" y2="74" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="35" y1="28" x2="35" y2="76" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="42" y1="28" x2="42" y2="74" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="50" y1="28" x2="50" y2="70" stroke="#4FC3F7" stroke-width="2" stroke-dasharray="3,3"/>
+  </g>
+</svg>

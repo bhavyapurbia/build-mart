@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(30, 15)">
+    <!-- 3D stacked vitrified floor tiles with marble streaks -->
+    <polygon points="10,40 60,15 100,40 50,65" fill="#ECEFF1" stroke="#B0BEC5" stroke-width="1.5"/>
+    <polygon points="10,40 50,65 50,72 10,47" fill="#CFD8DC"/>
+    <polygon points="50,65 100,40 100,47 50,72" fill="#B0BEC5"/>
+    <!-- Marble veins -->
+    <path d="M30 35 Q45 28 65 35 Q80 42 85 30" stroke="#90A4AE" stroke-width="2" fill="none" opacity="0.6"/>
+    <polygon points="10,25 60,0 100,25 50,50" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="1.5"/>
+    <polygon points="10,25 50,50 50,57 10,32" fill="#ECEFF1"/>
+    <polygon points="50,50 100,25 100,32 50,57" fill="#CFD8DC"/>
+    <path d="M25 22 Q50 12 70 20 Q85 30 90 18" stroke="#78909C" stroke-width="2.5" fill="none" opacity="0.5"/>
+  </g>
+</svg>

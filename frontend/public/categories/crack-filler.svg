@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(30, 20)">
+    <!-- Sealant / Caulk cartridge with nozzle & putty knife -->
+    <rect x="25" y="25" width="70" height="20" rx="3" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="2"/>
+    <polygon points="95,28 115,35 95,42" fill="#ECEFF1" stroke="#90A4AE" stroke-width="1.5"/>
+    <rect x="35" y="28" width="45" height="14" fill="#00ACC1" rx="2"/>
+    <text x="57" y="38" font-family="Arial, sans-serif" font-size="7" fill="#FFFFFF" font-weight="900" text-anchor="middle">CRACK-X</text>
+    <rect x="18" y="32" width="7" height="6" fill="#37474F"/>
+    <!-- Putty knife -->
+    <path d="M15 65 L45 52 L55 60 L25 73 Z" fill="#90A4AE" stroke="#546E7A" stroke-width="1.5"/>
+    <rect x="8" y="70" width="20" height="8" rx="2" fill="#8D6E63" transform="rotate(-30 18 74)"/>
+  </g>
+</svg>

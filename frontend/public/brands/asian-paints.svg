@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Asian Paints Official Brand Color Blocks & Typography -->
+  <g transform="translate(10, 10)">
+    <!-- 4 signature color ribbon blocks -->
+    <rect x="5" y="10" width="12" height="40" rx="3" fill="#D32F2F"/>
+    <rect x="19" y="5" width="12" height="50" rx="3" fill="#FBC02D"/>
+    <rect x="33" y="12" width="12" height="38" rx="3" fill="#1976D2"/>
+    <rect x="47" y="18" width="12" height="32" rx="3" fill="#388E3C"/>
+    
+    <text x="68" y="34" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="20" fill="#D32F2F" letter-spacing="-0.5px">asian</text>
+    <text x="122" y="34" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="20" fill="#212121" letter-spacing="-0.5px">paints</text>
+    <text x="69" y="47" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="8.5" fill="#757575" letter-spacing="1.5px">HAR GHAR KUCHH KEHTA HAI</text>
+  </g>
+</svg>

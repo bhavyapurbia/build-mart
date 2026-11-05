@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(42, 14)">
+    <!-- Birla White WallCare Putty 40kg Bag -->
+    <rect x="0" y="0" width="76" height="92" rx="8" fill="#FFFFFF" stroke="#00838F" stroke-width="2.5"/>
+    <rect x="8" y="22" width="60" height="42" rx="4" fill="#00838F"/>
+    <text x="38" y="38" font-family="Arial Black, Impact, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="900">BIRLA</text>
+    <text x="38" y="50" font-family="Arial, sans-serif" font-size="8" fill="#80DEEA" text-anchor="middle" font-weight="900">WALLCARE</text>
+    <text x="38" y="60" font-family="Arial, sans-serif" font-size="7" fill="#FFFFFF" text-anchor="middle" font-weight="800">WHITE PUTTY</text>
+    <text x="38" y="80" font-family="Arial, sans-serif" font-size="9" fill="#006064" text-anchor="middle" font-weight="800">40 KG BAG</text>
+    <line x1="10" y1="8" x2="66" y2="8" stroke="#80DEEA" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

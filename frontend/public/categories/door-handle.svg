@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 14)">
+    <!-- Designer Mortise Lever Door Handle on Backplate -->
+    <rect x="15" y="5" width="28" height="85" rx="5" fill="#8D6E63" stroke="#4E342E" stroke-width="2"/>
+    <circle cx="29" cy="25" r="5" fill="#2E1C14"/>
+    <rect x="27" y="52" width="4" height="15" rx="2" fill="#2E1C14"/>
+    <!-- Lever Handle -->
+    <path d="M29 25 Q55 22 75 32 Q85 38 95 36" stroke="#D7CCC8" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="29" cy="25" r="7" fill="#BCAAA4"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+[
+  {
+    "_id": "54fe6625c076a99caea5abee",
+    "recipient": "admin",
+    "title": "New Material List Submitted",
+    "message": "hgv submitted Material Request #BM-REQ-6276-002 for job-site: cygiuhojgvcviuh.",
+    "type": "material_request",
+    "referenceId": "BM-REQ-6276-002",
+    "link": "/admin/material-requests",
+    "createdAt": "2026-11-05T18:55:16.293Z",
+    "updatedAt": "2026-11-05T18:55:16.293Z"
+  }
+]

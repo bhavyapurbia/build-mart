@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(25, 20)">
+    <!-- Structural Steel Angle & Channel -->
+    <path d="M15 10 L35 10 L35 55 L75 55 L75 75 L15 75 Z" fill="#607D8B" stroke="#37474F" stroke-width="2"/>
+    <path d="M35 10 L50 20 L50 65 L90 65 L75 75 L35 75 L35 55 Z" fill="#78909C" opacity="0.6"/>
+    <!-- Steel I-beam outline -->
+    <path d="M65 15 L105 15 L105 25 L90 25 L90 55 L105 55 L105 65 L65 65 L65 55 L80 55 L80 25 L65 25 Z" fill="#455A64" stroke="#263238" stroke-width="1.5"/>
+  </g>
+</svg>

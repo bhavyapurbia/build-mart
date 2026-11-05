@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 15)">
+    <!-- 4 Glossy subway wall ceramic tiles grid -->
+    <rect x="0" y="0" width="42" height="42" rx="4" fill="#E0F2F1" stroke="#80CBC4" stroke-width="2"/>
+    <rect x="48" y="0" width="42" height="42" rx="4" fill="#B2DFDB" stroke="#80CBC4" stroke-width="2"/>
+    <rect x="0" y="48" width="42" height="42" rx="4" fill="#E0F7FA" stroke="#80DEEA" stroke-width="2"/>
+    <rect x="48" y="48" width="42" height="42" rx="4" fill="#B2EBF2" stroke="#80DEEA" stroke-width="2"/>
+    <!-- Glaze shine reflections -->
+    <path d="M5 8 L30 8 L10 28 Z" fill="#FFFFFF" opacity="0.6"/>
+    <path d="M53 8 L78 8 L58 28 Z" fill="#FFFFFF" opacity="0.6"/>
+    <path d="M5 56 L30 56 L10 76 Z" fill="#FFFFFF" opacity="0.6"/>
+  </g>
+</svg>

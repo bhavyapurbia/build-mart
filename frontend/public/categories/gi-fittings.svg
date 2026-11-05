@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(30, 20)">
+    <!-- Galvanized Iron (GI) Tee & Threaded Coupling -->
+    <path d="M15 28 L40 28 L40 10 L68 10 L68 28 L95 28 L95 56 L68 56 L68 75 L40 75 L40 56 L15 56 Z" fill="#90A4AE" stroke="#455A64" stroke-width="2.5"/>
+    <!-- Thread lines on 3 ports -->
+    <line x1="15" y1="36" x2="25" y2="36" stroke="#ECEFF1" stroke-width="2"/>
+    <line x1="15" y1="48" x2="25" y2="48" stroke="#ECEFF1" stroke-width="2"/>
+    <line x1="85" y1="36" x2="95" y2="36" stroke="#ECEFF1" stroke-width="2"/>
+    <line x1="85" y1="48" x2="95" y2="48" stroke="#ECEFF1" stroke-width="2"/>
+    <line x1="48" y1="10" x2="48" y2="20" stroke="#ECEFF1" stroke-width="2"/>
+    <line x1="60" y1="10" x2="60" y2="20" stroke="#ECEFF1" stroke-width="2"/>
+  </g>
+</svg>

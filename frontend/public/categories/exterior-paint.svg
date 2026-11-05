@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(42, 14)">
+    <!-- Weatherproof Exterior Paint Bucket (Apex / AllDry) -->
+    <path d="M12 25 L68 25 L60 88 L20 88 Z" fill="#E1F5FE" stroke="#0288D1" stroke-width="2.5"/>
+    <ellipse cx="40" cy="25" rx="28" ry="8" fill="#B3E5FC"/>
+    <rect x="22" y="44" width="36" height="25" fill="#01579B" rx="3"/>
+    <text x="40" y="56" font-family="Arial Black, Impact, sans-serif" font-size="8" fill="#FFFFFF" text-anchor="middle" font-weight="900">EXTERIOR</text>
+    <text x="40" y="65" font-family="Arial, sans-serif" font-size="7" fill="#81D4FA" text-anchor="middle" font-weight="800">WEATHER</text>
+    <path d="M15 25 Q40 5 65 25" stroke="#757575" stroke-width="2.5" fill="none"/>
+    <!-- Weather shield with sun icon -->
+    <circle cx="58" cy="74" r="8" fill="#FFB300"/>
+    <path d="M40 78 C37 75 35 73 35 70 C35 68 37 66 40 63 C43 66 45 68 45 70 C45 73 43 75 40 78 Z" fill="#0288D1"/>
+  </g>
+</svg>

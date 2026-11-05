@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(40, 16)">
+    <!-- Stainless Steel 304 Bearing Butt Hinge -->
+    <rect x="15" y="10" width="22" height="70" rx="3" fill="#B0BEC5" stroke="#546E7A" stroke-width="2"/>
+    <rect x="43" y="10" width="22" height="70" rx="3" fill="#CFD8DC" stroke="#546E7A" stroke-width="2"/>
+    <!-- Center pin knuckles -->
+    <rect x="34" y="8" width="12" height="74" rx="4" fill="#78909C" stroke="#37474F" stroke-width="1.5"/>
+    <!-- Screw holes -->
+    <circle cx="25" cy="22" r="3" fill="#37474F"/>
+    <circle cx="25" cy="45" r="3" fill="#37474F"/>
+    <circle cx="25" cy="68" r="3" fill="#37474F"/>
+    <circle cx="55" cy="22" r="3" fill="#37474F"/>
+    <circle cx="55" cy="45" r="3" fill="#37474F"/>
+    <circle cx="55" cy="68" r="3" fill="#37474F"/>
+  </g>
+</svg>

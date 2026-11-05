@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(45, 14)">
+    <!-- Chrome Brass Single-Lever Basin Mixer Faucet -->
+    <rect x="25" y="32" width="18" height="52" rx="4" fill="#CFD8DC" stroke="#78909C" stroke-width="2"/>
+    <path d="M34 32 Q34 8 58 8 L70 12 Q75 14 75 22 L75 28" stroke="#B0BEC5" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <!-- Lever handle -->
+    <rect x="18" y="38" width="12" height="24" rx="3" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+    <ellipse cx="75" cy="28" rx="5" ry="3" fill="#78909C"/>
+  </g>
+</svg>

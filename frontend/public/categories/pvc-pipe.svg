@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(30, 20)">
+    <!-- Grey SWR PVC Drainage pipe with bell mouth connector -->
+    <rect x="20" y="25" width="80" height="32" rx="4" fill="#B0BEC5" stroke="#78909C" stroke-width="2"/>
+    <rect x="10" y="21" width="22" height="40" rx="4" fill="#CFD8DC" stroke="#78909C" stroke-width="2"/>
+    <ellipse cx="10" cy="41" rx="6" ry="20" fill="#90A4AE"/>
+    <ellipse cx="100" cy="41" rx="4" ry="16" fill="#78909C"/>
+    <text x="60" y="45" font-family="Arial Black, Impact, sans-serif" font-size="9" fill="#37474F" text-anchor="middle" font-weight="900">SWR PVC 110mm</text>
+  </g>
+</svg>

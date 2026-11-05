@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Birla Opus / Birla White Paints Logo -->
+  <g transform="translate(10, 10)">
+    <!-- Aditya Birla Sunburst / Opus Crest -->
+    <circle cx="32" cy="30" r="18" fill="#D32F2F"/>
+    <circle cx="32" cy="30" r="10" fill="#FFA000"/>
+    <circle cx="32" cy="30" r="4" fill="#FFFFFF"/>
+    
+    <text x="60" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="20" fill="#212121" letter-spacing="-0.3px">BIRLA</text>
+    <text x="124" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="20" fill="#D32F2F" letter-spacing="-0.3px">OPUS</text>
+    <text x="61" y="44" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="9" fill="#D32F2F" letter-spacing="1.5px">PAINTS &amp; WALL CARE</text>
+  </g>
+</svg>

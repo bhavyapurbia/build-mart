@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(40, 16)">
+    <!-- Damp Proof Paint Bucket / Primer -->
+    <path d="M12 25 L68 25 L60 85 L20 85 Z" fill="#FFFFFF" stroke="#00838F" stroke-width="2.5"/>
+    <ellipse cx="40" cy="25" rx="28" ry="8" fill="#E0F7FA"/>
+    <rect x="22" y="44" width="36" height="22" fill="#00ACC1" rx="2"/>
+    <text x="40" y="58" font-family="Arial Black, Impact, sans-serif" font-size="8" fill="#FFFFFF" text-anchor="middle" font-weight="900">DAMP PROOF</text>
+    <path d="M15 25 Q40 5 65 25" stroke="#757575" stroke-width="2.5" fill="none"/>
+  </g>
+</svg>

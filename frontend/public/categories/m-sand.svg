@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 18)">
+    <!-- Sand mound / Plastering M-Sand -->
+    <path d="M10 75 Q45 15 80 75 Z" fill="#FFE082" stroke="#FFB300" stroke-width="2.5"/>
+    <path d="M25 75 Q48 30 70 75 Z" fill="#FFD54F"/>
+    <!-- Small grain textures -->
+    <circle cx="45" cy="50" r="2" fill="#FFA000"/>
+    <circle cx="55" cy="45" r="1.5" fill="#FFA000"/>
+    <circle cx="38" cy="62" r="2" fill="#FFA000"/>
+    <circle cx="50" cy="65" r="2.5" fill="#FFA000"/>
+    <circle cx="62" cy="58" r="2" fill="#FFA000"/>
+    <!-- Shovel -->
+    <path d="M65 25 L85 65" stroke="#795548" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="80,58 92,68 85,74" fill="#90A4AE" stroke="#546E7A" stroke-width="1.5"/>
+  </g>
+</svg>

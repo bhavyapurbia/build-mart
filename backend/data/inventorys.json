@@ -1,0 +1,292 @@
+[
+  {
+    "_id": "5ddb341b4fc64cc05feb5c19",
+    "productId": "f50450c0764398f3eeeaaf4f",
+    "productName": "UltraTech Super Portland Pozzolana Cement (PPC)",
+    "sku": "BM-780921",
+    "currentStock": 450,
+    "unit": "50kg Bag",
+    "createdAt": "2026-11-05T15:42:44.802Z",
+    "updatedAt": "2026-11-05T15:42:44.802Z"
+  },
+  {
+    "_id": "179433f2df18c4425eb0549f",
+    "productId": "e0da821d601da7dbfa2d7107",
+    "productName": "Tata Tiscon 550D TMT Rebar (12mm)",
+    "sku": "BM-941279",
+    "currentStock": 300,
+    "unit": "12m Piece",
+    "createdAt": "2026-11-05T15:42:44.809Z",
+    "updatedAt": "2026-11-05T15:42:44.809Z"
+  },
+  {
+    "_id": "b41abbc81ad0f86a999b2555",
+    "productId": "3148237ad8940c534a9ff568",
+    "productName": "Tata Tiscon 550D TMT Rebar (16mm)",
+    "sku": "BM-311117",
+    "currentStock": 200,
+    "unit": "12m Piece",
+    "createdAt": "2026-11-05T15:42:44.816Z",
+    "updatedAt": "2026-11-05T15:42:44.816Z"
+  },
+  {
+    "_id": "4f48e3f1c99ffaaede169c95",
+    "productId": "938625a6ada7bc18660de5fd",
+    "productName": "ACC Gold Water Shield Water Repellent Cement",
+    "sku": "BM-880112",
+    "currentStock": 180,
+    "unit": "50kg Bag",
+    "createdAt": "2026-11-05T15:42:44.822Z",
+    "updatedAt": "2026-11-05T15:42:44.822Z"
+  },
+  {
+    "_id": "7eeebfe0d5222ec2ff75d9d0",
+    "productId": "37a7f44730dee36ffff1d143",
+    "productName": "GI Annealed Rebar Binding Wire (18 Gauge)",
+    "sku": "BM-376592",
+    "currentStock": 500,
+    "unit": "1 Kg Bundle",
+    "createdAt": "2026-11-05T15:42:44.830Z",
+    "updatedAt": "2026-11-05T15:42:44.830Z"
+  },
+  {
+    "_id": "5c66d6e02ffd0d8edba78fa6",
+    "productId": "7d769a2aecbc4512dd297c16",
+    "productName": "Kajaria Eternity 600x1200mm Glazed Vitrified Tiles (Statwario Marble)",
+    "sku": "BM-814994",
+    "currentStock": 120,
+    "unit": "Box (2 Pcs / 15.5 Sq.Ft)",
+    "createdAt": "2026-11-05T15:42:44.837Z",
+    "updatedAt": "2026-11-05T15:42:44.837Z"
+  },
+  {
+    "_id": "29699e749b9050e007e40a5a",
+    "productId": "893e9e05a2e276b36681fb74",
+    "productName": "Roff New Construction Tile Adhesive (T01 Gray)",
+    "sku": "BM-660388",
+    "currentStock": 250,
+    "unit": "20kg Bag",
+    "createdAt": "2026-11-05T15:42:44.844Z",
+    "updatedAt": "2026-11-05T15:42:44.844Z"
+  },
+  {
+    "_id": "afd976a1e171271dd2b8456b",
+    "productId": "6a83c67bb3eee10f62950008",
+    "productName": "Roff Rainbow Epoxy Tile Grout (Stain-Free)",
+    "sku": "BM-101475",
+    "currentStock": 180,
+    "unit": "1 Kg Kit (Resin + Hardener + Filler)",
+    "createdAt": "2026-11-05T15:42:44.851Z",
+    "updatedAt": "2026-11-05T15:42:44.851Z"
+  },
+  {
+    "_id": "80a10d899ce03593058a93e7",
+    "productId": "a7fd7f7df7c20951c8f6eae4",
+    "productName": "Cross Tile Levelling Spacers (3mm, Pack of 500)",
+    "sku": "BM-583248",
+    "currentStock": 350,
+    "unit": "Pack of 500",
+    "createdAt": "2026-11-05T15:42:44.857Z",
+    "updatedAt": "2026-11-05T15:42:44.857Z"
+  },
+  {
+    "_id": "e6530d1557fc7498c2b42db1",
+    "productId": "e830204bf951e0d4f12ae7ec",
+    "productName": "Dr. Fixit LW+ Integral Liquid Waterproofing Compound",
+    "sku": "BM-234025",
+    "currentStock": 400,
+    "unit": "1 Liter Bottle",
+    "createdAt": "2026-11-05T15:42:44.863Z",
+    "updatedAt": "2026-11-05T15:42:44.863Z"
+  },
+  {
+    "_id": "7d93b4161ebcc747ec44f2fe",
+    "productId": "967459c068853d91d0cb0a39",
+    "productName": "Dr. Fixit Newcoat Elastomeric Terrace Waterproofing Membrane",
+    "sku": "BM-197407",
+    "currentStock": 75,
+    "unit": "20 Liter Bucket",
+    "createdAt": "2026-11-05T15:42:44.869Z",
+    "updatedAt": "2026-11-05T15:42:44.869Z"
+  },
+  {
+    "_id": "1ec1da989b8ceccbf7a628d8",
+    "productId": "9b12acfb6f36e2a6d0a5d9a8",
+    "productName": "Dr. Fixit Crack-X Paste Acrylic Flexible Crack Filler",
+    "sku": "BM-232639",
+    "currentStock": 220,
+    "unit": "1 Kg Tub",
+    "createdAt": "2026-11-05T15:42:44.875Z",
+    "updatedAt": "2026-11-05T15:42:44.875Z"
+  },
+  {
+    "_id": "3951a3535cb397b0715c2de7",
+    "productId": "64b6f07fa7e2c13277265e1f",
+    "productName": "Astral CPVC PRO Pipe SDR 11 (1 Inch / 3 Meter)",
+    "sku": "BM-642124",
+    "currentStock": 280,
+    "unit": "3m Length",
+    "createdAt": "2026-11-05T15:42:44.882Z",
+    "updatedAt": "2026-11-05T15:42:44.882Z"
+  },
+  {
+    "_id": "7a4ab6ef6ed8d5540f5e3d11",
+    "productId": "9f7190567078e74ed546678b",
+    "productName": "Astral CPVC Brass Female Threaded Elbow (1 Inch x 1/2 Inch)",
+    "sku": "BM-951088",
+    "currentStock": 350,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.889Z",
+    "updatedAt": "2026-11-05T15:42:44.889Z"
+  },
+  {
+    "_id": "79e39acecd81c71aa9b51b1f",
+    "productId": "a0d4483d78a6d40fb1851a31",
+    "productName": "Supreme SWR PVC Drainage Pipe (110mm / 4 Inch, 10 Feet)",
+    "sku": "BM-986962",
+    "currentStock": 150,
+    "unit": "10ft Pipe",
+    "createdAt": "2026-11-05T15:42:44.894Z",
+    "updatedAt": "2026-11-05T15:42:44.894Z"
+  },
+  {
+    "_id": "273ae70084a4352f39bf6e99",
+    "productId": "3022c22568ee5cd6df7198b5",
+    "productName": "Zoloto Heavy Brass Ball Valve (1 Inch Screwed)",
+    "sku": "BM-139346",
+    "currentStock": 120,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.901Z",
+    "updatedAt": "2026-11-05T15:42:44.901Z"
+  },
+  {
+    "_id": "688071529cce94045133f936",
+    "productId": "55cf82024eaa557230dc548a",
+    "productName": "Godrej Nav-Tal 8 Levers Heavy Brass Padlock",
+    "sku": "BM-705047",
+    "currentStock": 160,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.907Z",
+    "updatedAt": "2026-11-05T15:42:44.907Z"
+  },
+  {
+    "_id": "6fc00a577a4ca1a128b466e6",
+    "productId": "7c9910f13640244687519165",
+    "productName": "Godrej Classic Mortise Lock Handle Set (Antique Brass Finish)",
+    "sku": "BM-202604",
+    "currentStock": 85,
+    "unit": "Complete Set",
+    "createdAt": "2026-11-05T15:42:44.913Z",
+    "updatedAt": "2026-11-05T15:42:44.913Z"
+  },
+  {
+    "_id": "7a09d3a2ac8ce08544f6283d",
+    "productId": "310e111c073f0778e058a320",
+    "productName": "SS 304 Heavy Duty Bearing Door Hinges (5x3x3mm, Pair)",
+    "sku": "BM-170795",
+    "currentStock": 240,
+    "unit": "Pair (2 Pcs)",
+    "createdAt": "2026-11-05T15:42:44.919Z",
+    "updatedAt": "2026-11-05T15:42:44.919Z"
+  },
+  {
+    "_id": "16692af5ebf19cb0e9fd6a65",
+    "productId": "31e5d142bef074cfc2e818b5",
+    "productName": "Jaquar Alive Single Lever Basin Mixer Tap",
+    "sku": "BM-935911",
+    "currentStock": 90,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.926Z",
+    "updatedAt": "2026-11-05T15:42:44.926Z"
+  },
+  {
+    "_id": "a043f28df46834351846f87e",
+    "productId": "eaadb4bccebc36a737a1fa6e",
+    "productName": "Jaquar Rain Overhead Shower (8 Inch Round)",
+    "sku": "BM-158862",
+    "currentStock": 110,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.932Z",
+    "updatedAt": "2026-11-05T15:42:44.932Z"
+  },
+  {
+    "_id": "ab53d525ca4677142c67b382",
+    "productId": "d30148a24bdd35401b3aaf40",
+    "productName": "Cera Vitreous China Tabletop Washbasin (Oval 480mm)",
+    "sku": "BM-556113",
+    "currentStock": 65,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.939Z",
+    "updatedAt": "2026-11-05T15:42:44.939Z"
+  },
+  {
+    "_id": "3e0aaf84fe12003fb76ec39b",
+    "productId": "b265b6d28b6328e66ddc360a",
+    "productName": "Bosch GWS 600 Professional Angle Grinder (670W, 4 Inch)",
+    "sku": "BM-515802",
+    "currentStock": 75,
+    "unit": "Set",
+    "createdAt": "2026-11-05T15:42:44.944Z",
+    "updatedAt": "2026-11-05T15:42:44.944Z"
+  },
+  {
+    "_id": "1a42befcd9675b4e413863c3",
+    "productId": "9c1aafab421611457ac3cb4d",
+    "productName": "Bosch 4-Inch Expert for Marble Diamond Cutting Wheel",
+    "sku": "BM-456927",
+    "currentStock": 300,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.951Z",
+    "updatedAt": "2026-11-05T15:42:44.951Z"
+  },
+  {
+    "_id": "7fc80d97bb0bc4a3e720f28d",
+    "productId": "b2c0f3cad859fb9969f4b5b4",
+    "productName": "Stanley PowerLock Measuring Tape (5 Meter / 16 Feet)",
+    "sku": "BM-748210",
+    "currentStock": 250,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.958Z",
+    "updatedAt": "2026-11-05T15:42:44.958Z"
+  },
+  {
+    "_id": "a590578ec70196d3bcb3ff48",
+    "productId": "a14c84a0010217fb30c58717",
+    "productName": "Washed Plastering M-Sand (Graded 0-2.36mm)",
+    "sku": "BM-125653",
+    "currentStock": 800,
+    "unit": "50kg Bag",
+    "createdAt": "2026-11-05T15:42:44.966Z",
+    "updatedAt": "2026-11-05T15:42:44.966Z"
+  },
+  {
+    "_id": "46ee629a2c76281c1f20ee28",
+    "productId": "43c9938d11a092625bc71049",
+    "productName": "Blue Metal 20mm Crushed Granite Aggregate",
+    "sku": "BM-974812",
+    "currentStock": 650,
+    "unit": "50kg Bag",
+    "createdAt": "2026-11-05T15:42:44.973Z",
+    "updatedAt": "2026-11-05T15:42:44.973Z"
+  },
+  {
+    "_id": "baaf117d034b479977f598e4",
+    "productId": "8d36c16054b6d96ae10b8f8a",
+    "productName": "Birla Aerocon High-Strength AAC Lightweight Blocks (600x200x150mm)",
+    "sku": "BM-202922",
+    "currentStock": 1200,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.979Z",
+    "updatedAt": "2026-11-05T15:42:44.979Z"
+  },
+  {
+    "_id": "8a9bb43b0404bb8829bf3246",
+    "productId": "0807ffec4d48121d48729967",
+    "productName": "First-Class Wire-Cut Red Burnt Clay Bricks",
+    "sku": "BM-422196",
+    "currentStock": 5000,
+    "unit": "Piece",
+    "createdAt": "2026-11-05T15:42:44.984Z",
+    "updatedAt": "2026-11-05T15:42:44.984Z"
+  }
+]

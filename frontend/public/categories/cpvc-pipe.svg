@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 18)">
+    <!-- CPVC Elbow Pipe Fitting -->
+    <path d="M22 15 L22 58 Q22 75 39 75 L82 75 L82 50 L46 50 Q42 50 42 46 L42 15 Z" fill="#FFE0B2" stroke="#FF9800" stroke-width="2.5"/>
+    <ellipse cx="32" cy="15" rx="10" ry="5" fill="#FFCC80"/>
+    <ellipse cx="82" cy="62.5" rx="5" ry="12.5" fill="#FFCC80"/>
+    <text x="52" y="40" font-family="Arial Black, Impact, sans-serif" font-size="9" fill="#E65100" font-weight="900">CPVC</text>
+  </g>
+</svg>

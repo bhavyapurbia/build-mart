@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 18)">
+    <!-- First Class Red Burnt Clay Bricks Stacked -->
+    <!-- Top brick -->
+    <polygon points="15,28 65,15 90,28 40,41" fill="#E64A19" stroke="#BF360C" stroke-width="2"/>
+    <polygon points="15,28 40,41 40,56 15,43" fill="#D84315"/>
+    <polygon points="40,41 90,28 90,43 40,56" fill="#BF360C"/>
+    <!-- Frog indent -->
+    <ellipse cx="52" cy="28" rx="16" ry="5" fill="#BF360C"/>
+    <!-- Bottom brick -->
+    <polygon points="25,48 75,35 100,48 50,61" fill="#E64A19" stroke="#BF360C" stroke-width="2"/>
+    <polygon points="25,48 50,61 50,76 25,63" fill="#D84315"/>
+    <polygon points="50,61 100,48 100,63 50,76" fill="#BF360C"/>
+  </g>
+</svg>

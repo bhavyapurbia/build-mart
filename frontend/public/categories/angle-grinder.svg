@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(25, 20)">
+    <!-- Bosch Blue 4-inch Angle Grinder -->
+    <!-- Body -->
+    <rect x="15" y="32" width="65" height="22" rx="6" fill="#0277BD" stroke="#01579B" stroke-width="2"/>
+    <!-- Head / Gear housing -->
+    <rect x="75" y="24" width="25" height="38" rx="4" fill="#78909C" stroke="#37474F" stroke-width="2"/>
+    <!-- Grinding disc wheel -->
+    <ellipse cx="88" cy="64" rx="22" ry="7" fill="#424242" stroke="#212121" stroke-width="1.5"/>
+    <ellipse cx="88" cy="64" rx="8" ry="3" fill="#CFD8DC"/>
+    <!-- Side handle -->
+    <rect x="83" y="10" width="10" height="15" rx="3" fill="#212121"/>
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "97644f84f2c4e26186baadc7",
+    "quotationId": "BM-QUO-1001",
+    "requestId": "BM-REQ-1001",
+    "user": "7cd18a1b8514f4e22a335076",
+    "customer": {
+      "name": "Rajesh Sharma",
+      "phone": "+91 98765 43210",
+      "email": "customer@buildmart.com",
+      "siteAddress": "Villa 14, Palm Meadows, Whitefield",
+      "city": "Bengaluru",
+      "pincode": "560066",
+      "requiredDate": "2026-11-10",
+      "notes": "Need morning delivery before 9 AM for slab casting."
+    },
+    "items": [
+      {
+        "name": "UltraTech Super Portland Pozzolana Cement (PPC)",
+        "brand": "UltraTech",
+        "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+        "quantity": 50,
+        "unit": "50kg Bag",
+        "unitPrice": 390,
+        "totalPrice": 19500,
+        "inStock": true
+      },
+      {
+        "name": "Tata Tiscon 550D TMT Rebar (12mm)",
+        "brand": "Tata Tiscon",
+        "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
+        "quantity": 20,
+        "unit": "12m Piece",
+        "unitPrice": 835,
+        "totalPrice": 16700,
+        "inStock": true
+      }
+    ],
+    "subtotal": 36200,
+    "deliveryCharge": 0,
+    "tax": 6516,
+    "discount": 1000,
+    "totalAmount": 41716,
+    "validUntil": "2026-11-15",
+    "notes": "Free heavy hydraulic truck delivery included. Test certificate attached.",
+    "status": "Sent",
+    "createdAt": "2026-11-05T15:42:45.012Z",
+    "updatedAt": "2026-11-05T15:42:45.012Z"
+  }
+]

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 16)">
+    <!-- Gloss Enamel Tin & Paintbrush -->
+    <!-- Paint Tin -->
+    <rect x="15" y="24" width="55" height="62" rx="6" fill="#FFF8E1" stroke="#FF8F00" stroke-width="2.5"/>
+    <ellipse cx="42.5" cy="24" rx="27.5" ry="7" fill="#FFE082"/>
+    <rect x="22" y="40" width="41" height="26" fill="#E65100" rx="3"/>
+    <text x="42.5" y="54" font-family="Arial Black, Impact, sans-serif" font-size="8" fill="#FFFFFF" text-anchor="middle" font-weight="900">APCOLITE</text>
+    <text x="42.5" y="62" font-family="Arial, sans-serif" font-size="6.5" fill="#FFE082" text-anchor="middle" font-weight="800">GLOSS ENAMEL</text>
+    <!-- Paintbrush angled -->
+    <path d="M68 62 L88 42 L95 49 L75 69 Z" fill="#90A4AE" stroke="#455A64" stroke-width="1.5"/>
+    <rect x="88" y="30" width="10" height="20" rx="2" fill="#D32F2F" transform="rotate(45 93 40)"/>
+    <!-- Bristles -->
+    <polygon points="68,62 75,69 66,78 60,70" fill="#FF8F00"/>
+  </g>
+</svg>

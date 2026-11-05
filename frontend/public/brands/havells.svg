@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80">
+  <rect width="160" height="80" fill="#FFFFFF" rx="6"/>
+  <!-- Red Havells Emblem -->
+  <g transform="translate(68, 12)">
+    <circle cx="12" cy="12" r="12" fill="#E11922"/>
+    <circle cx="6.5" cy="12" r="4.5" fill="#FFFFFF"/>
+    <circle cx="17.5" cy="12" r="4.5" fill="#FFFFFF"/>
+  </g>
+  <!-- Red HAVELLS Text -->
+  <text x="80" y="58" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="23" fill="#E11922" text-anchor="middle" letter-spacing="1.5">HAVELLS</text>
+</svg>
+

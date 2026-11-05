@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(42, 14)">
+    <!-- Tile adhesive bag/bucket -->
+    <rect x="0" y="0" width="76" height="92" rx="8" fill="#FFF8E1" stroke="#FFB300" stroke-width="2.5"/>
+    <rect x="8" y="22" width="60" height="42" rx="4" fill="#FFA000"/>
+    <text x="38" y="42" font-family="Arial Black, Impact, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" font-weight="900">ADHESIVE</text>
+    <text x="38" y="56" font-family="Arial, sans-serif" font-size="9" fill="#212121" text-anchor="middle" font-weight="800">POLYMER TILE</text>
+    <text x="38" y="80" font-family="Arial, sans-serif" font-size="9" fill="#E65100" text-anchor="middle" font-weight="800">20 KG BAG</text>
+    <!-- Notched trowel icon -->
+    <path d="M12 8 L64 8" stroke="#FFE082" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

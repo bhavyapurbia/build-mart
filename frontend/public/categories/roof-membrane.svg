@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 16)">
+    <!-- Roof membrane roll & paint roller applying protective blue coating -->
+    <ellipse cx="25" cy="45" rx="14" ry="32" fill="#0288D1" stroke="#01579B" stroke-width="2"/>
+    <path d="M25 13 L85 18 L85 82 L25 77 Z" fill="#29B6F6"/>
+    <!-- Roller -->
+    <rect x="58" y="24" width="28" height="12" rx="3" fill="#E53935"/>
+    <path d="M72 36 L72 55 L82 65" stroke="#37474F" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Shield badge -->
+    <path d="M85 50 L95 45 L105 50 L105 62 Q95 72 85 62 Z" fill="#4CAF50"/>
+    <path d="M92 56 L95 59 L100 53" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80">
+  <rect width="160" height="80" fill="#FFFFFF" rx="6"/>
+  <!-- LUMINOUS Text -->
+  <text x="80" y="40" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="22" fill="#004B8D" text-anchor="middle" letter-spacing="1">LUMINOUS</text>
+  <!-- Khushiyon ka ghar Tagline -->
+  <text x="80" y="58" font-family="Georgia, serif" font-style="italic" font-weight="400" font-size="10" fill="#555555" text-anchor="middle">Khushiyon ka ghar</text>
+</svg>
+

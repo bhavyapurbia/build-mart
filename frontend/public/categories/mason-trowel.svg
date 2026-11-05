@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <g transform="translate(35, 18)">
+    <!-- Masonry Pointing Trowel with wooden handle -->
+    <path d="M45 10 L85 45 L50 65 Z" fill="#CFD8DC" stroke="#78909C" stroke-width="2"/>
+    <!-- Shank -->
+    <path d="M45 15 L32 25 L32 35" stroke="#455A64" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Wooden handle -->
+    <rect x="10" y="32" width="26" height="14" rx="4" fill="#8D6E63" stroke="#5D4037" stroke-width="1.5" transform="rotate(-15 23 39)"/>
+  </g>
+</svg>
