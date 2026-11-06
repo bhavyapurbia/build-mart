@@ -214,7 +214,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 >
                   <User size={19} color="#FFFFFF" />
                   <span className="profile-btn-caption">
-                    {isAuthenticated ? user.name.split(' ')[0] : (t('profile') || 'Profile')}
+                    {isAuthenticated ? (user?.name ? user.name.split(' ')[0] : 'Account') : (t('profile') || 'Profile')}
                   </span>
                 </button>
 
@@ -222,8 +222,8 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 {userDropdownOpen && isAuthenticated && (
                   <div className="user-dropdown-menu">
                     <div className="dropdown-user-header">
-                      <div className="dropdown-user-name">{user.name}</div>
-                      <div className="dropdown-user-email">{user.email}</div>
+                      <div className="dropdown-user-name">{user?.name || 'Customer'}</div>
+                      <div className="dropdown-user-email">{user?.email || ''}</div>
                       {isAdmin && (
                         <span className="dropdown-admin-badge">Admin Access</span>
                       )}

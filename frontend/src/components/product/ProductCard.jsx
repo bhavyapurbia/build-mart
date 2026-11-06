@@ -12,7 +12,8 @@ const ProductCard = ({ product }) => {
   const imageSrc = (product.images && product.images[0]) || product.image || 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=400&q=80';
 
   // Check if item is already in cart
-  const cartItem = cartItems.find(item => (item.product._id || item.product.id) === (product._id || product.id));
+  const prodId = product._id || product.id;
+  const cartItem = cartItems.find(item => (item.productId || item._id || item.product?._id || item.product?.id) === prodId);
   const inCartQty = cartItem ? cartItem.quantity : 0;
 
   const handleImageClick = (e) => {

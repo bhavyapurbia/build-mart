@@ -29,16 +29,22 @@ const HomePage = ({ onOpenPaperList }) => {
           api.get('/brands')
         ]);
 
+        const rawCats = Array.isArray(catRes.data) ? catRes.data : (Array.isArray(catRes.data?.data) ? catRes.data.data : []);
+        const rawDeals = Array.isArray(dealsRes.data) ? dealsRes.data : (Array.isArray(dealsRes.data?.data) ? dealsRes.data.data : []);
+        const rawBest = Array.isArray(bestRes.data) ? bestRes.data : (Array.isArray(bestRes.data?.data) ? bestRes.data.data : []);
+        const rawBrands = Array.isArray(brandsRes.data) ? brandsRes.data : (Array.isArray(brandsRes.data?.data) ? brandsRes.data.data : []);
+
         // Filter out electrical if any
-        const safeCats = (catRes.data || []).filter(c =>
+        const safeCats = rawCats.filter(c =>
+          c && c.name &&
           !c.name.toLowerCase().includes('electrical') &&
-          !c.slug?.toLowerCase().includes('electrical')
+          !(c.slug && c.slug.toLowerCase().includes('electrical'))
         );
 
         setCategories(safeCats);
-        setDeals(dealsRes.data || []);
-        setBestsellers(bestRes.data || []);
-        setBrands(brandsRes.data || []);
+        setDeals(rawDeals);
+        setBestsellers(rawBest);
+        setBrands(rawBrands);
       } catch (err) {
         console.error('Error loading homepage data:', err);
       } finally {

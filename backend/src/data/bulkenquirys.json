@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "0dc5c49a9e1a0a5bdca8edbb",
+    "enquiryId": "BM-BLK-1001",
+    "user": "49a2e5287d119b6209939fd0",
+    "customer": {
+      "fullName": "Vikram Mehta",
+      "companyName": "Mehta Infrastructure Pvt Ltd",
+      "phone": "+91 99887 76655",
+      "email": "procurement@mehtainfra.com",
+      "projectLocation": "Electronic City Phase 1 Commercial Tech Park, Bengaluru",
+      "deliveryRequirement": "Staggered Weekly Loads (400 Tons total)",
+      "expectedPurchaseDate": "2026-11-20"
+    },
+    "items": [
+      {
+        "category": "Cement & Steel",
+        "productName": "Tata Tiscon 550D TMT Rebar (Assorted 10mm, 12mm, 16mm, 20mm)",
+        "quantity": 120,
+        "unit": "Tons",
+        "notes": "Mill test certificates required for RERA audit"
+      },
+      {
+        "category": "Cement & Steel",
+        "productName": "UltraTech OPC 53 Grade Bulk Bags",
+        "quantity": 2500,
+        "unit": "50kg Bags",
+        "notes": "Unloading by site crane"
+      }
+    ],
+    "additionalDetails": "Commercial project spanning 80,000 sq ft built-up area. Credit terms requested upon BG submission.",
+    "status": "Received",
+    "adminNotes": "High-value developer enquiry. Account manager Arvind to call.",
+    "createdAt": "2026-11-06T12:42:01.312Z",
+    "updatedAt": "2026-11-06T12:42:01.312Z"
+  }
+]

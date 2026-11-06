@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "da4f7475831df5a251d29bc9",
+    "requestId": "BM-REQ-1001",
+    "user": "49a2e5287d119b6209939fd0",
+    "customer": {
+      "name": "Rajesh Sharma",
+      "phone": "+91 98765 43210",
+      "email": "customer@buildmart.com",
+      "siteAddress": "Villa 14, Palm Meadows, Whitefield",
+      "city": "Bengaluru",
+      "pincode": "560066",
+      "requiredDate": "2026-11-10",
+      "notes": "Need morning delivery before 9 AM for slab casting."
+    },
+    "items": [
+      {
+        "name": "UltraTech Super Portland Pozzolana Cement (PPC)",
+        "brand": "UltraTech",
+        "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+        "quantity": 50,
+        "unit": "50kg Bag",
+        "unitPrice": 395,
+        "estimatedTotal": 19750
+      },
+      {
+        "name": "Tata Tiscon 550D TMT Rebar (12mm)",
+        "brand": "Tata Tiscon",
+        "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
+        "quantity": 20,
+        "unit": "12m Piece",
+        "unitPrice": 840,
+        "estimatedTotal": 16800
+      }
+    ],
+    "status": "Quotation Sent",
+    "quotationId": "BM-QUO-1001",
+    "adminNotes": "Stock verified in Central Hub. 50 bags reserved.",
+    "createdAt": "2026-11-06T12:42:01.237Z",
+    "updatedAt": "2026-11-06T12:42:01.237Z"
+  }
+]

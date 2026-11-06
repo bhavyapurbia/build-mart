@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "6a2d9a37f5d87eedbb6d415c",
+    "name": "BuildMart Admin",
+    "email": "admin@buildmart.com",
+    "password": "$2a$10$ArgGbtrmNc4HEYvlHv4FXOURL9URMEo3WPr0UtNnnA2eBolDHYRCq",
+    "phone": "+91 98765 00001",
+    "role": "admin",
+    "addresses": [
+      {
+        "street": "4th Floor, Tech Innovation Park",
+        "landmark": "Near Metro Station",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560100",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-06T12:41:57.815Z",
+    "updatedAt": "2026-11-06T12:41:57.815Z"
+  },
+  {
+    "_id": "49a2e5287d119b6209939fd0",
+    "name": "Rajesh Sharma",
+    "email": "customer@buildmart.com",
+    "password": "$2a$10$ArgGbtrmNc4HEYvlHv4FXOgwo6mEu571FpmjWjLvao8yHxag2p1Rm",
+    "phone": "+91 98765 43210",
+    "role": "customer",
+    "addresses": [
+      {
+        "street": "Plot 42, Green Glen Layout, Bellandur",
+        "landmark": "Behind Central Mall",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560103",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-06T12:41:57.820Z",
+    "updatedAt": "2026-11-06T12:41:57.820Z"
+  }
+]

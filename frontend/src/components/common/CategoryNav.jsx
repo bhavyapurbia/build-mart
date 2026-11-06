@@ -32,10 +32,12 @@ const CategoryNav = () => {
     const fetchCats = async () => {
       try {
         const res = await api.get('/categories');
+        const rawList = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
         // Ensure NO electrical category is displayed
-        const filtered = (res.data || []).filter(c =>
+        const filtered = rawList.filter(c =>
+          c && c.name &&
           !c.name.toLowerCase().includes('electrical') &&
-          !c.slug.toLowerCase().includes('electrical')
+          !(c.slug && c.slug.toLowerCase().includes('electrical'))
         );
         setCategories(filtered);
       } catch (err) {

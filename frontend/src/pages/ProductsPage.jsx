@@ -39,12 +39,15 @@ const ProductsPage = () => {
           api.get('/categories'),
           api.get('/brands')
         ]);
-        const safeCats = (catRes.data || []).filter(c =>
+        const rawCats = Array.isArray(catRes.data) ? catRes.data : (Array.isArray(catRes.data?.data) ? catRes.data.data : []);
+        const rawBrands = Array.isArray(brandRes.data) ? brandRes.data : (Array.isArray(brandRes.data?.data) ? brandRes.data.data : []);
+        const safeCats = rawCats.filter(c =>
+          c && c.name &&
           !c.name.toLowerCase().includes('electrical') &&
-          !c.slug.toLowerCase().includes('electrical')
+          !(c.slug && c.slug.toLowerCase().includes('electrical'))
         );
         setCategories(safeCats);
-        setBrands(brandRes.data || []);
+        setBrands(rawBrands);
       } catch (e) {
         console.error(e);
       }

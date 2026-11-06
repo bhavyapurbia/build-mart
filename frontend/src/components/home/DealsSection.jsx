@@ -63,7 +63,8 @@ const DealsSection = ({ deals = [] }) => {
         {/* Deals Cards Grid (on vibrant orange background) */}
         <div className="deals-cards-grid">
           {deals.slice(0, 6).map(product => {
-            const cartItem = cartItems.find(item => (item.product._id || item.product.id) === (product._id || product.id));
+            const prodId = product._id || product.id;
+            const cartItem = cartItems.find(item => (item.productId || item._id || item.product?._id || item.product?.id) === prodId);
             const inCartQty = cartItem ? cartItem.quantity : 0;
             const discountPercent = product.discount || (product.mrp && product.price ? Math.round(((product.mrp - product.price) / product.mrp) * 100) : 0);
 
