@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import api from '../../utils/api';
 
 export const OFFICIAL_10_BRANDS = [
   {
@@ -76,8 +77,63 @@ export const OFFICIAL_10_BRANDS = [
   }
 ];
 
+const BRAND_PRESETS = {
+  'dr. fixit by pidilite': { logo: '/brands/dr-fixit.svg', tileBg: '#FFE500' },
+  'dr. fixit': { logo: '/brands/dr-fixit.svg', tileBg: '#FFE500' },
+  'havells india ltd.': { logo: '/brands/havells.svg', tileBg: '#FFFFFF' },
+  'havells': { logo: '/brands/havells.svg', tileBg: '#FFFFFF' },
+  'futura': { logo: '/brands/futura.svg', tileBg: '#D32F2F' },
+  'hettich india': { logo: '/brands/hettich.svg', tileBg: '#FFFFFF' },
+  'hettich': { logo: '/brands/hettich.svg', tileBg: '#FFFFFF' },
+  'fevicol by pidilite': { logo: '/brands/fevicol.svg', tileBg: '#FFFFFF' },
+  'fevicol': { logo: '/brands/fevicol.svg', tileBg: '#FFFFFF' },
+  'goldmedal electricals': { logo: '/brands/goldmedal.svg', tileBg: '#FFFFFF' },
+  'goldmedal': { logo: '/brands/goldmedal.svg', tileBg: '#FFFFFF' },
+  'jaquar group': { logo: '/brands/jaquar.svg', tileBg: '#FFFFFF' },
+  'jaquar': { logo: '/brands/jaquar.svg', tileBg: '#FFFFFF' },
+  'luminous power technologies': { logo: '/brands/luminous.svg', tileBg: '#FFFFFF' },
+  'luminous': { logo: '/brands/luminous.svg', tileBg: '#FFFFFF' },
+  'philips lighting': { logo: '/brands/philips.svg', tileBg: '#FFFFFF' },
+  'philips': { logo: '/brands/philips.svg', tileBg: '#FFFFFF' },
+  'lorazzo': { logo: '/brands/lorazzo.svg', tileBg: '#0A0A0A' },
+  'asian paints': { logo: '/brands/asian-paints.svg', tileBg: '#FFFFFF' },
+  'birla paint': { logo: '/brands/birla-paint.svg', tileBg: '#FFFFFF' },
+  'birla opus': { logo: '/brands/birla-paint.svg', tileBg: '#FFFFFF' }
+};
+
 const BrandShowcase = ({ brands = [] }) => {
   const { t } = useLanguage();
+  const [liveBrands, setLiveBrands] = useState(brands);
+
+  useEffect(() => {
+    if (brands && brands.length > 0) {
+      setLiveBrands(brands);
+    } else {
+      api.get('/brands')
+        .then(res => {
+          const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
+          if (list.length > 0) {
+            setLiveBrands(list);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [brands]);
+
+  // Combine live brands from database so any admin-added brand shows up immediately
+  const displayBrands = liveBrands && liveBrands.length > 0
+    ? liveBrands.map(b => {
+        const key = (b.name || '').toLowerCase().trim();
+        const preset = BRAND_PRESETS[key] || {};
+        return {
+          id: b._id || b.id || b.slug || b.name,
+          name: b.name,
+          queryName: b.name,
+          logo: b.logo || preset.logo || '/brands/havells.svg',
+          tileBg: preset.tileBg || (b.tileBg || '#FFFFFF')
+        };
+      })
+    : OFFICIAL_10_BRANDS;
 
   return (
     <section className="buildmart-brand-section" id="shop-by-brand-section">
@@ -92,9 +148,9 @@ const BrandShowcase = ({ brands = [] }) => {
           </Link>
         </div>
 
-        {/* 10 Brand Cards (5 cols x 2 rows on desktop, 2 cols on mobile) */}
+        {/* Dynamic Brand Cards Grid (Shows official 10 brands + any newly added brand by Admin) */}
         <div className="brand-cards-grid">
-          {OFFICIAL_10_BRANDS.map(brand => (
+          {displayBrands.map(brand => (
             <Link
               key={brand.id || brand.name}
               to={`/products?brand=${encodeURIComponent(brand.queryName || brand.name)}`}
@@ -109,12 +165,28 @@ const BrandShowcase = ({ brands = [] }) => {
                     border: brand.tileBg === '#0A0A0A' ? '1px solid #334155' : '1px solid rgba(0,0,0,0.04)'
                   }}
                 >
-                  <img
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="brand-logo-img"
-                    loading="eager"
-                  />
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={brand.name}
+                      className="brand-logo-img"
+                      loading="eager"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.style.display = 'none';
+                        const fallbackText = document.createElement('div');
+                        fallbackText.style.fontWeight = '900';
+                        fallbackText.style.fontSize = '13px';
+                        fallbackText.style.color = brand.tileBg === '#0A0A0A' ? '#FFFFFF' : '#0F172A';
+                        fallbackText.innerText = brand.name;
+                        e.target.parentNode.appendChild(fallbackText);
+                      }}
+                    />
+                  ) : (
+                    <span style={{ fontWeight: 900, fontSize: '13px', color: '#0F172A' }}>
+                      {brand.name}
+                    </span>
+                  )}
                 </div>
               </div>
               <span className="brand-name-label">

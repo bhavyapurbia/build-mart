@@ -22,7 +22,8 @@ const AdminBrands = () => {
     setLoading(true);
     try {
       const res = await api.get('/brands');
-      setBrands(res.data || []);
+      const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
+      setBrands(list);
     } catch (err) {
       showToast('Error loading brands', 'error');
     } finally {

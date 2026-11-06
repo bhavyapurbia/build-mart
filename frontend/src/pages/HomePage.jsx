@@ -34,14 +34,7 @@ const HomePage = ({ onOpenPaperList }) => {
         const rawBest = Array.isArray(bestRes.data) ? bestRes.data : (Array.isArray(bestRes.data?.data) ? bestRes.data.data : []);
         const rawBrands = Array.isArray(brandsRes.data) ? brandsRes.data : (Array.isArray(brandsRes.data?.data) ? brandsRes.data.data : []);
 
-        // Filter out electrical if any
-        const safeCats = rawCats.filter(c =>
-          c && c.name &&
-          !c.name.toLowerCase().includes('electrical') &&
-          !(c.slug && c.slug.toLowerCase().includes('electrical'))
-        );
-
-        setCategories(safeCats);
+        setCategories(rawCats);
         setDeals(rawDeals);
         setBestsellers(rawBest);
         setBrands(rawBrands);

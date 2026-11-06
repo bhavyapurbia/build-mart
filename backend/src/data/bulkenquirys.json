@@ -29,9 +29,16 @@
       }
     ],
     "additionalDetails": "Commercial project spanning 80,000 sq ft built-up area. Credit terms requested upon BG submission.",
-    "status": "Received",
+    "status": "Under Review",
     "adminNotes": "High-value developer enquiry. Account manager Arvind to call.",
     "createdAt": "2026-11-06T12:42:01.312Z",
-    "updatedAt": "2026-11-06T12:42:01.312Z"
+    "updatedAt": "2026-11-06T18:23:45.784Z",
+    "quotation": {
+      "quotedPrice": 60000,
+      "deliveryCharges": 1500,
+      "validUntil": "",
+      "notes": "Direct mill multi-truck rate including transit insurance.",
+      "status": "Pending"
+    }
   }
 ]

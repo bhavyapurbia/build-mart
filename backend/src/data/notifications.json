@@ -9,5 +9,60 @@
     "link": "/admin/material-requests",
     "createdAt": "2026-11-05T18:55:16.293Z",
     "updatedAt": "2026-11-05T18:55:16.293Z"
+  },
+  {
+    "_id": "5c3a0582068eabcf78bf55a7",
+    "recipient": "admin",
+    "title": "New Confirmed Order Placed!",
+    "message": "Order #BM-ORD-1523-0002 placed by BuildMart Admin for ₹480",
+    "type": "order",
+    "referenceId": "BM-ORD-1523-0002",
+    "link": "/admin/orders",
+    "createdAt": "2026-11-06T15:31:41.626Z",
+    "updatedAt": "2026-11-06T15:31:41.626Z"
+  },
+  {
+    "_id": "7e35b78d262ee4f897ec69e2",
+    "recipient": "admin",
+    "title": "📸 New Paper Material List Photo Uploaded",
+    "message": "bhavya submitted a handwritten paper list photo for job-site: 97.",
+    "type": "material_request",
+    "referenceId": "BM-REQ-0890-002",
+    "link": "/admin/material-requests",
+    "createdAt": "2026-11-06T15:33:20.908Z",
+    "updatedAt": "2026-11-06T15:33:20.908Z"
+  },
+  {
+    "_id": "1947e0299715b91300a1078c",
+    "recipient": "admin",
+    "title": "New Material List Submitted",
+    "message": "BuildMart Admin submitted Material Request #BM-REQ-3445-003 for job-site: 4th Floor, Tech Innovation Park.",
+    "type": "material_request",
+    "referenceId": "BM-REQ-3445-003",
+    "link": "/admin/material-requests",
+    "createdAt": "2026-11-06T15:48:33.500Z",
+    "updatedAt": "2026-11-06T15:48:33.500Z"
+  },
+  {
+    "_id": "11f9070015857f78f35ae45a",
+    "recipient": "admin",
+    "title": "New Material List Submitted",
+    "message": "bhavya submitted Material Request #BM-REQ-0434-004 for job-site: Site Address.",
+    "type": "material_request",
+    "referenceId": "BM-REQ-0434-004",
+    "link": "/admin/material-requests",
+    "createdAt": "2026-11-06T15:50:20.475Z",
+    "updatedAt": "2026-11-06T15:50:20.475Z"
+  },
+  {
+    "_id": "b5c90f796390c0f56180f14d",
+    "recipient": "admin",
+    "title": "New Material List Submitted",
+    "message": "bhavya submitted Material Request #BM-REQ-6324-005 for job-site: Site Address.",
+    "type": "material_request",
+    "referenceId": "BM-REQ-6324-005",
+    "link": "/admin/material-requests",
+    "createdAt": "2026-11-06T18:07:26.396Z",
+    "updatedAt": "2026-11-06T18:07:26.396Z"
   }
 ]

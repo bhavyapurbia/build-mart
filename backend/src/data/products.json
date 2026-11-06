@@ -355,7 +355,7 @@
     "price": 195,
     "mrp": 240,
     "unit": "1 Liter Bottle",
-    "stock": 400,
+    "stock": 399,
     "isDeal": true,
     "isFeatured": true,
     "description": "Specially formulated plasticizing additive for cement mortar and concrete that improves cohesiveness and prevents water bleeding & capillary action.",
@@ -379,7 +379,7 @@
     "rating": 4.4,
     "reviewsCount": 58,
     "createdAt": "2026-11-06T12:41:59.383Z",
-    "updatedAt": "2026-11-06T12:41:59.383Z"
+    "updatedAt": "2026-11-06T15:31:41.538Z"
   },
   {
     "_id": "567d445664e817c60b8ca4f6",
@@ -1077,5 +1077,29 @@
     "reviewsCount": 37,
     "createdAt": "2026-11-06T12:42:01.148Z",
     "updatedAt": "2026-11-06T12:42:01.148Z"
+  },
+  {
+    "_id": "d7ba82c9b80b904504f10595",
+    "name": "asian paint ",
+    "slug": "asian-paint",
+    "sku": "BM-942456",
+    "category": "Tiles & Adhesives",
+    "subcategory": "",
+    "brand": "Asian Paints",
+    "price": 999,
+    "mrp": 700,
+    "discount": 0,
+    "unit": "Piece",
+    "stock": 100,
+    "description": "best bolor for wall",
+    "specifications": [],
+    "images": [
+      "https://imgs.search.brave.com/e5dRFGtDgWjkpmuKKzfkKZtT_XPINVKiB_lu50sueWw/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9TRUxMRVIvRGVm/YXVsdC8yMDIxLzgv/VksvUEwvRFEvMTcy/MzEzMTAvYXNpYW4t/cGFpbnRzLTEwLWxp/dGVyLWJ1Y2tldC0x/MDAweDEwMDAuanBn"
+    ],
+    "isFeatured": true,
+    "isDeal": false,
+    "isActive": true,
+    "createdAt": "2026-11-06T15:45:42.459Z",
+    "updatedAt": "2026-11-06T15:45:42.459Z"
   }
 ]

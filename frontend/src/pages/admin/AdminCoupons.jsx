@@ -22,7 +22,8 @@ const AdminCoupons = () => {
     setLoading(true);
     try {
       const res = await api.get('/coupons');
-      setCoupons(res.data || []);
+      const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
+      setCoupons(list);
     } catch (err) {
       showToast('Error loading coupons', 'error');
     } finally {
@@ -33,6 +34,17 @@ const AdminCoupons = () => {
   useEffect(() => {
     loadCoupons();
   }, []);
+
+  const handleToggle = async (id, currentActive) => {
+    try {
+      const res = await api.put(`/coupons/${id}/toggle`);
+      const msg = res.data?.message || (currentActive ? 'Coupon disabled (OFF)' : 'Coupon activated (ON)');
+      showToast(msg, 'success');
+      loadCoupons();
+    } catch (err) {
+      showToast('Error toggling coupon status', 'error');
+    }
+  };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this coupon?')) return;
@@ -98,7 +110,38 @@ const AdminCoupons = () => {
                 <td>₹{cp.minOrderValue?.toLocaleString('en-IN')}</td>
                 <td>₹{cp.maxDiscount?.toLocaleString('en-IN')}</td>
                 <td style={{ fontSize: '12.5px', color: '#64748B' }}>{cp.validUntil || 'Lifetime'}</td>
-                <td><span className="badge-status badge-confirmed">Active</span></td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handleToggle(cp._id || cp.id, cp.isActive !== false)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '5px 12px',
+                      borderRadius: '20px',
+                      fontSize: '12px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      border: cp.isActive !== false ? '1px solid #86EFAC' : '1px solid #CBD5E1',
+                      transition: 'all 0.2s ease',
+                      background: cp.isActive !== false ? '#DCFCE7' : '#F1F5F9',
+                      color: cp.isActive !== false ? '#15803D' : '#64748B',
+                      boxShadow: cp.isActive !== false ? '0 1px 3px rgba(22, 163, 74, 0.2)' : 'none'
+                    }}
+                    title={`Click to turn ${cp.isActive !== false ? 'OFF' : 'ON'}`}
+                  >
+                    <span
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        borderRadius: '50%',
+                        background: cp.isActive !== false ? '#16A34A' : '#94A3B8'
+                      }}
+                    />
+                    <span>{cp.isActive !== false ? 'ON (Active)' : 'OFF (Disabled)'}</span>
+                  </button>
+                </td>
                 <td>
                   <button onClick={() => handleDelete(cp._id)} style={{ background: '#FEE2E2', border: '1px solid #FECACA', padding: '5px 8px', borderRadius: '4px', cursor: 'pointer' }}>
                     <Trash2 size={14} color="#B91C1C" />

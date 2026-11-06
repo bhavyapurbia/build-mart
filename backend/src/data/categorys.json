@@ -342,5 +342,104 @@
     ],
     "createdAt": "2026-11-06T12:41:57.856Z",
     "updatedAt": "2026-11-06T12:41:57.856Z"
+  },
+  {
+    "_id": "e11ectrica1001catid99999",
+    "name": "Electrical",
+    "slug": "electrical",
+    "description": "Wires, cables, modular switches, sockets, MCB, RCCB, distribution boxes, and conduits",
+    "image": "/categories/wires-and-cables.png",
+    "icon": "Zap",
+    "order": 9,
+    "subcategories": [
+      {
+        "name": "Wires & Cables",
+        "slug": "wires-cables",
+        "description": "FR/FRLS copper house wires and industrial multi-core cables"
+      },
+      {
+        "name": "Switches & Sockets",
+        "slug": "switches-sockets",
+        "description": "Modular rocker switches, universal sockets, and plates"
+      },
+      {
+        "name": "MCB, RCCB & DB",
+        "slug": "mcb-rccb-db",
+        "description": "Miniature circuit breakers, residual current breakers, and DB enclosures"
+      },
+      {
+        "name": "Conduits, Boxes & Fittings",
+        "slug": "conduits-boxes-fittings",
+        "description": "PVC conduit pipes, corrugated flexible conduits, and metal junction boxes"
+      }
+    ],
+    "createdAt": "2026-11-07T00:00:00.000Z",
+    "updatedAt": "2026-11-07T00:00:00.000Z"
+  },
+  {
+    "_id": "w00dhardw1002catid88888",
+    "name": "Wood and Hardware",
+    "slug": "wood-and-hardware",
+    "description": "Plywood, MDF, HDHMR, kitchen hardware, hinges, channels, locks, and door handles",
+    "image": "/categories/plywood-mdf-hdhmr.png",
+    "icon": "Hammer",
+    "order": 10,
+    "subcategories": [
+      {
+        "name": "Plywood, MDF & HDHMR",
+        "slug": "plywood-mdf-hdhmr",
+        "description": "Calibrated marine plywood, MR grade, and moisture-resistant HDHMR"
+      },
+      {
+        "name": "Hinges & Channels",
+        "slug": "hinges-channels",
+        "description": "Soft-close hydraulic auto hinges and telescopic drawer channels"
+      },
+      {
+        "name": "Kitchen & Wardrobe Hardware",
+        "slug": "kitchen-wardrobe-hardware",
+        "description": "SS pullout wire baskets, tandem box drawers, and corner units"
+      },
+      {
+        "name": "Door Hardware, Locks & Handles",
+        "slug": "door-hardware-locks-handles",
+        "description": "Mortise handle sets, rim locks, and architectural hardware"
+      }
+    ],
+    "createdAt": "2026-11-07T00:00:00.000Z",
+    "updatedAt": "2026-11-07T00:00:00.000Z"
+  },
+  {
+    "_id": "paintfevic01catid77777",
+    "name": "Paints & Wall Care",
+    "slug": "paints-wall-care",
+    "description": "Asian Paints, Birla Opus, interior emulsions, exterior weather paints, and primers",
+    "image": "/categories/asian-birla-paints.png",
+    "icon": "Paintbrush",
+    "order": 11,
+    "subcategories": [
+      {
+        "name": "Interior Emulsions",
+        "slug": "interior-emulsions",
+        "description": "Luxury matte and sheen wall emulsions"
+      },
+      {
+        "name": "Exterior Paints",
+        "slug": "exterior-paints",
+        "description": "Weather-proof exterior protective paints"
+      },
+      {
+        "name": "Wall Putty & Primers",
+        "slug": "wall-putty-primers",
+        "description": "White cement wall putty and water-based primers"
+      },
+      {
+        "name": "Enamels & Wood Finishes",
+        "slug": "enamels-wood-finishes",
+        "description": "Synthetic enamel gloss and polyurethane wood coatings"
+      }
+    ],
+    "createdAt": "2026-11-07T00:00:00.000Z",
+    "updatedAt": "2026-11-07T00:00:00.000Z"
   }
 ]

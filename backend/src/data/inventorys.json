@@ -94,10 +94,10 @@
     "productId": "651110a3540f3710e81cae43",
     "productName": "Dr. Fixit LW+ Integral Liquid Waterproofing Compound",
     "sku": "BM-591675",
-    "currentStock": 400,
+    "currentStock": 399,
     "unit": "1 Liter Bottle",
     "createdAt": "2026-11-06T12:41:59.424Z",
-    "updatedAt": "2026-11-06T12:41:59.424Z"
+    "updatedAt": "2026-11-06T15:31:41.545Z"
   },
   {
     "_id": "872958e26256544ad0f5499a",
@@ -288,5 +288,15 @@
     "unit": "Piece",
     "createdAt": "2026-11-06T12:42:01.176Z",
     "updatedAt": "2026-11-06T12:42:01.176Z"
+  },
+  {
+    "_id": "9cf63018cd1267ce80f361c7",
+    "productId": "d7ba82c9b80b904504f10595",
+    "productName": "asian paint ",
+    "sku": "BM-942456",
+    "currentStock": 100,
+    "unit": "Piece",
+    "createdAt": "2026-11-06T15:45:42.469Z",
+    "updatedAt": "2026-11-06T15:45:42.469Z"
   }
 ]

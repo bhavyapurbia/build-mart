@@ -5,9 +5,9 @@
     "slug": "ultratech",
     "isFeatured": true,
     "description": "The Engineer’s Choice - Leading cement & concrete manufacturer",
-    "logo": "https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=200&q=80",
+    "logo": "https://imgs.search.brave.com/3L9fxmvD9B_vfN_KctZDXgPXtYsdQyzJG42aVeJbPs4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9TRUxMRVIvRGVm/YXVsdC8yMDI2LzUv/NjA4OTUxNzI3L0tS/L1NSL0hHLzI2ODA0/Mjc5NC91bHRyYXRl/Y2gtb3BjLTQzLWdy/YWRlLWNlbWVudC01/MDB4NTAwLndlYnA",
     "createdAt": "2026-11-06T12:41:57.863Z",
-    "updatedAt": "2026-11-06T12:41:57.863Z"
+    "updatedAt": "2026-11-06T15:40:23.142Z"
   },
   {
     "_id": "1e66e3d1d5b40856ff056408",
@@ -15,9 +15,9 @@
     "slug": "tata-tiscon",
     "isFeatured": true,
     "description": "GreenPro certified high-ductility Fe 550D TMT rebar",
-    "logo": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=200&q=80",
+    "logo": "https://search.brave.com/images?q=UltraTech+Cement&context=W3sic3JjIjoiaHR0cHM6Ly90aHVtYi53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9lbi90aHVtYi85Lzk2L1VsdHJhdGVjaF9DZW1lbnRfTG9nby5zdmcvMTI4MHB4LVVsdHJhdGVjaF9DZW1lbnRfTG9nby5zdmcucG5nP3V0bV9zb3VyY2U9ZW4ud2lraXBlZGlhLm9yZyZhbXA7dXRtX2NhbXBhaWduPWluZGV4JmFtcDt1dG1fY29udGVudD10aHVtYm5haWwiLCJ0ZXh0IjoiVWx0cmFUZWNoIENlbWVudCAtIFdpa2lwZWRpYSIsInBhZ2VfdXJsIjoiaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvVWx0cmFUZWNoX0NlbWVudCJ9XQ%3D%3D&sig=ca7f6edf8499336e0da03d93cc88a6d988eab13ead5db5f7ef1ebabaf97702a7&nonce=411706ac5d9de97f245c5eccfb2882c8&source=infoboxImg",
     "createdAt": "2026-11-06T12:41:57.866Z",
-    "updatedAt": "2026-11-06T12:41:57.866Z"
+    "updatedAt": "2026-11-06T15:39:50.088Z"
   },
   {
     "_id": "e85f613ac93e9d0caf71cfc5",
@@ -55,9 +55,9 @@
     "slug": "asian-paints",
     "isFeatured": true,
     "description": "SmartCare waterproofing, primers, and wall putties",
-    "logo": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=200&q=80",
+    "logo": "https://imgs.search.brave.com/f2G4RYvZDPRbslyHdrwQI2F7tUDP_QgRZoatMeCd7Hs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/ZnJlZWxvZ292ZWN0/b3JzLm5ldC93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMy8wMS9h/c2lhbi1wYWludHMt/bG9nby1mcmVlbG9n/b3ZlY3RvcnMubmV0/Xy00MDB4MjI1LnBu/Zw",
     "createdAt": "2026-11-06T12:41:57.964Z",
-    "updatedAt": "2026-11-06T12:41:57.964Z"
+    "updatedAt": "2026-11-06T15:41:00.355Z"
   },
   {
     "_id": "cac85fc08f78a448c80f31f6",
@@ -118,5 +118,16 @@
     "logo": "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=200&q=80",
     "createdAt": "2026-11-06T12:41:58.285Z",
     "updatedAt": "2026-11-06T12:41:58.285Z"
+  },
+  {
+    "_id": "49473b20c3ca087f44c63f5a",
+    "name": "bhavya ",
+    "slug": "bhavya",
+    "logo": "https://search.brave.com/images?q=UltraTech+Cement&context=W3sic3JjIjoiaHR0cHM6Ly90aHVtYi53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9lbi90aHVtYi85Lzk2L1VsdHJhdGVjaF9DZW1lbnRfTG9nby5zdmcvMTI4MHB4LVVsdHJhdGVjaF9DZW1lbnRfTG9nby5zdmcucG5nP3V0bV9zb3VyY2U9ZW4ud2lraXBlZGlhLm9yZyZhbXA7dXRtX2NhbXBhaWduPWluZGV4JmFtcDt1dG1fY29udGVudD10aHVtYm5haWwiLCJ0ZXh0IjoiVWx0cmFUZWNoIENlbWVudCAtIFdpa2lwZWRpYSIsInBhZ2VfdXJsIjoiaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvVWx0cmFUZWNoX0NlbWVudCJ9XQ%3D%3D&sig=ca7f6edf8499336e0da03d93cc88a6d988eab13ead5db5f7ef1ebabaf97702a7&nonce=411706ac5d9de97f245c5eccfb2882c8&source=infoboxImg",
+    "description": "cement",
+    "isFeatured": true,
+    "isActive": true,
+    "createdAt": "2026-11-06T15:38:54.142Z",
+    "updatedAt": "2026-11-06T15:38:54.142Z"
   }
 ]

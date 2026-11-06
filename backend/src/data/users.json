@@ -38,5 +38,23 @@
     ],
     "createdAt": "2026-11-06T12:41:57.820Z",
     "updatedAt": "2026-11-06T12:41:57.820Z"
+  },
+  {
+    "_id": "0c334b7a10f520ce8e062323",
+    "name": "bhavya",
+    "email": "bhavya@gmail.com",
+    "password": "$2a$10$EPV.dus2mt5mflHqjpdr5ertB4I/qLrpKmmkaP7ACZdCSugfvs0YS",
+    "phone": "6756789076",
+    "role": "customer",
+    "addresses": [
+      {
+        "street": "Site Address",
+        "city": "Bengaluru",
+        "pincode": "560100",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-11-06T15:49:38.344Z",
+    "updatedAt": "2026-11-06T15:49:38.344Z"
   }
 ]

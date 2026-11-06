@@ -54,5 +54,54 @@
     ],
     "createdAt": "2026-11-06T12:42:01.240Z",
     "updatedAt": "2026-11-06T12:42:01.240Z"
+  },
+  {
+    "_id": "c5fd15a87dcdebc44588434b",
+    "orderId": "BM-ORD-1523-0002",
+    "invoiceNumber": "INV-2026-00002",
+    "user": null,
+    "customer": {
+      "name": "BuildMart Admin",
+      "phone": "+91 98765 00001",
+      "email": "admin@buildmart.com",
+      "address": "4th Floor, Tech Innovation Park",
+      "city": "Bengaluru",
+      "pincode": "560100",
+      "deliveryInstructions": ""
+    },
+    "items": [
+      {
+        "productId": "651110a3540f3710e81cae43",
+        "name": "Dr. Fixit LW+ Integral Liquid Waterproofing Compound",
+        "brand": "Dr. Fixit",
+        "image": "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80",
+        "quantity": 1,
+        "unit": "1 Liter Bottle",
+        "price": 195,
+        "total": 195
+      }
+    ],
+    "quotationId": "",
+    "pricing": {
+      "subtotal": 195,
+      "tax": 35,
+      "deliveryCharge": 250,
+      "labourCost": 0,
+      "discount": 0,
+      "total": 480
+    },
+    "paymentMethod": "COD",
+    "paymentStatus": "Pending",
+    "orderStatus": "Confirmed",
+    "labourBookingId": "",
+    "timeline": [
+      {
+        "status": "Confirmed",
+        "note": "Order successfully placed. Warehouse notified for picking.",
+        "timestamp": "2026-11-06T15:31:41.524Z"
+      }
+    ],
+    "createdAt": "2026-11-06T15:31:41.527Z",
+    "updatedAt": "2026-11-06T15:31:41.527Z"
   }
 ]

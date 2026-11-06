@@ -80,6 +80,23 @@ const AdminBanners = () => {
 
   const { showToast } = useNotification();
 
+  const fetchBanners = async () => {
+    try {
+      const res = await api.get('/banners');
+      const list = Array.isArray(res.data) ? res.data : (res.data?.data || []);
+      if (list && list.length > 0) {
+        setBanners(list);
+        localStorage.setItem('bm_admin_banners', JSON.stringify(list));
+      }
+    } catch (err) {
+      console.warn('Using cached banners:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchBanners();
+  }, []);
+
   const saveBanners = (updated) => {
     setBanners(updated);
     localStorage.setItem('bm_admin_banners', JSON.stringify(updated));
@@ -107,37 +124,61 @@ const AdminBanners = () => {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.title.trim()) {
       showToast('Banner title is required', 'error');
       return;
     }
 
-    if (editingBanner) {
-      const updated = banners.map(b => b.id === editingBanner.id ? { ...formData, id: b.id } : b);
-      saveBanners(updated);
-      showToast('Banner promotional campaign updated!', 'success');
-    } else {
-      const newB = { ...formData, id: `b_${Date.now()}` };
-      saveBanners([newB, ...banners]);
-      showToast('New promotional banner created!', 'success');
+    try {
+      if (editingBanner) {
+        const id = editingBanner._id || editingBanner.id;
+        await api.put(`/banners/${id}`, formData);
+        showToast('Banner promotional campaign updated!', 'success');
+      } else {
+        await api.post('/banners', formData);
+        showToast('New promotional banner created!', 'success');
+      }
+      await fetchBanners();
+    } catch (err) {
+      console.error('API error, falling back to local save:', err);
+      if (editingBanner) {
+        const updated = banners.map(b => (b.id === editingBanner.id || b._id === editingBanner._id) ? { ...formData, id: b.id || b._id } : b);
+        saveBanners(updated);
+      } else {
+        const newB = { ...formData, id: `b_${Date.now()}` };
+        saveBanners([newB, ...banners]);
+      }
+      showToast('Banner saved!', 'success');
     }
     setIsModalOpen(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this banner?')) {
-      const updated = banners.filter(b => b.id !== id);
-      saveBanners(updated);
-      showToast('Banner removed', 'info');
+      try {
+        await api.delete(`/banners/${id}`);
+        await fetchBanners();
+        showToast('Banner removed', 'info');
+      } catch (err) {
+        const updated = banners.filter(b => b.id !== id && b._id !== id);
+        saveBanners(updated);
+        showToast('Banner removed', 'info');
+      }
     }
   };
 
-  const handleToggleActive = (id) => {
-    const updated = banners.map(b => b.id === id ? { ...b, active: !b.active } : b);
-    saveBanners(updated);
-    showToast('Banner visibility status updated', 'success');
+  const handleToggleActive = async (id) => {
+    try {
+      await api.put(`/banners/${id}/toggle`);
+      await fetchBanners();
+      showToast('Banner visibility status updated', 'success');
+    } catch (err) {
+      const updated = banners.map(b => (b.id === id || b._id === id) ? { ...b, active: !b.active } : b);
+      saveBanners(updated);
+      showToast('Banner visibility status updated', 'success');
+    }
   };
 
   const handleSaveAnnouncement = (e) => {
@@ -202,7 +243,7 @@ const AdminBanners = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>
         {banners.map(b => (
           <div
-            key={b.id}
+            key={b._id || b.id}
             style={{
               borderRadius: '12px',
               overflow: 'hidden',
@@ -280,7 +321,7 @@ const AdminBanners = () => {
             <div style={{ padding: '14px 18px', background: '#F8FAFC', borderTop: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <button
                 type="button"
-                onClick={() => handleToggleActive(b.id)}
+                onClick={() => handleToggleActive(b._id || b.id)}
                 style={{
                   background: 'none',
                   border: 'none',
@@ -315,7 +356,7 @@ const AdminBanners = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleDelete(b.id)}
+                  onClick={() => handleDelete(b._id || b.id)}
                   style={{
                     padding: '6px 12px',
                     borderRadius: '6px',

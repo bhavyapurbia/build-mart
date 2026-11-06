@@ -69,6 +69,36 @@ export const createCoupon = asyncHandler(async (req, res) => {
   );
 });
 
+export const updateCoupon = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const updated = await Coupon.findByIdAndUpdate(id, req.body, { new: true });
+  if (!updated) {
+    throw new ApiError(404, 'Coupon not found.');
+  }
+  return res.status(200).json(
+    new ApiResponse(200, { coupon: updated }, 'Coupon updated successfully')
+  );
+});
+
+export const toggleCoupon = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const coupon = await Coupon.findById(id);
+  if (!coupon) {
+    throw new ApiError(404, 'Coupon not found.');
+  }
+
+  const newStatus = coupon.isActive === false ? true : false;
+  const updated = await Coupon.findByIdAndUpdate(
+    id,
+    { isActive: newStatus },
+    { new: true }
+  );
+
+  return res.status(200).json(
+    new ApiResponse(200, { coupon: updated }, `Coupon ${newStatus ? 'turned ON (Active)' : 'turned OFF (Disabled)'} successfully`)
+  );
+});
+
 export const deleteCoupon = asyncHandler(async (req, res) => {
   const deleted = await Coupon.findByIdAndDelete(req.params.id);
   if (!deleted) {
@@ -83,5 +113,7 @@ export default {
   validateCoupon,
   getCoupons,
   createCoupon,
+  updateCoupon,
+  toggleCoupon,
   deleteCoupon
 };
