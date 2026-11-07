@@ -90,12 +90,12 @@ const AccountPage = () => {
     return (
       <div style={{ padding: '80px 0 100px' }}>
         <div className="container" style={{ maxWidth: '480px', margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ background: '#FFFFFF', padding: '40px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-            <User size={48} color="#94A3B8" style={{ margin: '0 auto 16px' }} />
-            <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
+          <div style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '16px', border: '1px solid var(--border)' }}>
+            <User size={48} color='var(--text-light)' style={{ margin: '0 auto 16px' }} />
+            <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)', marginBottom: '8px' }}>
               Sign in to Access Your Account
             </h2>
-            <p style={{ fontSize: '13.5px', color: '#64748B', marginBottom: '24px' }}>
+            <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginBottom: '24px' }}>
               Sign in to review formal quotations, track job-site deliveries, and view your material lists.
             </p>
             <Link to="/login" className="btn-primary" style={{ padding: '12px 28px' }}>
@@ -114,14 +114,14 @@ const AccountPage = () => {
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0F172A' }}>
+            <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--color-ink)' }}>
               Welcome back, {user?.name}
             </h1>
-            <p style={{ fontSize: '13.5px', color: '#64748B' }}>
+            <p style={{ fontSize: '13.5px', color: 'var(--color-muted)' }}>
               {user?.email} • Customer ID: #{user?._id?.slice(-6) || 'BM-001'}
             </p>
           </div>
-          <button onClick={logout} className="btn-secondary" style={{ padding: '8px 16px', fontSize: '13px', background: '#FEE2E2', color: '#B91C1C', borderColor: '#FECACA' }}>
+          <button onClick={logout} className="btn-secondary" style={{ padding: '8px 16px', fontSize: '13px', background: 'var(--accent-red-light)', color: 'var(--color-error)', borderColor: 'var(--accent-red-light)' }}>
             Log Out
           </button>
         </div>
@@ -130,7 +130,7 @@ const AccountPage = () => {
         <div style={{
           display: 'flex',
           gap: '8px',
-          borderBottom: '2px solid #E2E8F0',
+          borderBottom: '2px solid var(--border)',
           marginBottom: '28px',
           overflowX: 'auto',
           whiteSpace: 'nowrap',
@@ -160,8 +160,8 @@ const AccountPage = () => {
                   padding: '12px 18px',
                   background: 'transparent',
                   border: 'none',
-                  borderBottom: isActive ? '3px solid #D97706' : '3px solid transparent',
-                  color: isActive ? '#D97706' : '#64748B',
+                  borderBottom: isActive ? '3px solid var(--primary-dark)' : '3px solid transparent',
+                  color: isActive ? 'var(--primary-dark)' : 'var(--color-muted)',
                   fontWeight: isActive ? 800 : 600,
                   fontSize: '13.5px',
                   cursor: 'pointer',
@@ -172,8 +172,8 @@ const AccountPage = () => {
                 <span>{tab.label}</span>
                 {tab.count !== undefined && (
                   <span style={{
-                    background: isActive ? '#D97706' : '#E2E8F0',
-                    color: isActive ? '#FFFFFF' : '#475569',
+                    background: isActive ? 'var(--primary-dark)' : 'var(--border)',
+                    color: isActive ? 'var(--bg-card)' : 'var(--text-sub)',
                     fontSize: '11px',
                     fontWeight: 700,
                     padding: '2px 7px',
@@ -189,7 +189,7 @@ const AccountPage = () => {
 
         {/* Tab Content Panels */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: '#64748B' }}>
+          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--color-muted)' }}>
             <p>Loading your account records...</p>
           </div>
         ) : (
@@ -198,9 +198,9 @@ const AccountPage = () => {
             {activeTab === 'material-requests' && (
               <div>
                 {materialRequests.length === 0 ? (
-                  <div style={{ background: '#FFFFFF', padding: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-                    <ClipboardList size={40} color="#94A3B8" style={{ margin: '0 auto 12px' }} />
-                    <p style={{ color: '#64748B', fontSize: '14px' }}>You have not submitted any material lists yet.</p>
+                  <div style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
+                    <ClipboardList size={40} color='var(--text-light)' style={{ margin: '0 auto 12px' }} />
+                    <p style={{ color: 'var(--color-muted)', fontSize: '14px' }}>You have not submitted any material lists yet.</p>
                     <Link to="/products" className="btn-primary" style={{ marginTop: '16px', display: 'inline-flex' }}>
                       Browse Products to Create List
                     </Link>
@@ -208,11 +208,11 @@ const AccountPage = () => {
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {materialRequests.map(req => (
-                      <div key={req._id} style={{ background: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', padding: '20px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #F1F5F9' }}>
+                      <div key={req._id} style={{ background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', padding: '20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid var(--color-paper-3)' }}>
                           <div>
-                            <strong style={{ fontSize: '15px', color: '#0F172A' }}>Request #{req.requestId}</strong>
-                            <div style={{ fontSize: '12px', color: '#64748B' }}>
+                            <strong style={{ fontSize: '15px', color: 'var(--color-ink)' }}>Request #{req.requestId}</strong>
+                            <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                               Submitted on: {new Date(req.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                             </div>
                           </div>
@@ -223,12 +223,12 @@ const AccountPage = () => {
                           </div>
                         </div>
 
-                        <div style={{ fontSize: '13px', color: '#475569', marginBottom: '12px' }}>
+                        <div style={{ fontSize: '13px', color: 'var(--text-sub)', marginBottom: '12px' }}>
                           <strong>Site Location:</strong> {req.customer?.siteAddress}, {req.customer?.city} (PIN: {req.customer?.pincode})
                         </div>
 
                         {/* Items list */}
-                        <div style={{ background: '#F8FAFC', borderRadius: '8px', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ background: 'var(--bg-page)', borderRadius: '8px', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           {req.items?.map((item, idx) => (
                             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                               <span>• {item.name} ({item.brand})</span>
@@ -263,29 +263,29 @@ const AccountPage = () => {
             {activeTab === 'quotations' && (
               <div>
                 {quotations.length === 0 ? (
-                  <div style={{ background: '#FFFFFF', padding: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-                    <FileText size={40} color="#94A3B8" style={{ margin: '0 auto 12px' }} />
-                    <p style={{ color: '#64748B', fontSize: '14px' }}>No quotations generated yet. Submit a material list to receive verified quotations from our engineering desk.</p>
+                  <div style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
+                    <FileText size={40} color='var(--text-light)' style={{ margin: '0 auto 12px' }} />
+                    <p style={{ color: 'var(--color-muted)', fontSize: '14px' }}>No quotations generated yet. Submit a material list to receive verified quotations from our engineering desk.</p>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     {quotations.map(quo => (
                       <div key={quo._id} style={{
-                        background: '#FFFFFF',
+                        background: 'var(--bg-card)',
                         borderRadius: '14px',
-                        border: quo.status === 'Accepted' ? '2px solid #10B981' : '1px solid #E2E8F0',
+                        border: quo.status === 'Accepted' ? '2px solid var(--color-success)' : '1px solid var(--border)',
                         padding: '24px',
                         boxShadow: 'var(--shadow-sm)'
                       }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '14px', paddingBottom: '12px', borderBottom: '1px solid #F1F5F9' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '14px', paddingBottom: '12px', borderBottom: '1px solid var(--color-paper-3)' }}>
                           <div>
-                            <span style={{ fontSize: '11px', fontWeight: 800, color: '#D97706', textTransform: 'uppercase' }}>
+                            <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary-dark)', textTransform: 'uppercase' }}>
                               Formal Builder Quotation
                             </span>
-                            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
+                            <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-ink)' }}>
                               Quotation #{quo.quotationId}
                             </h3>
-                            <div style={{ fontSize: '12px', color: '#64748B' }}>
+                            <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                               Ref Request: #{quo.requestId} • Valid Until: <strong>{quo.validUntil || '7 Days'}</strong>
                             </div>
                           </div>
@@ -300,7 +300,7 @@ const AccountPage = () => {
                         <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
                           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
                             <thead>
-                              <tr style={{ background: '#F8FAFC', color: '#64748B', borderBottom: '1px solid #E2E8F0' }}>
+                              <tr style={{ background: 'var(--bg-page)', color: 'var(--color-muted)', borderBottom: '1px solid var(--border)' }}>
                                 <th style={{ padding: '8px 12px' }}>Material</th>
                                 <th style={{ padding: '8px 12px' }}>Quantity</th>
                                 <th style={{ padding: '8px 12px' }}>Quoted Unit Rate</th>
@@ -309,7 +309,7 @@ const AccountPage = () => {
                             </thead>
                             <tbody>
                               {quo.items?.map((item, idx) => (
-                                <tr key={idx} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                                <tr key={idx} style={{ borderBottom: '1px solid var(--color-paper-3)' }}>
                                   <td style={{ padding: '10px 12px', fontWeight: 600 }}>{item.name}</td>
                                   <td style={{ padding: '10px 12px' }}>{item.quantity} {item.unit}</td>
                                   <td style={{ padding: '10px 12px' }}>₹{item.unitPrice}</td>
@@ -321,40 +321,40 @@ const AccountPage = () => {
                         </div>
 
                         {/* Financial Totals */}
-                        <div style={{ background: '#F8FAFC', borderRadius: '10px', padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '13px', maxWidth: '360px', marginLeft: 'auto', marginBottom: '16px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                        <div style={{ background: 'var(--bg-page)', borderRadius: '10px', padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '13px', maxWidth: '360px', marginLeft: 'auto', marginBottom: '16px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-muted)' }}>
                             <span>Material Subtotal:</span>
                             <span>₹{quo.subtotal?.toLocaleString('en-IN')}</span>
                           </div>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-muted)' }}>
                             <span>Truck Delivery Freight:</span>
-                            <span>{quo.deliveryCharge === 0 ? <strong style={{ color: '#10B981' }}>FREE</strong> : `₹${quo.deliveryCharge}`}</span>
+                            <span>{quo.deliveryCharge === 0 ? <strong style={{ color: 'var(--color-success)' }}>FREE</strong> : `₹${quo.deliveryCharge}`}</span>
                           </div>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-muted)' }}>
                             <span>GST 18% (Input Tax Credit):</span>
                             <span>₹{quo.tax?.toLocaleString('en-IN')}</span>
                           </div>
-                          <div style={{ borderTop: '1px solid #CBD5E1', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800, color: '#0F172A' }}>
+                          <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800, color: 'var(--color-ink)' }}>
                             <span>Final Quoted Amount:</span>
                             <span>₹{quo.totalAmount?.toLocaleString('en-IN')}</span>
                           </div>
                         </div>
 
                         {quo.notes && (
-                          <div style={{ fontSize: '12.5px', color: '#64748B', fontStyle: 'italic', marginBottom: '16px' }}>
+                          <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontStyle: 'italic', marginBottom: '16px' }}>
                             Engineering Notes: {quo.notes}
                           </div>
                         )}
 
                         {/* Customer Action Buttons: Accept / Reject */}
                         {quo.status === 'Sent' && (
-                          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', borderTop: '1px solid #E2E8F0', paddingTop: '16px' }}>
+                          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
                             <button
                               onClick={() => handleRespondQuotation(quo.quotationId, 'reject')}
                               style={{
-                                background: '#FEE2E2',
-                                color: '#B91C1C',
-                                border: '1px solid #FECACA',
+                                background: 'var(--accent-red-light)',
+                                color: 'var(--color-error)',
+                                border: '1px solid var(--accent-red-light)',
                                 padding: '10px 18px',
                                 borderRadius: '8px',
                                 fontSize: '13px',
@@ -373,8 +373,8 @@ const AccountPage = () => {
                               onClick={() => handleRespondQuotation(quo.quotationId, 'accept')}
                               className="btn-primary"
                               style={{
-                                background: '#10B981',
-                                color: '#FFFFFF',
+                                background: 'var(--color-success)',
+                                color: 'var(--bg-card)',
                                 padding: '10px 20px',
                                 borderRadius: '8px',
                                 fontSize: '13px',
@@ -392,19 +392,19 @@ const AccountPage = () => {
 
                         {quo.status === 'Accepted' && (
                           <div style={{
-                            background: '#ECFDF5',
-                            border: '1px solid #A7F3D0',
+                            background: 'var(--accent-green-light)',
+                            border: '1px solid var(--accent-green-light)',
                             borderRadius: '8px',
                             padding: '12px 16px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            color: '#065F46',
+                            color: 'var(--accent-green-dark)',
                             fontSize: '13px',
                             fontWeight: 600
                           }}>
                             <span>✓ You have accepted this quotation. Warehouse dispatch scheduled.</span>
-                            <Link to="/products" style={{ color: '#D97706', fontWeight: 700 }}>
+                            <Link to="/products" style={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
                               Shop More Materials
                             </Link>
                           </div>
@@ -420,18 +420,18 @@ const AccountPage = () => {
             {activeTab === 'orders' && (
               <div>
                 {orders.length === 0 ? (
-                  <div style={{ background: '#FFFFFF', padding: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-                    <Package size={40} color="#94A3B8" style={{ margin: '0 auto 12px' }} />
-                    <p style={{ color: '#64748B', fontSize: '14px' }}>No orders placed yet.</p>
+                  <div style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
+                    <Package size={40} color='var(--text-light)' style={{ margin: '0 auto 12px' }} />
+                    <p style={{ color: 'var(--color-muted)', fontSize: '14px' }}>No orders placed yet.</p>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {orders.map(ord => (
-                      <div key={ord._id} style={{ background: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', padding: '20px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #F1F5F9' }}>
+                      <div key={ord._id} style={{ background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', padding: '20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid var(--color-paper-3)' }}>
                           <div>
-                            <strong style={{ fontSize: '15px', color: '#0F172A' }}>Order #{ord.orderId}</strong>
-                            <div style={{ fontSize: '12px', color: '#64748B' }}>
+                            <strong style={{ fontSize: '15px', color: 'var(--color-ink)' }}>Order #{ord.orderId}</strong>
+                            <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                               Invoice: {ord.invoiceNumber || 'INV-2026-0001'} • Placed on: {new Date(ord.createdAt).toLocaleDateString()}
                             </div>
                           </div>
@@ -451,11 +451,11 @@ const AccountPage = () => {
                           ))}
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #F1F5F9', paddingTop: '12px', fontSize: '14px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-paper-3)', paddingTop: '12px', fontSize: '14px' }}>
                           <div>
                             Payment: <strong>{ord.paymentMethod}</strong> ({ord.paymentStatus})
                           </div>
-                          <div style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A' }}>
+                          <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--color-ink)' }}>
                             Total: ₹{ord.totalAmount?.toLocaleString('en-IN')}
                           </div>
                         </div>
@@ -470,9 +470,9 @@ const AccountPage = () => {
             {activeTab === 'labour' && (
               <div>
                 {labourBookings.length === 0 ? (
-                  <div style={{ background: '#FFFFFF', padding: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-                    <HardHat size={40} color="#94A3B8" style={{ margin: '0 auto 12px' }} />
-                    <p style={{ color: '#64748B', fontSize: '14px' }}>No active labour service bookings.</p>
+                  <div style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
+                    <HardHat size={40} color='var(--text-light)' style={{ margin: '0 auto 12px' }} />
+                    <p style={{ color: 'var(--color-muted)', fontSize: '14px' }}>No active labour service bookings.</p>
                     <Link to="/labour-booking" className="btn-primary" style={{ marginTop: '16px', display: 'inline-flex' }}>
                       Book Skilled Labour
                     </Link>
@@ -480,11 +480,11 @@ const AccountPage = () => {
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {labourBookings.map(b => (
-                      <div key={b._id} style={{ background: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', padding: '20px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #F1F5F9' }}>
+                      <div key={b._id} style={{ background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', padding: '20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid var(--color-paper-3)' }}>
                           <div>
                             <strong style={{ fontSize: '15px' }}>Booking #{b.bookingId}</strong>
-                            <div style={{ fontSize: '12px', color: '#64748B' }}>
+                            <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                               Trade: <strong>{b.labourType}</strong> ({b.workersRequired} workers)
                             </div>
                           </div>
@@ -493,7 +493,7 @@ const AccountPage = () => {
                           </span>
                         </div>
 
-                        <div style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6 }}>
+                        <div style={{ fontSize: '13px', color: 'var(--text-sub)', lineHeight: 1.6 }}>
                           <div><strong>Site Location:</strong> {b.customer?.workLocation}, {b.customer?.city}</div>
                           <div><strong>Schedule:</strong> Starting on {b.preferredStartDate} (Duration: {b.expectedDuration})</div>
                           {b.labourCharges > 0 && <div><strong>Approved Labour Charges:</strong> ₹{b.labourCharges?.toLocaleString('en-IN')}</div>}
@@ -509,9 +509,9 @@ const AccountPage = () => {
             {activeTab === 'bulk' && (
               <div>
                 {bulkEnquiries.length === 0 ? (
-                  <div style={{ background: '#FFFFFF', padding: '40px', borderRadius: '12px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-                    <Truck size={40} color="#94A3B8" style={{ margin: '0 auto 12px' }} />
-                    <p style={{ color: '#64748B', fontSize: '14px' }}>No bulk contractor enquiries submitted.</p>
+                  <div style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
+                    <Truck size={40} color='var(--text-light)' style={{ margin: '0 auto 12px' }} />
+                    <p style={{ color: 'var(--color-muted)', fontSize: '14px' }}>No bulk contractor enquiries submitted.</p>
                     <Link to="/bulk-enquiry" className="btn-primary" style={{ marginTop: '16px', display: 'inline-flex' }}>
                       Submit Bulk Project Enquiry
                     </Link>
@@ -519,15 +519,15 @@ const AccountPage = () => {
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {bulkEnquiries.map(blk => (
-                      <div key={blk._id} style={{ background: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', padding: '20px' }}>
+                      <div key={blk._id} style={{ background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', padding: '20px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                           <div>
                             <strong style={{ fontSize: '15px' }}>Bulk Enquiry #{blk.enquiryId}</strong>
-                            <div style={{ fontSize: '12px', color: '#64748B' }}>Site: {blk.customer?.projectLocation}</div>
+                            <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>Site: {blk.customer?.projectLocation}</div>
                           </div>
                           <span className="badge-status badge-sent">{blk.status}</span>
                         </div>
-                        <div style={{ fontSize: '13px', color: '#475569' }}>
+                        <div style={{ fontSize: '13px', color: 'var(--text-sub)' }}>
                           {blk.items?.map((item, idx) => (
                             <div key={idx}>• {item.productName}: {item.quantity} {item.unit}</div>
                           ))}
@@ -541,7 +541,7 @@ const AccountPage = () => {
 
             {/* 6. Profile & Addresses */}
             {activeTab === 'profile' && (
-              <div style={{ background: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '24px', maxWidth: '600px' }}>
+              <div style={{ background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border)', padding: '24px', maxWidth: '600px' }}>
                 <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px' }}>Profile Information</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px' }}>
                   <div><strong>Name:</strong> {user?.name}</div>

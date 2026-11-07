@@ -6,12 +6,12 @@ const TopAnnouncementBar = ({ onOpenLocation, currentCity }) => {
     <div className="announcement-bar">
       <div className="container announcement-content">
         <div className="announcement-left">
-          <span className="announcement-badge">⚡ 30-60 MIN DELIVERY</span>
+          <span className="announcement-badge">30-60 MIN DELIVERY</span>
           <span>Guaranteed on-site express material delivery in <strong>{currentCity}</strong></span>
         </div>
         <div className="announcement-right">
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <ShieldCheck size={14} color="#10B981" />
+            <ShieldCheck size={14} color='var(--color-success)' />
             <span>100% Genuine Certified Brands</span>
           </div>
           <a href="tel:18008905000" className="announcement-link">
@@ -23,7 +23,7 @@ const TopAnnouncementBar = ({ onOpenLocation, currentCity }) => {
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#F59E0B',
+              color: 'var(--color-accent)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',

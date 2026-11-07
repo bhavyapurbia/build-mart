@@ -110,7 +110,7 @@ const FestiveCashbackBanner = () => {
           <div
             className="festive-cashback-card"
             style={{
-              background: currentBanner.bgGradient || 'linear-gradient(135deg, #07152B 0%, #0F2D59 100%)',
+              background: currentBanner.bgGradient || 'linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-dark) 100%)',
               transition: 'background 0.5s ease'
             }}
           >
@@ -119,7 +119,7 @@ const FestiveCashbackBanner = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: '1 1 500px' }}>
                 {/* Visual Graphic Left: Image or 3D Coin or Shield Icon */}
                 {currentBanner.image ? (
-                  <div style={{ width: '90px', height: '90px', borderRadius: '16px', overflow: 'hidden', flexShrink: 0, background: 'rgba(255,255,255,0.1)', padding: '6px' }}>
+                  <div style={{ width: '90px', height: '90px', borderRadius: '16px', overflow: 'hidden', flexShrink: 0, background: 'color-mix(in oklab, var(--bg-card) 10%, transparent)', padding: '6px' }}>
                     <img
                       src={currentBanner.image}
                       alt={currentBanner.title}
@@ -143,16 +143,16 @@ const FestiveCashbackBanner = () => {
                 {/* Offer Details */}
                 <div className="cashback-text-group" style={{ flex: 1 }}>
                   {currentBanner.badge && (
-                    <div className="megabuildmart-tag" style={{ background: '#D97706', display: 'inline-block' }}>
+                    <div className="megabuildmart-tag" style={{ background: 'var(--primary-dark)', display: 'inline-block' }}>
                       {currentBanner.badge}
                     </div>
                   )}
 
-                  <h3 className="cashback-heading" style={{ margin: '6px 0', color: '#FFFFFF' }}>
+                  <h3 className="cashback-heading" style={{ margin: '6px 0', color: 'var(--bg-card)' }}>
                     {currentBanner.title}
                   </h3>
 
-                  <p className="cashback-terms" style={{ color: '#E2E8F0', margin: '4px 0 14px' }}>
+                  <p className="cashback-terms" style={{ color: 'var(--border)', margin: '4px 0 14px' }}>
                     {currentBanner.subtitle}
                   </p>
 
@@ -166,7 +166,7 @@ const FestiveCashbackBanner = () => {
                       >
                         <span className="coupon-use-label">USE COUPON</span>
                         <span className="coupon-code-bold">{currentBanner.couponCode}</span>
-                        {copied ? <Check size={13} color="#10B981" /> : <Copy size={13} />}
+                        {copied ? <Check size={13} color='var(--color-success)' /> : <Copy size={13} />}
                       </div>
                     )}
 
@@ -180,15 +180,15 @@ const FestiveCashbackBanner = () => {
 
               {/* Right Side Stats / Trust Badges */}
               <div className="trade-desk-right-stats" style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
-                <div className="trade-stat-box" style={{ background: 'rgba(255,255,255,0.08)', padding: '10px 14px', borderRadius: '12px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <Truck size={20} color="#F59E0B" style={{ margin: '0 auto 4px' }} />
-                  <span className="stat-bold" style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#FFFFFF' }}>30-Min</span>
-                  <span className="stat-sub" style={{ fontSize: '11px', color: '#CBD5E1' }}>Site Delivery</span>
+                <div className="trade-stat-box" style={{ background: 'color-mix(in oklab, var(--bg-card) 8%, transparent)', padding: '10px 14px', borderRadius: '12px', textAlign: 'center', border: '1px solid var(--border)' }}>
+                  <Truck size={20} color='var(--color-accent)' style={{ margin: '0 auto 4px' }} />
+                  <span className="stat-bold" style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: 'var(--bg-card)' }}>30-Min</span>
+                  <span className="stat-sub" style={{ fontSize: '11px', color: 'var(--color-rule)' }}>Site Delivery</span>
                 </div>
-                <div className="trade-stat-box" style={{ background: 'rgba(255,255,255,0.08)', padding: '10px 14px', borderRadius: '12px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <ShieldCheck size={20} color="#10B981" style={{ margin: '0 auto 4px' }} />
-                  <span className="stat-bold" style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#FFFFFF' }}>100% Factory</span>
-                  <span className="stat-sub" style={{ fontSize: '11px', color: '#CBD5E1' }}>GST Invoices</span>
+                <div className="trade-stat-box" style={{ background: 'color-mix(in oklab, var(--bg-card) 8%, transparent)', padding: '10px 14px', borderRadius: '12px', textAlign: 'center', border: '1px solid var(--border)' }}>
+                  <ShieldCheck size={20} color='var(--color-success)' style={{ margin: '0 auto 4px' }} />
+                  <span className="stat-bold" style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: 'var(--bg-card)' }}>100% Factory</span>
+                  <span className="stat-sub" style={{ fontSize: '11px', color: 'var(--color-rule)' }}>GST Invoices</span>
                 </div>
               </div>
 

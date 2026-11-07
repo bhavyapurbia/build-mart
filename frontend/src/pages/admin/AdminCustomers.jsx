@@ -26,10 +26,10 @@ const AdminCustomers = () => {
   return (
     <div>
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
           Registered Contractor & Customer Directory
         </h1>
-        <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+        <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
           Manage buyer profiles, saved site locations, and purchase activity
         </p>
       </div>
@@ -49,21 +49,21 @@ const AdminCustomers = () => {
             {customers.map(c => (
               <tr key={c._id}>
                 <td>
-                  <strong style={{ fontSize: '14px', color: '#0F172A' }}>{c.name}</strong>
-                  <div style={{ fontSize: '11px', color: '#D97706', fontWeight: 700 }}>
+                  <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
+                  <div style={{ fontSize: '11px', color: 'var(--primary-dark)', fontWeight: 700 }}>
                     ID: #{c._id?.slice(-6)}
                   </div>
                 </td>
                 <td>
                   <div style={{ fontSize: '13px' }}>{c.email}</div>
-                  <div style={{ fontSize: '12px', color: '#64748B' }}>{c.phone || 'No phone recorded'}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{c.phone || 'No phone recorded'}</div>
                 </td>
                 <td>
-                  <div style={{ fontSize: '12px', color: '#475569', maxWidth: '240px' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--text-sub)', maxWidth: '240px' }}>
                     {c.addresses?.[0] ? `${c.addresses[0].street}, ${c.addresses[0].city} (${c.addresses[0].pincode})` : 'Default site not set'}
                   </div>
                 </td>
-                <td style={{ fontSize: '12.5px', color: '#64748B' }}>
+                <td style={{ fontSize: '12.5px', color: 'var(--color-muted)' }}>
                   {new Date(c.createdAt).toLocaleDateString()}
                 </td>
                 <td>

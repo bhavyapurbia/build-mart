@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
         ) : <span />}
 
         <span className="buildmart-mins-badge">
-          <Zap size={11} fill="#FFFFFF" />
+          <Zap size={11} fill='var(--bg-card)' />
           <span>30 MINS</span>
         </span>
       </div>

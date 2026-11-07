@@ -71,16 +71,13 @@ const HomePage = ({ onOpenPaperList }) => {
           <div className="container">
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div>
-                <span style={{ fontSize: '12px', fontWeight: 800, color: '#D97706', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  CONTRACTOR FAVORITES
-                </span>
-                <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '4px' }}>
                   Bestselling Materials
                 </h2>
               </div>
               <Link
                 to="/products?featured=true"
-                style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13.5px', fontWeight: 700, color: '#D97706' }}
+                style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13.5px', fontWeight: 700, color: 'var(--primary-dark)' }}
               >
                 <span>Explore All</span>
                 <ArrowRight size={15} />

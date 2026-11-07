@@ -85,8 +85,8 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              background: '#ECFDF5',
-              color: '#10B981',
+              background: 'var(--accent-green-light)',
+              color: 'var(--color-success)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -96,22 +96,22 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
             </div>
 
             <span style={{
-              background: '#FFFBEB',
-              color: '#B45309',
+              background: 'var(--color-accent-light)',
+              color: 'var(--primary-deep)',
               fontSize: '11.5px',
               fontWeight: 800,
               padding: '3px 10px',
               borderRadius: '20px',
-              border: '1px solid #FCD34D'
+              border: '1px solid var(--color-accent)'
             }}>
               PAPER LIST RECEIVED • ADMIN REVIEWING
             </span>
 
-            <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '12px' }}>
               Paper List #{submittedData.requestId} Sent to Admin!
             </h2>
 
-            <p style={{ fontSize: '13.5px', color: '#64748B', lineHeight: 1.6, margin: '10px 0 24px' }}>
+            <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', lineHeight: 1.6, margin: '10px 0 24px' }}>
               Thank you, <strong>{customer.name}</strong>. Your paper material list photo has been delivered directly to our materials engineer. We will review your handwriting, calculate factory pricing, and contact you with a formal quotation.
             </p>
 
@@ -126,22 +126,22 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
         ) : (
           /* Paper List Upload Form */
           <>
-            <div className="modal-header" style={{ padding: '16px 20px', borderBottom: '1px solid #E2E8F0' }}>
+            <div className="modal-header" style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ background: '#FF6E00', color: '#FFFFFF', width: '32px', height: '32px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ background: 'var(--color-accent)', color: 'var(--bg-card)', width: '32px', height: '32px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Camera size={18} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '16.5px', fontWeight: 800, color: '#0F172A' }}>
+                  <h3 style={{ fontSize: '16.5px', fontWeight: 800, color: 'var(--color-ink)' }}>
                     Snap Paper Material List
                   </h3>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>
                     Take a photo of your handwritten paper list & send directly to admin
                   </div>
                 </div>
               </div>
               <button onClick={handleClose} style={{ background: 'transparent', cursor: 'pointer' }}>
-                <X size={20} color="#64748B" />
+                <X size={20} color='var(--color-muted)' />
               </button>
             </div>
 
@@ -149,12 +149,12 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
               <div className="modal-body" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {/* Photo Capture Area */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     1. Capture / Upload Paper List Photo *
                   </label>
 
                   {imagePreview ? (
-                    <div style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden', border: '2px solid #FF6E00', maxHeight: '220px', background: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden', border: '2px solid var(--color-accent)', maxHeight: '220px', background: 'var(--bg-page)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <img
                         src={imagePreview}
                         alt="Paper List Preview"
@@ -168,7 +168,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                           top: '8px',
                           right: '8px',
                           background: 'rgba(15, 23, 42, 0.8)',
-                          color: '#FFFFFF',
+                          color: 'var(--bg-card)',
                           borderRadius: '50%',
                           width: '28px',
                           height: '28px',
@@ -184,18 +184,18 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                     </div>
                   ) : (
                     <div style={{
-                      border: '2px dashed #CBD5E1',
+                      border: '2px dashed var(--color-rule)',
                       borderRadius: '12px',
                       padding: '24px 16px',
                       textAlign: 'center',
-                      background: '#F8FAFC',
+                      background: 'var(--bg-page)',
                       cursor: 'pointer'
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', marginBottom: '10px' }}>
                         {/* Direct Camera Button for Mobile */}
                         <label style={{
-                          background: '#FF6E00',
-                          color: '#FFFFFF',
+                          background: 'var(--color-accent)',
+                          color: 'var(--bg-card)',
                           padding: '10px 18px',
                           borderRadius: '8px',
                           fontSize: '13px',
@@ -219,9 +219,9 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
                         {/* File Upload Button */}
                         <label style={{
-                          background: '#FFFFFF',
-                          color: '#0F172A',
-                          border: '1.5px solid #CBD5E1',
+                          background: 'var(--bg-card)',
+                          color: 'var(--color-ink)',
+                          border: '1.5px solid var(--color-rule)',
                           padding: '10px 18px',
                           borderRadius: '8px',
                           fontSize: '13px',
@@ -241,7 +241,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                           />
                         </label>
                       </div>
-                      <div style={{ fontSize: '11.5px', color: '#64748B' }}>
+                      <div style={{ fontSize: '11.5px', color: 'var(--color-muted)' }}>
                         Supports camera photos, handwritten contractor notes, blueprint sheets or bills
                       </div>
                     </div>
@@ -250,7 +250,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
                 {/* Contractor Details */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     2. Contractor / Site Engineer Name *
                   </label>
                   <input
@@ -259,13 +259,13 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                     placeholder="e.g. Ramesh Sharma"
                     value={customer.name}
                     onChange={e => setCustomer({ ...customer, name: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                   />
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                       Mobile Number *
                     </label>
                     <input
@@ -274,12 +274,12 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                       placeholder="+91 98765 43210"
                       value={customer.phone}
                       onChange={e => setCustomer({ ...customer, phone: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                       City / Area *
                     </label>
                     <input
@@ -287,13 +287,13 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                       required
                       value={customer.city}
                       onChange={e => setCustomer({ ...customer, city: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     Job Site Delivery Address *
                   </label>
                   <textarea
@@ -302,12 +302,12 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                     placeholder="Plot / Street / Building site location for delivery truck"
                     value={customer.siteAddress}
                     onChange={e => setCustomer({ ...customer, siteAddress: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     Special Instructions (Optional)
                   </label>
                   <input
@@ -315,17 +315,17 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                     placeholder="e.g. Need delivery tomorrow morning, quote Tata Tiscon only"
                     value={customer.notes}
                     onChange={e => setCustomer({ ...customer, notes: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                   />
                 </div>
               </div>
 
-              <div className="modal-footer" style={{ padding: '14px 20px', borderTop: '1px solid #E2E8F0', display: 'flex', gap: '10px' }}>
+              <div className="modal-footer" style={{ padding: '14px 20px', borderTop: '1px solid var(--border)', display: 'flex', gap: '10px' }}>
                 <button
                   type="button"
                   onClick={handleClose}
                   className="btn-secondary"
-                  style={{ color: '#0F172A', border: '1px solid #CBD5E1', padding: '10px 16px' }}
+                  style={{ color: 'var(--color-ink)', border: '1px solid var(--color-rule)', padding: '10px 16px' }}
                 >
                   Cancel
                 </button>
@@ -333,7 +333,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                   type="submit"
                   disabled={submitting}
                   className="btn-primary"
-                  style={{ flex: 1, justifyContent: 'center', padding: '10px 18px', background: '#FF6E00' }}
+                  style={{ flex: 1, justifyContent: 'center', padding: '10px 18px', background: 'var(--color-accent)' }}
                 >
                   {submitting ? 'Uploading to Admin...' : 'Send Paper List to Admin ➔'}
                 </button>

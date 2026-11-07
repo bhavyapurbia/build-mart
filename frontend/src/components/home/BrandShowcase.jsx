@@ -17,7 +17,7 @@ export const OFFICIAL_10_BRANDS = [
     name: 'Havells India Ltd.',
     queryName: 'Havells India Ltd.',
     logo: '/brands/havells.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'futura',
@@ -31,42 +31,42 @@ export const OFFICIAL_10_BRANDS = [
     name: 'Hettich India',
     queryName: 'Hettich India',
     logo: '/brands/hettich.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'fevicol',
     name: 'Fevicol by Pidilite',
     queryName: 'Fevicol by Pidilite',
     logo: '/brands/fevicol.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'goldmedal',
     name: 'Goldmedal Electricals',
     queryName: 'Goldmedal Electricals',
     logo: '/brands/goldmedal.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'jaquar',
     name: 'Jaquar Group',
     queryName: 'Jaquar Group',
     logo: '/brands/jaquar.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'luminous',
     name: 'Luminous Power Technologies',
     queryName: 'Luminous Power Technologies',
     logo: '/brands/luminous.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'philips',
     name: 'Philips Lighting',
     queryName: 'Philips Lighting',
     logo: '/brands/philips.svg',
-    tileBg: '#FFFFFF'
+    tileBg: 'var(--bg-card)'
   },
   {
     id: 'lorazzo',
@@ -80,25 +80,25 @@ export const OFFICIAL_10_BRANDS = [
 const BRAND_PRESETS = {
   'dr. fixit by pidilite': { logo: '/brands/dr-fixit.svg', tileBg: '#FFE500' },
   'dr. fixit': { logo: '/brands/dr-fixit.svg', tileBg: '#FFE500' },
-  'havells india ltd.': { logo: '/brands/havells.svg', tileBg: '#FFFFFF' },
-  'havells': { logo: '/brands/havells.svg', tileBg: '#FFFFFF' },
+  'havells india ltd.': { logo: '/brands/havells.svg', tileBg: 'var(--bg-card)' },
+  'havells': { logo: '/brands/havells.svg', tileBg: 'var(--bg-card)' },
   'futura': { logo: '/brands/futura.svg', tileBg: '#D32F2F' },
-  'hettich india': { logo: '/brands/hettich.svg', tileBg: '#FFFFFF' },
-  'hettich': { logo: '/brands/hettich.svg', tileBg: '#FFFFFF' },
-  'fevicol by pidilite': { logo: '/brands/fevicol.svg', tileBg: '#FFFFFF' },
-  'fevicol': { logo: '/brands/fevicol.svg', tileBg: '#FFFFFF' },
-  'goldmedal electricals': { logo: '/brands/goldmedal.svg', tileBg: '#FFFFFF' },
-  'goldmedal': { logo: '/brands/goldmedal.svg', tileBg: '#FFFFFF' },
-  'jaquar group': { logo: '/brands/jaquar.svg', tileBg: '#FFFFFF' },
-  'jaquar': { logo: '/brands/jaquar.svg', tileBg: '#FFFFFF' },
-  'luminous power technologies': { logo: '/brands/luminous.svg', tileBg: '#FFFFFF' },
-  'luminous': { logo: '/brands/luminous.svg', tileBg: '#FFFFFF' },
-  'philips lighting': { logo: '/brands/philips.svg', tileBg: '#FFFFFF' },
-  'philips': { logo: '/brands/philips.svg', tileBg: '#FFFFFF' },
+  'hettich india': { logo: '/brands/hettich.svg', tileBg: 'var(--bg-card)' },
+  'hettich': { logo: '/brands/hettich.svg', tileBg: 'var(--bg-card)' },
+  'fevicol by pidilite': { logo: '/brands/fevicol.svg', tileBg: 'var(--bg-card)' },
+  'fevicol': { logo: '/brands/fevicol.svg', tileBg: 'var(--bg-card)' },
+  'goldmedal electricals': { logo: '/brands/goldmedal.svg', tileBg: 'var(--bg-card)' },
+  'goldmedal': { logo: '/brands/goldmedal.svg', tileBg: 'var(--bg-card)' },
+  'jaquar group': { logo: '/brands/jaquar.svg', tileBg: 'var(--bg-card)' },
+  'jaquar': { logo: '/brands/jaquar.svg', tileBg: 'var(--bg-card)' },
+  'luminous power technologies': { logo: '/brands/luminous.svg', tileBg: 'var(--bg-card)' },
+  'luminous': { logo: '/brands/luminous.svg', tileBg: 'var(--bg-card)' },
+  'philips lighting': { logo: '/brands/philips.svg', tileBg: 'var(--bg-card)' },
+  'philips': { logo: '/brands/philips.svg', tileBg: 'var(--bg-card)' },
   'lorazzo': { logo: '/brands/lorazzo.svg', tileBg: '#0A0A0A' },
-  'asian paints': { logo: '/brands/asian-paints.svg', tileBg: '#FFFFFF' },
-  'birla paint': { logo: '/brands/birla-paint.svg', tileBg: '#FFFFFF' },
-  'birla opus': { logo: '/brands/birla-paint.svg', tileBg: '#FFFFFF' }
+  'asian paints': { logo: '/brands/asian-paints.svg', tileBg: 'var(--bg-card)' },
+  'birla paint': { logo: '/brands/birla-paint.svg', tileBg: 'var(--bg-card)' },
+  'birla opus': { logo: '/brands/birla-paint.svg', tileBg: 'var(--bg-card)' }
 };
 
 const BrandShowcase = ({ brands = [] }) => {
@@ -130,7 +130,7 @@ const BrandShowcase = ({ brands = [] }) => {
           name: b.name,
           queryName: b.name,
           logo: b.logo || preset.logo || '/brands/havells.svg',
-          tileBg: preset.tileBg || (b.tileBg || '#FFFFFF')
+          tileBg: preset.tileBg || (b.tileBg || 'var(--bg-card)')
         };
       })
     : OFFICIAL_10_BRANDS;
@@ -161,8 +161,8 @@ const BrandShowcase = ({ brands = [] }) => {
                 <div
                   className="brand-white-tile"
                   style={{
-                    backgroundColor: brand.tileBg || '#FFFFFF',
-                    border: brand.tileBg === '#0A0A0A' ? '1px solid #334155' : '1px solid rgba(0,0,0,0.04)'
+                    backgroundColor: brand.tileBg || 'var(--bg-card)',
+                    border: brand.tileBg === 'var(--color-ink)' ? '1px solid var(--secondary-light)' : '1px solid rgba(0,0,0,0.04)'
                   }}
                 >
                   {brand.logo ? (
@@ -183,7 +183,7 @@ const BrandShowcase = ({ brands = [] }) => {
                       }}
                     />
                   ) : (
-                    <span style={{ fontWeight: 900, fontSize: '13px', color: '#0F172A' }}>
+                    <span style={{ fontWeight: 900, fontSize: '13px', color: 'var(--color-ink)' }}>
                       {brand.name}
                     </span>
                   )}

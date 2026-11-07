@@ -130,7 +130,7 @@ const ProductsPage = () => {
                 {searchQuery ? `Results for "${searchQuery}"` : selectedBrand ? `Products by ${selectedBrand}` : selectedCategory || 'All Construction Materials'}
               </h1>
               <p className="products-count-sub">
-                ⚡ {totalCount} authentic {selectedBrand ? `${selectedBrand} ` : ''}materials available for 30-45 min site dispatch
+                {totalCount} authentic {selectedBrand ? `${selectedBrand} ` : ''}materials available for 30-45 min site dispatch
               </p>
             </div>
 
@@ -193,7 +193,7 @@ const ProductsPage = () => {
         {/* Contractor Tip Banner: Material List Prompt */}
         <div className="material-list-tip-banner">
           <div className="tip-content">
-            <ClipboardList size={18} color="#D97706" />
+            <ClipboardList size={18} color='var(--primary-dark)' />
             <span>
               <strong>Contractor Tip:</strong> Tap any product image or <strong>+ List</strong> to build an instant material checklist for formal factory quotation!
             </span>
@@ -206,7 +206,7 @@ const ProductsPage = () => {
           <aside className="products-desktop-sidebar">
             <div className="sidebar-header">
               <div className="sidebar-title">
-                <Filter size={16} color="#D97706" />
+                <Filter size={16} color='var(--primary-dark)' />
                 <span>Refine Materials</span>
               </div>
               {activeFiltersCount > 0 && (
@@ -330,7 +330,7 @@ const ProductsPage = () => {
               </div>
             ) : (
               <div className="products-empty-state">
-                <ClipboardList size={48} color="#94A3B8" />
+                <ClipboardList size={48} color='var(--text-light)' />
                 <h3>No materials match your filter</h3>
                 <p>Try removing filter criteria or search for materials like Cement, Rebar, or Tiles.</p>
                 <button onClick={clearAllFilters} className="btn-primary">
@@ -348,7 +348,7 @@ const ProductsPage = () => {
           <div className="mobile-filter-sheet" onClick={e => e.stopPropagation()}>
             <div className="filter-sheet-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Filter size={18} color="#D97706" />
+                <Filter size={18} color='var(--primary-dark)' />
                 <h3>Filter Materials</h3>
               </div>
               <button className="sheet-close-btn" onClick={() => setMobileFilterOpen(false)}>

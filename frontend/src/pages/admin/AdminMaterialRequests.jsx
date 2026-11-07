@@ -143,10 +143,10 @@ const AdminMaterialRequests = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Material List Request Management
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Review customer project material lists, verify warehouse stock, and dispatch formal quotations
           </p>
         </div>
@@ -173,21 +173,21 @@ const AdminMaterialRequests = () => {
             {requests.map(req => (
               <tr key={req._id}>
                 <td>
-                  <strong style={{ color: '#0F172A', fontSize: '13.5px' }}>{req.requestId}</strong>
+                  <strong style={{ color: 'var(--color-ink)', fontSize: '13.5px' }}>{req.requestId}</strong>
                   {req.isPaperList && (
-                    <div style={{ display: 'inline-block', background: '#FEF3C7', color: '#B45309', fontSize: '10px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginTop: '3px' }}>
-                      📸 Paper List Photo
+                    <div style={{ display: 'inline-block', background: 'var(--primary-light)', color: 'var(--primary-deep)', fontSize: '10px', fontWeight: 800, padding: '1px 6px', borderRadius: '4px', marginTop: '3px' }}>
+                      Paper List Photo
                     </div>
                   )}
                   {req.quotationId && (
-                    <div style={{ fontSize: '11px', color: '#0284C7', fontWeight: 600 }}>
+                    <div style={{ fontSize: '11px', color: 'var(--accent-blue)', fontWeight: 600 }}>
                       Quo: #{req.quotationId}
                     </div>
                   )}
                 </td>
                 <td>
                   <div style={{ fontWeight: 600 }}>{req.customer?.name}</div>
-                  <div style={{ fontSize: '12px', color: '#64748B' }}>{req.customer?.phone}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{req.customer?.phone}</div>
                 </td>
                 <td>
                   <div style={{ maxWidth: '180px', fontSize: '12.5px', lineHeight: 1.3 }}>
@@ -197,12 +197,12 @@ const AdminMaterialRequests = () => {
                 <td>
                   <div style={{ fontSize: '12.5px' }}>
                     <strong>{req.items?.length || 0} product(s)</strong>
-                    <div style={{ fontSize: '11.5px', color: '#64748B', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--color-muted)', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {req.items?.map(i => i.name).join(', ')}
                     </div>
                   </div>
                 </td>
-                <td style={{ fontSize: '12.5px', color: '#64748B' }}>
+                <td style={{ fontSize: '12.5px', color: 'var(--color-muted)' }}>
                   {new Date(req.createdAt).toLocaleDateString()}
                 </td>
                 <td>
@@ -224,7 +224,7 @@ const AdminMaterialRequests = () => {
 
                     <button
                       onClick={() => handleUpdateStatus(req._id, 'Rejected')}
-                      style={{ background: '#FEE2E2', color: '#B91C1C', border: '1px solid #FECACA', padding: '6px 8px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
+                      style={{ background: 'var(--accent-red-light)', color: 'var(--color-error)', border: '1px solid var(--accent-red-light)', padding: '6px 8px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}
                       title="Reject request"
                     >
                       <XCircle size={14} />
@@ -243,10 +243,10 @@ const AdminMaterialRequests = () => {
           <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '780px' }}>
             <div className="modal-header">
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-ink)' }}>
                   Prepare Formal Quotation for Request #{activeRequest.requestId}
                 </h3>
-                <div style={{ fontSize: '12px', color: '#64748B' }}>
+                <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                   Customer: <strong>{activeRequest.customer?.name}</strong> • Site: {activeRequest.customer?.siteAddress}, {activeRequest.customer?.city}
                 </div>
               </div>
@@ -258,23 +258,23 @@ const AdminMaterialRequests = () => {
             <form onSubmit={handleSendQuotation}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {activeRequest.paperListImage && (
-                  <div style={{ background: '#FFFBEB', border: '1.5px dashed #F59E0B', borderRadius: '10px', padding: '14px' }}>
-                    <div style={{ fontWeight: 800, fontSize: '13px', color: '#B45309', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span>📸 Handwritten Contractor Paper List Photo:</span>
+                  <div style={{ background: 'var(--color-accent-light)', border: '1.5px dashed var(--color-accent)', borderRadius: '10px', padding: '14px' }}>
+                    <div style={{ fontWeight: 800, fontSize: '13px', color: 'var(--primary-deep)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>Handwritten Contractor Paper List Photo:</span>
                     </div>
                     <a href={activeRequest.paperListImage} target="_blank" rel="noreferrer">
                       <img
                         src={activeRequest.paperListImage}
                         alt="Paper Material List"
-                        style={{ maxWidth: '100%', maxHeight: '240px', objectFit: 'contain', borderRadius: '8px', border: '1px solid #CBD5E1', background: '#FFFFFF' }}
+                        style={{ maxWidth: '100%', maxHeight: '240px', objectFit: 'contain', borderRadius: '8px', border: '1px solid var(--color-rule)', background: 'var(--bg-card)' }}
                       />
                     </a>
-                    <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '6px' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--color-muted)', marginTop: '6px' }}>
                       Tip: Click image to open in high-res full view. Review the contractor's handwriting and enter itemized quoted prices below.
                     </div>
                   </div>
                 )}
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-ink)' }}>
                   Verify Stock & Edit Itemized Quoted Prices (₹):
                 </div>
 
@@ -287,35 +287,35 @@ const AdminMaterialRequests = () => {
                         gridTemplateColumns: '2fr 1fr 1.2fr 1.2fr auto',
                         gap: '10px',
                         alignItems: 'center',
-                        background: '#F8FAFC',
+                        background: 'var(--bg-page)',
                         padding: '10px 14px',
                         borderRadius: '8px',
-                        border: '1px solid #E2E8F0',
+                        border: '1px solid var(--border)',
                         fontSize: '13px'
                       }}
                     >
                       <div>
                         <strong>{item.name}</strong>
-                        <div style={{ fontSize: '11px', color: '#64748B' }}>Brand: {item.brand}</div>
+                        <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>Brand: {item.brand}</div>
                       </div>
 
                       <div>
-                        <span style={{ fontSize: '11px', color: '#64748B' }}>Qty: </span>
+                        <span style={{ fontSize: '11px', color: 'var(--color-muted)' }}>Qty: </span>
                         <strong>{item.quantity} {item.unit}</strong>
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '11px', color: '#64748B' }}>Quoted Unit Rate (₹)</label>
+                        <label style={{ display: 'block', fontSize: '11px', color: 'var(--color-muted)' }}>Quoted Unit Rate (₹)</label>
                         <input
                           type="number"
                           value={item.unitPrice}
                           onChange={e => handleUpdateItemPrice(idx, e.target.value)}
-                          style={{ width: '100%', padding: '6px 8px', border: '1px solid #CBD5E1', borderRadius: '4px', fontSize: '13px', fontWeight: 700 }}
+                          style={{ width: '100%', padding: '6px 8px', border: '1px solid var(--color-rule)', borderRadius: '4px', fontSize: '13px', fontWeight: 700 }}
                         />
                       </div>
 
                       <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '11px', color: '#64748B' }}>Line Total</div>
+                        <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>Line Total</div>
                         <strong>₹{(item.unitPrice * item.quantity).toLocaleString('en-IN')}</strong>
                       </div>
 
@@ -324,8 +324,8 @@ const AdminMaterialRequests = () => {
                           type="button"
                           onClick={() => handleToggleStock(idx)}
                           style={{
-                            background: item.inStock ? '#DCFCE7' : '#FEE2E2',
-                            color: item.inStock ? '#15803D' : '#B91C1C',
+                            background: item.inStock ? 'var(--accent-green-light)' : 'var(--accent-red-light)',
+                            color: item.inStock ? 'var(--color-success)' : 'var(--color-error)',
                             border: 'none',
                             padding: '4px 8px',
                             borderRadius: '4px',
@@ -355,47 +355,47 @@ const AdminMaterialRequests = () => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginTop: '10px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Delivery Freight Charges (₹)
                     </label>
                     <input
                       type="number"
                       value={deliveryCharge}
                       onChange={e => setDeliveryCharge(e.target.value)}
-                      style={{ width: '100%', padding: '8px 10px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px' }}
+                      style={{ width: '100%', padding: '8px 10px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px' }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Quotation Validity (Days)
                     </label>
                     <input
                       type="number"
                       value={validDays}
                       onChange={e => setValidDays(Number(e.target.value) || 7)}
-                      style={{ width: '100%', padding: '8px 10px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px' }}
+                      style={{ width: '100%', padding: '8px 10px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Notes & Special Delivery Terms
                   </label>
                   <textarea
                     rows={2}
                     value={notes}
                     onChange={e => setNotes(e.target.value)}
-                    style={{ width: '100%', padding: '8px 10px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '8px 10px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px' }}
                   />
                 </div>
 
                 {/* Calculation Box */}
-                <div style={{ background: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '8px', padding: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ background: 'var(--primary-light)', border: '1px solid var(--color-accent)', borderRadius: '8px', padding: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontSize: '12px', color: '#92400E' }}>Subtotal: ₹{subtotal.toLocaleString('en-IN')} + GST (18%): ₹{tax.toLocaleString('en-IN')} + Freight: ₹{deliveryCharge}</div>
-                    <strong style={{ fontSize: '16px', color: '#78350F' }}>Total Quoted Payable: ₹{totalQuoteAmount.toLocaleString('en-IN')}</strong>
+                    <div style={{ fontSize: '12px', color: 'var(--primary-deep)' }}>Subtotal: ₹{subtotal.toLocaleString('en-IN')} + GST (18%): ₹{tax.toLocaleString('en-IN')} + Freight: ₹{deliveryCharge}</div>
+                    <strong style={{ fontSize: '16px', color: 'var(--primary-deep)' }}>Total Quoted Payable: ₹{totalQuoteAmount.toLocaleString('en-IN')}</strong>
                   </div>
                 </div>
               </div>
@@ -405,7 +405,7 @@ const AdminMaterialRequests = () => {
                   type="button"
                   onClick={() => setIsQuotationModalOpen(false)}
                   className="btn-secondary"
-                  style={{ background: '#F1F5F9', color: '#0F172A', border: '1px solid #CBD5E1' }}
+                  style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}
                 >
                   Cancel
                 </button>

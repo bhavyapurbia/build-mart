@@ -104,10 +104,10 @@ const AdminCategories = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Category & Subcategory Management
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Manage the 8 core construction categories, upload banners, and configure subcategories
           </p>
         </div>
@@ -138,18 +138,18 @@ const AdminCategories = () => {
                       style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover' }}
                     />
                     <div>
-                      <strong style={{ fontSize: '14px', color: '#0F172A' }}>{c.name}</strong>
-                      <div style={{ fontSize: '11.5px', color: '#64748B' }}>slug: {c.slug}</div>
+                      <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
+                      <div style={{ fontSize: '11.5px', color: 'var(--color-muted)' }}>slug: {c.slug}</div>
                     </div>
                   </div>
                 </td>
-                <td style={{ fontSize: '12.5px', color: '#475569', maxWidth: '240px' }}>
+                <td style={{ fontSize: '12.5px', color: 'var(--text-sub)', maxWidth: '240px' }}>
                   {c.description}
                 </td>
                 <td>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', maxWidth: '320px' }}>
                     {c.subcategories?.map((sub, i) => (
-                      <span key={i} style={{ background: '#F1F5F9', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', color: '#334155' }}>
+                      <span key={i} style={{ background: 'var(--color-paper-3)', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', color: 'var(--secondary-light)' }}>
                         {sub.name}
                       </span>
                     ))}
@@ -158,7 +158,7 @@ const AdminCategories = () => {
                 <td>
                   <button
                     onClick={() => handleOpenEdit(c)}
-                    style={{ background: '#F1F5F9', border: '1px solid #CBD5E1', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}
+                    style={{ background: 'var(--color-paper-3)', border: '1px solid var(--color-rule)', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}
                   >
                     <Edit2 size={13} />
                     <span>Edit</span>
@@ -185,7 +185,7 @@ const AdminCategories = () => {
             <form onSubmit={handleSubmit}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Category Name *
                   </label>
                   <input
@@ -193,36 +193,36 @@ const AdminCategories = () => {
                     required
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Description
                   </label>
                   <input
                     type="text"
                     value={formData.description}
                     onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Banner Image URL
                   </label>
                   <input
                     type="text"
                     value={formData.image}
                     onChange={e => setFormData({ ...formData, image: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Subcategories (Comma separated)
                   </label>
                   <input
@@ -230,13 +230,13 @@ const AdminCategories = () => {
                     placeholder="e.g. Floor tiles, Wall tiles, Adhesives, Grout"
                     value={formData.subcategoriesText}
                     onChange={e => setFormData({ ...formData, subcategoriesText: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                   />
                 </div>
               </div>
 
               <div className="modal-footer">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary" style={{ background: '#F1F5F9', color: '#0F172A', border: '1px solid #CBD5E1' }}>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary" style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}>
                   Cancel
                 </button>
                 <button type="submit" className="btn-primary">

@@ -56,15 +56,15 @@ const HeroBanner = () => {
         {/* Main Banner Card */}
         <div className="hero-banner-card">
           <div className="hero-banner-content">
-            <div className="hero-tag">
-              <Zap size={14} color="#F59E0B" />
-              <span>{slide.tag}</span>
-              <span className="hero-tag-dot">•</span>
-              <span>{slide.badge}</span>
-            </div>
-
             <h1 className="hero-title">{slide.title}</h1>
             <p className="hero-subtitle">{slide.subtitle}</p>
+
+            <div className="hero-tag" style={{ alignSelf: 'flex-start', margin: '0 0 var(--space-md)' }}>
+              <Zap size={14} color='var(--color-accent)' />
+              <span>{slide.tag}</span>
+              <span>/</span>
+              <span>{slide.badge}</span>
+            </div>
 
             <div className="hero-actions">
               <Link to={slide.ctaPrimaryLink} className="btn-primary">
@@ -104,13 +104,13 @@ const HeroBanner = () => {
             />
             <div className="hero-floating-badge">
               <div className="floating-badge-icon">
-                <Zap size={18} color="#0F172A" />
+                <Zap size={18} color='var(--color-ink)' />
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: '14px', color: '#0F172A' }}>
+                <div style={{ fontWeight: 800, fontSize: '14px', color: 'var(--color-ink)' }}>
                   30-45 Mins
                 </div>
-                <div style={{ fontSize: '11px', color: '#64748B' }}>
+                <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>
                   Job Site Delivery
                 </div>
               </div>

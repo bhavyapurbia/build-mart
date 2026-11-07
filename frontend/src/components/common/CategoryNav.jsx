@@ -72,7 +72,7 @@ const CategoryNav = () => {
                 {/* Dropdown Menu for Subcategories */}
                 {cat.subcategories && cat.subcategories.length > 0 && (
                   <div className="category-dropdown">
-                    <div style={{ padding: '6px 18px', fontSize: '11px', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase' }}>
+                    <div className="category-dropdown-header">
                       {cat.name} Subcategories
                     </div>
                     {cat.subcategories.map(sub => (

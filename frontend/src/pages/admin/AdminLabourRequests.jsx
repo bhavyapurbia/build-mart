@@ -69,10 +69,10 @@ const AdminLabourRequests = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Labour Workforce Management
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Review site trade requests, calculate labour charges, and assign verified worker squads
           </p>
         </div>
@@ -101,14 +101,14 @@ const AdminLabourRequests = () => {
                 <td><strong>{b.bookingId}</strong></td>
                 <td>
                   <div style={{ fontWeight: 600 }}>{b.customer?.name}</div>
-                  <div style={{ fontSize: '11.5px', color: '#64748B' }}>{b.customer?.phone}</div>
+                  <div style={{ fontSize: '11.5px', color: 'var(--color-muted)' }}>{b.customer?.phone}</div>
                 </td>
                 <td>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <HardHat size={15} color="#D97706" />
+                    <HardHat size={15} color='var(--primary-dark)' />
                     <strong>{b.labourType}</strong>
                   </div>
-                  <div style={{ fontSize: '12px', color: '#64748B' }}>{b.workersRequired} worker(s)</div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{b.workersRequired} worker(s)</div>
                 </td>
                 <td>
                   <div style={{ maxWidth: '160px', fontSize: '12.5px' }}>
@@ -117,10 +117,10 @@ const AdminLabourRequests = () => {
                 </td>
                 <td>
                   <div style={{ fontSize: '12.5px' }}>{b.preferredStartDate}</div>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>Duration: {b.expectedDuration}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>Duration: {b.expectedDuration}</div>
                 </td>
                 <td>
-                  <strong style={{ color: '#0F172A' }}>
+                  <strong style={{ color: 'var(--color-ink)' }}>
                     {b.labourCharges > 0 ? `₹${b.labourCharges.toLocaleString('en-IN')}` : 'To Be Quoted'}
                   </strong>
                 </td>
@@ -158,14 +158,14 @@ const AdminLabourRequests = () => {
             </div>
             <form onSubmit={handleSaveAssign}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <div style={{ background: '#F8FAFC', padding: '12px', borderRadius: '8px', fontSize: '13px' }}>
+                <div style={{ background: 'var(--bg-page)', padding: '12px', borderRadius: '8px', fontSize: '13px' }}>
                   <strong>Trade:</strong> {selectedBooking.labourType} ({selectedBooking.workersRequired} workers)<br />
                   <strong>Site:</strong> {selectedBooking.customer?.workLocation}, {selectedBooking.customer?.city}<br />
                   <strong>Instructions:</strong> {selectedBooking.additionalInstructions || 'Standard site work'}
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Labour Service Charges (₹) *
                   </label>
                   <input
@@ -173,13 +173,13 @@ const AdminLabourRequests = () => {
                     required
                     value={charges}
                     onChange={e => setCharges(e.target.value)}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px', fontWeight: 700 }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', fontWeight: 700 }}
                   />
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Lead Mason / Plumber Name
                     </label>
                     <input
@@ -187,12 +187,12 @@ const AdminLabourRequests = () => {
                       placeholder="e.g. Ramesh Kumar"
                       value={workerName}
                       onChange={e => setWorkerName(e.target.value)}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Worker Mobile Number
                     </label>
                     <input
@@ -200,19 +200,19 @@ const AdminLabourRequests = () => {
                       placeholder="+91 98111 22334"
                       value={workerPhone}
                       onChange={e => setWorkerPhone(e.target.value)}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Booking Status
                   </label>
                   <select
                     value={status}
                     onChange={e => setStatus(e.target.value)}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px', background: '#FFFFFF' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', background: 'var(--bg-card)' }}
                   >
                     <option value="Pending Review">Pending Review</option>
                     <option value="Quoted">Quoted to Customer</option>
@@ -224,7 +224,7 @@ const AdminLabourRequests = () => {
               </div>
 
               <div className="modal-footer">
-                <button type="button" onClick={() => setIsAssignModalOpen(false)} className="btn-secondary" style={{ background: '#F1F5F9', color: '#0F172A', border: '1px solid #CBD5E1' }}>
+                <button type="button" onClick={() => setIsAssignModalOpen(false)} className="btn-secondary" style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}>
                   Cancel
                 </button>
                 <button type="submit" className="btn-primary">

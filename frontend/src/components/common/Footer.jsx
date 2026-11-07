@@ -22,29 +22,29 @@ const Footer = () => {
               <div className="brand-logo-icon" style={{ width: '36px', height: '36px' }}>
                 <Hammer size={20} />
               </div>
-              <span style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF' }}>
-                Build<span style={{ color: '#F59E0B' }}>Mart</span>
+              <span style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)' }}>
+                Build<span style={{ color: 'var(--color-accent)' }}>Mart</span>
               </span>
             </div>
-            <p style={{ fontSize: '13.5px', lineHeight: 1.6, marginBottom: '20px', color: '#94A3B8' }}>
+            <p style={{ fontSize: '13.5px', lineHeight: 1.6, marginBottom: '20px', color: 'var(--text-light)' }}>
               India's premier direct construction-materials procurement platform. Delivering authentic cement, TMT rebars, plumbing, tiles, waterproofing, and skilled site labour direct to contractors, builders, and home owners in 30-60 minutes.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Phone size={15} color="#F59E0B" />
+                <Phone size={15} color='var(--color-accent)' />
                 <span>1800-890-5000 (Toll Free)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Mail size={15} color="#F59E0B" />
+                <Mail size={15} color='var(--color-accent)' />
                 <span>orders@buildmart.in</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                <MapPin size={15} color="#F59E0B" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <MapPin size={15} color='var(--color-accent)' style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span>BuildMart Central Logistics Yard, Outer Ring Road, Bellandur, Bengaluru 560103</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Clock size={15} color="#10B981" />
+                <Clock size={15} color='var(--color-success)' />
                 <span>Mon - Sun: 6:00 AM - 10:00 PM Dispatch</span>
               </div>
             </div>
@@ -107,8 +107,8 @@ const Footer = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: '#25D366',
-                  color: '#FFFFFF',
+                  background: 'var(--color-success)',
+                  color: 'var(--bg-card)',
                   padding: '9px 16px',
                   borderRadius: '8px',
                   fontWeight: 700,
@@ -129,9 +129,9 @@ const Footer = () => {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span>Verified Genuine Materials</span>
-            <span>•</span>
+            
             <span>RERA Compliant Batch Certifications</span>
-            <span>•</span>
+            
             <span>SSL 256-bit Secure Checkout</span>
           </div>
         </div>

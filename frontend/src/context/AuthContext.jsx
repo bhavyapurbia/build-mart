@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('bm_token', mockToken);
         setToken(mockToken);
         setUser(demoAdmin);
-        showToast('⚡ Authorized as BuildMart Administrator!', 'success');
+        showToast('Authorized as BuildMart Administrator!', 'success');
         return { success: true };
       }
       const msg = err.response?.data?.message || 'Admin authentication failed.';
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('bm_token', mockToken);
     setToken(mockToken);
     setUser(adminUser);
-    showToast('⚡ Authorized as BuildMart Administrator!', 'success');
+    showToast('Authorized as BuildMart Administrator!', 'success');
     return adminUser;
   };
 

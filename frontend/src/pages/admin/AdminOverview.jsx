@@ -33,7 +33,7 @@ const AdminOverview = () => {
   }, []);
 
   if (loading) {
-    return <div style={{ padding: '60px', textAlign: 'center', color: '#64748B' }}>Loading operations dashboard...</div>;
+    return <div style={{ padding: '60px', textAlign: 'center', color: 'var(--color-muted)' }}>Loading operations dashboard...</div>;
   }
 
   const { metrics, lowStockProducts = [], recentOrders = [], recentMaterialRequests = [] } = data || {};
@@ -41,10 +41,10 @@ const AdminOverview = () => {
   return (
     <div>
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
           Operations Overview
         </h1>
-        <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+        <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
           Live metrics for materials inventory, customer quotations, site labour, and order fulfillment
         </p>
       </div>
@@ -53,90 +53,90 @@ const AdminOverview = () => {
       <div className="admin-kpi-grid">
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Total Sales</div>
-            <div className="kpi-val" style={{ color: '#0F172A' }}>₹{metrics?.totalSales?.toLocaleString('en-IN') || 0}</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Total Sales</div>
+            <div className="kpi-val" style={{ color: 'var(--color-ink)' }}>₹{metrics?.totalSales?.toLocaleString('en-IN') || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#ECFDF5', color: '#10B981' }}>
+          <div className="kpi-icon" style={{ background: 'var(--accent-green-light)', color: 'var(--color-success)' }}>
             <IndianRupee size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Pending Material Requests</div>
-            <div className="kpi-val" style={{ color: '#D97706' }}>{metrics?.pendingMaterialRequests || 0}</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Pending Material Requests</div>
+            <div className="kpi-val" style={{ color: 'var(--primary-dark)' }}>{metrics?.pendingMaterialRequests || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#FEF3C7', color: '#D97706' }}>
+          <div className="kpi-icon" style={{ background: 'var(--primary-light)', color: 'var(--primary-dark)' }}>
             <ClipboardList size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Total Orders</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Total Orders</div>
             <div className="kpi-val">{metrics?.totalOrders || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#EFF6FF', color: '#2563EB' }}>
+          <div className="kpi-icon" style={{ background: 'var(--accent-blue-light)', color: 'var(--accent-blue)' }}>
             <ShoppingCart size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Pending Quotations</div>
-            <div className="kpi-val" style={{ color: '#0284C7' }}>{metrics?.pendingQuotations || 0}</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Pending Quotations</div>
+            <div className="kpi-val" style={{ color: 'var(--accent-blue)' }}>{metrics?.pendingQuotations || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#E0F2FE', color: '#0284C7' }}>
+          <div className="kpi-icon" style={{ background: 'var(--accent-blue-light)', color: 'var(--accent-blue)' }}>
             <FileText size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Bulk Project Enquiries</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Bulk Project Enquiries</div>
             <div className="kpi-val">{metrics?.bulkEnquiries || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#F5F3FF', color: '#7C3AED' }}>
+          <div className="kpi-icon" style={{ background: 'var(--color-paper-3)', color: 'var(--secondary)' }}>
             <Truck size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Labour Booking Requests</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Labour Booking Requests</div>
             <div className="kpi-val">{metrics?.labourRequests || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#FFF7ED', color: '#EA580C' }}>
+          <div className="kpi-icon" style={{ background: 'var(--color-accent-light)', color: 'var(--primary-deep)' }}>
             <HardHat size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Active Catalog Materials</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Active Catalog Materials</div>
             <div className="kpi-val">{metrics?.totalProducts || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#F1F5F9', color: '#475569' }}>
+          <div className="kpi-icon" style={{ background: 'var(--color-paper-3)', color: 'var(--text-sub)' }}>
             <Package size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Registered Contractors</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Registered Contractors</div>
             <div className="kpi-val">{metrics?.totalCustomers || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#F1F5F9', color: '#475569' }}>
+          <div className="kpi-icon" style={{ background: 'var(--color-paper-3)', color: 'var(--text-sub)' }}>
             <Users size={24} />
           </div>
         </div>
 
         <div className="kpi-card">
           <div>
-            <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>Low Stock Alert</div>
-            <div className="kpi-val" style={{ color: '#DC2626' }}>{metrics?.lowStockCount || 0}</div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Low Stock Alert</div>
+            <div className="kpi-val" style={{ color: 'var(--color-error)' }}>{metrics?.lowStockCount || 0}</div>
           </div>
-          <div className="kpi-icon" style={{ background: '#FEE2E2', color: '#DC2626' }}>
+          <div className="kpi-icon" style={{ background: 'var(--accent-red-light)', color: 'var(--color-error)' }}>
             <AlertTriangle size={24} />
           </div>
         </div>
@@ -146,11 +146,11 @@ const AdminOverview = () => {
       <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px', alignItems: 'start' }}>
         {/* Recent Material Requests (Core Workflow) */}
         <div className="admin-table-card">
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-ink)' }}>
               Recent Customer Material Requests
             </h3>
-            <Link to="/admin/material-requests" style={{ fontSize: '12.5px', color: '#D97706', fontWeight: 700 }}>
+            <Link to="/admin/material-requests" style={{ fontSize: '12.5px', color: 'var(--primary-dark)', fontWeight: 700 }}>
               View All Requests
             </Link>
           </div>
@@ -171,7 +171,7 @@ const AdminOverview = () => {
                   <td><strong>{req.requestId}</strong></td>
                   <td>
                     <div>{req.customer?.name}</div>
-                    <div style={{ fontSize: '11px', color: '#64748B' }}>{req.customer?.city}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>{req.customer?.city}</div>
                   </td>
                   <td>{req.items?.length || 0} products</td>
                   <td>
@@ -182,9 +182,9 @@ const AdminOverview = () => {
                   <td>
                     <Link
                       to="/admin/material-requests"
-                      style={{ fontSize: '12px', color: '#2563EB', fontWeight: 700 }}
+                      style={{ fontSize: '12px', color: 'var(--accent-blue)', fontWeight: 700 }}
                     >
-                      Process Quote →
+                      Process Quote
                     </Link>
                   </td>
                 </tr>
@@ -195,11 +195,11 @@ const AdminOverview = () => {
 
         {/* Low Stock Alerts */}
         <div className="admin-table-card">
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#DC2626' }}>
-              ⚠️ Low Stock Warnings
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-error)' }}>
+              Low Stock Warnings
             </h3>
-            <Link to="/admin/inventory" style={{ fontSize: '12.5px', color: '#D97706', fontWeight: 700 }}>
+            <Link to="/admin/inventory" style={{ fontSize: '12.5px', color: 'var(--primary-dark)', fontWeight: 700 }}>
               Manage Stock
             </Link>
           </div>
@@ -217,9 +217,9 @@ const AdminOverview = () => {
                 <tr key={p._id}>
                   <td style={{ fontWeight: 600 }}>{p.name}</td>
                   <td>
-                    <span style={{ color: '#DC2626', fontWeight: 800 }}>{p.stock}</span>
+                    <span style={{ color: 'var(--color-error)', fontWeight: 800 }}>{p.stock}</span>
                   </td>
-                  <td style={{ fontSize: '12px', color: '#64748B' }}>{p.unit}</td>
+                  <td style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{p.unit}</td>
                 </tr>
               ))}
             </tbody>

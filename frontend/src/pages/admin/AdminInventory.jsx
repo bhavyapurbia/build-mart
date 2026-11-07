@@ -45,10 +45,10 @@ const AdminInventory = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Warehouse Stock & Inventory Tracking
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Monitor active material stocks across fulfillment hubs with low-stock warnings
           </p>
         </div>
@@ -72,25 +72,25 @@ const AdminInventory = () => {
           </thead>
           <tbody>
             {inventory.map(item => (
-              <tr key={item.productId} style={{ background: item.isLowStock ? '#FFFBEB' : 'transparent' }}>
+              <tr key={item.productId} style={{ background: item.isLowStock ? 'var(--color-accent-light)' : 'transparent' }}>
                 <td>
-                  <strong style={{ fontSize: '13.5px', color: '#0F172A' }}>{item.name}</strong>
+                  <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)' }}>{item.name}</strong>
                   {item.isLowStock && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: '#DC2626', fontWeight: 700, marginTop: '2px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: 'var(--color-error)', fontWeight: 700, marginTop: '2px' }}>
                       <AlertTriangle size={12} />
                       <span>Below Reorder Threshold (≤ 15)</span>
                     </div>
                   )}
                 </td>
-                <td style={{ fontSize: '12px', color: '#64748B' }}>{item.sku}</td>
+                <td style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{item.sku}</td>
                 <td style={{ fontSize: '12.5px' }}>{item.category}</td>
                 <td style={{ fontSize: '12.5px', fontWeight: 600 }}>{item.brand}</td>
                 <td>
-                  <strong style={{ fontSize: '15px', color: item.isLowStock ? '#DC2626' : '#0F172A' }}>
+                  <strong style={{ fontSize: '15px', color: item.isLowStock ? 'var(--color-error)' : 'var(--color-ink)' }}>
                     {item.stock}
                   </strong>
                 </td>
-                <td style={{ fontSize: '12px', color: '#64748B' }}>{item.unit}</td>
+                <td style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{item.unit}</td>
                 <td>
                   <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                     <input
@@ -98,11 +98,11 @@ const AdminInventory = () => {
                       placeholder={item.stock}
                       value={editingStock[item.productId] ?? ''}
                       onChange={e => setEditingStock({ ...editingStock, [item.productId]: e.target.value })}
-                      style={{ width: '70px', padding: '6px 8px', border: '1px solid #CBD5E1', borderRadius: '4px', fontSize: '12.5px' }}
+                      style={{ width: '70px', padding: '6px 8px', border: '1px solid var(--color-rule)', borderRadius: '4px', fontSize: '12.5px' }}
                     />
                     <button
                       onClick={() => handleUpdateStock(item.productId)}
-                      style={{ background: '#D97706', color: '#FFFFFF', padding: '6px 10px', borderRadius: '4px', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}
+                      style={{ background: 'var(--primary-dark)', color: 'var(--bg-card)', padding: '6px 10px', borderRadius: '4px', fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}
                     >
                       Update
                     </button>

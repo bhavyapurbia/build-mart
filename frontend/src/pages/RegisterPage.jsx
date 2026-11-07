@@ -40,9 +40,9 @@ const RegisterPage = () => {
     <div style={{ padding: '60px 0 100px' }}>
       <div className="container" style={{ maxWidth: '460px', margin: '0 auto' }}>
         <div style={{
-          background: '#FFFFFF',
+          background: 'var(--bg-card)',
           borderRadius: '16px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--border)',
           padding: '36px',
           boxShadow: 'var(--shadow-md)'
         }}>
@@ -50,72 +50,72 @@ const RegisterPage = () => {
             <div className="brand-logo-icon" style={{ margin: '0 auto 12px', width: '48px', height: '48px' }}>
               <Hammer size={24} />
             </div>
-            <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A' }}>
+            <h1 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--color-ink)' }}>
               Create Customer Account
             </h1>
-            <p style={{ fontSize: '13px', color: '#64748B', marginTop: '4px' }}>
+            <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginTop: '4px' }}>
               Register for contractor pricing, instant material quotes, and order tracking
             </p>
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                 Full Name *
               </label>
               <div style={{ position: 'relative' }}>
-                <User size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '13px' }} />
+                <User size={16} color='var(--text-light)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
                 <input
                   type="text"
                   required
                   placeholder="Ramesh Sharma / ABC Construction"
                   value={formData.name}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                 Email Address *
               </label>
               <div style={{ position: 'relative' }}>
-                <Mail size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '13px' }} />
+                <Mail size={16} color='var(--text-light)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
                 <input
                   type="email"
                   required
                   placeholder="name@site.com"
                   value={formData.email}
                   onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                 Mobile Number *
               </label>
               <div style={{ position: 'relative' }}>
-                <Phone size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '13px' }} />
+                <Phone size={16} color='var(--text-light)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
                 <input
                   type="tel"
                   required
                   placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                 Password *
               </label>
               <div style={{ position: 'relative' }}>
-                <Lock size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '13px' }} />
+                <Lock size={16} color='var(--text-light)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
                 <input
                   type="password"
                   required
@@ -123,7 +123,7 @@ const RegisterPage = () => {
                   placeholder="At least 6 characters"
                   value={formData.password}
                   onChange={e => setFormData({ ...formData, password: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px 10px 36px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
             </div>
@@ -139,9 +139,9 @@ const RegisterPage = () => {
             </button>
           </form>
 
-          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: '#64748B' }}>
+          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--color-muted)' }}>
             Already have an account?{' '}
-            <Link to="/login" style={{ color: '#D97706', fontWeight: 700 }}>
+            <Link to="/login" style={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
               Sign In
             </Link>
           </div>

@@ -21,23 +21,23 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div style={{ minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: '#0F172A' }}>
+    <div style={{ minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--color-ink)' }}>
       <div style={{
         maxWidth: '420px',
         width: '100%',
-        background: '#1E293B',
+        background: 'var(--secondary)',
         borderRadius: '16px',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        border: '1px solid var(--border)',
         padding: '36px',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+        boxShadow: 'var(--shadow-lg)'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <div style={{
             width: '54px',
             height: '54px',
             borderRadius: '12px',
-            background: 'linear-gradient(135deg, #F59E0B, #D97706)',
-            color: '#000000',
+            background: 'linear-gradient(135deg, var(--color-accent), var(--primary-dark))',
+            color: 'var(--color-ink)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -47,21 +47,21 @@ const AdminLoginPage = () => {
             <ShieldCheck size={28} />
           </div>
 
-          <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF' }}>
+          <h1 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)' }}>
             BuildMart Admin Portal
           </h1>
-          <p style={{ fontSize: '13px', color: '#94A3B8', marginTop: '4px' }}>
+          <p style={{ fontSize: '13px', color: 'var(--text-light)', marginTop: '4px' }}>
             Restricted operations management & quotation dispatch console
           </p>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#CBD5E1', marginBottom: '6px' }}>
+            <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--color-rule)', marginBottom: '6px' }}>
               Admin Email
             </label>
             <div style={{ position: 'relative' }}>
-              <Mail size={16} color="#64748B" style={{ position: 'absolute', left: '12px', top: '13px' }} />
+              <Mail size={16} color='var(--color-muted)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
               <input
                 type="email"
                 required
@@ -70,10 +70,10 @@ const AdminLoginPage = () => {
                 style={{
                   width: '100%',
                   padding: '10px 12px 10px 36px',
-                  background: '#0F172A',
-                  border: '1px solid #334155',
+                  background: 'var(--color-ink)',
+                  border: '1px solid var(--secondary-light)',
                   borderRadius: '8px',
-                  color: '#FFFFFF',
+                  color: 'var(--bg-card)',
                   fontSize: '13.5px'
                 }}
               />
@@ -81,11 +81,11 @@ const AdminLoginPage = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#CBD5E1', marginBottom: '6px' }}>
+            <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--color-rule)', marginBottom: '6px' }}>
               Admin Password
             </label>
             <div style={{ position: 'relative' }}>
-              <Lock size={16} color="#64748B" style={{ position: 'absolute', left: '12px', top: '13px' }} />
+              <Lock size={16} color='var(--color-muted)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
               <input
                 type="password"
                 required
@@ -94,10 +94,10 @@ const AdminLoginPage = () => {
                 style={{
                   width: '100%',
                   padding: '10px 12px 10px 36px',
-                  background: '#0F172A',
-                  border: '1px solid #334155',
+                  background: 'var(--color-ink)',
+                  border: '1px solid var(--secondary-light)',
                   borderRadius: '8px',
-                  color: '#FFFFFF',
+                  color: 'var(--bg-card)',
                   fontSize: '13.5px'
                 }}
               />
@@ -129,9 +129,9 @@ const AdminLoginPage = () => {
               width: '100%',
               padding: '11px',
               borderRadius: '8px',
-              border: '1px solid #F59E0B',
+              border: '1px solid var(--color-accent)',
               background: 'rgba(245, 158, 11, 0.15)',
-              color: '#FCD34D',
+              color: 'var(--color-accent)',
               fontSize: '13.5px',
               fontWeight: 700,
               cursor: 'pointer',
@@ -142,7 +142,7 @@ const AdminLoginPage = () => {
               transition: 'all 0.2s ease'
             }}
           >
-            <span>⚡ 1-Click Instant Admin Access</span>
+            <span>1-Click Instant Admin Access</span>
           </button>
         </form>
 
@@ -153,7 +153,7 @@ const AdminLoginPage = () => {
           borderRadius: '8px',
           padding: '10px 14px',
           fontSize: '12px',
-          color: '#FCD34D',
+          color: 'var(--color-accent)',
           lineHeight: 1.5
         }}>
           <strong>Default Admin Credentials:</strong><br />
@@ -162,7 +162,7 @@ const AdminLoginPage = () => {
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <Link to="/" style={{ color: '#94A3B8', fontSize: '13px' }}>
+          <Link to="/" style={{ color: 'var(--text-light)', fontSize: '13px' }}>
             ← Return to Customer Website
           </Link>
         </div>

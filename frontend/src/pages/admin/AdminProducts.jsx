@@ -165,10 +165,10 @@ const AdminProducts = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Product Catalog Management
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Add, update specifications, set stock, and manage wholesale prices
           </p>
         </div>
@@ -181,20 +181,20 @@ const AdminProducts = () => {
       {/* Filter Row */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
         <div style={{ position: 'relative', flex: 1, minWidth: '220px' }}>
-          <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '12px' }} />
+          <Search size={16} color='var(--text-light)' style={{ position: 'absolute', left: '12px', top: '12px' }} />
           <input
             type="text"
             placeholder="Search by name, brand, SKU..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={{ width: '100%', padding: '9px 12px 9px 36px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px', background: '#FFFFFF' }}
+            style={{ width: '100%', padding: '9px 12px 9px 36px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px', background: 'var(--bg-card)' }}
           />
         </div>
 
         <select
           value={categoryFilter}
           onChange={e => setCategoryFilter(e.target.value)}
-          style={{ padding: '9px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', background: '#FFFFFF', fontWeight: 600 }}
+          style={{ padding: '9px 14px', borderRadius: '8px', border: '1px solid var(--color-rule)', fontSize: '13px', background: 'var(--bg-card)', fontWeight: 600 }}
         >
           <option value="">All Categories</option>
           {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -226,43 +226,43 @@ const AdminProducts = () => {
                       style={{ width: '40px', height: '40px', borderRadius: '6px', objectFit: 'cover' }}
                     />
                     <div>
-                      <strong style={{ fontSize: '13.5px', color: '#0F172A', display: 'block' }}>{p.name}</strong>
-                      <span style={{ fontSize: '11px', color: '#D97706', fontWeight: 700 }}>{p.brand}</span>
+                      <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)', display: 'block' }}>{p.name}</strong>
+                      <span style={{ fontSize: '11px', color: 'var(--primary-dark)', fontWeight: 700 }}>{p.brand}</span>
                     </div>
                   </div>
                 </td>
-                <td style={{ fontSize: '12px', color: '#64748B' }}>{p.sku}</td>
+                <td style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{p.sku}</td>
                 <td style={{ fontSize: '12.5px' }}>{p.category}</td>
                 <td>
-                  <strong style={{ color: '#0F172A' }}>₹{p.price}</strong>
-                  <span style={{ fontSize: '11.5px', color: '#64748B' }}> / {p.unit}</span>
-                  {p.discount > 0 && <span style={{ display: 'block', fontSize: '11px', color: '#10B981', fontWeight: 700 }}>{p.discount}% Off</span>}
+                  <strong style={{ color: 'var(--color-ink)' }}>₹{p.price}</strong>
+                  <span style={{ fontSize: '11.5px', color: 'var(--color-muted)' }}> / {p.unit}</span>
+                  {p.discount > 0 && <span style={{ display: 'block', fontSize: '11px', color: 'var(--color-success)', fontWeight: 700 }}>{p.discount}% Off</span>}
                 </td>
                 <td>
-                  <span style={{ fontWeight: 700, color: p.stock <= 15 ? '#DC2626' : '#0F172A' }}>
+                  <span style={{ fontWeight: 700, color: p.stock <= 15 ? 'var(--color-error)' : 'var(--color-ink)' }}>
                     {p.stock}
                   </span>
-                  {p.stock <= 15 && <span style={{ display: 'block', fontSize: '10px', color: '#DC2626', fontWeight: 700 }}>Low Stock</span>}
+                  {p.stock <= 15 && <span style={{ display: 'block', fontSize: '10px', color: 'var(--color-error)', fontWeight: 700 }}>Low Stock</span>}
                 </td>
                 <td>
-                  {p.isDeal && <span style={{ background: '#FEE2E2', color: '#B91C1C', padding: '2px 6px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700, marginRight: '4px' }}>Deal</span>}
-                  {p.isFeatured && <span style={{ background: '#FEF3C7', color: '#B45309', padding: '2px 6px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700 }}>Bestseller</span>}
+                  {p.isDeal && <span style={{ background: 'var(--accent-red-light)', color: 'var(--color-error)', padding: '2px 6px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700, marginRight: '4px' }}>Deal</span>}
+                  {p.isFeatured && <span style={{ background: 'var(--primary-light)', color: 'var(--primary-deep)', padding: '2px 6px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700 }}>Bestseller</span>}
                 </td>
                 <td>
                   <div style={{ display: 'flex', gap: '6px' }}>
                     <button
                       onClick={() => handleOpenEdit(p)}
-                      style={{ background: '#F1F5F9', border: '1px solid #CBD5E1', padding: '5px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                      style={{ background: 'var(--color-paper-3)', border: '1px solid var(--color-rule)', padding: '5px 8px', borderRadius: '4px', cursor: 'pointer' }}
                       title="Edit Product"
                     >
-                      <Edit2 size={14} color="#0F172A" />
+                      <Edit2 size={14} color='var(--color-ink)' />
                     </button>
                     <button
                       onClick={() => handleDelete(p._id)}
-                      style={{ background: '#FEE2E2', border: '1px solid #FECACA', padding: '5px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                      style={{ background: 'var(--accent-red-light)', border: '1px solid var(--accent-red-light)', padding: '5px 8px', borderRadius: '4px', cursor: 'pointer' }}
                       title="Delete Product"
                     >
-                      <Trash2 size={14} color="#B91C1C" />
+                      <Trash2 size={14} color='var(--color-error)' />
                     </button>
                   </div>
                 </td>
@@ -288,7 +288,7 @@ const AdminProducts = () => {
             <form onSubmit={handleSubmit}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Material Product Name *
                   </label>
                   <input
@@ -296,28 +296,28 @@ const AdminProducts = () => {
                     required
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                   />
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Category *</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Category *</label>
                     <select
                       value={formData.category}
                       onChange={e => setFormData({ ...formData, category: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px', background: '#FFFFFF' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px', background: 'var(--bg-card)' }}
                     >
                       {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Brand *</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Brand *</label>
                     <select
                       value={formData.brand}
                       onChange={e => setFormData({ ...formData, brand: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px', background: '#FFFFFF' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px', background: 'var(--bg-card)' }}
                     >
                       {BRANDS.map(b => <option key={b} value={b}>{b}</option>)}
                     </select>
@@ -326,67 +326,67 @@ const AdminProducts = () => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Price (₹) *</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Price (₹) *</label>
                     <input
                       type="number"
                       required
                       value={formData.price}
                       onChange={e => setFormData({ ...formData, price: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>MRP (₹) *</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>MRP (₹) *</label>
                     <input
                       type="number"
                       required
                       value={formData.mrp}
                       onChange={e => setFormData({ ...formData, mrp: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Unit</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Unit</label>
                     <input
                       type="text"
                       placeholder="e.g. 50kg Bag, Ton, Piece"
                       value={formData.unit}
                       onChange={e => setFormData({ ...formData, unit: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Available Stock *</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Available Stock *</label>
                     <input
                       type="number"
                       required
                       value={formData.stock}
                       onChange={e => setFormData({ ...formData, stock: Number(e.target.value) || 0 })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Image URL</label>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Image URL</label>
                     <input
                       type="text"
                       placeholder="https://..."
                       value={formData.imageUrl}
                       onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Description</label>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Description</label>
                   <textarea
                     rows={2}
                     value={formData.description}
                     onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px', resize: 'vertical' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px', resize: 'vertical' }}
                   />
                 </div>
 
@@ -411,7 +411,7 @@ const AdminProducts = () => {
               </div>
 
               <div className="modal-footer">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary" style={{ background: '#F1F5F9', color: '#0F172A', border: '1px solid #CBD5E1' }}>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary" style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}>
                   Cancel
                 </button>
                 <button type="submit" className="btn-primary">

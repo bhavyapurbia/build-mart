@@ -28,7 +28,7 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
       <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <MapPin size={20} color="#D97706" />
+            <MapPin size={20} color='var(--primary-dark)' />
             <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Choose Delivery Location</h3>
           </div>
           <button onClick={onClose} style={{ background: 'transparent', cursor: 'pointer' }}>
@@ -37,7 +37,7 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
         </div>
 
         <div className="modal-body">
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginBottom: '16px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginBottom: '16px' }}>
             Select your project site city or enter your 6-digit pin code for accurate delivery lead times and localized warehouse pricing:
           </p>
 
@@ -51,7 +51,7 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
               style={{
                 flex: 1,
                 padding: '10px 14px',
-                border: '1px solid #E2E8F0',
+                border: '1px solid var(--border)',
                 borderRadius: '8px',
                 fontSize: '14px'
               }}
@@ -60,8 +60,8 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
               type="submit"
               disabled={pincode.length !== 6}
               style={{
-                background: pincode.length === 6 ? '#D97706' : '#E2E8F0',
-                color: pincode.length === 6 ? '#FFFFFF' : '#94A3B8',
+                background: pincode.length === 6 ? 'var(--primary-dark)' : 'var(--border)',
+                color: pincode.length === 6 ? 'var(--bg-card)' : 'var(--text-light)',
                 padding: '10px 16px',
                 borderRadius: '8px',
                 fontWeight: 600,
@@ -73,8 +73,8 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
             </button>
           </form>
 
-          <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '16px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Major Metro Supply Zones
             </span>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '8px', marginTop: '10px' }}>
@@ -93,17 +93,17 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
                       justifyContent: 'space-between',
                       padding: '12px 14px',
                       borderRadius: '8px',
-                      border: isSelected ? '2px solid #D97706' : '1px solid #E2E8F0',
-                      background: isSelected ? '#FEF3C7' : '#FFFFFF',
+                      border: isSelected ? '2px solid var(--primary-dark)' : '1px solid var(--border)',
+                      background: isSelected ? 'var(--primary-light)' : 'var(--bg-card)',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
                   >
                     <div>
-                      <strong style={{ fontSize: '14px', color: '#0F172A' }}>{c.name}</strong>
-                      <div style={{ fontSize: '12px', color: '#64748B' }}>{c.hub}</div>
+                      <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
+                      <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{c.hub}</div>
                     </div>
-                    {isSelected && <Check size={18} color="#D97706" />}
+                    {isSelected && <Check size={18} color='var(--primary-dark)' />}
                   </div>
                 );
               })}

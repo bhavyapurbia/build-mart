@@ -31,16 +31,16 @@ const REASONS = [
 
 const WhyChooseUs = () => {
   return (
-    <section style={{ padding: '36px 0 20px', background: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}>
+    <section style={{ padding: '36px 0 20px', background: 'var(--bg-page)', borderTop: '1px solid var(--border)' }}>
       <div className="container">
         <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 32px' }}>
-          <span style={{ fontSize: '12px', fontWeight: 700, color: '#D97706', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary-dark)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             The BuildMart Advantage
           </span>
-          <h2 style={{ fontSize: '26px', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
+          <h2 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '4px' }}>
             Why Builders Choose BuildMart
           </h2>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '6px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '6px' }}>
             Engineered from the ground up for modern construction workflows and trade contractor reliability.
           </p>
         </div>
@@ -53,10 +53,10 @@ const WhyChooseUs = () => {
                 <div className="feature-icon-wrapper">
                   <Icon size={26} />
                 </div>
-                <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+                <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '8px' }}>
                   {reason.title}
                 </h4>
-                <p style={{ fontSize: '12.5px', color: '#64748B', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '12.5px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
                   {reason.desc}
                 </p>
               </div>

@@ -60,7 +60,6 @@ const ProjectStageStrip = ({ onOpenPaperList }) => {
         {/* Header */}
         <div className="project-stage-header">
           <div>
-            <span className="stage-kicker">SITE CATEGORIES</span>
             <h3 className="stage-title">{t('stagesHeading') || 'Shop by Construction Category'}</h3>
           </div>
           <button
@@ -68,7 +67,7 @@ const ProjectStageStrip = ({ onOpenPaperList }) => {
             className="snap-paper-list-trigger-btn"
             onClick={onOpenPaperList}
           >
-            <Camera size={16} color="#FF6E00" />
+            <Camera size={16} color='var(--color-accent)' />
             <span>{t('snapPaperList') || 'Have a paper list? Snap & Send'}</span>
           </button>
         </div>

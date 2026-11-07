@@ -61,7 +61,7 @@ const AdminBanners = () => {
   });
 
   const [announcementText, setAnnouncementText] = useState(() => {
-    return localStorage.getItem('bm_announcement') || '⚡ Free express delivery to job sites in under 30 minutes for orders over ₹499';
+    return localStorage.getItem('bm_announcement') || 'Free express delivery to job sites in under 30 minutes for orders over ₹499';
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -204,14 +204,14 @@ const AdminBanners = () => {
       </div>
 
       {/* Global Announcement Bar Editor */}
-      <div className="admin-card" style={{ marginBottom: '28px', padding: '24px', background: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+      <div className="admin-card" style={{ marginBottom: '28px', padding: '24px', background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'var(--primary-light)', color: 'var(--primary-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Megaphone size={20} />
           </div>
           <div>
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', margin: 0 }}>Top Global Announcement Bar</h3>
-            <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Displayed at the very top of every customer page</p>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-ink)', margin: 0 }}>Top Global Announcement Bar</h3>
+            <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: 0 }}>Displayed at the very top of every customer page</p>
           </div>
         </div>
 
@@ -224,7 +224,7 @@ const AdminBanners = () => {
               flex: 1,
               padding: '10px 14px',
               borderRadius: '8px',
-              border: '1px solid #CBD5E1',
+              border: '1px solid var(--color-rule)',
               fontSize: '13.5px'
             }}
             placeholder="Enter announcement text..."
@@ -237,7 +237,7 @@ const AdminBanners = () => {
 
       {/* Hero Banners Grid */}
       <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0F172A' }}>Active Hero & Cashback Slides ({banners.length})</h3>
+        <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--color-ink)' }}>Active Hero & Cashback Slides ({banners.length})</h3>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>
@@ -247,8 +247,8 @@ const AdminBanners = () => {
             style={{
               borderRadius: '12px',
               overflow: 'hidden',
-              background: '#FFFFFF',
-              border: '1px solid #E2E8F0',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
               boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
               display: 'flex',
               flexDirection: 'column'
@@ -257,8 +257,8 @@ const AdminBanners = () => {
             {/* Live Banner Preview Card */}
             <div
               style={{
-                background: b.bgGradient || '#091E3A',
-                color: '#FFFFFF',
+                background: b.bgGradient || 'var(--secondary-dark)',
+                color: 'var(--bg-card)',
                 padding: '24px',
                 position: 'relative',
                 minHeight: '160px',
@@ -270,8 +270,8 @@ const AdminBanners = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <span
                   style={{
-                    background: '#F59E0B',
-                    color: '#000000',
+                    background: 'var(--color-accent)',
+                    color: 'var(--color-ink)',
                     fontSize: '10.5px',
                     fontWeight: 800,
                     padding: '3px 8px',
@@ -286,8 +286,8 @@ const AdminBanners = () => {
                 <span
                   style={{
                     background: b.active ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-                    color: b.active ? '#34D399' : '#F87171',
-                    border: `1px solid ${b.active ? '#10B981' : '#EF4444'}`,
+                    color: b.active ? 'var(--accent-green-light)' : 'var(--color-error)',
+                    border: `1px solid ${b.active ? 'var(--color-success)' : 'var(--color-error)'}`,
                     fontSize: '11px',
                     fontWeight: 700,
                     padding: '2px 8px',
@@ -299,26 +299,26 @@ const AdminBanners = () => {
               </div>
 
               <div>
-                <h4 style={{ fontSize: '20px', fontWeight: 900, margin: '8px 0 4px', color: '#FFFFFF' }}>
+                <h4 style={{ fontSize: '20px', fontWeight: 900, margin: '8px 0 4px', color: 'var(--bg-card)' }}>
                   {b.title}
                 </h4>
-                <p style={{ fontSize: '12.5px', color: '#CBD5E1', margin: 0, lineHeight: 1.4 }}>
+                <p style={{ fontSize: '12.5px', color: 'var(--color-rule)', margin: 0, lineHeight: 1.4 }}>
                   {b.subtitle}
                 </p>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-                <span style={{ fontSize: '11.5px', color: '#FCD34D', fontWeight: 700 }}>
+                <span style={{ fontSize: '11.5px', color: 'var(--color-accent)', fontWeight: 700 }}>
                   Coupon: <code>{b.couponCode}</code>
                 </span>
-                <span style={{ fontSize: '11.5px', fontWeight: 700, background: '#FFFFFF', color: '#0F172A', padding: '3px 10px', borderRadius: '4px' }}>
+                <span style={{ fontSize: '11.5px', fontWeight: 700, background: 'var(--bg-card)', color: 'var(--color-ink)', padding: '3px 10px', borderRadius: '4px' }}>
                   {b.ctaText} →
                 </span>
               </div>
             </div>
 
             {/* Admin Controls */}
-            <div style={{ padding: '14px 18px', background: '#F8FAFC', borderTop: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ padding: '14px 18px', background: 'var(--bg-page)', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <button
                 type="button"
                 onClick={() => handleToggleActive(b._id || b.id)}
@@ -328,7 +328,7 @@ const AdminBanners = () => {
                   cursor: 'pointer',
                   fontSize: '12.5px',
                   fontWeight: 600,
-                  color: b.active ? '#D97706' : '#10B981'
+                  color: b.active ? 'var(--primary-dark)' : 'var(--color-success)'
                 }}
               >
                 {b.active ? 'Pause Campaign' : 'Activate Campaign'}
@@ -341,7 +341,7 @@ const AdminBanners = () => {
                   style={{
                     padding: '6px 12px',
                     borderRadius: '6px',
-                    background: '#E2E8F0',
+                    background: 'var(--border)',
                     border: 'none',
                     cursor: 'pointer',
                     display: 'flex',
@@ -360,8 +360,8 @@ const AdminBanners = () => {
                   style={{
                     padding: '6px 12px',
                     borderRadius: '6px',
-                    background: '#FEE2E2',
-                    color: '#DC2626',
+                    background: 'var(--accent-red-light)',
+                    color: 'var(--color-error)',
                     border: 'none',
                     cursor: 'pointer',
                     display: 'flex',
@@ -395,7 +395,7 @@ const AdminBanners = () => {
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                   Headline Title *
                 </label>
                 <input
@@ -404,12 +404,12 @@ const AdminBanners = () => {
                   placeholder="e.g. FLAT 5% CASHBACK ON CEMENT"
                   value={formData.title}
                   onChange={e => setFormData({ ...formData, title: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                  style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                   Subtitle Description
                 </label>
                 <input
@@ -417,68 +417,68 @@ const AdminBanners = () => {
                   placeholder="e.g. On orders above ₹50,000 for all site materials"
                   value={formData.subtitle}
                   onChange={e => setFormData({ ...formData, subtitle: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                  style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Offer Badge
                   </label>
                   <input
                     type="text"
                     value={formData.badge}
                     onChange={e => setFormData({ ...formData, badge: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Coupon Code
                   </label>
                   <input
                     type="text"
                     value={formData.couponCode}
                     onChange={e => setFormData({ ...formData, couponCode: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                   />
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Button Label
                   </label>
                   <input
                     type="text"
                     value={formData.ctaText}
                     onChange={e => setFormData({ ...formData, ctaText: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Target Link
                   </label>
                   <input
                     type="text"
                     value={formData.link}
                     onChange={e => setFormData({ ...formData, link: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                   Background Gradient Theme
                 </label>
                 <select
                   value={formData.bgGradient}
                   onChange={e => setFormData({ ...formData, bgGradient: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid #CBD5E1' }}
+                  style={{ width: '100%', padding: '9px 12px', borderRadius: '7px', border: '1px solid var(--color-rule)' }}
                 >
                   <option value="linear-gradient(135deg, #091E3A 0%, #1B4965 100%)">Deep Midnight Blue (Default)</option>
                   <option value="linear-gradient(135deg, #7F1D1D 0%, #B91C1C 100%)">Crimson Festive Red</option>
@@ -497,7 +497,7 @@ const AdminBanners = () => {
                   onChange={e => setFormData({ ...formData, active: e.target.checked })}
                   style={{ width: '16px', height: '16px' }}
                 />
-                <label htmlFor="bannerActive" style={{ fontSize: '13.5px', fontWeight: 600, color: '#334155', cursor: 'pointer' }}>
+                <label htmlFor="bannerActive" style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--secondary-light)', cursor: 'pointer' }}>
                   Make this banner active immediately
                 </label>
               </div>

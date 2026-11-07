@@ -65,14 +65,14 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
         <div className="mobile-drawer-header">
           <div className="drawer-brand">
             <div className="drawer-logo-badge">
-              <Zap size={18} color="#0F172A" />
+              <Zap size={18} color='var(--color-ink)' />
             </div>
             <div>
               <div className="drawer-brand-name">
                 BUILD<span>MART</span>
               </div>
               <div className="drawer-tagline">
-                ⚡ Material In Minutes
+                Material In Minutes
               </div>
             </div>
           </div>
@@ -97,10 +97,10 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
           ) : (
             <div className="drawer-auth-prompt">
               <div>
-                <div style={{ fontWeight: 700, fontSize: '14px', color: '#0F172A' }}>
+                <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)' }}>
                   Welcome to BuildMart
                 </div>
-                <div style={{ fontSize: '12px', color: '#64748B' }}>
+                <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                   Sign in to track orders & quotations
                 </div>
               </div>
@@ -118,11 +118,11 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
         <div className="drawer-delivery-card" onClick={() => { onClose(); onOpenLocation(); }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span className="drawer-pulse-dot" />
-            <strong style={{ fontSize: '12.5px', color: '#0F172A' }}>
-              Delivering to: <span style={{ color: '#D97706' }}>{currentCity}</span>
+            <strong style={{ fontSize: '12.5px', color: 'var(--color-ink)' }}>
+              Delivering to: <span style={{ color: 'var(--primary-dark)' }}>{currentCity}</span>
             </strong>
           </div>
-          <span style={{ fontSize: '11px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '2px' }}>
+          <span style={{ fontSize: '11px', color: 'var(--color-muted)', display: 'flex', alignItems: 'center', gap: '2px' }}>
             Change ▾
           </span>
         </div>
@@ -162,7 +162,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
                 <div className="drawer-card-subtitle">Masons, Plumbers, Tile Specialists</div>
               </div>
             </div>
-            <ChevronRight size={16} color="#94A3B8" />
+            <ChevronRight size={16} color='var(--text-light)' />
           </div>
 
           {/* Bulk Orders */}
@@ -179,7 +179,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
                 <div className="drawer-card-subtitle">Factory rates for builders & contractors</div>
               </div>
             </div>
-            <ChevronRight size={16} color="#94A3B8" />
+            <ChevronRight size={16} color='var(--text-light)' />
           </div>
         </div>
 
@@ -193,7 +193,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
               onClick={() => handleNav(`/products?category=${encodeURIComponent(c.name)}`)}
             >
               <span>{c.name}</span>
-              <ChevronRight size={14} color="#CBD5E1" />
+              <ChevronRight size={14} color='var(--color-rule)' />
             </div>
           ))}
         </div>
@@ -204,8 +204,8 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
             <div className="drawer-section-title">MANAGEMENT &amp; ACCOUNT</div>
             <div className="drawer-account-links">
               <div className="drawer-account-item admin" onClick={() => handleNav('/admin/overview')}>
-                <ShieldCheck size={18} color="#D97706" />
-                <span style={{ fontWeight: 800, color: '#D97706' }}>Admin Management Panel</span>
+                <ShieldCheck size={18} color='var(--primary-dark)' />
+                <span style={{ fontWeight: 800, color: 'var(--primary-dark)' }}>Admin Management Panel</span>
               </div>
               <div className="drawer-account-item" onClick={() => handleNav('/account?tab=orders')}>
                 <Package size={16} />
@@ -250,11 +250,11 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
 
         {/* Footer / Admin Portal Discreet Link */}
         <div className="drawer-footer">
-          <div style={{ fontSize: '11px', color: '#94A3B8' }}>
+          <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
             BuildMart Technologies • Enterprise Direct Procurement
           </div>
           <div style={{ marginTop: '6px' }}>
-            <Link to="/admin/login" onClick={onClose} style={{ fontSize: '11px', color: '#64748B', textDecoration: 'underline' }}>
+            <Link to="/admin/login" onClick={onClose} style={{ fontSize: '11px', color: 'var(--color-muted)', textDecoration: 'underline' }}>
               Staff & Admin Portal
             </Link>
           </div>

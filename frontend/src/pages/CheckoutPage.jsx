@@ -109,19 +109,19 @@ const CheckoutPage = () => {
       <div style={{ padding: '60px 0 100px' }}>
         <div className="container" style={{ maxWidth: '640px', margin: '0 auto' }}>
           <div style={{
-            background: '#FFFFFF',
+            background: 'var(--bg-card)',
             borderRadius: '16px',
-            border: '2px solid #10B981',
+            border: '2px solid var(--color-success)',
             padding: '40px',
             textAlign: 'center',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+            boxShadow: 'var(--shadow-lg)'
           }}>
             <div style={{
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              background: '#ECFDF5',
-              color: '#10B981',
+              background: 'var(--accent-green-light)',
+              color: 'var(--color-success)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -131,8 +131,8 @@ const CheckoutPage = () => {
             </div>
 
             <span style={{
-              background: '#DCFCE7',
-              color: '#15803D',
+              background: 'var(--accent-green-light)',
+              color: 'var(--color-success)',
               fontSize: '12px',
               fontWeight: 800,
               padding: '4px 12px',
@@ -142,51 +142,51 @@ const CheckoutPage = () => {
               Order Placed Successfully
             </span>
 
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A', marginTop: '12px', marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '12px', marginBottom: '8px' }}>
               Order #{confirmedOrder.orderId}
             </h1>
-            <div style={{ fontSize: '13px', color: '#64748B', marginBottom: '20px' }}>
+            <div style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '20px' }}>
               Invoice Number: <strong>{confirmedOrder.invoiceNumber}</strong>
             </div>
 
-            <p style={{ fontSize: '14.5px', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>
+            <p style={{ fontSize: '14.5px', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '24px' }}>
               Thank you, <strong>{customer.name}</strong>! Your construction materials are being prepared at our fulfillment hub for fast dispatch to <strong>{customer.city}</strong>.
             </p>
 
             {/* Separate Material and Labour Cost Notice */}
             <div style={{
-              background: '#F8FAFC',
+              background: 'var(--bg-page)',
               borderRadius: '12px',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--border)',
               padding: '20px',
               textAlign: 'left',
               marginBottom: '28px',
               fontSize: '13.5px'
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <span style={{ color: '#64748B' }}>Material Costs:</span>
-                <strong style={{ color: '#0F172A' }}>₹{confirmedOrder.order.materialCost.toLocaleString('en-IN')}</strong>
+                <span style={{ color: 'var(--color-muted)' }}>Material Costs:</span>
+                <strong style={{ color: 'var(--color-ink)' }}>₹{confirmedOrder.order.materialCost.toLocaleString('en-IN')}</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <span style={{ color: '#64748B' }}>GST & Delivery:</span>
-                <strong style={{ color: '#0F172A' }}>₹{(confirmedOrder.order.tax + confirmedOrder.order.deliveryCharge).toLocaleString('en-IN')}</strong>
+                <span style={{ color: 'var(--color-muted)' }}>GST & Delivery:</span>
+                <strong style={{ color: 'var(--color-ink)' }}>₹{(confirmedOrder.order.tax + confirmedOrder.order.deliveryCharge).toLocaleString('en-IN')}</strong>
               </div>
 
               {needLabour && (
                 <div style={{
-                  borderTop: '1px dashed #CBD5E1',
+                  borderTop: '1px dashed var(--color-rule)',
                   paddingTop: '8px',
                   marginTop: '8px',
-                  background: '#FFFBEB',
+                  background: 'var(--color-accent-light)',
                   margin: '8px -8px -8px -8px',
                   padding: '12px',
                   borderRadius: '6px'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#B45309', fontWeight: 700 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--primary-deep)', fontWeight: 700 }}>
                     <HardHat size={16} />
                     <span>Labour Request Attached (#{confirmedOrder.order.labourBookingId})</span>
                   </div>
-                  <div style={{ fontSize: '12px', color: '#78350F', marginTop: '4px' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--primary-deep)', marginTop: '4px' }}>
                     *Labour charges are reviewed by our contractor supervisor and displayed separately upon site verification. No labour charge has been deducted yet.
                   </div>
                 </div>
@@ -198,7 +198,7 @@ const CheckoutPage = () => {
                 <span>Track Order Status</span>
                 <ArrowRight size={16} />
               </Link>
-              <Link to="/" className="btn-secondary" style={{ background: '#F1F5F9', color: '#0F172A', border: '1px solid #CBD5E1' }}>
+              <Link to="/" className="btn-secondary" style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}>
                 <span>Return to Homepage</span>
               </Link>
             </div>
@@ -212,10 +212,10 @@ const CheckoutPage = () => {
     <div style={{ padding: '28px 0 80px' }}>
       <div className="container">
         <div style={{ marginBottom: '24px' }}>
-          <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Checkout & Order Confirmation
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '4px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '4px' }}>
             Please confirm your job-site delivery location and service options.
           </p>
         </div>
@@ -224,14 +224,14 @@ const CheckoutPage = () => {
           {/* Left Column: Delivery Details & Labour Option */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {/* 1. Delivery Details */}
-            <div style={{ background: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '24px' }}>
-              <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
+            <div style={{ background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border)', padding: '24px' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid var(--border)' }}>
                 1. Delivery & Contact Information
               </h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Customer / Site Engineer Name *
                   </label>
                   <input
@@ -240,13 +240,13 @@ const CheckoutPage = () => {
                     placeholder="Full Name"
                     value={customer.name}
                     onChange={e => setCustomer({ ...customer, name: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                   />
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Mobile Number (For Driver Call) *
                     </label>
                     <input
@@ -255,11 +255,11 @@ const CheckoutPage = () => {
                       placeholder="+91 98765 43210"
                       value={customer.phone}
                       onChange={e => setCustomer({ ...customer, phone: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Email Address (For Tax Invoice) *
                     </label>
                     <input
@@ -268,13 +268,13 @@ const CheckoutPage = () => {
                       placeholder="site@buildmart.in"
                       value={customer.email}
                       onChange={e => setCustomer({ ...customer, email: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Site Street Address *
                   </label>
                   <textarea
@@ -283,13 +283,13 @@ const CheckoutPage = () => {
                     placeholder="Plot / Project Name, Road, Landmark"
                     value={customer.address}
                     onChange={e => setCustomer({ ...customer, address: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px', resize: 'vertical' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px', resize: 'vertical' }}
                   />
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       City *
                     </label>
                     <input
@@ -297,11 +297,11 @@ const CheckoutPage = () => {
                       required
                       value={customer.city}
                       onChange={e => setCustomer({ ...customer, city: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Pincode *
                     </label>
                     <input
@@ -311,13 +311,13 @@ const CheckoutPage = () => {
                       placeholder="560100"
                       value={customer.pincode}
                       onChange={e => setCustomer({ ...customer, pincode: e.target.value.replace(/\D/g, '') })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Delivery Instructions (Optional)
                   </label>
                   <input
@@ -325,7 +325,7 @@ const CheckoutPage = () => {
                     placeholder="e.g. Unload next to basement parking pillar 4, ring gatekeeper"
                     value={customer.deliveryInstructions}
                     onChange={e => setCustomer({ ...customer, deliveryInstructions: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                   />
                 </div>
               </div>
@@ -333,9 +333,9 @@ const CheckoutPage = () => {
 
             {/* 2. OPTIONAL LABOUR SERVICE SECTION (Requested in prompt) */}
             <div style={{
-              background: needLabour ? '#FFFBEB' : '#FFFFFF',
+              background: needLabour ? 'var(--color-accent-light)' : 'var(--bg-card)',
               borderRadius: '14px',
-              border: needLabour ? '2px solid #F59E0B' : '1px solid #E2E8F0',
+              border: needLabour ? '2px solid var(--color-accent)' : '1px solid var(--border)',
               padding: '24px',
               transition: 'all 0.25s ease'
             }}>
@@ -345,8 +345,8 @@ const CheckoutPage = () => {
                     width: '38px',
                     height: '38px',
                     borderRadius: '8px',
-                    background: '#F59E0B',
-                    color: '#000000',
+                    background: 'var(--color-accent)',
+                    color: 'var(--color-ink)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -354,10 +354,10 @@ const CheckoutPage = () => {
                     <HardHat size={20} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A' }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--color-ink)' }}>
                       Optional Construction Labour Service
                     </h3>
-                    <p style={{ fontSize: '12.5px', color: '#64748B' }}>
+                    <p style={{ fontSize: '12.5px', color: 'var(--color-muted)' }}>
                       Do you also need skilled workers to execute this work?
                     </p>
                   </div>
@@ -368,8 +368,8 @@ const CheckoutPage = () => {
                   alignItems: 'center',
                   gap: '8px',
                   cursor: 'pointer',
-                  background: needLabour ? '#F59E0B' : '#F1F5F9',
-                  color: needLabour ? '#000000' : '#475569',
+                  background: needLabour ? 'var(--color-accent)' : 'var(--color-paper-3)',
+                  color: needLabour ? 'var(--color-ink)' : 'var(--text-sub)',
                   padding: '8px 16px',
                   borderRadius: '20px',
                   fontWeight: 700,
@@ -390,31 +390,31 @@ const CheckoutPage = () => {
                 <div style={{
                   marginTop: '16px',
                   paddingTop: '16px',
-                  borderTop: '1px solid #FCD34D',
+                  borderTop: '1px solid var(--color-accent)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '14px'
                 }}>
                   <div style={{
-                    background: '#FEF3C7',
+                    background: 'var(--primary-light)',
                     padding: '10px 14px',
                     borderRadius: '8px',
                     fontSize: '12px',
-                    color: '#92400E',
+                    color: 'var(--primary-deep)',
                     lineHeight: 1.5
                   }}>
-                    ℹ️ <strong>Labour Rate Policy:</strong> Labour charges are not automatically included. Our contractor supervisor will review your site location, scope of work, and worker availability to provide transparent rate estimates before dispatch. Material and labour costs are shown separately.
+                    <strong>Labour Rate Policy:</strong> Labour charges are not automatically included. Our contractor supervisor will review your site location, scope of work, and worker availability to provide transparent rate estimates before dispatch. Material and labour costs are shown separately.
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                         Type of Labour Required *
                       </label>
                       <select
                         value={labourData.labourType}
                         onChange={e => setLabourData({ ...labourData, labourType: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px', background: '#FFFFFF' }}
+                        style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px', background: 'var(--bg-card)' }}
                       >
                         {LABOUR_CATEGORIES.map(cat => (
                           <option key={cat} value={cat}>{cat}</option>
@@ -423,7 +423,7 @@ const CheckoutPage = () => {
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                         Number of Workers Required *
                       </label>
                       <input
@@ -432,14 +432,14 @@ const CheckoutPage = () => {
                         max={50}
                         value={labourData.workersRequired}
                         onChange={e => setLabourData({ ...labourData, workersRequired: Number(e.target.value) || 1 })}
-                        style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                        style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                       />
                     </div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                         Preferred Starting Date *
                       </label>
                       <input
@@ -447,12 +447,12 @@ const CheckoutPage = () => {
                         required={needLabour}
                         value={labourData.preferredStartDate}
                         onChange={e => setLabourData({ ...labourData, preferredStartDate: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                        style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                       />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                         Expected Duration *
                       </label>
                       <input
@@ -460,13 +460,13 @@ const CheckoutPage = () => {
                         placeholder="e.g. 2 Days / 1 Week / Daily Basis"
                         value={labourData.expectedDuration}
                         onChange={e => setLabourData({ ...labourData, expectedDuration: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                        style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                       Additional Work Instructions / Specific Scope
                     </label>
                     <textarea
@@ -474,7 +474,7 @@ const CheckoutPage = () => {
                       placeholder="e.g. Tile laying on 600 sq ft hall floor, bathroom waterproofing prep"
                       value={labourData.additionalInstructions}
                       onChange={e => setLabourData({ ...labourData, additionalInstructions: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px', resize: 'vertical' }}
+                      style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px', resize: 'vertical' }}
                     />
                   </div>
                 </div>
@@ -482,8 +482,8 @@ const CheckoutPage = () => {
             </div>
 
             {/* 3. Payment Method */}
-            <div style={{ background: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '24px' }}>
-              <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
+            <div style={{ background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border)', padding: '24px' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid var(--border)' }}>
                 2. Payment Method
               </h2>
 
@@ -494,8 +494,8 @@ const CheckoutPage = () => {
                   gap: '12px',
                   padding: '12px 16px',
                   borderRadius: '8px',
-                  border: paymentMethod === 'COD' ? '2px solid #D97706' : '1px solid #E2E8F0',
-                  background: paymentMethod === 'COD' ? '#FEF3C7' : '#FFFFFF',
+                  border: paymentMethod === 'COD' ? '2px solid var(--primary-dark)' : '1px solid var(--border)',
+                  background: paymentMethod === 'COD' ? 'var(--primary-light)' : 'var(--bg-card)',
                   cursor: 'pointer'
                 }}>
                   <input
@@ -506,8 +506,8 @@ const CheckoutPage = () => {
                     onChange={() => setPaymentMethod('COD')}
                   />
                   <div>
-                    <strong style={{ fontSize: '14px', color: '#0F172A' }}>Cash on Delivery / UPI at Site Unloading</strong>
-                    <div style={{ fontSize: '12px', color: '#64748B' }}>Inspect building materials upon truck arrival before paying.</div>
+                    <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>Cash on Delivery / UPI at Site Unloading</strong>
+                    <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>Inspect building materials upon truck arrival before paying.</div>
                   </div>
                 </label>
 
@@ -517,8 +517,8 @@ const CheckoutPage = () => {
                   gap: '12px',
                   padding: '12px 16px',
                   borderRadius: '8px',
-                  border: paymentMethod === 'Online' ? '2px solid #D97706' : '1px solid #E2E8F0',
-                  background: paymentMethod === 'Online' ? '#FEF3C7' : '#FFFFFF',
+                  border: paymentMethod === 'Online' ? '2px solid var(--primary-dark)' : '1px solid var(--border)',
+                  background: paymentMethod === 'Online' ? 'var(--primary-light)' : 'var(--bg-card)',
                   cursor: 'pointer'
                 }}>
                   <input
@@ -529,8 +529,8 @@ const CheckoutPage = () => {
                     onChange={() => setPaymentMethod('Online')}
                   />
                   <div>
-                    <strong style={{ fontSize: '14px', color: '#0F172A' }}>Online Payment Gateway (Credit/Debit Card / NetBanking)</strong>
-                    <div style={{ fontSize: '12px', color: '#64748B' }}>Instant GST credit invoice issued immediately upon success.</div>
+                    <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>Online Payment Gateway (Credit/Debit Card / NetBanking)</strong>
+                    <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>Instant GST credit invoice issued immediately upon success.</div>
                   </div>
                 </label>
 
@@ -540,8 +540,8 @@ const CheckoutPage = () => {
                   gap: '12px',
                   padding: '12px 16px',
                   borderRadius: '8px',
-                  border: paymentMethod === 'Bank Transfer' ? '2px solid #D97706' : '1px solid #E2E8F0',
-                  background: paymentMethod === 'Bank Transfer' ? '#FEF3C7' : '#FFFFFF',
+                  border: paymentMethod === 'Bank Transfer' ? '2px solid var(--primary-dark)' : '1px solid var(--border)',
+                  background: paymentMethod === 'Bank Transfer' ? 'var(--primary-light)' : 'var(--bg-card)',
                   cursor: 'pointer'
                 }}>
                   <input
@@ -552,8 +552,8 @@ const CheckoutPage = () => {
                     onChange={() => setPaymentMethod('Bank Transfer')}
                   />
                   <div>
-                    <strong style={{ fontSize: '14px', color: '#0F172A' }}>RTGS / NEFT Direct Bank Transfer</strong>
-                    <div style={{ fontSize: '12px', color: '#64748B' }}>For registered contractors and builders purchasing high volume.</div>
+                    <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>RTGS / NEFT Direct Bank Transfer</strong>
+                    <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>For registered contractors and builders purchasing high volume.</div>
                   </div>
                 </label>
               </div>
@@ -561,8 +561,8 @@ const CheckoutPage = () => {
           </div>
 
           {/* Right Column: Order Summary & Placement */}
-          <div style={{ background: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '24px' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
+          <div style={{ background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border)', padding: '24px' }}>
+            <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid var(--border)' }}>
               Order Review ({cartCount} item{cartCount > 1 ? 's' : ''})
             </h2>
 
@@ -570,10 +570,10 @@ const CheckoutPage = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '240px', overflowY: 'auto', marginBottom: '16px', paddingRight: '4px' }}>
               {cartItems.map(item => (
                 <div key={item.productId || item._id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
-                  <span style={{ color: '#334155', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span style={{ color: 'var(--secondary-light)', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {item.name} × {item.quantity}
                   </span>
-                  <strong style={{ color: '#0F172A' }}>
+                  <strong style={{ color: 'var(--color-ink)' }}>
                     ₹{(item.price * item.quantity).toLocaleString('en-IN')}
                   </strong>
                 </div>
@@ -581,34 +581,34 @@ const CheckoutPage = () => {
             </div>
 
             {/* Separate Material and Labour Breakdown */}
-            <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13.5px', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#475569' }}>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13.5px', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>Material Cost:</span>
                 <span>₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#475569' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>GST (18% ITC):</span>
                 <span>₹{tax.toLocaleString('en-IN')}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#475569' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>Site Delivery Freight:</span>
-                <span>{deliveryFee === 0 ? <strong style={{ color: '#10B981' }}>FREE</strong> : `₹${deliveryFee}`}</span>
+                <span>{deliveryFee === 0 ? <strong style={{ color: 'var(--color-success)' }}>FREE</strong> : `₹${deliveryFee}`}</span>
               </div>
               {couponDiscount > 0 && (
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#10B981', fontWeight: 600 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)', fontWeight: 600 }}>
                   <span>Coupon Discount:</span>
                   <span>- ₹{couponDiscount.toLocaleString('en-IN')}</span>
                 </div>
               )}
               {needLabour && (
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#B45309', fontWeight: 600, background: '#FEF3C7', padding: '6px 8px', borderRadius: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--primary-deep)', fontWeight: 600, background: 'var(--primary-light)', padding: '6px 8px', borderRadius: '4px' }}>
                   <span>Labour ({labourData.workersRequired} {labourData.labourType}s):</span>
                   <span>Pending Admin Review</span>
                 </div>
               )}
             </div>
 
-            <div style={{ borderTop: '2px solid #0F172A', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '20px' }}>
+            <div style={{ borderTop: '2px solid var(--color-ink)', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)', marginBottom: '20px' }}>
               <span>Material Total:</span>
               <span>₹{totalAmount.toLocaleString('en-IN')}</span>
             </div>
@@ -623,8 +623,8 @@ const CheckoutPage = () => {
               <ArrowRight size={16} />
             </button>
 
-            <div style={{ marginTop: '16px', fontSize: '12px', color: '#64748B', textAlign: 'center', lineHeight: 1.5 }}>
-              🛡️ Full money-back warranty on certified materials. Dispatched in 30-60 minutes.
+            <div style={{ marginTop: '16px', fontSize: '12px', color: 'var(--color-muted)', textAlign: 'center', lineHeight: 1.5 }}>
+              Full money-back warranty on certified materials. Dispatched in 30-60 minutes.
             </div>
           </div>
         </form>

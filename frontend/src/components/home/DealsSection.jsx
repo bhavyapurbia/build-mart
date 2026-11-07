@@ -50,7 +50,7 @@ const DealsSection = ({ deals = [] }) => {
               Today's Deals
             </h2>
             <span className="deals-subtitle">
-              ⚡ Limited-time factory price drops on high-demand site essentials
+              Limited-time factory price drops on high-demand site essentials
             </span>
           </div>
 

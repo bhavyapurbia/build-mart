@@ -51,7 +51,7 @@ const MobileBottomNav = ({ onOpenPaperList }) => {
         title="Snap Paper Material List with Camera"
       >
         <div className="camera-circle-badge">
-          <Camera size={22} color="#FFFFFF" strokeWidth={2.4} />
+          <Camera size={22} color='var(--bg-card)' strokeWidth={2.4} />
         </div>
         <span className="camera-btn-label">{t('snapList') || 'Snap List'}</span>
       </button>

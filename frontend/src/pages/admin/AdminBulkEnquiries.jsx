@@ -64,10 +64,10 @@ const AdminBulkEnquiries = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             High-Volume Bulk Order Enquiries
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Manage commercial developer requirements, issue plant pricing, and follow up via WhatsApp
           </p>
         </div>
@@ -94,14 +94,14 @@ const AdminBulkEnquiries = () => {
               <tr key={enq._id}>
                 <td><strong>{enq.enquiryId}</strong></td>
                 <td>
-                  <div style={{ fontWeight: 700, color: '#0F172A' }}>{enq.customer?.fullName}</div>
-                  <div style={{ fontSize: '12px', color: '#D97706', fontWeight: 600 }}>
+                  <div style={{ fontWeight: 700, color: 'var(--color-ink)' }}>{enq.customer?.fullName}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--primary-dark)', fontWeight: 600 }}>
                     {enq.customer?.companyName || 'Private Builder'}
                   </div>
                 </td>
                 <td>
                   <div style={{ fontSize: '12.5px' }}>{enq.customer?.phone}</div>
-                  <div style={{ fontSize: '11.5px', color: '#64748B' }}>{enq.customer?.email}</div>
+                  <div style={{ fontSize: '11.5px', color: 'var(--color-muted)' }}>{enq.customer?.email}</div>
                 </td>
                 <td>
                   <div style={{ fontSize: '12.5px', maxWidth: '180px' }}>
@@ -135,8 +135,8 @@ const AdminBulkEnquiries = () => {
                       target="_blank"
                       rel="noreferrer"
                       style={{
-                        background: '#25D366',
-                        color: '#FFFFFF',
+                        background: 'var(--color-success)',
+                        color: 'var(--bg-card)',
                         padding: '6px 10px',
                         borderRadius: '6px',
                         display: 'flex',
@@ -168,14 +168,14 @@ const AdminBulkEnquiries = () => {
             </div>
             <form onSubmit={handleSaveQuote}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <div style={{ background: '#F8FAFC', padding: '12px', borderRadius: '8px', fontSize: '13px' }}>
+                <div style={{ background: 'var(--bg-page)', padding: '12px', borderRadius: '8px', fontSize: '13px' }}>
                   <strong>Client:</strong> {selectedEnquiry.customer?.fullName} ({selectedEnquiry.customer?.companyName})<br />
                   <strong>Project Location:</strong> {selectedEnquiry.customer?.projectLocation}<br />
                   <strong>Requirements:</strong> {selectedEnquiry.items?.map(i => `${i.productName} (${i.quantity} ${i.unit})`).join(', ')}
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Total Quoted Commercial Material Price (₹) *
                   </label>
                   <input
@@ -184,42 +184,42 @@ const AdminBulkEnquiries = () => {
                     placeholder="e.g. 850000"
                     value={quotedPrice}
                     onChange={e => setQuotedPrice(e.target.value)}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px', fontWeight: 700 }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', fontWeight: 700 }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Multi-Truck Site Freight & Crane Unloading (₹)
                   </label>
                   <input
                     type="number"
                     value={deliveryCharges}
                     onChange={e => setDeliveryCharges(e.target.value)}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Terms & Mill Test Report Notes
                   </label>
                   <textarea
                     rows={2}
                     value={notes}
                     onChange={e => setNotes(e.target.value)}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                     Enquiry Status
                   </label>
                   <select
                     value={status}
                     onChange={e => setStatus(e.target.value)}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13.5px', background: '#FFFFFF' }}
+                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', background: 'var(--bg-card)' }}
                   >
                     <option value="Received">Received</option>
                     <option value="Under Review">Under Review</option>
@@ -232,7 +232,7 @@ const AdminBulkEnquiries = () => {
               </div>
 
               <div className="modal-footer">
-                <button type="button" onClick={() => setIsQuoteModalOpen(false)} className="btn-secondary" style={{ background: '#F1F5F9', color: '#0F172A', border: '1px solid #CBD5E1' }}>
+                <button type="button" onClick={() => setIsQuoteModalOpen(false)} className="btn-secondary" style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}>
                   Cancel
                 </button>
                 <button type="submit" className="btn-primary">

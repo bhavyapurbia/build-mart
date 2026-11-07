@@ -55,7 +55,7 @@ const ProductDetailPage = () => {
 
   if (loading) {
     return (
-      <div style={{ padding: '100px 0', textAlign: 'center', color: '#64748B' }}>
+      <div style={{ padding: '100px 0', textAlign: 'center', color: 'var(--color-muted)' }}>
         <p>Loading construction material specifications...</p>
       </div>
     );
@@ -83,21 +83,16 @@ const ProductDetailPage = () => {
     <div style={{ padding: '28px 0 60px' }}>
       <div className="container">
         {/* Breadcrumb */}
-        <div style={{ fontSize: '13px', color: '#64748B', marginBottom: '20px' }}>
+        <div style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '20px' }}>
           <Link to="/">Home</Link> / <Link to="/products">Materials</Link> /{' '}
           <Link to={`/products?category=${encodeURIComponent(product.category)}`}>{product.category}</Link> /{' '}
-          <strong style={{ color: '#0F172A' }}>{product.name}</strong>
+          <strong style={{ color: 'var(--color-ink)' }}>{product.name}</strong>
         </div>
 
         {/* Product Hero Grid */}
-        <div style={{
+        <div className="product-detail-hero-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(320px, 480px) 1fr',
-          gap: '40px',
-          background: '#FFFFFF',
-          borderRadius: '16px',
-          border: '1px solid #E2E8F0',
-          padding: '32px',
+          gap: 'var(--space-xl)', background: 'var(--bg-card)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', padding: 'var(--space-lg)',
           marginBottom: '40px'
         }}>
           {/* Images Section */}
@@ -107,8 +102,8 @@ const ProductDetailPage = () => {
                 aspectRatio: '1',
                 borderRadius: '12px',
                 overflow: 'hidden',
-                background: '#F8FAFC',
-                border: isSelectedInList ? '3px solid #F59E0B' : '1px solid #E2E8F0',
+                background: 'var(--bg-page)',
+                border: isSelectedInList ? '3px solid var(--color-accent)' : '1px solid var(--border)',
                 position: 'relative',
                 cursor: 'pointer'
               }}
@@ -126,13 +121,13 @@ const ProductDetailPage = () => {
                 position: 'absolute',
                 top: '12px',
                 right: '12px',
-                background: isSelectedInList ? '#F59E0B' : '#FFFFFF',
-                color: isSelectedInList ? '#000000' : '#0F172A',
+                background: isSelectedInList ? 'var(--color-accent)' : 'var(--bg-card)',
+                color: isSelectedInList ? 'var(--color-ink)' : 'var(--color-ink)',
                 padding: '6px 12px',
                 borderRadius: '20px',
                 fontSize: '12px',
                 fontWeight: 700,
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                boxShadow: 'var(--shadow-sm)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px'
@@ -154,7 +149,7 @@ const ProductDetailPage = () => {
                       height: '64px',
                       borderRadius: '8px',
                       overflow: 'hidden',
-                      border: activeImageIdx === idx ? '2px solid #D97706' : '1px solid #E2E8F0',
+                      border: activeImageIdx === idx ? '2px solid var(--primary-dark)' : '1px solid var(--border)',
                       cursor: 'pointer',
                       padding: 0
                     }}
@@ -169,26 +164,26 @@ const ProductDetailPage = () => {
           {/* Product Details & Actions */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '13px', fontWeight: 800, color: '#D97706', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--primary-dark)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 {product.brand}
               </span>
-              <span style={{ fontSize: '12px', color: '#64748B' }}>
+              <span style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                 SKU: {product.sku}
               </span>
             </div>
 
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A', margin: '8px 0 12px', lineHeight: 1.3 }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)', margin: '8px 0 12px', lineHeight: 1.3 }}>
               {product.name}
             </h1>
 
             {/* Rating & In-stock badge */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#FEF3C7', padding: '3px 8px', borderRadius: '4px' }}>
-                <Star size={14} fill="#D97706" color="#D97706" />
-                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#B45309' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--primary-light)', padding: '3px 8px', borderRadius: '4px' }}>
+                <Star size={14} fill='var(--primary-dark)' color='var(--primary-dark)' />
+                <span style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--primary-deep)' }}>
                   {product.rating || 4.5}
                 </span>
-                <span style={{ fontSize: '12px', color: '#64748B' }}>
+                <span style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                   ({product.reviewsCount || 15} verified reviews)
                 </span>
               </div>
@@ -199,7 +194,7 @@ const ProductDetailPage = () => {
                 gap: '4px',
                 fontSize: '12.5px',
                 fontWeight: 600,
-                color: product.stock > 0 ? '#10B981' : '#EF4444'
+                color: product.stock > 0 ? 'var(--color-success)' : 'var(--color-error)'
               }}>
                 <ShieldCheck size={16} />
                 <span>{product.stock > 0 ? `In Stock (${product.stock} ${product.unit}s available)` : 'Out of Stock'}</span>
@@ -208,25 +203,25 @@ const ProductDetailPage = () => {
 
             {/* Price Box */}
             <div style={{
-              background: '#F8FAFC',
+              background: 'var(--bg-page)',
               borderRadius: '12px',
               padding: '16px 20px',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--border)',
               marginBottom: '20px'
             }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
-                <span style={{ fontSize: '32px', fontWeight: 800, color: '#0F172A' }}>
+                <span style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-ink)' }}>
                   ₹{Number(product.price).toLocaleString('en-IN')}
                 </span>
                 {product.mrp > product.price && (
-                  <span style={{ fontSize: '16px', color: '#94A3B8', textDecoration: 'line-through' }}>
+                  <span style={{ fontSize: '16px', color: 'var(--text-light)', textDecoration: 'line-through' }}>
                     ₹{Number(product.mrp).toLocaleString('en-IN')}
                   </span>
                 )}
                 {product.discount > 0 && (
                   <span style={{
-                    background: '#10B981',
-                    color: '#FFFFFF',
+                    background: 'var(--color-success)',
+                    color: 'var(--bg-card)',
                     fontSize: '12px',
                     fontWeight: 800,
                     padding: '3px 8px',
@@ -236,18 +231,18 @@ const ProductDetailPage = () => {
                   </span>
                 )}
               </div>
-              <div style={{ fontSize: '12px', color: '#64748B', marginTop: '4px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--color-muted)', marginTop: '4px' }}>
                 Per <strong>{product.unit}</strong> | Inclusive of 18% GST with factory input tax credit invoice
               </div>
             </div>
 
             {/* Quantity Selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A' }}>Quantity ({product.unit}):</span>
-              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #CBD5E1', borderRadius: '8px', overflow: 'hidden' }}>
+              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-ink)' }}>Quantity ({product.unit}):</span>
+              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--color-rule)', borderRadius: '8px', overflow: 'hidden' }}>
                 <button
                   onClick={() => setQty(prev => Math.max(1, prev - 1))}
-                  style={{ padding: '8px 12px', background: '#F8FAFC', cursor: 'pointer' }}
+                  style={{ padding: '8px 12px', background: 'var(--bg-page)', cursor: 'pointer' }}
                 >
                   <Minus size={14} />
                 </button>
@@ -260,7 +255,7 @@ const ProductDetailPage = () => {
                 />
                 <button
                   onClick={() => setQty(prev => prev + 1)}
-                  style={{ padding: '8px 12px', background: '#F8FAFC', cursor: 'pointer' }}
+                  style={{ padding: '8px 12px', background: 'var(--bg-page)', cursor: 'pointer' }}
                 >
                   <Plus size={14} />
                 </button>
@@ -302,13 +297,13 @@ const ProductDetailPage = () => {
             </div>
 
             {/* Quick Delivery Notice & WhatsApp */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: '#475569', borderTop: '1px solid #E2E8F0', paddingTop: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: 'var(--text-sub)', borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Truck size={16} color="#D97706" />
+                <Truck size={16} color='var(--primary-dark)' />
                 <span>30-60 Min Express Delivery to Bengaluru job sites. Free freight above ₹5,000.</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <ShieldCheck size={16} color="#10B981" />
+                <ShieldCheck size={16} color='var(--color-success)' />
                 <span>Original manufacturer test report certificate provided upon dispatch.</span>
               </div>
               <div style={{ marginTop: '8px' }}>
@@ -320,7 +315,7 @@ const ProductDetailPage = () => {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    color: '#16A34A',
+                    color: 'var(--color-success)',
                     fontWeight: 700,
                     fontSize: '13px'
                   }}
@@ -335,22 +330,22 @@ const ProductDetailPage = () => {
 
         {/* Technical Specifications & Description */}
         <div style={{
-          background: '#FFFFFF',
+          background: 'var(--bg-card)',
           borderRadius: '16px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--border)',
           padding: '32px',
           marginBottom: '40px'
         }}>
-          <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', marginBottom: '14px' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-ink)', marginBottom: '14px' }}>
             Product Overview & Application
           </h3>
-          <p style={{ fontSize: '14px', lineHeight: 1.7, color: '#475569', marginBottom: '24px' }}>
+          <p style={{ fontSize: '14px', lineHeight: 1.7, color: 'var(--text-sub)', marginBottom: '24px' }}>
             {product.description || 'Quality certified construction material suitable for residential, commercial and infrastructure building projects.'}
           </p>
 
           {product.specifications && product.specifications.length > 0 && (
             <div>
-              <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A', marginBottom: '12px' }}>
+              <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '12px' }}>
                 Technical Specifications & Compliance
               </h4>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
@@ -361,14 +356,14 @@ const ProductDetailPage = () => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       padding: '10px 14px',
-                      background: '#F8FAFC',
+                      background: 'var(--bg-page)',
                       borderRadius: '8px',
-                      border: '1px solid #E2E8F0',
+                      border: '1px solid var(--border)',
                       fontSize: '13px'
                     }}
                   >
-                    <span style={{ color: '#64748B', fontWeight: 500 }}>{spec.key}</span>
-                    <strong style={{ color: '#0F172A' }}>{spec.value}</strong>
+                    <span style={{ color: 'var(--color-muted)', fontWeight: 500 }}>{spec.key}</span>
+                    <strong style={{ color: 'var(--color-ink)' }}>{spec.value}</strong>
                   </div>
                 ))}
               </div>
@@ -379,7 +374,7 @@ const ProductDetailPage = () => {
         {/* Related Products */}
         {related.length > 0 && (
           <div>
-            <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '18px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)', marginBottom: '18px' }}>
               Related {product.category} Materials
             </h3>
             <div className="product-grid">

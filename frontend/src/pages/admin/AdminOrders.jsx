@@ -67,10 +67,10 @@ const AdminOrders = () => {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Confirmed Order Fulfillment Management
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Dispatch building materials, track truck deliveries, and generate official GST invoices
           </p>
         </div>
@@ -97,31 +97,31 @@ const AdminOrders = () => {
             {orders.map(order => (
               <tr key={order._id}>
                 <td>
-                  <strong style={{ fontSize: '13.5px', color: '#0F172A' }}>{order.orderId}</strong>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>
+                  <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)' }}>{order.orderId}</strong>
+                  <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>
                     {order.invoiceNumber || 'INV-2026-0001'}
                   </div>
-                  <div style={{ fontSize: '11px', color: '#94A3B8' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
                     {new Date(order.createdAt).toLocaleDateString()}
                   </div>
                 </td>
                 <td>
                   <div style={{ fontWeight: 600 }}>{order.customer?.name}</div>
-                  <div style={{ fontSize: '12px', color: '#64748B' }}>{order.customer?.phone}</div>
-                  <div style={{ fontSize: '11px', color: '#94A3B8' }}>{order.customer?.city}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{order.customer?.phone}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>{order.customer?.city}</div>
                 </td>
                 <td>
-                  <strong style={{ color: '#0F172A' }}>₹{order.totalAmount?.toLocaleString('en-IN')}</strong>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>{order.items?.length || 0} items</div>
+                  <strong style={{ color: 'var(--color-ink)' }}>₹{order.totalAmount?.toLocaleString('en-IN')}</strong>
+                  <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>{order.items?.length || 0} items</div>
                 </td>
                 <td>
                   {order.labourDetails?.hasLabour ? (
-                    <div style={{ fontSize: '12px', color: '#D97706', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontSize: '12px', color: 'var(--primary-dark)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
                       <HardHat size={14} />
                       <span>{order.labourDetails.labourType} ({order.labourDetails.workersRequired})</span>
                     </div>
                   ) : (
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>None</span>
+                    <span style={{ fontSize: '12px', color: 'var(--text-light)' }}>None</span>
                   )}
                 </td>
                 <td>
@@ -131,8 +131,8 @@ const AdminOrders = () => {
                     borderRadius: '4px',
                     fontSize: '11px',
                     fontWeight: 700,
-                    background: order.paymentStatus === 'Paid' ? '#DCFCE7' : '#FEF3C7',
-                    color: order.paymentStatus === 'Paid' ? '#15803D' : '#B45309'
+                    background: order.paymentStatus === 'Paid' ? 'var(--accent-green-light)' : 'var(--primary-light)',
+                    color: order.paymentStatus === 'Paid' ? 'var(--color-success)' : 'var(--primary-deep)'
                   }}>
                     {order.paymentMethod} • {order.paymentStatus}
                   </span>
@@ -145,10 +145,10 @@ const AdminOrders = () => {
                     style={{
                       padding: '5px 8px',
                       borderRadius: '6px',
-                      border: '1px solid #CBD5E1',
+                      border: '1px solid var(--color-rule)',
                       fontSize: '12px',
                       fontWeight: 700,
-                      background: '#FFFFFF',
+                      background: 'var(--bg-card)',
                       cursor: 'pointer'
                     }}
                   >
@@ -168,8 +168,8 @@ const AdminOrders = () => {
                       alignItems: 'center',
                       gap: '4px',
                       padding: '6px 10px',
-                      background: '#F1F5F9',
-                      border: '1px solid #CBD5E1',
+                      background: 'var(--color-paper-3)',
+                      border: '1px solid var(--color-rule)',
                       borderRadius: '6px',
                       fontSize: '12px',
                       fontWeight: 600,
@@ -190,27 +190,27 @@ const AdminOrders = () => {
       {isInvoiceModalOpen && selectedOrder && (
         <div className="modal-backdrop" onClick={() => setIsInvoiceModalOpen(false)}>
           <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '680px', padding: '0' }}>
-            <div className="modal-header" style={{ background: '#0F172A', color: '#FFFFFF' }}>
+            <div className="modal-header" style={{ background: 'var(--color-ink)', color: 'var(--bg-card)' }}>
               <div>
                 <h3 style={{ fontSize: '16px', fontWeight: 800 }}>Tax Invoice: {selectedOrder.invoiceNumber || 'INV-2026-0001'}</h3>
-                <div style={{ fontSize: '12px', color: '#94A3B8' }}>Order ID: #{selectedOrder.orderId}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-light)' }}>Order ID: #{selectedOrder.orderId}</div>
               </div>
-              <button onClick={() => setIsInvoiceModalOpen(false)} style={{ background: 'transparent', color: '#FFFFFF', cursor: 'pointer' }}>
+              <button onClick={() => setIsInvoiceModalOpen(false)} style={{ background: 'transparent', color: 'var(--bg-card)', cursor: 'pointer' }}>
                 <X size={20} />
               </button>
             </div>
 
             <div className="modal-body" id="invoice-print-area">
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', borderBottom: '1px solid #E2E8F0', paddingBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
                 <div>
-                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A' }}>BuildMart Technologies Pvt Ltd</h2>
-                  <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.5 }}>
+                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)' }}>BuildMart Technologies Pvt Ltd</h2>
+                  <div style={{ fontSize: '12px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
                     GSTIN: 29AABCB1234F1Z8<br />
                     Outer Ring Road Tech Zone, Bellandur, Bengaluru 560103<br />
                     Toll-Free: 1800-890-5000 | orders@buildmart.in
                   </div>
                 </div>
-                <div style={{ textAlign: 'right', fontSize: '12px', color: '#64748B' }}>
+                <div style={{ textAlign: 'right', fontSize: '12px', color: 'var(--color-muted)' }}>
                   <div><strong>Date:</strong> {new Date(selectedOrder.createdAt).toLocaleDateString()}</div>
                   <div><strong>Status:</strong> {selectedOrder.orderStatus}</div>
                   <div><strong>Payment:</strong> {selectedOrder.paymentMethod}</div>
@@ -218,7 +218,7 @@ const AdminOrders = () => {
               </div>
 
               {/* Bill To */}
-              <div style={{ background: '#F8FAFC', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', fontSize: '13px' }}>
+              <div style={{ background: 'var(--bg-page)', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', fontSize: '13px' }}>
                 <strong style={{ display: 'block', marginBottom: '4px' }}>Billed & Shipped To:</strong>
                 <div>{selectedOrder.customer?.name} ({selectedOrder.customer?.phone})</div>
                 <div>{selectedOrder.customer?.address}, {selectedOrder.customer?.city} - {selectedOrder.customer?.pincode}</div>
@@ -227,7 +227,7 @@ const AdminOrders = () => {
               {/* Items */}
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', marginBottom: '20px' }}>
                 <thead>
-                  <tr style={{ background: '#F1F5F9', borderBottom: '1px solid #CBD5E1' }}>
+                  <tr style={{ background: 'var(--color-paper-3)', borderBottom: '1px solid var(--color-rule)' }}>
                     <th style={{ padding: '8px', textAlign: 'left' }}>Item</th>
                     <th style={{ padding: '8px', textAlign: 'center' }}>Qty</th>
                     <th style={{ padding: '8px', textAlign: 'right' }}>Price (₹)</th>
@@ -236,7 +236,7 @@ const AdminOrders = () => {
                 </thead>
                 <tbody>
                   {selectedOrder.items?.map((item, idx) => (
-                    <tr key={idx} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                    <tr key={idx} style={{ borderBottom: '1px solid var(--color-paper-3)' }}>
                       <td style={{ padding: '8px' }}>{item.name}</td>
                       <td style={{ padding: '8px', textAlign: 'center' }}>{item.quantity} {item.unit}</td>
                       <td style={{ padding: '8px', textAlign: 'right' }}>₹{item.price}</td>
@@ -266,7 +266,7 @@ const AdminOrders = () => {
                     <span>₹{selectedOrder.labourCost?.toLocaleString('en-IN')}</span>
                   </div>
                 )}
-                <div style={{ borderTop: '2px solid #0F172A', paddingTop: '6px', display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800 }}>
+                <div style={{ borderTop: '2px solid var(--color-ink)', paddingTop: '6px', display: 'flex', justifyContent: 'space-between', fontSize: '16px', fontWeight: 800 }}>
                   <span>Total Amount:</span>
                   <span>₹{selectedOrder.totalAmount?.toLocaleString('en-IN')}</span>
                 </div>

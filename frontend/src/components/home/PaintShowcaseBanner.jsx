@@ -82,11 +82,6 @@ const PaintShowcaseBanner = () => {
           <div className="paint-banner-content-grid">
             {/* Left Column: Headlines, Trust Points, and Call to Actions */}
             <div className="paint-banner-info-col">
-              <div className="paint-spotlight-kicker">
-                <Palette size={16} color="#FFE082" />
-                <span>ASIAN PAINTS &amp; BIRLA OPUS SPOTLIGHT</span>
-              </div>
-              
               <h2 className="paint-banner-main-heading">
                 Transform Every Wall with Vibrant Colors &amp; Waterproof Protection
               </h2>
@@ -106,7 +101,7 @@ const PaintShowcaseBanner = () => {
                   <span>Express 30-Min Site Delivery</span>
                 </div>
                 <div className="paint-perk-item">
-                  <ShieldCheck size={16} color="#FBBF24" />
+                  <ShieldCheck size={16} color='var(--color-accent)' />
                   <span>Authentic Batch Guarantee</span>
                 </div>
               </div>

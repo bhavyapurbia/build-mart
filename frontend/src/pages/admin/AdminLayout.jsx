@@ -16,7 +16,8 @@ import {
   LogOut,
   ExternalLink,
   Hammer,
-  Megaphone
+  Megaphone,
+  ShieldCheck
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -43,22 +44,22 @@ const AdminLayout = () => {
 
   if (loading) {
     return (
-      <div style={{ padding: '120px 0', textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0F172A' }}>
-        <div style={{ width: '40px', height: '40px', border: '3px solid #334155', borderTopColor: '#FF6E00', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-        <p style={{ marginTop: '16px', color: '#94A3B8', fontWeight: 600 }}>Loading BuildMart Admin Console...</p>
+      <div style={{ padding: '120px 0', textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--color-ink)' }}>
+        <div style={{ width: '40px', height: '40px', border: '3px solid var(--secondary-light)', borderTopColor: 'var(--color-accent)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+        <p style={{ marginTop: '16px', color: 'var(--text-light)', fontWeight: 600 }}>Loading BuildMart Admin Console...</p>
       </div>
     );
   }
 
   if (!isAdmin) {
     return (
-      <div style={{ minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: '#0F172A' }}>
-        <div style={{ maxWidth: '440px', width: '100%', background: '#1E293B', borderRadius: '20px', padding: '36px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)' }}>
-          <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'linear-gradient(135deg, #FF6E00, #D97706)', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 10px 20px rgba(255,110,0,0.3)' }}>
+      <div style={{ minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--color-ink)' }}>
+        <div style={{ maxWidth: '440px', width: '100%', background: 'var(--secondary)', borderRadius: '20px', padding: '36px', textAlign: 'center', border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}>
+          <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'linear-gradient(135deg, var(--color-accent), var(--primary-dark))', color: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: 'var(--shadow-amber)' }}>
             <ShieldCheck size={30} />
           </div>
-          <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>BuildMart Admin Console</h2>
-          <p style={{ color: '#94A3B8', fontSize: '13.5px', lineHeight: 1.5, marginBottom: '24px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)', marginBottom: '8px' }}>BuildMart Admin Console</h2>
+          <p style={{ color: 'var(--text-light)', fontSize: '13.5px', lineHeight: 1.5, marginBottom: '24px' }}>
             Full access to website controls: Products, Categories, Banners, Orders, Labour, Bulk Inquiries &amp; Settings.
           </p>
           <button
@@ -66,12 +67,12 @@ const AdminLayout = () => {
             onClick={() => {
               ensureAdminAccess();
             }}
-            style={{ width: '100%', padding: '14px 20px', background: '#FF6E00', color: '#FFFFFF', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 4px 14px rgba(255,110,0,0.4)', transition: 'all 0.2s ease' }}
+            style={{ width: '100%', padding: '14px 20px', background: 'var(--color-accent)', color: 'var(--bg-card)', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: 'var(--shadow-amber)', transition: 'all 0.2s ease' }}
           >
-            <span>⚡ Open Admin Console Instantly</span>
+            <span>Open Admin Console Instantly</span>
           </button>
           <div style={{ marginTop: '16px' }}>
-            <Link to="/admin/login" style={{ color: '#FBBF24', fontSize: '12.5px', textDecoration: 'underline' }}>
+            <Link to="/admin/login" style={{ color: 'var(--color-accent)', fontSize: '12.5px', textDecoration: 'underline' }}>
               Or log in with custom administrator credentials
             </Link>
           </div>
@@ -89,10 +90,10 @@ const AdminLayout = () => {
             <Hammer size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '18px', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.1 }}>
-              Build<span style={{ color: '#F59E0B' }}>Mart</span>
+            <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--bg-card)', lineHeight: 1.1 }}>
+              Build<span style={{ color: 'var(--color-accent)' }}>Mart</span>
             </div>
-            <div style={{ fontSize: '11px', color: '#F59E0B', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+            <div style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
               Admin Console
             </div>
           </div>
@@ -112,8 +113,8 @@ const AdminLayout = () => {
                   <span style={{ flex: 1 }}>{item.label}</span>
                   {item.badge && (
                     <span style={{
-                      background: isActive ? '#000000' : '#D97706',
-                      color: '#FFFFFF',
+                      background: isActive ? 'var(--color-ink)' : 'var(--primary-dark)',
+                      color: 'var(--bg-card)',
                       fontSize: '10px',
                       padding: '1px 6px',
                       borderRadius: '4px',
@@ -138,7 +139,7 @@ const AdminLayout = () => {
               alignItems: 'center',
               gap: '8px',
               fontSize: '12.5px',
-              color: '#94A3B8',
+              color: 'var(--text-light)',
               marginBottom: '12px'
             }}
           >
@@ -158,7 +159,7 @@ const AdminLayout = () => {
               gap: '8px',
               padding: '8px 12px',
               background: 'rgba(239, 68, 68, 0.15)',
-              color: '#F87171',
+              color: 'var(--color-error)',
               borderRadius: '6px',
               fontSize: '12.5px',
               fontWeight: 600,
@@ -174,13 +175,13 @@ const AdminLayout = () => {
       {/* Main Admin Content */}
       <div className="admin-content-area">
         <header className="admin-topbar">
-          <div style={{ fontSize: '14px', color: '#64748B' }}>
+          <div style={{ fontSize: '14px', color: 'var(--color-muted)' }}>
             Fulfillment Operations • Central Logistics Yard - Bengaluru
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{ textAlign: 'right' }}>
-              <strong style={{ fontSize: '13.5px', color: '#0F172A', display: 'block' }}>{user?.name}</strong>
-              <span style={{ fontSize: '11.5px', color: '#10B981', fontWeight: 600 }}>Active Administrator</span>
+              <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)', display: 'block' }}>{user?.name}</strong>
+              <span style={{ fontSize: '11.5px', color: 'var(--color-success)', fontWeight: 600 }}>Active Administrator</span>
             </div>
           </div>
         </header>

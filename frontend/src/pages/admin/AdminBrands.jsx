@@ -102,10 +102,10 @@ const AdminBrands = () => {
       {/* Page Title Row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Brands & Manufacturers
           </h1>
-          <p style={{ fontSize: '13.5px', color: '#64748B', marginTop: '2px' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
             Manage authorized construction material brands, OEM logos, and featured manufacturer cards
           </p>
         </div>
@@ -121,9 +121,9 @@ const AdminBrands = () => {
       </div>
 
       {/* Search Input Bar */}
-      <div style={{ background: '#FFFFFF', padding: '16px 20px', borderRadius: '12px', border: '1px solid #E2E8F0', marginBottom: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#F8FAFC', padding: '8px 14px', borderRadius: '8px', border: '1px solid #E2E8F0', maxWidth: '400px' }}>
-          <Search size={18} color="#94A3B8" />
+      <div style={{ background: 'var(--bg-card)', padding: '16px 20px', borderRadius: '12px', border: '1px solid var(--border)', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'var(--bg-page)', padding: '8px 14px', borderRadius: '8px', border: '1px solid var(--border)', maxWidth: '400px' }}>
+          <Search size={18} color='var(--text-light)' />
           <input
             type="text"
             placeholder="Search brands by name..."
@@ -135,14 +135,14 @@ const AdminBrands = () => {
       </div>
 
       {/* Brands Table */}
-      <div style={{ background: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+      <div style={{ background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border)', overflow: 'hidden' }}>
         {loading ? (
-          <div style={{ padding: '60px', textAlign: 'center', color: '#64748B' }}>Loading brands...</div>
+          <div style={{ padding: '60px', textAlign: 'center', color: 'var(--color-muted)' }}>Loading brands...</div>
         ) : filteredBrands.length > 0 ? (
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13.5px' }}>
               <thead>
-                <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#64748B', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase' }}>
+                <tr style={{ background: 'var(--bg-page)', borderBottom: '1px solid var(--border)', color: 'var(--color-muted)', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase' }}>
                   <th style={{ padding: '12px 18px' }}>Logo</th>
                   <th style={{ padding: '12px 18px' }}>Brand Name</th>
                   <th style={{ padding: '12px 18px' }}>Description</th>
@@ -152,9 +152,9 @@ const AdminBrands = () => {
               </thead>
               <tbody>
                 {filteredBrands.map(b => (
-                  <tr key={b._id || b.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                  <tr key={b._id || b.id} style={{ borderBottom: '1px solid var(--color-paper-3)' }}>
                     <td style={{ padding: '12px 18px' }}>
-                      <div style={{ width: '50px', height: '50px', borderRadius: '8px', background: '#FFF5EB', padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ width: '50px', height: '50px', borderRadius: '8px', background: 'var(--color-accent-light)', padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <img
                           src={b.logo || 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=100&q=80'}
                           alt={b.name}
@@ -162,16 +162,16 @@ const AdminBrands = () => {
                         />
                       </div>
                     </td>
-                    <td style={{ padding: '12px 18px', fontWeight: 800, color: '#0F172A' }}>
+                    <td style={{ padding: '12px 18px', fontWeight: 800, color: 'var(--color-ink)' }}>
                       {b.name}
                     </td>
-                    <td style={{ padding: '12px 18px', color: '#64748B', maxWidth: '300px' }}>
+                    <td style={{ padding: '12px 18px', color: 'var(--color-muted)', maxWidth: '300px' }}>
                       {b.description || 'Verified manufacturer partner'}
                     </td>
                     <td style={{ padding: '12px 18px' }}>
                       <span style={{
-                        background: b.isFeatured !== false ? '#ECFDF5' : '#F1F5F9',
-                        color: b.isFeatured !== false ? '#065F46' : '#64748B',
+                        background: b.isFeatured !== false ? 'var(--accent-green-light)' : 'var(--color-paper-3)',
+                        color: b.isFeatured !== false ? 'var(--accent-green-dark)' : 'var(--color-muted)',
                         padding: '3px 8px',
                         borderRadius: '4px',
                         fontSize: '11px',
@@ -184,14 +184,14 @@ const AdminBrands = () => {
                       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
                         <button
                           onClick={() => openEditModal(b)}
-                          style={{ padding: '6px', borderRadius: '6px', background: '#F1F5F9', color: '#0F172A' }}
+                          style={{ padding: '6px', borderRadius: '6px', background: 'var(--color-paper-3)', color: 'var(--color-ink)' }}
                           title="Edit Brand"
                         >
                           <Edit size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(b._id || b.id, b.name)}
-                          style={{ padding: '6px', borderRadius: '6px', background: '#FEF2F2', color: '#EF4444' }}
+                          style={{ padding: '6px', borderRadius: '6px', background: 'var(--accent-red-light)', color: 'var(--color-error)' }}
                           title="Delete Brand"
                         >
                           <Trash2 size={15} />
@@ -204,7 +204,7 @@ const AdminBrands = () => {
             </table>
           </div>
         ) : (
-          <div style={{ padding: '40px', textAlign: 'center', color: '#64748B' }}>
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--color-muted)' }}>
             No brands found.
           </div>
         )}
@@ -215,7 +215,7 @@ const AdminBrands = () => {
         <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
           <div className="modal-card" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--color-ink)' }}>
                 {editingBrand ? 'Edit Brand' : 'Add New Manufacturer Brand'}
               </h3>
               <button onClick={() => setIsModalOpen(false)}>
@@ -226,7 +226,7 @@ const AdminBrands = () => {
             <form onSubmit={handleSubmit}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     Brand Name * (e.g. UltraTech, Tata Tiscon, Dr. Fixit, Havells, Futura, Hettich)
                   </label>
                   <input
@@ -234,24 +234,24 @@ const AdminBrands = () => {
                     required
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     Logo Image URL
                   </label>
                   <input
                     type="url"
                     value={formData.logo}
                     onChange={e => setFormData({ ...formData, logo: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
                     Description / Speciality
                   </label>
                   <textarea
@@ -259,7 +259,7 @@ const AdminBrands = () => {
                     value={formData.description}
                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Short description of products supplied by this brand"
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '13px' }}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
                   />
                 </div>
 
@@ -271,7 +271,7 @@ const AdminBrands = () => {
                     onChange={e => setFormData({ ...formData, isFeatured: e.target.checked })}
                     style={{ width: '16px', height: '16px', cursor: 'pointer' }}
                   />
-                  <label htmlFor="isFeatured" style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A', cursor: 'pointer' }}>
+                  <label htmlFor="isFeatured" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-ink)', cursor: 'pointer' }}>
                     Show in Homepage "Shop by brand" section
                   </label>
                 </div>
@@ -282,7 +282,7 @@ const AdminBrands = () => {
                   type="button"
                   onClick={() => setIsModalOpen(false)}
                   className="btn-secondary"
-                  style={{ color: '#0F172A', border: '1px solid #CBD5E1' }}
+                  style={{ color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}
                 >
                   Cancel
                 </button>

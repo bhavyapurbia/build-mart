@@ -140,7 +140,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
               onClick={() => setMobileDrawerOpen(true)}
               aria-label="Open mobile menu"
             >
-              <Menu size={22} color="#FFFFFF" />
+              <Menu size={22} color='var(--bg-card)' />
             </button>
 
             {/* Brand Logo: BUILDMART (Clean, Classic, Premium) */}
@@ -168,9 +168,9 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                   onClick={() => setLangDropdownOpen(prev => !prev)}
                   title="Switch Language"
                 >
-                  <Globe size={14} color="#F59E0B" />
+                  <Globe size={14} color='var(--color-accent)' />
                   <span className="lang-code-text">{currentLang}</span>
-                  <ChevronDown size={11} color="#94A3B8" />
+                  <ChevronDown size={11} color='var(--text-light)' />
                 </button>
 
                 {langDropdownOpen && (
@@ -192,7 +192,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                           <span className="lang-native">{lang.native}</span>
                           <span className="lang-eng">({lang.name})</span>
                         </div>
-                        {currentLang === lang.code && <Check size={14} color="#F59E0B" />}
+                        {currentLang === lang.code && <Check size={14} color='var(--color-accent)' />}
                       </button>
                     ))}
                   </div>
@@ -212,7 +212,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                     }
                   }}
                 >
-                  <User size={19} color="#FFFFFF" />
+                  <User size={19} color='var(--bg-card)' />
                   <span className="profile-btn-caption">
                     {isAuthenticated ? (user?.name ? user.name.split(' ')[0] : 'Account') : (t('profile') || 'Profile')}
                   </span>
@@ -233,8 +233,8 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                       onClick={() => setUserDropdownOpen(false)}
                       className="dropdown-link admin-link"
                     >
-                      <ShieldCheck size={16} color="#F59E0B" />
-                      <span style={{ fontWeight: 800, color: '#D97706' }}>Admin Dashboard</span>
+                      <ShieldCheck size={16} color='var(--color-accent)' />
+                      <span style={{ fontWeight: 800, color: 'var(--primary-dark)' }}>Admin Dashboard</span>
                     </Link>
                     <Link
                       to="/account?tab=orders"
@@ -278,7 +278,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
               {/* Shopping Cart Pill */}
               <Link to="/cart" className="header-cart-wrap" title="View Cart">
                 <div className="cart-badge-container">
-                  <ShoppingCart size={20} color="#FFFFFF" />
+                  <ShoppingCart size={20} color='var(--bg-card)' />
                   {cartCount > 0 && <span className="cart-live-count">{cartCount}</span>}
                 </div>
                 <span className="cart-btn-caption">{t('cart') || 'Cart'}</span>
@@ -290,7 +290,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 className="header-admin-direct-btn"
                 title="Open Admin Management Panel"
               >
-                <ShieldCheck size={18} color="#F59E0B" />
+                <ShieldCheck size={18} color='var(--color-accent)' />
                 <span className="admin-btn-caption">Admin</span>
               </Link>
             </div>
@@ -308,7 +308,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 onClick={onOpenLocation}
               >
                 <span>{currentCity ? (t('changeAddress') || 'Change Site Address') : (t('addAddress') || 'Add Address')}</span>
-                <ChevronDown size={13} color="#F59E0B" />
+                <ChevronDown size={13} color='var(--color-accent)' />
               </button>
             </div>
           </div>
@@ -316,7 +316,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
           {/* Search Bar Pill with Camera & Mic */}
           <div className="header-search-row" ref={searchRef}>
             <form onSubmit={handleSearchSubmit} className="classic-search-pill-form">
-              <Search size={18} color="#94A3B8" className="search-pill-glass-icon" />
+              <Search size={18} color='var(--text-light)' className="search-pill-glass-icon" />
               <input
                 type="text"
                 placeholder={t('searchPlaceholder') || 'Search cement, steel rebars, CPVC pipes, tiles, sand...'}
@@ -333,7 +333,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 onClick={onOpenPaperList}
                 title="Click photo of handwritten paper material list to send directly to Admin"
               >
-                <Camera size={19} color="#D97706" />
+                <Camera size={19} color='var(--primary-dark)' />
               </button>
 
               {/* Orange Mic Voice Search Button */}
@@ -343,7 +343,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 onClick={handleVoiceSearch}
                 title="Tap to voice search"
               >
-                <Mic size={16} color="#FFFFFF" />
+                <Mic size={16} color='var(--bg-card)' />
               </button>
             </form>
 
@@ -351,7 +351,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
             {showSuggestions && suggestions.length > 0 && (
               <div className="search-suggestions-dropdown">
                 <div className="search-suggestions-header">
-                  <span>⚡ Quick Dispatch Supplies</span>
+                  <span>Quick Dispatch Supplies</span>
                 </div>
                 {suggestions.map(p => (
                   <div
@@ -376,7 +376,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                         <span className="search-suggestion-unit">/ {p.unit}</span>
                       </div>
                     </div>
-                    <ArrowRight size={14} color="#94A3B8" />
+                    <ArrowRight size={14} color='var(--text-light)' />
                   </div>
                 ))}
               </div>

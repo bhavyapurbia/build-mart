@@ -8,19 +8,25 @@ import {
   Clock,
   ArrowRight,
   ShieldCheck,
-  PhoneCall
+  PhoneCall,
+  Layers,
+  Grid,
+  Wrench,
+  Droplets,
+  Building2,
+  Hammer
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
 import api from '../utils/api';
 
 const LABOUR_CATEGORIES = [
-  { type: 'Mason', desc: 'Brickwork, block masonry, plastering, boundary walls, and lintels', icon: '🧱' },
-  { type: 'Tile worker', desc: 'Precision vitrified floor tiling, wall cladding, and epoxy grouting', icon: '🪨' },
-  { type: 'Plumber', desc: 'CPVC internal lines, drainage SWR, bathroom fittings, and sanitary fixings', icon: '🔧' },
-  { type: 'Waterproofing worker', desc: 'Terrace membrane coatings, bathroom sunken slab, and crystalline sealing', icon: '💧' },
-  { type: 'General construction worker', desc: 'RCC curing, sand/aggregate shifting, excavation, and site cleanup', icon: '🏗️' },
-  { type: 'Other', desc: 'Carpenters, fabricators, and specialized site trades', icon: '🔨' }
+  { type: 'Mason', desc: 'Brickwork, block masonry, plastering, boundary walls, and lintels', icon: Layers },
+  { type: 'Tile worker', desc: 'Precision vitrified floor tiling, wall cladding, and epoxy grouting', icon: Grid },
+  { type: 'Plumber', desc: 'CPVC internal lines, drainage SWR, bathroom fittings, and sanitary fixings', icon: Wrench },
+  { type: 'Waterproofing worker', desc: 'Terrace membrane coatings, bathroom sunken slab, and crystalline sealing', icon: Droplets },
+  { type: 'General construction worker', desc: 'RCC curing, sand/aggregate shifting, excavation, and site cleanup', icon: Building2 },
+  { type: 'Other', desc: 'Carpenters, fabricators, and specialized site trades', icon: Hammer }
 ];
 
 const LabourBookingPage = () => {
@@ -80,18 +86,18 @@ const LabourBookingPage = () => {
       <div style={{ padding: '60px 0 100px' }}>
         <div className="container" style={{ maxWidth: '620px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{
-            background: '#FFFFFF',
+            background: 'var(--bg-card)',
             borderRadius: '16px',
-            border: '2px solid #10B981',
+            border: '2px solid var(--color-success)',
             padding: '40px',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+            boxShadow: 'var(--shadow-lg)'
           }}>
             <div style={{
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              background: '#ECFDF5',
-              color: '#10B981',
+              background: 'var(--accent-green-light)',
+              color: 'var(--color-success)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -101,8 +107,8 @@ const LabourBookingPage = () => {
             </div>
 
             <span style={{
-              background: '#FEF3C7',
-              color: '#B45309',
+              background: 'var(--primary-light)',
+              color: 'var(--primary-deep)',
               fontSize: '12px',
               fontWeight: 800,
               padding: '4px 12px',
@@ -112,26 +118,26 @@ const LabourBookingPage = () => {
               Booking ID: #{submittedBooking.bookingId}
             </span>
 
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A', marginTop: '12px', marginBottom: '8px' }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '12px', marginBottom: '8px' }}>
               Labour Request Submitted for Review
             </h1>
 
-            <p style={{ fontSize: '14.5px', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>
+            <p style={{ fontSize: '14.5px', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '24px' }}>
               Thank you, <strong>{customer.name}</strong>. Our local contractor supervisor is reviewing availability of skilled {labourType}s for your project starting on <strong>{preferredStartDate}</strong>.
             </p>
 
             <div style={{
-              background: '#F8FAFC',
+              background: 'var(--bg-page)',
               borderRadius: '12px',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--border)',
               padding: '18px',
               textAlign: 'left',
               marginBottom: '24px',
               fontSize: '13px',
-              color: '#475569',
+              color: 'var(--text-sub)',
               lineHeight: 1.6
             }}>
-              <div style={{ fontWeight: 700, color: '#0F172A', marginBottom: '6px' }}>What Happens Next?</div>
+              <div style={{ fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>What Happens Next?</div>
               <div>• Supervisor contacts you to confirm site accessibility and scope.</div>
               <div>• Transparent daily or square-footage labour charges are quoted.</div>
               <div>• Certified workers are assigned with direct contact details.</div>
@@ -159,8 +165,8 @@ const LabourBookingPage = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            background: '#FEF3C7',
-            color: '#B45309',
+            background: 'var(--primary-light)',
+            color: 'var(--primary-deep)',
             padding: '6px 14px',
             borderRadius: '20px',
             fontSize: '12px',
@@ -171,18 +177,18 @@ const LabourBookingPage = () => {
             <HardHat size={16} />
             <span>Skilled Construction Workforce</span>
           </div>
-          <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-ink)' }}>
             Book Verified Site Labour
           </h1>
-          <p style={{ fontSize: '15px', color: '#64748B', maxWidth: '600px', margin: '8px auto 0' }}>
+          <p style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '600px', margin: '8px auto 0' }}>
             Hire experienced masons, plumbers, tile layers, and waterproofing specialists on a daily or project contract.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ background: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '32px' }}>
+        <form onSubmit={handleSubmit} style={{ background: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--border)', padding: '32px' }}>
           {/* Select Trade Category */}
           <div style={{ marginBottom: '28px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: '#0F172A', marginBottom: '12px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '12px' }}>
               1. Choose Required Trade Category *
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
@@ -193,8 +199,8 @@ const LabourBookingPage = () => {
                     key={cat.type}
                     onClick={() => setLabourType(cat.type)}
                     style={{
-                      border: isSelected ? '2px solid #D97706' : '1px solid #E2E8F0',
-                      background: isSelected ? '#FEF3C7' : '#FFFFFF',
+                      border: isSelected ? '2px solid var(--primary-dark)' : '1px solid var(--border)',
+                      background: isSelected ? 'var(--primary-light)' : 'var(--bg-card)',
                       borderRadius: '10px',
                       padding: '14px',
                       cursor: 'pointer',
@@ -202,10 +208,10 @@ const LabourBookingPage = () => {
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '20px' }}>{cat.icon}</span>
-                      <strong style={{ fontSize: '14.5px', color: '#0F172A' }}>{cat.type}</strong>
+                      <cat.icon size={20} color="var(--primary-dark)" />
+                      <strong style={{ fontSize: '14.5px', color: 'var(--color-ink)' }}>{cat.type}</strong>
                     </div>
-                    <p style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.4 }}>
+                    <p style={{ fontSize: '12px', color: 'var(--color-muted)', lineHeight: 1.4 }}>
                       {cat.desc}
                     </p>
                   </div>
@@ -215,14 +221,14 @@ const LabourBookingPage = () => {
           </div>
 
           {/* Scope and Date */}
-          <div style={{ marginBottom: '28px', borderTop: '1px solid #E2E8F0', paddingTop: '20px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: '#0F172A', marginBottom: '14px' }}>
+          <div style={{ marginBottom: '28px', borderTop: '1px solid var(--border)', paddingTop: '20px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '14px' }}>
               2. Job Timeline & Team Size
             </label>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                   Number of Workers *
                 </label>
                 <input
@@ -232,12 +238,12 @@ const LabourBookingPage = () => {
                   required
                   value={workersRequired}
                   onChange={e => setWorkersRequired(Math.max(1, parseInt(e.target.value) || 1))}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                   Starting Date *
                 </label>
                 <input
@@ -245,12 +251,12 @@ const LabourBookingPage = () => {
                   required
                   value={preferredStartDate}
                   onChange={e => setPreferredStartDate(e.target.value)}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
                   Estimated Duration *
                 </label>
                 <input
@@ -259,69 +265,69 @@ const LabourBookingPage = () => {
                   placeholder="e.g. 3 Days / 1 Week"
                   value={expectedDuration}
                   onChange={e => setExpectedDuration(e.target.value)}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
             </div>
           </div>
 
           {/* Customer & Location */}
-          <div style={{ marginBottom: '28px', borderTop: '1px solid #E2E8F0', paddingTop: '20px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: '#0F172A', marginBottom: '14px' }}>
+          <div style={{ marginBottom: '28px', borderTop: '1px solid var(--border)', paddingTop: '20px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '14px' }}>
               3. Site Location & Contact Details
             </label>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Your Name *</label>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Your Name *</label>
                 <input
                   type="text"
                   required
                   value={customer.name}
                   onChange={e => setCustomer({ ...customer, name: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Phone Number *</label>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Phone Number *</label>
                 <input
                   type="tel"
                   required
                   value={customer.phone}
                   onChange={e => setCustomer({ ...customer, phone: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
               <div style={{ gridColumn: 'span 2' }}>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Work Site Location Address *</label>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Work Site Location Address *</label>
                 <input
                   type="text"
                   required
                   placeholder="Street / Project site, Landmark, Area"
                   value={customer.workLocation}
                   onChange={e => setCustomer({ ...customer, workLocation: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>City *</label>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>City *</label>
                 <input
                   type="text"
                   required
                   value={customer.city}
                   onChange={e => setCustomer({ ...customer, city: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>Pincode *</label>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Pincode *</label>
                 <input
                   type="text"
                   required
                   maxLength={6}
                   value={customer.pincode}
                   onChange={e => setCustomer({ ...customer, pincode: e.target.value.replace(/\D/g, '') })}
-                  style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13.5px' }}
+                  style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}
                 />
               </div>
             </div>

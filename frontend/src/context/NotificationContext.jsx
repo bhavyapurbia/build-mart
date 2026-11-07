@@ -47,9 +47,9 @@ export const NotificationProvider = ({ children }) => {
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: 500,
-              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.15)',
-              background: toast.type === 'success' ? '#065F46' : toast.type === 'error' ? '#991B1B' : '#1E293B',
-              color: '#ffffff',
+              boxShadow: 'var(--shadow-lg)',
+              background: toast.type === 'success' ? 'var(--accent-green-dark)' : toast.type === 'error' ? 'var(--color-error)' : 'var(--secondary)',
+              color: 'var(--bg-card)',
               animation: 'slideInLeft 0.25s ease-out',
               lineHeight: 1.4
             }}
@@ -60,7 +60,7 @@ export const NotificationProvider = ({ children }) => {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: 'rgba(255, 255, 255, 0.7)',
+                color: 'color-mix(in oklab, var(--bg-card) 70%, transparent)',
                 cursor: 'pointer',
                 fontSize: '16px',
                 padding: '0 4px'

@@ -11,7 +11,7 @@ const FeaturePillStrip = () => {
         <div className="feature-strip-peach-card">
           <div className="feature-pill-item">
             <div className="feature-pill-icon">
-              <Truck size={22} color="#FF6E00" strokeWidth={2.2} />
+              <Truck size={22} color='var(--color-accent)' strokeWidth={2.2} />
             </div>
             <div className="feature-pill-text">
               <span className="pill-title">{t('freeDelivery') || 'FREE DELIVERY'}</span>
@@ -23,7 +23,7 @@ const FeaturePillStrip = () => {
 
           <div className="feature-pill-item">
             <div className="feature-pill-icon">
-              <Tag size={20} color="#FF6E00" strokeWidth={2.2} />
+              <Tag size={20} color='var(--color-accent)' strokeWidth={2.2} />
             </div>
             <div className="feature-pill-text">
               <span className="pill-title">{t('cashback') || '5% CASHBACK*'}</span>
@@ -35,7 +35,7 @@ const FeaturePillStrip = () => {
 
           <div className="feature-pill-item">
             <div className="feature-pill-icon">
-              <IndianRupee size={20} color="#FF6E00" strokeWidth={2.2} />
+              <IndianRupee size={20} color='var(--color-accent)' strokeWidth={2.2} />
             </div>
             <div className="feature-pill-text">
               <span className="pill-title">{t('spendPromo') || '₹2,500'}</span>
@@ -47,7 +47,7 @@ const FeaturePillStrip = () => {
 
           <div className="feature-pill-item">
             <div className="feature-pill-icon">
-              <ShieldCheck size={22} color="#FF6E00" strokeWidth={2.2} />
+              <ShieldCheck size={22} color='var(--color-accent)' strokeWidth={2.2} />
             </div>
             <div className="feature-pill-text">
               <span className="pill-title">{t('genuineProducts') || 'GENUINE'}</span>
