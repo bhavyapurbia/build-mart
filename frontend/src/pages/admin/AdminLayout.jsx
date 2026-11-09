@@ -17,7 +17,8 @@ import {
   ExternalLink,
   Hammer,
   Megaphone,
-  ShieldCheck
+  ShieldCheck,
+  CreditCard
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -25,6 +26,7 @@ const NAV_ITEMS = [
   { path: '/admin/overview', label: 'Overview', icon: LayoutDashboard },
   { path: '/admin/material-requests', label: 'Material Requests', icon: ClipboardList, badge: 'Crucial' },
   { path: '/admin/orders', label: 'Order Management', icon: ShoppingCart },
+  { path: '/admin/payments', label: 'Payments & Gateway', icon: CreditCard },
   { path: '/admin/products', label: 'Products', icon: Package },
   { path: '/admin/categories', label: 'Categories', icon: Layers },
   { path: '/admin/brands', label: 'Brands & Manufacturers', icon: Award },

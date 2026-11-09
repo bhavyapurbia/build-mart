@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import categoryController from '../controllers/categoryController.js';
-import { authenticate, requireAdmin  } from '../middleware/auth.js';
+import categoryController from '../controllers/category.controller.js';
+import { authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.get('/', categoryController.getCategories);
 router.get('/:slug', categoryController.getCategoryBySlug);

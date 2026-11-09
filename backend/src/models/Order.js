@@ -39,8 +39,10 @@ const Order = createUnifiedModel('Order', {
   discount: { type: Number, default: 0 },
   totalAmount: { type: Number, required: true },
   couponApplied: { type: String },
-  paymentMethod: { type: String, enum: ['COD', 'Online', 'Bank Transfer', 'Credit on Approval'], default: 'COD' },
-  paymentStatus: { type: String, enum: ['Pending', 'Paid', 'Refunded', 'Failed'], default: 'Pending' },
+  paymentMethod: { type: String, enum: ['COD', 'Online', 'Bank Transfer', 'Credit on Approval', 'Razorpay'], default: 'COD' },
+  paymentStatus: { type: String, enum: ['Pending', 'Paid', 'Refunded', 'Partially Refunded', 'Failed'], default: 'Pending' },
+  razorpayOrderId: { type: String },
+  razorpayPaymentId: { type: String },
   orderStatus: {
     type: String,
     enum: [
@@ -67,4 +69,3 @@ const Order = createUnifiedModel('Order', {
 
 export default Order;
 export { Order };
-

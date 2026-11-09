@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Hammer, Lock, Mail, User, Phone, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -14,6 +14,7 @@ const RegisterPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +33,8 @@ const RegisterPage = () => {
     });
     setSubmitting(false);
     if (res.success) {
-      navigate('/account');
+      const from = location.state?.from || '/account';
+      navigate(from, { replace: true });
     }
   };
 
@@ -141,7 +143,7 @@ const RegisterPage = () => {
 
           <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--color-muted)' }}>
             Already have an account?{' '}
-            <Link to="/login" style={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
+            <Link to="/login" state={location.state} style={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
               Sign In
             </Link>
           </div>

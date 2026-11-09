@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Hammer, Lock, Mail, ArrowRight } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Hammer, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
@@ -9,6 +9,9 @@ const LoginPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectMessage = location.state?.message;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +19,8 @@ const LoginPage = () => {
     const res = await login(email, password);
     setSubmitting(false);
     if (res.success) {
-      navigate('/account');
+      const from = location.state?.from || '/account';
+      navigate(from, { replace: true });
     }
   };
 
@@ -41,6 +45,25 @@ const LoginPage = () => {
               Access your saved material lists, quotations, and active job-site dispatches
             </p>
           </div>
+
+          {redirectMessage && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'var(--primary-light)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              padding: '10px 14px',
+              marginBottom: '18px',
+              fontSize: '12.5px',
+              color: 'var(--primary-dark)',
+              fontWeight: 600
+            }}>
+              <AlertCircle size={16} />
+              <span>{redirectMessage}</span>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
@@ -103,7 +126,7 @@ const LoginPage = () => {
 
           <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--color-muted)' }}>
             New to BuildMart?{' '}
-            <Link to="/register" style={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
+            <Link to="/register" state={location.state} style={{ color: 'var(--primary-dark)', fontWeight: 700 }}>
               Create an Account
             </Link>
           </div>
@@ -114,4 +137,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

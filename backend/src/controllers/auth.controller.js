@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
-import { generateToken } from '../middleware/auth.js';
+import { generateToken } from '../middleware/auth.middleware.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
@@ -148,9 +148,9 @@ export const adminLogin = asyncHandler(async (req, res) => {
 });
 
 export const getMe = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  let user = (await User.findById(req.user._id || req.user.id)) || (await User.findOne({ email: req.user.email }));
   if (!user) {
-    throw new ApiError(404, 'User not found.');
+    user = req.user;
   }
   const userObj = user.toObject ? user.toObject() : (user._doc ? { ...user._doc } : { ...user });
   const { password, ...safeUser } = userObj;

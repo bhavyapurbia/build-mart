@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import cartController from '../controllers/cartController.js';
-import { optionalAuth  } from '../middleware/auth.js';
+import cartController from '../controllers/cart.controller.js';
+import { optionalAuth  } from '../middleware/auth.middleware.js';
 
 router.get('/', optionalAuth, cartController.getCart);
 router.post('/sync', optionalAuth, cartController.syncCart);

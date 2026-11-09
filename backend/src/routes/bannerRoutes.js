@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import bannerController from '../controllers/bannerController.js';
-import { authenticate, requireAdmin } from '../middleware/auth.js';
+import bannerController from '../controllers/banner.controller.js';
+import { authenticate, requireAdmin } from '../middleware/auth.middleware.js';
 
 router.get('/', bannerController.getBanners);
 router.get('/admin', authenticate, requireAdmin, bannerController.getAllBanners);

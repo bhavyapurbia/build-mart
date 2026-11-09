@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   ShieldCheck,
@@ -32,6 +32,13 @@ const CheckoutPage = () => {
   const { showToast } = useNotification();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) {
+      showToast('Please sign in to proceed with checkout.', 'warning', 3500);
+      navigate('/login', { state: { from: '/checkout', message: 'Please sign in to proceed with checkout.' } });
+    }
+  }, [user, navigate]);
+
   // Customer delivery details
   const [customer, setCustomer] = useState({
     name: user?.name || '',
@@ -59,6 +66,127 @@ const CheckoutPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState(null);
 
+  // ─── Razorpay Script Loader ───────────────────────────────────────────────
+  const loadRazorpayScript = () => new Promise(resolve => {
+    if (window.Razorpay) return resolve(true);
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+
+  // ─── Razorpay Payment Handler ─────────────────────────────────────────────
+  const handleRazorpayPayment = async () => {
+    setSubmitting(true);
+
+    // Load Razorpay checkout script
+    const loaded = await loadRazorpayScript();
+    if (!loaded) {
+      showToast('Payment gateway failed to load. Check internet connection.', 'error');
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      // Create Razorpay order on backend
+      const { data } = await api.post('/payments/razorpay/create-order', {
+        customer,
+        items: cartItems.map(item => ({
+          productId: item.productId || item._id,
+          name: item.name,
+          brand: item.brand,
+          image: item.image,
+          quantity: item.quantity,
+          unit: item.unit,
+          price: item.price
+        })),
+        discount: couponDiscount,
+        couponApplied: coupon?.code || '',
+        deliveryCharge: deliveryFee,
+        labourDetails: needLabour
+          ? { ...labourData, hasLabour: true, labourCharges: 0, chargesApproved: false }
+          : { hasLabour: false }
+      });
+
+      // Open Razorpay checkout modal
+      const orderPayload = data.data || data;
+      const rzpOptions = {
+        key: orderPayload.keyId || data.keyId,
+        amount: orderPayload.amount || data.amount,
+        currency: orderPayload.currency || data.currency || 'INR',
+        name: 'BuildMart',
+        description: 'Construction Materials Procurement',
+        order_id: orderPayload.razorpayOrderId || data.razorpayOrderId,
+        prefill: {
+          name: customer.name,
+          email: customer.email,
+          contact: customer.phone
+        },
+        theme: { color: '#d97706' }, // amber to match brand
+        handler: async function (response) {
+          // Fires on successful payment — verify on backend
+          try {
+            const verifyRes = await api.post('/payments/razorpay/verify', {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              orderData: {
+                customer,
+                items: cartItems.map(item => ({
+                  productId: item.productId || item._id,
+                  name: item.name,
+                  brand: item.brand,
+                  image: item.image,
+                  quantity: item.quantity,
+                  unit: item.unit,
+                  price: item.price
+                })),
+                paymentMethod: 'Razorpay',
+                discount: couponDiscount,
+                couponApplied: coupon?.code || '',
+                deliveryCharge: deliveryFee,
+                labourDetails: needLabour
+                  ? { hasLabour: true, ...labourData, labourCharges: 0, chargesApproved: false }
+                  : { hasLabour: false }
+              }
+            });
+            clearCart();
+            const orderResult = verifyRes.data.order ? verifyRes.data : (verifyRes.data.data || verifyRes.data);
+            setConfirmedOrder(orderResult);
+            showToast('Payment successful! Order confirmed.', 'success', 5000);
+          } catch (err) {
+            showToast(
+              'Payment verification failed. Contact support with payment ID: ' + response.razorpay_payment_id,
+              'error',
+              8000
+            );
+          } finally {
+            setSubmitting(false);
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            showToast('Payment cancelled. You can retry when ready.', 'info');
+            setSubmitting(false);
+          }
+        }
+      };
+
+      const rzp = new window.Razorpay(rzpOptions);
+      rzp.on('payment.failed', function (response) {
+        showToast('Payment failed: ' + (response.error?.description || 'Please try again'), 'error');
+        setSubmitting(false);
+      });
+      rzp.open();
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Failed to initiate payment. Please try again.';
+      showToast(msg, 'error');
+      setSubmitting(false);
+    }
+  };
+
+  // ─── Main Order Handler ───────────────────────────────────────────────────
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (!cartItems.length) {
@@ -66,6 +194,17 @@ const CheckoutPage = () => {
       return;
     }
 
+    if (paymentMethod === 'Online') {
+      // Validate required fields before opening Razorpay
+      if (!customer.name || !customer.phone || !customer.email || !customer.address || !customer.city || !customer.pincode) {
+        showToast('Please fill in all required delivery details before proceeding to payment.', 'error');
+        return;
+      }
+      await handleRazorpayPayment();
+      return;
+    }
+
+    // COD / Bank Transfer — existing logic unchanged
     setSubmitting(true);
     try {
       const payload = {
@@ -511,9 +650,10 @@ const CheckoutPage = () => {
                   </div>
                 </label>
 
+                {/* Online / Razorpay Option */}
                 <label style={{
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   gap: '12px',
                   padding: '12px 16px',
                   borderRadius: '8px',
@@ -527,10 +667,28 @@ const CheckoutPage = () => {
                     value="Online"
                     checked={paymentMethod === 'Online'}
                     onChange={() => setPaymentMethod('Online')}
+                    style={{ marginTop: '3px' }}
                   />
-                  <div>
-                    <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>Online Payment Gateway (Credit/Debit Card / NetBanking)</strong>
-                    <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>Instant GST credit invoice issued immediately upon success.</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>
+                        Pay Online via Razorpay (Cards / UPI / Netbanking / Wallets)
+                      </strong>
+                      <span style={{
+                        background: 'var(--primary-dark)',
+                        color: 'var(--bg-card)',
+                        fontSize: '10px',
+                        fontWeight: 800,
+                        padding: '2px 7px',
+                        borderRadius: '4px',
+                        letterSpacing: '0.3px'
+                      }}>
+                        Razorpay
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--color-muted)', marginTop: '2px' }}>
+                      Secure payment powered by Razorpay. GST invoice issued instantly.
+                    </div>
                   </div>
                 </label>
 
@@ -619,8 +777,13 @@ const CheckoutPage = () => {
               className="btn-primary"
               style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: '15px' }}
             >
-              <span>{submitting ? 'Placing Order...' : 'Confirm & Place Order'}</span>
-              <ArrowRight size={16} />
+              <span>
+                {submitting
+                  ? (paymentMethod === 'Online' ? 'Connecting to Razorpay...' : 'Placing Order...')
+                  : (paymentMethod === 'Online' ? `Pay Now ₹${totalAmount.toLocaleString('en-IN')} via Razorpay` : 'Confirm & Place Order →')
+                }
+              </span>
+              {!submitting && <ArrowRight size={16} />}
             </button>
 
             <div style={{ marginTop: '16px', fontSize: '12px', color: 'var(--color-muted)', textAlign: 'center', lineHeight: 1.5 }}>
@@ -634,4 +797,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-

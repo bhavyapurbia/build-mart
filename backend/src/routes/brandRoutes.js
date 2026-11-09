@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import brandController from '../controllers/brandController.js';
-import { authenticate, requireAdmin  } from '../middleware/auth.js';
+import brandController from '../controllers/brand.controller.js';
+import { authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.get('/', brandController.getBrands);
 router.post('/', authenticate, requireAdmin, brandController.createBrand);

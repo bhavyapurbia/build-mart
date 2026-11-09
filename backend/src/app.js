@@ -22,6 +22,8 @@ import notificationRoutes from './routes/notificationRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
+import webhookRoutes from './routes/webhookRoutes.js';
 import { ApiError } from './utils/ApiError.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,11 +31,16 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Middleware
+// Global CORS Middleware
 app.use(cors({
   origin: true,
   credentials: true
 }));
+
+// Webhook routes mounted BEFORE express.json() to preserve raw Buffer for cryptographic signature verification
+app.use('/api/webhooks', webhookRoutes);
+
+// General JSON & URL-encoded body parsing
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 app.use(morgan('dev'));
@@ -68,6 +75,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Centralized Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -90,4 +98,3 @@ app.use((err, req, res, next) => {
 
 export default app;
 export { app };
-

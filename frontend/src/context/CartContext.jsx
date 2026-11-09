@@ -1,10 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../utils/api';
 import { useNotification } from './NotificationContext';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const { user, token, loading: authLoading } = useAuth();
+  const { showToast } = useNotification();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [cartItems, setCartItems] = useState(() => {
     try {
       const saved = localStorage.getItem('bm_cart');
@@ -16,7 +23,6 @@ export const CartProvider = ({ children }) => {
 
   const [coupon, setCoupon] = useState(null);
   const [couponDiscount, setCouponDiscount] = useState(0);
-  const { showToast } = useNotification();
 
   useEffect(() => {
     try {
@@ -28,6 +34,19 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product, quantity = 1) => {
     if (!product) return;
+
+    // Check if user is logged in before adding to cart
+    if (!user && (!token || !authLoading)) {
+      showToast('Please sign in to add items to your cart.', 'warning', 3500);
+      navigate('/login', {
+        state: {
+          from: location.pathname + location.search,
+          message: 'Please sign in to add items to your cart.'
+        }
+      });
+      return;
+    }
+
     const productId = product._id || product.id;
     setCartItems(prev => {
       const idx = prev.findIndex(item => (item.productId || item._id || item.product?._id) === productId);
@@ -50,10 +69,22 @@ export const CartProvider = ({ children }) => {
         }];
       }
     });
-    showToast(`Added "${product.name ? product.name.slice(0, 30) : 'Item'}..." to Cart!`, 'success', 2500);
+    showToast(`Added "${product.name ? product.name.slice(0, 30) : 'Item'}" to Cart!`, 'success', 2500);
   };
 
   const updateCartQty = (productId, quantity) => {
+    // Check if user is logged in before modifying cart
+    if (!user && (!token || !authLoading)) {
+      showToast('Please sign in to manage your cart.', 'warning', 3500);
+      navigate('/login', {
+        state: {
+          from: location.pathname + location.search,
+          message: 'Please sign in to manage your cart.'
+        }
+      });
+      return;
+    }
+
     const numQty = Number(quantity);
     if (numQty <= 0) {
       removeFromCart(productId);
@@ -82,7 +113,7 @@ export const CartProvider = ({ children }) => {
   // Calculations
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const tax = Math.round(subtotal * 0.18); // 18% GST typical for building hardware
-  const deliveryFee = subtotal >= 5000 || subtotal === 0 ? 0 : 250;
+  const deliveryFee = 0; // Free delivery (removed for payment testing)
   const totalAmount = Math.max(0, subtotal + tax + deliveryFee - couponDiscount);
 
   const applyCoupon = async (code) => {

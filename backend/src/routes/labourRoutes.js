@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import labourController from '../controllers/labourController.js';
-import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.js';
+import labourController from '../controllers/labour.controller.js';
+import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.post('/', optionalAuth, labourController.submitLabourRequest);
 router.get('/my', optionalAuth, labourController.getMyLabourBookings);

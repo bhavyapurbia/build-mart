@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import adminController from '../controllers/adminController.js';
-import { authenticate, requireAdmin  } from '../middleware/auth.js';
+import adminController from '../controllers/admin.controller.js';
+import { authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.get('/overview', authenticate, requireAdmin, adminController.getOverviewKPIs);
 router.get('/customers', authenticate, requireAdmin, adminController.getCustomers);

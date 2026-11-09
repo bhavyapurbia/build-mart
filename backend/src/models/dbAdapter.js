@@ -88,6 +88,18 @@ class QueryChain {
   }
 }
 
+function getNestedValue(obj, path) {
+  if (!obj || !path) return undefined;
+  if (path in obj) return obj[path];
+  const parts = path.split('.');
+  let curr = obj;
+  for (const part of parts) {
+    if (curr == null) return undefined;
+    curr = curr[part];
+  }
+  return curr;
+}
+
 function matchFilter(doc, filter = {}) {
   if (!filter || Object.keys(filter).length === 0) return true;
   for (const [key, val] of Object.entries(filter)) {
@@ -102,30 +114,35 @@ function matchFilter(doc, filter = {}) {
       if (docId !== targetId) return false;
       continue;
     }
+    const docVal = getNestedValue(doc, key);
     if (val && typeof val === 'object' && !Array.isArray(val)) {
       if ('$regex' in val) {
         const regex = new RegExp(val.$regex, val.$options || 'i');
-        if (!regex.test(String(doc[key] || ''))) return false;
+        if (!regex.test(String(docVal || ''))) return false;
         continue;
       }
       if ('$in' in val && Array.isArray(val.$in)) {
-        if (!val.$in.map(String).includes(String(doc[key]))) return false;
+        if (!val.$in.map(String).includes(String(docVal))) return false;
         continue;
       }
       if ('$ne' in val) {
-        if (String(doc[key]) === String(val.$ne)) return false;
+        if (String(docVal) === String(val.$ne)) return false;
         continue;
       }
       if ('$gte' in val) {
-        if (Number(doc[key]) < Number(val.$gte)) return false;
+        if (Number(docVal) < Number(val.$gte)) return false;
         continue;
       }
       if ('$lte' in val) {
-        if (Number(doc[key]) > Number(val.$lte)) return false;
+        if (Number(docVal) > Number(val.$lte)) return false;
         continue;
       }
     } else {
-      if (doc[key] !== val && String(doc[key]) !== String(val)) {
+      if (typeof val === 'string' && typeof docVal === 'string') {
+        if (docVal.toLowerCase() !== val.toLowerCase()) {
+          return false;
+        }
+      } else if (docVal !== val && String(docVal) !== String(val)) {
         return false;
       }
     }

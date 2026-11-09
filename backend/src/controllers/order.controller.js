@@ -50,7 +50,7 @@ export const createOrder = asyncHandler(async (req, res) => {
   });
 
   const tax = Math.round(materialCost * 0.18); // 18% GST typical for construction supplies
-  const calculatedDelivery = materialCost >= 5000 ? 0 : Number(deliveryCharge || 250);
+  const calculatedDelivery = 0; // Free delivery (removed for payment testing)
   const labourCost = (labourDetails && labourDetails.hasLabour && labourDetails.labourCharges)
     ? Number(labourDetails.labourCharges)
     : 0;
@@ -164,17 +164,27 @@ export const createOrder = asyncHandler(async (req, res) => {
 });
 
 export const getMyOrders = asyncHandler(async (req, res) => {
-  const userId = req.user ? String(req.user._id) : null;
+  const userId = req.user ? String(req.user._id || req.user.id || '') : null;
   const userEmail = req.user ? req.user.email : null;
 
   let orders = [];
   if (userId || userEmail) {
-    orders = await Order.find({
-      $or: [
-        { user: userId },
-        { 'customer.email': userEmail }
-      ]
-    }).sort({ createdAt: -1 });
+    const orConditions = [];
+    if (userId) orConditions.push({ user: userId });
+    if (userEmail) orConditions.push({ 'customer.email': userEmail });
+
+    orders = await Order.find({ $or: orConditions }).sort({ createdAt: -1 });
+
+    // Link unlinked orders with matching email to this user
+    if (userId && orders.length > 0) {
+      for (const ord of orders) {
+        if (!ord.user) {
+          try {
+            await Order.updateOne({ _id: ord._id }, { user: userId });
+          } catch (e) {}
+        }
+      }
+    }
   }
 
   return res.status(200).json(

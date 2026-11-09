@@ -56,5 +56,15 @@
     ],
     "createdAt": "2026-11-06T15:49:38.344Z",
     "updatedAt": "2026-11-06T15:49:38.344Z"
+  },
+  {
+    "_id": "231c3a",
+    "id": "231c3a",
+    "name": "Ashok Ashok",
+    "email": "ajat39963@gmail.com",
+    "role": "customer",
+    "isActive": true,
+    "createdAt": "2026-11-09T05:15:34.839Z",
+    "updatedAt": "2026-11-09T05:15:34.839Z"
   }
 ]

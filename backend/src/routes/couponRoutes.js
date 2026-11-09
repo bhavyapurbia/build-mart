@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import couponController from '../controllers/couponController.js';
-import { authenticate, requireAdmin  } from '../middleware/auth.js';
+import couponController from '../controllers/coupon.controller.js';
+import { authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.post('/validate', couponController.validateCoupon);
 router.get('/', couponController.getCoupons);

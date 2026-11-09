@@ -255,7 +255,7 @@ const CartPage = () => {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>Delivery Freight:</span>
-                <span>{deliveryFee === 0 ? <strong style={{ color: 'var(--color-success)' }}>FREE (Above ₹5,000)</strong> : `₹${deliveryFee}`}</span>
+                <span><strong style={{ color: 'var(--color-success)' }}>FREE</strong></span>
               </div>
               {couponDiscount > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)', fontWeight: 600 }}>

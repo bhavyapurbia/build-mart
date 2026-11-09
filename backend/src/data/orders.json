@@ -44,16 +44,21 @@
     "totalAmount": 4905,
     "paymentMethod": "COD",
     "paymentStatus": "Pending",
-    "orderStatus": "Confirmed",
+    "orderStatus": "Cancelled",
     "timeline": [
       {
         "status": "Confirmed",
         "note": "Order placed by customer",
         "timestamp": "2026-11-06T12:42:01.239Z"
+      },
+      {
+        "status": "Cancelled",
+        "note": "Status updated to Cancelled",
+        "timestamp": "2026-11-09T05:06:47.107Z"
       }
     ],
     "createdAt": "2026-11-06T12:42:01.240Z",
-    "updatedAt": "2026-11-06T12:42:01.240Z"
+    "updatedAt": "2026-11-09T05:06:47.109Z"
   },
   {
     "_id": "c5fd15a87dcdebc44588434b",
@@ -92,16 +97,118 @@
     },
     "paymentMethod": "COD",
     "paymentStatus": "Pending",
-    "orderStatus": "Confirmed",
+    "orderStatus": "Cancelled",
     "labourBookingId": "",
     "timeline": [
       {
         "status": "Confirmed",
         "note": "Order successfully placed. Warehouse notified for picking.",
         "timestamp": "2026-11-06T15:31:41.524Z"
+      },
+      {
+        "status": "Cancelled",
+        "note": "Status updated to Cancelled",
+        "timestamp": "2026-11-09T05:06:53.629Z"
       }
     ],
     "createdAt": "2026-11-06T15:31:41.527Z",
-    "updatedAt": "2026-11-06T15:31:41.527Z"
+    "updatedAt": "2026-11-09T05:06:53.632Z"
+  },
+  {
+    "_id": "c530a9c540f3957d6ac2978e",
+    "orderId": "BM-ORD-2960-0003",
+    "invoiceNumber": "INV-2026-00003",
+    "user": null,
+    "customer": {
+      "city": "Bengaluru",
+      "name": "Test Contractor",
+      "phone": "9876543210",
+      "pincode": "560102",
+      "email": "test@buildmart.in",
+      "address": "Site 42, HSR Layout"
+    },
+    "items": [
+      {
+        "productId": "p1",
+        "name": "UltraTech Super Cement 50kg",
+        "brand": "",
+        "image": "",
+        "quantity": 10,
+        "unit": "Bag",
+        "price": 420,
+        "total": 4200
+      }
+    ],
+    "materialCost": 4200,
+    "tax": 756,
+    "deliveryCharge": 250,
+    "labourCost": 0,
+    "discount": 0,
+    "totalAmount": 5206,
+    "couponApplied": "",
+    "paymentMethod": "Razorpay",
+    "paymentStatus": "Paid",
+    "orderStatus": "Confirmed",
+    "labourBookingId": "",
+    "razorpayOrderId": "order_TxwSWNlaeqFBj2",
+    "razorpayPaymentId": "pay_test_1794197880640",
+    "timeline": [
+      {
+        "status": "Confirmed",
+        "note": "Order confirmed after successful Razorpay payment.",
+        "timestamp": "2026-11-09T04:18:02.961Z"
+      }
+    ],
+    "createdAt": "2026-11-09T04:18:02.963Z",
+    "updatedAt": "2026-11-09T04:18:02.963Z"
+  },
+  {
+    "_id": "6c729b6bdc41a3ba123400e7",
+    "orderId": "BM-ORD-7787-0004",
+    "invoiceNumber": "INV-2026-00004",
+    "user": "231c3a",
+    "customer": {
+      "name": "Ashok Ashok",
+      "phone": "7727956570",
+      "email": "ajat39963@gmail.com",
+      "address": "Site Address",
+      "city": "Bengaluru",
+      "pincode": "560100",
+      "deliveryInstructions": ""
+    },
+    "items": [
+      {
+        "productId": "6af14c44a4b79da582ef1763",
+        "name": "rasgula",
+        "brand": "UltraTech",
+        "image": "https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=600&q=80",
+        "quantity": 1,
+        "unit": "Piece",
+        "price": 1,
+        "total": 1
+      }
+    ],
+    "materialCost": 1,
+    "tax": 0,
+    "deliveryCharge": 0,
+    "labourCost": 0,
+    "discount": 0,
+    "totalAmount": 1,
+    "couponApplied": "",
+    "paymentMethod": "Razorpay",
+    "paymentStatus": "Paid",
+    "orderStatus": "Confirmed",
+    "labourBookingId": "",
+    "razorpayOrderId": "order_Txx2dUnQZ64UC2",
+    "razorpayPaymentId": "pay_Txx3JD7BI7p7Lq",
+    "timeline": [
+      {
+        "status": "Confirmed",
+        "note": "Order confirmed after successful Razorpay payment.",
+        "timestamp": "2026-11-09T04:52:37.788Z"
+      }
+    ],
+    "createdAt": "2026-11-09T04:52:37.790Z",
+    "updatedAt": "2026-11-09T05:15:34.847Z"
   }
 ]

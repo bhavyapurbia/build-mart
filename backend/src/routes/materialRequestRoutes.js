@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import materialRequestController from '../controllers/materialRequestController.js';
-import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.js';
+import materialRequestController from '../controllers/materialRequest.controller.js';
+import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.post('/', optionalAuth, materialRequestController.submitMaterialRequest);
 router.get('/my', optionalAuth, materialRequestController.getMyMaterialRequests);

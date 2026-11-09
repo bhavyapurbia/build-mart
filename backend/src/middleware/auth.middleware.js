@@ -24,16 +24,22 @@ export const authenticate = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
-    let user = await User.findById(decoded.id);
+    let user = (await User.findById(decoded.id)) || (await User.findOne({ email: decoded.email }));
 
-    if (!user && decoded.email === 'admin@buildmart.com') {
+    if (!user && decoded.email) {
       user = {
-        _id: decoded.id || '2a48e52322fc7ceecd3231e1',
-        name: decoded.name || 'BuildMart Administrator',
-        email: 'admin@buildmart.com',
-        role: 'admin',
+        _id: decoded.id || 'usr_' + Date.now(),
+        id: decoded.id,
+        name: decoded.name || (decoded.email === 'admin@buildmart.com' ? 'BuildMart Administrator' : 'Customer'),
+        email: decoded.email,
+        role: decoded.role || (decoded.email === 'admin@buildmart.com' ? 'admin' : 'customer'),
         isActive: true
       };
+      try {
+        await User.create(user);
+      } catch (e) {
+        // Ignore if already created concurrently
+      }
     }
 
     if (!user || user.isActive === false) {
@@ -53,8 +59,21 @@ export const optionalAuth = async (req, res, next) => {
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, JWT_SECRET);
-      const user = await User.findById(decoded.id);
-      if (user && user.isActive) {
+      let user = (await User.findById(decoded.id)) || (await User.findOne({ email: decoded.email }));
+      if (!user && decoded.email) {
+        user = {
+          _id: decoded.id || 'usr_' + Date.now(),
+          id: decoded.id,
+          name: decoded.name || 'Customer',
+          email: decoded.email,
+          role: decoded.role || 'customer',
+          isActive: true
+        };
+        try {
+          await User.create(user);
+        } catch (e) {}
+      }
+      if (user && user.isActive !== false) {
         req.user = user;
       }
     }

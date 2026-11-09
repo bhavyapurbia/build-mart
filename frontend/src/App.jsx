@@ -42,6 +42,7 @@ import AdminBrands from './pages/admin/AdminBrands';
 import AdminBanners from './pages/admin/AdminBanners';
 import AdminMaterialRequests from './pages/admin/AdminMaterialRequests';
 import AdminOrders from './pages/admin/AdminOrders';
+import AdminPayments from './pages/admin/AdminPayments';
 import AdminLabourRequests from './pages/admin/AdminLabourRequests';
 import AdminBulkEnquiries from './pages/admin/AdminBulkEnquiries';
 import AdminInventory from './pages/admin/AdminInventory';
@@ -105,6 +106,7 @@ function App() {
                     <Route path="overview" element={<AdminOverview />} />
                     <Route path="material-requests" element={<AdminMaterialRequests />} />
                     <Route path="orders" element={<AdminOrders />} />
+                    <Route path="payments" element={<AdminPayments />} />
                     <Route path="products" element={<AdminProducts />} />
                     <Route path="categories" element={<AdminCategories />} />
                     <Route path="brands" element={<AdminBrands />} />

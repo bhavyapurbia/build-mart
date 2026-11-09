@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import bulkEnquiryController from '../controllers/bulkEnquiryController.js';
-import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.js';
+import bulkEnquiryController from '../controllers/bulkEnquiry.controller.js';
+import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.post('/', optionalAuth, bulkEnquiryController.submitBulkEnquiry);
 router.get('/my', optionalAuth, bulkEnquiryController.getMyBulkEnquiries);

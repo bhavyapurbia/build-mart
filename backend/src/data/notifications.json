@@ -64,5 +64,27 @@
     "link": "/admin/material-requests",
     "createdAt": "2026-11-06T18:07:26.396Z",
     "updatedAt": "2026-11-06T18:07:26.396Z"
+  },
+  {
+    "_id": "76ed4d45e7e9a577251087a2",
+    "recipient": "admin",
+    "title": "New Razorpay Order Confirmed!",
+    "message": "Order #BM-ORD-2960-0003 placed by Test Contractor for ₹5,206 via Razorpay",
+    "type": "order",
+    "referenceId": "BM-ORD-2960-0003",
+    "link": "/admin/orders",
+    "createdAt": "2026-11-09T04:18:03.034Z",
+    "updatedAt": "2026-11-09T04:18:03.034Z"
+  },
+  {
+    "_id": "683d8c659a2a87ad9439a6cc",
+    "recipient": "admin",
+    "title": "New Razorpay Order Confirmed!",
+    "message": "Order #BM-ORD-7787-0004 placed by Ashok Ashok for ₹1 via Razorpay",
+    "type": "order",
+    "referenceId": "BM-ORD-7787-0004",
+    "link": "/admin/orders",
+    "createdAt": "2026-11-09T04:52:37.872Z",
+    "updatedAt": "2026-11-09T04:52:37.872Z"
   }
 ]

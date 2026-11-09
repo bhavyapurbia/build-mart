@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import quotationController from '../controllers/quotationController.js';
-import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.js';
+import quotationController from '../controllers/quotation.controller.js';
+import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
 
 router.get('/my', optionalAuth, quotationController.getMyQuotations);
 router.get('/:id', optionalAuth, quotationController.getQuotationById);
