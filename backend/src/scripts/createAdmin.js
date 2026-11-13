@@ -19,8 +19,8 @@ if (!email) {
   console.error('❌ ADMIN_EMAIL environment variable is required.');
   process.exit(1);
 }
-if (!password || password.length < 12) {
-  console.error('❌ ADMIN_PASSWORD must be at least 12 characters.');
+if (!password || password.length < 8) {
+  console.error('❌ ADMIN_PASSWORD must be at least 8 characters.');
   process.exit(1);
 }
 
@@ -35,7 +35,7 @@ const run = async () => {
   if (existing) {
     await User.updateOne(
       { email: email.toLowerCase().trim() },
-      { password: hashedPassword, role: 'admin', isActive: true }
+      { password: hashedPassword, role: 'admin', isActive: true, emailVerified: true }
     );
     console.log(`✅ Admin user updated: ${email}`);
   } else {
