@@ -125,7 +125,9 @@ export default function AdminQuotationsPage() {
 
   const handleDownloadPDF = async (quote) => {
     const id = quote._id || quote.quotationId;
-    window.open(`/api/quotations/${id}/export.pdf`, '_blank');
+    const token = localStorage.getItem('bm_token');
+    const url = `/api/quotations/${id}/export.pdf${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+    window.open(url, '_blank');
   };
 
   return (

@@ -37,7 +37,13 @@ const AdminOrders = () => {
     setLoading(true);
     try {
       const res = await api.get('/orders/admin/all');
-      setOrders(res.data || []);
+      const payload = res.data?.data || res.data;
+      const list = Array.isArray(payload)
+        ? payload
+        : (Array.isArray(payload?.orders)
+          ? payload.orders
+          : (Array.isArray(res.data?.orders) ? res.data.orders : []));
+      setOrders(list);
     } catch (err) {
       console.error(err);
       showToast('Error loading orders', 'error');

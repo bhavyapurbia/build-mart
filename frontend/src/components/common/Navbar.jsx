@@ -274,14 +274,16 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                         <span className="dropdown-admin-badge">Admin Access</span>
                       )}
                     </div>
-                    <Link
-                      to="/admin/overview"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="dropdown-link admin-link"
-                    >
-                      <ShieldCheck size={16} color='var(--color-accent)' />
-                      <span style={{ fontWeight: 800, color: 'var(--primary-dark)' }}>Admin Dashboard</span>
-                    </Link>
+                    {isAdmin && (
+                      <Link
+                        to="/admin/overview"
+                        onClick={() => setUserDropdownOpen(false)}
+                        className="dropdown-link admin-link"
+                      >
+                        <ShieldCheck size={16} color='var(--color-accent)' />
+                        <span style={{ fontWeight: 800, color: 'var(--primary-dark)' }}>Admin Dashboard</span>
+                      </Link>
+                    )}
                     <Link
                       to="/account?tab=orders"
                       onClick={() => setUserDropdownOpen(false)}
@@ -362,15 +364,17 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 <span className="cart-btn-caption">{t('cart') || 'Cart'}</span>
               </Link>
 
-              {/* Direct Admin Console Access Button */}
-              <Link
-                to="/admin/overview"
-                className="header-admin-direct-btn"
-                title="Open Admin Management Panel"
-              >
-                <ShieldCheck size={18} color='var(--color-accent)' />
-                <span className="admin-btn-caption">Admin</span>
-              </Link>
+              {/* Direct Admin Console Access Button (Restricted to Authorized Admins) */}
+              {isAdmin && (
+                <Link
+                  to="/admin/overview"
+                  className="header-admin-direct-btn"
+                  title="Open Admin Management Panel"
+                >
+                  <ShieldCheck size={18} color='var(--color-accent)' />
+                  <span className="admin-btn-caption">Admin</span>
+                </Link>
+              )}
             </div>
           </div>
 

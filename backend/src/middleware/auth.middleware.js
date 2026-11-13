@@ -17,12 +17,20 @@ export { JWT_SECRET };
  */
 export const authenticate = async (req, res, next) => {
   try {
+    let token = null;
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.split(' ')[1];
+    } else if (req.query?.token) {
+      token = req.query.token;
+    } else if (req.cookies?.bm_token || req.cookies?.token) {
+      token = req.cookies.bm_token || req.cookies.token;
+    }
+
+    if (!token) {
       return res.status(401).json({ success: false, message: 'Authentication required. No token provided.' });
     }
 
-    const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, JWT_SECRET);
 
     const user = await User.findById(decoded.id).select('-password').lean();
@@ -43,9 +51,17 @@ export const authenticate = async (req, res, next) => {
  */
 export const optionalAuth = async (req, res, next) => {
   try {
+    let token = null;
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.split(' ')[1];
+      token = authHeader.split(' ')[1];
+    } else if (req.query?.token) {
+      token = req.query.token;
+    } else if (req.cookies?.bm_token || req.cookies?.token) {
+      token = req.cookies.bm_token || req.cookies.token;
+    }
+
+    if (token) {
       const decoded = jwt.verify(token, JWT_SECRET);
       const user = await User.findById(decoded.id).select('-password').lean();
       if (user && user.isActive !== false) {
@@ -95,12 +111,13 @@ export const generateToken = (user) => {
  * assertOwnerOrAdmin — throws 403 if the doc's user field doesn't match the caller
  * and caller is not an admin. Pass the doc's user field (ObjectId or string).
  */
-export const assertOwnerOrAdmin = (docUserId, reqUser) => {
+export const assertOwnerOrAdmin = (docUserId, reqUser, docCustomerEmail = null) => {
   if (!reqUser) throw Object.assign(new Error('Authentication required.'), { statusCode: 401 });
-  if (reqUser.role === 'admin') return;
-  if (String(docUserId) !== String(reqUser._id)) {
-    throw Object.assign(new Error('Access denied: you do not own this resource.'), { statusCode: 403 });
-  }
+  if (['admin', 'manager', 'support'].includes(reqUser.role)) return;
+  if (docUserId && String(docUserId) === String(reqUser._id)) return;
+  if (docCustomerEmail && reqUser.email && String(docCustomerEmail).toLowerCase() === String(reqUser.email).toLowerCase()) return;
+  if (!docUserId && !docCustomerEmail) return;
+  throw Object.assign(new Error('Access denied: you do not own this resource.'), { statusCode: 403 });
 };
 
 export default { authenticate, optionalAuth, requireAdmin, generateToken, assertOwnerOrAdmin, JWT_SECRET };

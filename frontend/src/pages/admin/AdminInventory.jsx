@@ -13,7 +13,13 @@ const AdminInventory = () => {
     setLoading(true);
     try {
       const res = await api.get('/admin/inventory');
-      setInventory(res.data || []);
+      const payload = res.data?.data || res.data;
+      const list = Array.isArray(payload)
+        ? payload
+        : (Array.isArray(payload?.inventory)
+          ? payload.inventory
+          : (Array.isArray(res.data?.inventory) ? res.data.inventory : []));
+      setInventory(list);
     } catch (err) {
       showToast('Error loading inventory', 'error');
     } finally {
@@ -71,7 +77,14 @@ const AdminInventory = () => {
             </tr>
           </thead>
           <tbody>
-            {inventory.map(item => (
+            {!Array.isArray(inventory) || inventory.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: 'center', padding: '36px', color: 'var(--color-muted)', fontSize: '13.5px' }}>
+                  No inventory tracking records found.
+                </td>
+              </tr>
+            ) : (
+              inventory.map(item => (
               <tr key={item.productId} style={{ background: item.isLowStock ? 'var(--color-accent-light)' : 'transparent' }}>
                 <td>
                   <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)' }}>{item.name}</strong>
@@ -109,7 +122,7 @@ const AdminInventory = () => {
                   </div>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

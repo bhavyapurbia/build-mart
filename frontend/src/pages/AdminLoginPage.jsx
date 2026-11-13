@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShieldCheck, Lock, Mail, ArrowRight, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, ArrowRight, ShieldAlert, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const AdminLoginPage = () => {
-  const [email, setEmail] = useState('admin@buildmart.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const { adminLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email.trim() || !password) return;
     setSubmitting(true);
-    const res = await adminLogin(email, password);
+    const res = await adminLogin(email.trim(), password);
     setSubmitting(false);
     if (res.success) {
       navigate('/admin/overview');
@@ -65,6 +67,8 @@ const AdminLoginPage = () => {
               <input
                 type="email"
                 required
+                autoComplete="email"
+                placeholder="name@buildmart.in"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 style={{
@@ -87,13 +91,15 @@ const AdminLoginPage = () => {
             <div style={{ position: 'relative' }}>
               <Lock size={16} color='var(--color-muted)' style={{ position: 'absolute', left: '12px', top: '13px' }} />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
+                autoComplete="current-password"
+                placeholder="••••••••"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 style={{
                   width: '100%',
-                  padding: '10px 12px 10px 36px',
+                  padding: '10px 38px 10px 36px',
                   background: 'var(--color-ink)',
                   border: '1px solid var(--secondary-light)',
                   borderRadius: '8px',
@@ -101,64 +107,53 @@ const AdminLoginPage = () => {
                   fontSize: '13.5px'
                 }}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '10px',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--color-muted)',
+                  cursor: 'pointer',
+                  padding: '2px'
+                }}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
             </div>
           </div>
 
           <button
             type="submit"
-            disabled={submitting}
+            disabled={submitting || !email.trim() || !password}
             className="btn-primary"
             style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '14px', marginTop: '6px' }}
           >
             <span>{submitting ? 'Authenticating...' : 'Sign In to Admin Console'}</span>
             <ArrowRight size={16} />
           </button>
-
-          <button
-            type="button"
-            onClick={async () => {
-              setSubmitting(true);
-              const res = await adminLogin('admin@buildmart.com', 'admin123');
-              setSubmitting(false);
-              if (res.success) {
-                navigate('/admin/overview');
-              }
-            }}
-            disabled={submitting}
-            style={{
-              width: '100%',
-              padding: '11px',
-              borderRadius: '8px',
-              border: '1px solid var(--color-accent)',
-              background: 'rgba(245, 158, 11, 0.15)',
-              color: 'var(--color-accent)',
-              fontSize: '13.5px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <span>1-Click Instant Admin Access</span>
-          </button>
         </form>
 
         <div style={{
-          marginTop: '20px',
-          background: 'rgba(245, 158, 11, 0.1)',
-          border: '1px solid rgba(245, 158, 11, 0.3)',
+          marginTop: '24px',
+          padding: '12px 14px',
           borderRadius: '8px',
-          padding: '10px 14px',
-          fontSize: '12px',
-          color: 'var(--color-accent)',
-          lineHeight: 1.5
+          background: 'rgba(255, 255, 255, 0.04)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          fontSize: '11.5px',
+          color: 'var(--text-light)',
+          lineHeight: 1.4
         }}>
-          <strong>Default Admin Credentials:</strong><br />
-          Email: <code>admin@buildmart.com</code><br />
-          Password: <code>admin123</code>
+          <ShieldAlert size={16} color="var(--color-accent)" style={{ flexShrink: 0 }} />
+          <span>Restricted Area: Access is strictly authorized for BuildMart personnel. All sign-in attempts are logged and monitored.</span>
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
@@ -172,4 +167,3 @@ const AdminLoginPage = () => {
 };
 
 export default AdminLoginPage;
-

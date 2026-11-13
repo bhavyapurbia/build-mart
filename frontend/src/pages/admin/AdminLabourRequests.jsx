@@ -19,7 +19,13 @@ const AdminLabourRequests = () => {
     setLoading(true);
     try {
       const res = await api.get('/labour-requests/admin/all');
-      setLabourList(res.data || []);
+      const payload = res.data?.data || res.data;
+      const list = Array.isArray(payload)
+        ? payload
+        : (Array.isArray(payload?.requests)
+          ? payload.requests
+          : (Array.isArray(res.data?.requests) ? res.data.requests : []));
+      setLabourList(list);
     } catch (err) {
       showToast('Error loading labour bookings', 'error');
     } finally {
@@ -96,7 +102,14 @@ const AdminLabourRequests = () => {
             </tr>
           </thead>
           <tbody>
-            {labourList.map(b => (
+            {!Array.isArray(labourList) || labourList.length === 0 ? (
+              <tr>
+                <td colSpan="8" style={{ textAlign: 'center', padding: '36px', color: 'var(--color-muted)', fontSize: '13.5px' }}>
+                  No labour service bookings found.
+                </td>
+              </tr>
+            ) : (
+              labourList.map(b => (
               <tr key={b._id}>
                 <td><strong>{b.bookingId}</strong></td>
                 <td>
@@ -139,7 +152,7 @@ const AdminLabourRequests = () => {
                   </button>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

@@ -125,7 +125,7 @@ export const adminLogin = asyncHandler(async (req, res) => {
   const cleanEmail = email.toLowerCase().trim();
   const user = await User.findOne({ email: cleanEmail });
 
-  if (!user || user.role !== 'admin') {
+  if (!user || !['admin', 'manager', 'support'].includes(user.role)) {
     throw new ApiError(401, 'Invalid admin credentials.');
   }
 

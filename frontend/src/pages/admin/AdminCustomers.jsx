@@ -13,7 +13,13 @@ const AdminCustomers = () => {
       setLoading(true);
       try {
         const res = await api.get('/admin/customers');
-        setCustomers(res.data || []);
+        const payload = res.data?.data || res.data;
+        const list = Array.isArray(payload)
+          ? payload
+          : (Array.isArray(payload?.customers)
+            ? payload.customers
+            : (Array.isArray(res.data?.customers) ? res.data.customers : []));
+        setCustomers(list);
       } catch (err) {
         showToast('Error loading customers', 'error');
       } finally {
@@ -46,7 +52,14 @@ const AdminCustomers = () => {
             </tr>
           </thead>
           <tbody>
-            {customers.map(c => (
+            {!Array.isArray(customers) || customers.length === 0 ? (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center', padding: '36px', color: 'var(--color-muted)', fontSize: '13.5px' }}>
+                  No registered customers found.
+                </td>
+              </tr>
+            ) : (
+              customers.map(c => (
               <tr key={c._id}>
                 <td>
                   <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
@@ -70,7 +83,7 @@ const AdminCustomers = () => {
                   <span className="badge-status badge-confirmed">Active</span>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

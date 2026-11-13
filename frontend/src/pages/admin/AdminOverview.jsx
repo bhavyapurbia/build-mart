@@ -22,7 +22,7 @@ const AdminOverview = () => {
     const fetchOverview = async () => {
       try {
         const res = await api.get('/admin/overview');
-        setData(res.data);
+        setData(res.data?.data || res.data);
       } catch (err) {
         console.error('Error fetching admin overview:', err);
       } finally {

@@ -7,7 +7,6 @@ import {
   MapPin,
   Clock,
   ShieldCheck,
-  Lock,
   MessageSquare,
   Truck
 } from 'lucide-react';
@@ -103,13 +102,6 @@ const Footer = () => {
               <li><Link to="/careers">Careers at BuildMart</Link></li>
               <li><Link to="/contact">Partner With Us</Link></li>
               <li><Link to="/material-list">Material Checklist Tool</Link></li>
-              {/* Discrete Admin Login link */}
-              <li style={{ marginTop: '16px' }}>
-                <Link to="/admin/login" className="footer-admin-link">
-                  <Lock size={12} />
-                  <span>Admin Login</span>
-                </Link>
-              </li>
             </ul>
 
             <div style={{ marginTop: '24px' }}>

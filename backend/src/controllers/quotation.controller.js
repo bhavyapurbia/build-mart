@@ -149,7 +149,7 @@ export const checkoutQuotation = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Quotation not found.');
   }
 
-  assertOwnerOrAdmin(quotation.user, req.user);
+  assertOwnerOrAdmin(quotation.user, req.user, quotation.customer?.email);
 
   if (quotation.status !== 'Accepted') {
     throw new ApiError(400, `Quotation status is "${quotation.status}". Only "Accepted" quotations can be checked out.`);
@@ -214,7 +214,7 @@ export const getQuotationById = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Quotation not found.');
   }
 
-  assertOwnerOrAdmin(quotation.user, req.user);
+  assertOwnerOrAdmin(quotation.user, req.user, quotation.customer?.email);
 
   return res.status(200).json(
     new ApiResponse(200, quotation, 'Quotation fetched successfully')
@@ -291,7 +291,7 @@ export const exportQuotationPDF = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Quotation not found.');
   }
 
-  assertOwnerOrAdmin(quotation.user, req.user);
+  assertOwnerOrAdmin(quotation.user, req.user, quotation.customer?.email);
 
   const settings = (await SiteSetting.findOne().lean()) || {};
   const doc = new PDFDocument({ margin: 36, size: 'A4' });

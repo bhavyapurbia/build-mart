@@ -76,7 +76,15 @@ const AdminPayments = () => {
         api.get('/payments/admin/transactions'),
         api.get('/payments/admin/stats')
       ]);
-      setTransactions(Array.isArray(txRes.data) ? txRes.data : (txRes.data?.data || []));
+      const rawTx = txRes.data?.data || txRes.data;
+      const txList = Array.isArray(rawTx)
+        ? rawTx
+        : (Array.isArray(rawTx?.payments)
+          ? rawTx.payments
+          : (Array.isArray(rawTx?.transactions)
+            ? rawTx.transactions
+            : (Array.isArray(txRes.data?.payments) ? txRes.data.payments : [])));
+      setTransactions(txList);
       setStats(statsRes.data?.data || statsRes.data || null);
     } catch (err) {
       console.error('[AdminPayments] Error fetching payments data:', err);
@@ -133,8 +141,9 @@ const AdminPayments = () => {
     }
   };
 
-  // Filter transactions
-  const filteredTransactions = transactions.filter((tx) => {
+  // Filter transactions safely
+  const safeTransactions = Array.isArray(transactions) ? transactions : [];
+  const filteredTransactions = safeTransactions.filter((tx) => {
     const matchesStatus = statusFilter === 'ALL' || tx.status === statusFilter;
     const query = searchQuery.toLowerCase().trim();
     if (!query) return matchesStatus;

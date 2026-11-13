@@ -23,8 +23,14 @@ const AdminCategories = () => {
     setLoading(true);
     try {
       const res = await api.get('/categories');
+      const payload = res.data?.data || res.data;
+      const list = Array.isArray(payload)
+        ? payload
+        : (Array.isArray(payload?.categories)
+          ? payload.categories
+          : (Array.isArray(res.data?.categories) ? res.data.categories : []));
       // No electrical
-      const safe = (res.data || []).filter(c =>
+      const safe = list.filter(c =>
         !c.name.toLowerCase().includes('electrical') &&
         !c.slug.toLowerCase().includes('electrical')
       );

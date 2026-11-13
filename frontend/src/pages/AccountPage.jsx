@@ -162,7 +162,9 @@ const AccountPage = () => {
 
   // Download Invoice PDF
   const handleDownloadInvoice = (orderId) => {
-    window.open(`/api/orders/${orderId}/invoice.pdf`, '_blank');
+    const token = localStorage.getItem('bm_token');
+    const url = `/api/orders/${orderId}/invoice.pdf${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+    window.open(url, '_blank');
   };
 
   // Handle Bulk Enquiry Response (Accept or Reject)
@@ -554,7 +556,12 @@ const AccountPage = () => {
                           <div style={{ display: 'flex', gap: '8px' }}>
                             <button
                               type="button"
-                              onClick={() => window.open(`/api/quotations/${quo._id || quo.quotationId}/export.pdf`, '_blank')}
+                              onClick={() => {
+                                const token = localStorage.getItem('bm_token');
+                                const qId = quo._id || quo.quotationId;
+                                const url = `/api/quotations/${qId}/export.pdf${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+                                window.open(url, '_blank');
+                              }}
                               className="btn btn-secondary"
                               style={{ padding: '6px 12px', borderRadius: '6px', fontSize: '12px' }}
                             >

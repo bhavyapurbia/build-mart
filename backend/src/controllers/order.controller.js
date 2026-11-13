@@ -129,7 +129,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
   }
 
   // Enforce ownership: customers can only view their own orders
-  assertOwnerOrAdmin(order.user, req.user);
+  assertOwnerOrAdmin(order.user, req.user, order.customer?.email);
 
   return res.status(200).json(
     new ApiResponse(200, order, 'Order retrieved successfully')
@@ -254,7 +254,7 @@ export const cancelOrder = asyncHandler(async (req, res) => {
   }
 
   // Owner or admin only
-  assertOwnerOrAdmin(order.user, req.user);
+  assertOwnerOrAdmin(order.user, req.user, order.customer?.email);
 
   if (!canCustomerCancel(order.orderStatus)) {
     throw new ApiError(
@@ -352,7 +352,7 @@ export const downloadInvoice = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Order not found.');
   }
 
-  assertOwnerOrAdmin(order.user, req.user);
+  assertOwnerOrAdmin(order.user, req.user, order.customer?.email);
 
   await generateInvoicePDF(order, res);
 });

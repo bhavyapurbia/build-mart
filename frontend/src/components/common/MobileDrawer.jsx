@@ -203,10 +203,12 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
           <>
             <div className="drawer-section-title">MANAGEMENT &amp; ACCOUNT</div>
             <div className="drawer-account-links">
-              <div className="drawer-account-item admin" onClick={() => handleNav('/admin/overview')}>
-                <ShieldCheck size={18} color='var(--primary-dark)' />
-                <span style={{ fontWeight: 800, color: 'var(--primary-dark)' }}>Admin Management Panel</span>
-              </div>
+              {isAdmin && (
+                <div className="drawer-account-item admin" onClick={() => handleNav('/admin/overview')}>
+                  <ShieldCheck size={18} color='var(--primary-dark)' />
+                  <span style={{ fontWeight: 800, color: 'var(--primary-dark)' }}>Admin Management Panel</span>
+                </div>
+              )}
               <div className="drawer-account-item" onClick={() => handleNav('/account?tab=orders')}>
                 <Package size={16} />
                 <span>My Orders</span>
@@ -248,16 +250,18 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
           </a>
         </div>
 
-        {/* Footer / Admin Portal Discreet Link */}
+        {/* Footer */}
         <div className="drawer-footer">
           <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
             BuildMart Technologies • Enterprise Direct Procurement
           </div>
-          <div style={{ marginTop: '6px' }}>
-            <Link to="/admin/login" onClick={onClose} style={{ fontSize: '11px', color: 'var(--color-muted)', textDecoration: 'underline' }}>
-              Staff & Admin Portal
-            </Link>
-          </div>
+          {isAdmin && (
+            <div style={{ marginTop: '6px' }}>
+              <Link to="/admin/login" onClick={onClose} style={{ fontSize: '11px', color: 'var(--color-muted)', textDecoration: 'underline' }}>
+                Staff &amp; Admin Portal
+              </Link>
+            </div>
+          )}
         </div>
       </aside>
     </div>

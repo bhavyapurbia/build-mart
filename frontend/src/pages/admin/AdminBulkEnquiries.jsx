@@ -19,7 +19,13 @@ const AdminBulkEnquiries = () => {
     setLoading(true);
     try {
       const res = await api.get('/bulk-enquiries/admin/all');
-      setEnquiries(res.data || []);
+      const payload = res.data?.data || res.data;
+      const list = Array.isArray(payload)
+        ? payload
+        : (Array.isArray(payload?.enquiries)
+          ? payload.enquiries
+          : (Array.isArray(res.data?.enquiries) ? res.data.enquiries : []));
+      setEnquiries(list);
     } catch (err) {
       showToast('Error loading bulk enquiries', 'error');
     } finally {
@@ -90,7 +96,14 @@ const AdminBulkEnquiries = () => {
             </tr>
           </thead>
           <tbody>
-            {enquiries.map(enq => (
+            {!Array.isArray(enquiries) || enquiries.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: 'center', padding: '36px', color: 'var(--color-muted)', fontSize: '13.5px' }}>
+                  No bulk enquiries received yet.
+                </td>
+              </tr>
+            ) : (
+              enquiries.map(enq => (
               <tr key={enq._id}>
                 <td><strong>{enq.enquiryId}</strong></td>
                 <td>
@@ -149,7 +162,7 @@ const AdminBulkEnquiries = () => {
                   </div>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

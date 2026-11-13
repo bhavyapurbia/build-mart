@@ -15,7 +15,9 @@ export default function OrderSuccessPage() {
 
   const handleDownloadInvoice = () => {
     if (orderId) {
-      window.open(`/api/orders/${orderId}/invoice.pdf`, '_blank');
+      const token = localStorage.getItem('bm_token');
+      const url = `/api/orders/${orderId}/invoice.pdf${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+      window.open(url, '_blank');
     }
   };
 

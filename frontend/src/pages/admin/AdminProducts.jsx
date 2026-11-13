@@ -68,7 +68,13 @@ const AdminProducts = () => {
     setLoading(true);
     try {
       const res = await api.get('/products?limit=100');
-      setProducts(res.data.products || []);
+      const payload = res.data?.data || res.data;
+      const list = Array.isArray(payload)
+        ? payload
+        : (Array.isArray(payload?.products)
+          ? payload.products
+          : (Array.isArray(res.data?.products) ? res.data.products : []));
+      setProducts(list);
     } catch (err) {
       console.error(err);
       showToast('Error loading products', 'error');
