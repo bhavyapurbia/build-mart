@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="rebarSteel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="30%" stop-color="#94A3B8"/>
+      <stop offset="70%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_tmt" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_tmt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_tmt)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_tmt)"/>
+
+  <g transform="translate(55, 40)">
+    <!-- 3 Ribbed TMT rebars leaning diagonally -->
+    <!-- Bar 1 -->
+    <rect x="25" y="10" width="18" height="150" rx="5" fill="url(#rebarSteel)" transform="rotate(-18 25 10)"/>
+    <!-- Bar 2 (center) -->
+    <rect x="65" y="0" width="22" height="160" rx="6" fill="url(#rebarSteel)" transform="rotate(-10 65 0)"/>
+    <!-- Bar 3 -->
+    <rect x="105" y="10" width="20" height="150" rx="5" fill="url(#rebarSteel)" transform="rotate(-3 105 10)"/>
+    <!-- Tiscon Blue Tag -->
+    <rect x="60" y="75" width="45" height="22" rx="4" fill="#0284C7" stroke="#FFFFFF" stroke-width="1.5" transform="rotate(-10 60 75)"/>
+    <text x="82" y="89" font-family="Arial, sans-serif" font-size="8" font-weight="900" fill="#FFFFFF" text-anchor="middle" transform="rotate(-10 82 89)">Fe 550D</text>
+  </g>
+</svg>

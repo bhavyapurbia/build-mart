@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200">
+  <defs>
+    <radialGradient id="aralditeShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Blue Jar Gradient -->
+    <linearGradient id="blueJarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052CC"/>
+      <stop offset="25%" stop-color="#0066FF"/>
+      <stop offset="60%" stop-color="#1B75D0"/>
+      <stop offset="100%" stop-color="#0747A6"/>
+    </linearGradient>
+    <!-- White Jar Gradient -->
+    <linearGradient id="whiteJarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="30%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="blueCap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0043A4"/>
+      <stop offset="50%" stop-color="#2684FF"/>
+      <stop offset="100%" stop-color="#0747A6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="120" cy="180" rx="95" ry="14" fill="url(#aralditeShadow)"/>
+
+  <!-- LEFT JAR: RESIN (BLUE) -->
+  <g id="resin-jar">
+    <!-- Body -->
+    <rect x="25" y="45" width="85" height="125" rx="20" fill="url(#blueJarGrad)"/>
+    <!-- Ribbed base lines -->
+    <path d="M 32 152 Q 67 156 102 152" stroke="#003E99" stroke-width="2.5" fill="none"/>
+    <path d="M 34 158 Q 67 162 100 158" stroke="#003E99" stroke-width="2.5" fill="none"/>
+    <path d="M 36 164 Q 67 168 98 164" stroke="#003E99" stroke-width="2.5" fill="none"/>
+
+    <!-- White Label -->
+    <rect x="27" y="65" width="81" height="64" rx="4" fill="#FFFFFF"/>
+    <!-- Brand Araldite -->
+    <text x="67" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="900" fill="#0052CC" text-anchor="middle">Araldite®</text>
+    <text x="67" y="99" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" fill="#0F172A" text-anchor="middle">Klear 5</text>
+    <rect x="36" y="103" width="62" height="7" rx="2" fill="#0066FF"/>
+    <text x="67" y="109" font-family="system-ui, -apple-system, sans-serif" font-size="5" font-weight="700" fill="#FFFFFF" text-anchor="middle">EPOXY RESIN</text>
+
+    <!-- Small details on label -->
+    <circle cx="43" cy="120" r="3" fill="#EF4444"/>
+    <rect x="49" y="119" width="35" height="2" fill="#94A3B8"/>
+    <rect x="49" y="122" width="25" height="1.5" fill="#CBD5E1"/>
+
+    <!-- Top Cap (Blue) -->
+    <rect x="36" y="32" width="63" height="15" rx="5" fill="url(#blueCap)"/>
+    <!-- Cap knurling -->
+    <line x1="42" y1="34" x2="42" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+    <line x1="50" y1="34" x2="50" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+    <line x1="58" y1="34" x2="58" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+    <line x1="67" y1="34" x2="67" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+    <line x1="75" y1="34" x2="75" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+    <line x1="83" y1="34" x2="83" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+    <line x1="91" y1="34" x2="91" y2="45" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5"/>
+  </g>
+
+  <!-- RIGHT JAR: HARDENER (WHITE) -->
+  <g id="hardener-jar">
+    <!-- Body -->
+    <rect x="125" y="45" width="85" height="125" rx="20" fill="url(#whiteJarGrad)" stroke="#CBD5E1" stroke-width="1"/>
+    <!-- Ribbed base lines -->
+    <path d="M 132 152 Q 167 156 202 152" stroke="#94A3B8" stroke-width="2.5" fill="none"/>
+    <path d="M 134 158 Q 167 162 200 158" stroke="#94A3B8" stroke-width="2.5" fill="none"/>
+    <path d="M 136 164 Q 167 168 198 164" stroke="#94A3B8" stroke-width="2.5" fill="none"/>
+
+    <!-- White/Blue accented Label -->
+    <rect x="127" y="65" width="81" height="64" rx="4" fill="#FFFFFF"/>
+    <!-- Brand Araldite -->
+    <text x="167" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="900" fill="#0052CC" text-anchor="middle">Araldite®</text>
+    <text x="167" y="99" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" fill="#0F172A" text-anchor="middle">Klear 5</text>
+    <rect x="136" y="103" width="62" height="7" rx="2" fill="#0284C7"/>
+    <text x="167" y="109" font-family="system-ui, -apple-system, sans-serif" font-size="5" font-weight="700" fill="#FFFFFF" text-anchor="middle">EPOXY HARDENER</text>
+
+    <!-- Small details on label -->
+    <circle cx="143" cy="120" r="3" fill="#0284C7"/>
+    <rect x="149" y="119" width="35" height="2" fill="#94A3B8"/>
+    <rect x="149" y="122" width="25" height="1.5" fill="#CBD5E1"/>
+
+    <!-- Top Cap (White) -->
+    <rect x="136" y="32" width="63" height="15" rx="5" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+    <!-- Cap knurling -->
+    <line x1="142" y1="34" x2="142" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="150" y1="34" x2="150" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="158" y1="34" x2="158" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="167" y1="34" x2="167" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="175" y1="34" x2="175" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="183" y1="34" x2="183" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="191" y1="34" x2="191" y2="45" stroke="#94A3B8" stroke-opacity="0.5" stroke-width="1.5"/>
+  </g>
+</svg>

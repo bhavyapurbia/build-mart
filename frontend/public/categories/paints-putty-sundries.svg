@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <radialGradient id="paintShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="royalePurple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="40%" stop-color="#6D28D9"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </linearGradient>
+    <linearGradient id="apexBucket" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="40%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#paintShadow)"/>
+
+  <!-- Round Studio Podium -->
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop3)"/>
+
+  <!-- Center Back: Asian Paints Apex Ultima White/Blue Bucket -->
+  <g transform="translate(100, 68)">
+    <ellipse cx="40" cy="116" rx="36" ry="10" fill="rgba(0,0,0,0.15)"/>
+    <path d="M 6 32 L 14 110 A 28 8 0 0 0 66 110 L 74 32 Z" fill="url(#apexBucket)"/>
+    <ellipse cx="40" cy="32" rx="35" ry="8" fill="#1E3A8A"/>
+    <ellipse cx="40" cy="30" rx="33" ry="7" fill="#2563EB"/>
+    <!-- Asian Paints ribbon logo & Apex text -->
+    <rect x="14" y="44" width="52" height="34" fill="#FFFFFF"/>
+    <text x="40" y="56" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="900" fill="#DC2626" text-anchor="middle">asianpaints</text>
+    <text x="40" y="68" font-size="9" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" fill="#1E3A8A" text-anchor="middle">APEX</text>
+    <text x="40" y="75" font-size="4" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#D97706" text-anchor="middle">ULTIMA DUST PROOF</text>
+  </g>
+
+  <!-- Left Front: Asian Paints Royale Luxury (Deep Purple / Gold Bucket) -->
+  <g transform="translate(48, 100)">
+    <ellipse cx="36" cy="88" rx="32" ry="8" fill="rgba(0,0,0,0.18)"/>
+    <path d="M 6 25 L 12 84 A 24 7 0 0 0 60 84 L 66 25 Z" fill="url(#royalePurple)"/>
+    <ellipse cx="36" cy="25" rx="31" ry="7" fill="#FBBF24"/>
+    <ellipse cx="36" cy="23" rx="29" ry="6" fill="#D97706"/>
+    <!-- Royale Gold Label -->
+    <rect x="12" y="36" width="48" height="36" fill="#FBBF24"/>
+    <text x="36" y="46" font-size="4.5" font-family="'Segoe UI', sans-serif" font-weight="900" fill="#4C1D95" text-anchor="middle">asianpaints</text>
+    <text x="36" y="58" font-size="8" font-family="'Georgia', serif" font-style="italic" font-weight="900" fill="#581C87" text-anchor="middle">royale</text>
+    <text x="36" y="67" font-size="3.5" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#18181B" text-anchor="middle">LUXURY EMULSION</text>
+  </g>
+
+  <!-- Right Front: Tractor Emulsion / Green Trim Can -->
+  <g transform="translate(156, 102)">
+    <ellipse cx="32" cy="86" rx="28" ry="7" fill="rgba(0,0,0,0.18)"/>
+    <path d="M 6 24 L 11 82 A 22 6 0 0 0 53 82 L 58 24 Z" fill="#047857"/>
+    <ellipse cx="32" cy="24" rx="27" ry="6" fill="#10B981"/>
+    <!-- White label -->
+    <rect x="10" y="35" width="44" height="34" fill="#FFFFFF"/>
+    <text x="32" y="45" font-size="4" font-family="'Segoe UI', sans-serif" font-weight="900" fill="#DC2626" text-anchor="middle">asianpaints</text>
+    <text x="32" y="57" font-size="7.5" font-family="'Impact', sans-serif" font-weight="900" fill="#047857" text-anchor="middle">TRACTOR</text>
+    <text x="32" y="65" font-size="3.5" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#1F2937" text-anchor="middle">EMULSION</text>
+  </g>
+
+  <!-- Sundries: Wooden Paint Brushes Leaning on Right -->
+  <g transform="translate(202, 118)">
+    <!-- Brush 1 -->
+    <path d="M 8 72 L 14 36 L 24 38 L 22 72 Z" fill="#D97706"/>
+    <rect x="8" y="58" width="14" height="8" fill="#94A3B8"/>
+    <path d="M 8 66 L 6 82 L 22 82 L 22 66 Z" fill="#1E293B"/>
+    <!-- Brush 2 leaning -->
+    <path d="M 22 72 L 32 30 L 40 33 L 34 72 Z" fill="#B45309"/>
+    <rect x="23" y="56" width="13" height="7" fill="#CBD5E1"/>
+    <path d="M 22 63 L 26 80 L 38 80 L 32 63 Z" fill="#334155"/>
+  </g>
+</svg>

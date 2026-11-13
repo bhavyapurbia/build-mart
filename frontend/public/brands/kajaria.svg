@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <rect width="200" height="80" fill="#FFFFFF" rx="8"/>
+  <g transform="translate(18, 14)">
+    <!-- Red square icon with K -->
+    <rect x="0" y="4" width="38" height="38" rx="4" fill="#DC2626"/>
+    <text x="19" y="32" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" text-anchor="middle">K</text>
+    <text x="48" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="22" fill="#DC2626" letter-spacing="-0.5px">Kajaria</text>
+    <text x="48" y="42" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="8.5" fill="#475569" letter-spacing="1px">INDIA'S NO. 1 TILE CO.</text>
+  </g>
+</svg>
+

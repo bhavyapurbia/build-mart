@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="wallTileGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="100%" stop-color="#BAE6FD"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_wallt" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_wallt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_wallt)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_wallt)"/>
+
+  <g transform="translate(65, 45)">
+    <!-- Standing glossy subway tiles grid -->
+    <rect x="15" y="20" width="55" height="30" rx="3" fill="url(#wallTileGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="75" y="20" width="55" height="30" rx="3" fill="url(#wallTileGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="5" y="55" width="35" height="30" rx="3" fill="url(#wallTileGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="45" y="55" width="55" height="30" rx="3" fill="#FFFFFF" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="105" y="55" width="35" height="30" rx="3" fill="url(#wallTileGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="15" y="90" width="55" height="30" rx="3" fill="url(#wallTileGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="75" y="90" width="55" height="30" rx="3" fill="url(#wallTileGrad)" stroke="#38BDF8" stroke-width="2"/>
+  </g>
+</svg>

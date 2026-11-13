@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="brickRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EA580C"/>
+      <stop offset="60%" stop-color="#C2410C"/>
+      <stop offset="100%" stop-color="#7C2D12"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_brick" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_brick" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_brick)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_brick)"/>
+
+  <g transform="translate(65, 55)">
+    <!-- Stack of 3 red wirecut bricks in 3D -->
+    <!-- Bottom Brick -->
+    <polygon points="15,85 75,50 135,85 75,120" fill="url(#brickRed)" stroke="#7C2D12" stroke-width="1.5"/>
+    <polygon points="15,85 75,120 75,135 15,100" fill="#9A3412"/>
+    <polygon points="75,120 135,85 135,100 75,135" fill="#7C2D12"/>
+    <!-- Top Brick -->
+    <polygon points="25,55 85,20 145,55 85,90" fill="url(#brickRed)" stroke="#7C2D12" stroke-width="1.5"/>
+    <polygon points="25,55 85,90 85,105 25,70" fill="#C2410C"/>
+    <polygon points="85,90 145,55 145,70 85,105" fill="#9A3412"/>
+    <!-- Frog depression on top brick -->
+    <ellipse cx="85" cy="55" rx="28" ry="12" fill="#7C2D12"/>
+    <text x="85" y="58" font-family="Arial, sans-serif" font-size="8" font-weight="900" fill="#FED7AA" text-anchor="middle">RED BRICK</text>
+  </g>
+</svg>

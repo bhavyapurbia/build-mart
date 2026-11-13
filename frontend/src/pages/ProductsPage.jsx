@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { Filter, X, SlidersHorizontal, ChevronDown, Sparkles, ClipboardList, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Filter, X, ChevronLeft, ChevronRight, SlidersHorizontal, Check, RefreshCw } from 'lucide-react';
 import ProductCard from '../components/product/ProductCard';
 import SEO from '../components/common/SEO';
 import api from '../utils/api';
@@ -99,14 +99,9 @@ const ProductsPage = () => {
     };
 
     fetchProducts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    return () => {
-      controller.abort();
-    };
+    return () => controller.abort();
   }, [location.search, currentPage]);
 
-  // Update query params helper
   const updateQuery = (key, value) => {
     const params = new URLSearchParams(location.search);
     if (value) {
@@ -114,13 +109,7 @@ const ProductsPage = () => {
     } else {
       params.delete(key);
     }
-    params.delete('page'); // Reset to page 1 on filter change
-    navigate(`/products?${params.toString()}`);
-  };
-
-  const handlePageChange = (newPage) => {
-    const params = new URLSearchParams(location.search);
-    params.set('page', String(newPage));
+    params.delete('page');
     navigate(`/products?${params.toString()}`);
   };
 
@@ -131,7 +120,7 @@ const ProductsPage = () => {
     setMobileFilterOpen(false);
   };
 
-  const handlePriceApply = (e) => {
+  const handlePriceFilterSubmit = (e) => {
     e.preventDefault();
     const params = new URLSearchParams(location.search);
     if (localMin) params.set('minPrice', localMin);
@@ -149,45 +138,56 @@ const ProductsPage = () => {
 
   // Active filters list for chips
   const activeFilters = [];
-  if (selectedCategory) activeFilters.push({ key: 'category', label: `Category: ${selectedCategory}` });
+  if (selectedCategory) activeFilters.push({ key: 'category', label: `${selectedCategory}` });
   if (selectedBrand) activeFilters.push({ key: 'brand', label: `Brand: ${selectedBrand}` });
-  if (searchQuery) activeFilters.push({ key: 'search', label: `Search: "${searchQuery}"` });
-  if (inStockOnly) activeFilters.push({ key: 'inStock', label: 'In Stock Only' });
-  if (minPrice || maxPrice) activeFilters.push({ key: 'price', label: `Price: ₹${minPrice || 0} - ₹${maxPrice || '∞'}` });
+  if (searchQuery) activeFilters.push({ key: 'search', label: `"${searchQuery}"` });
+  if (inStockOnly) activeFilters.push({ key: 'inStock', label: 'In Stock' });
+  if (minPrice || maxPrice) activeFilters.push({ key: 'price', label: `₹${minPrice || 0} - ₹${maxPrice || '∞'}` });
 
   return (
-    <div style={{ padding: '24px 0 60px' }}>
+    <div className="products-page-container">
       <SEO
-        title={selectedCategory ? `${selectedCategory} Supplies` : 'Construction & Building Materials'}
+        title={selectedCategory ? `${selectedCategory} Supplies | BuildMart` : 'Materials Catalog | BuildMart'}
         description={`Procure genuine ${selectedCategory || 'construction'} materials directly from authorized manufacturers with 30-60 min job-site delivery.`}
       />
 
       <div className="container">
-        {/* Breadcrumb & Top Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
-          <div style={{ fontSize: '13px', color: 'var(--color-muted)' }}>
-            <Link to="/">Home</Link> / <strong style={{ color: 'var(--color-ink)' }}>Materials Catalog</strong>
-            {selectedCategory && <> / <span>{selectedCategory}</span></>}
+        {/* Top Header / Breadcrumb Bar */}
+        <div className="products-top-bar">
+          <div className="catalog-breadcrumb">
+            <Link to="/">Home</Link>
+            <span>/</span>
+            <strong>Materials Catalog</strong>
+            {selectedCategory && (
+              <>
+                <span>/</span>
+                <span className="current-cat">{selectedCategory}</span>
+              </>
+            )}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {/* Mobile Filter Toggle */}
+          <div className="catalog-actions-bar">
+            {/* Mobile Filter Toggle Pill */}
             <button
               type="button"
-              className="btn btn-secondary mobile-filter-btn"
+              className="mobile-filter-trigger-btn"
               onClick={() => setMobileFilterOpen(true)}
-              style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '8px', fontSize: '13px' }}
+              aria-label="Open Filter Drawer"
             >
-              <Filter size={15} /> Filters {activeFilters.length > 0 && `(${activeFilters.length})`}
+              <SlidersHorizontal size={14} />
+              <span>Filters</span>
+              {activeFilters.length > 0 && (
+                <span className="filter-badge-count">{activeFilters.length}</span>
+              )}
             </button>
 
-            {/* Sort Select */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px' }}>
-              <span style={{ color: 'var(--text-muted)' }}>Sort by:</span>
+            {/* Sort Dropdown */}
+            <div className="catalog-sort-box">
+              <span className="sort-label">Sort:</span>
               <select
                 value={sortBy}
                 onChange={e => updateQuery('sort', e.target.value)}
-                style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid var(--border-light, #D1D5DB)', fontSize: '13px', background: 'var(--bg-card)' }}
+                className="sort-select-input"
               >
                 <option value="newest">Newest Arrivals</option>
                 <option value="price_asc">Price: Low to High</option>
@@ -199,27 +199,37 @@ const ProductsPage = () => {
           </div>
         </div>
 
-        {/* Active Filter Chips */}
-        {activeFilters.length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Active Filters:</span>
-            {activeFilters.map(f => (
-              <span
-                key={f.key}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  padding: '3px 10px',
-                  background: 'var(--bg-accent-subtle, #EFF6FF)',
-                  border: '1px solid var(--border-accent, #BFDBFE)',
-                  borderRadius: '16px',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  color: 'var(--primary, #0284C7)'
-                }}
+        {/* Mobile-First Swipeable Horizontal Category Strip (Sticky & Touch Friendly) */}
+        <div className="mobile-category-pill-strip">
+          <button
+            type="button"
+            className={`mobile-cat-pill ${!selectedCategory ? 'active' : ''}`}
+            onClick={() => updateQuery('category', '')}
+          >
+            All Materials ({totalCount})
+          </button>
+          {categories.map(c => {
+            const isAct = selectedCategory === c.name;
+            return (
+              <button
+                key={c._id || c.name}
+                type="button"
+                className={`mobile-cat-pill ${isAct ? 'active' : ''}`}
+                onClick={() => updateQuery('category', isAct ? '' : c.name)}
               >
-                {f.label}
+                {c.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Filter Chips Row */}
+        {activeFilters.length > 0 && (
+          <div className="active-filters-row">
+            <span className="active-filter-title">Filtered by:</span>
+            {activeFilters.map(f => (
+              <span key={f.key} className="active-filter-chip">
+                <span>{f.label}</span>
                 <button
                   type="button"
                   onClick={() => {
@@ -234,51 +244,53 @@ const ProductsPage = () => {
                       updateQuery(f.key, '');
                     }
                   }}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                  className="chip-remove-btn"
+                  aria-label="Remove filter"
                 >
-                  <X size={12} color="var(--primary, #0284C7)" />
+                  <X size={11} />
                 </button>
               </span>
             ))}
             <button
               type="button"
               onClick={clearAllFilters}
-              style={{ background: 'none', border: 'none', color: '#EF4444', fontSize: '12px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}
+              className="clear-all-link"
             >
-              Clear all
+              Reset all
             </button>
           </div>
         )}
 
-        {/* Main Layout: Sidebar Filters + Products Grid */}
-        <div className="products-layout-grid" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '28px', alignItems: 'start' }}>
-          {/* Desktop Sidebar Filters */}
-          <aside className="products-sidebar" style={{ background: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border)', padding: '20px' }}>
+        {/* Main Grid: Desktop Sidebar on left (hidden on mobile) + Full Products on right */}
+        <div className="products-layout-grid">
+          {/* Desktop-Only Sidebar */}
+          <aside className="products-desktop-sidebar">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Filter By</h3>
-              <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', fontSize: '12px', color: 'var(--primary, #0284C7)', cursor: 'pointer', fontWeight: 600 }}>
+              <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', fontSize: '12px', color: '#FF7800', cursor: 'pointer', fontWeight: 700 }}>
                 Reset
               </button>
             </div>
 
             {/* In-Stock Toggle */}
-            <div style={{ paddingBottom: '16px', borderBottom: '1px solid var(--border-light, #F3F4F6)', marginBottom: '16px' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
+            <div style={{ paddingBottom: '14px', borderBottom: '1px solid #F1F5F9', marginBottom: '14px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
                 <input
                   type="checkbox"
                   checked={inStockOnly}
                   onChange={e => updateQuery('inStock', e.target.checked ? 'true' : '')}
+                  style={{ width: '16px', height: '16px', accentColor: '#FF7800' }}
                 />
                 <span>In Stock Only {facets.inStockCount > 0 && `(${facets.inStockCount})`}</span>
               </label>
             </div>
 
-            {/* Categories */}
+            {/* Categories List */}
             <div style={{ marginBottom: '20px' }}>
-              <h4 style={{ fontSize: '13px', fontWeight: 700, margin: '0 0 10px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              <h4 style={{ fontSize: '12px', fontWeight: 800, margin: '0 0 10px', textTransform: 'uppercase', color: '#64748B', letterSpacing: '0.04em' }}>
                 Categories
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <button
                   type="button"
                   onClick={() => updateQuery('category', '')}
@@ -288,8 +300,8 @@ const ProductsPage = () => {
                     border: 'none',
                     cursor: 'pointer',
                     fontSize: '13px',
-                    fontWeight: !selectedCategory ? 700 : 500,
-                    color: !selectedCategory ? 'var(--primary, #0284C7)' : 'var(--text-primary)',
+                    fontWeight: !selectedCategory ? 800 : 500,
+                    color: !selectedCategory ? '#FF7800' : '#1E293B',
                     padding: '4px 0'
                   }}
                 >
@@ -300,7 +312,7 @@ const ProductsPage = () => {
                   const count = facets.categories[c.name] || 0;
                   return (
                     <button
-                      key={c._id}
+                      key={c._id || c.name}
                       type="button"
                       onClick={() => updateQuery('category', isAct ? '' : c.name)}
                       style={{
@@ -309,33 +321,34 @@ const ProductsPage = () => {
                         border: 'none',
                         cursor: 'pointer',
                         fontSize: '13px',
-                        fontWeight: isAct ? 700 : 500,
-                        color: isAct ? 'var(--primary, #0284C7)' : 'var(--text-secondary)',
+                        fontWeight: isAct ? 800 : 500,
+                        color: isAct ? '#FF7800' : '#475569',
                         padding: '4px 0',
                         display: 'flex',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
                       }}
                     >
                       <span>{c.name}</span>
-                      {count > 0 && <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>({count})</span>}
+                      {count > 0 && <span style={{ fontSize: '11px', color: '#94A3B8' }}>({count})</span>}
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Brands */}
+            {/* Brands List */}
             <div style={{ marginBottom: '20px' }}>
-              <h4 style={{ fontSize: '13px', fontWeight: 700, margin: '0 0 10px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              <h4 style={{ fontSize: '12px', fontWeight: 800, margin: '0 0 10px', textTransform: 'uppercase', color: '#64748B', letterSpacing: '0.04em' }}>
                 Authorized Brands
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '200px', overflowY: 'auto' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', maxHeight: '200px', overflowY: 'auto' }}>
                 {brands.map(b => {
                   const isAct = selectedBrand === b.name;
                   const count = facets.brands[b.name] || 0;
                   return (
                     <button
-                      key={b._id}
+                      key={b._id || b.name}
                       type="button"
                       onClick={() => updateQuery('brand', isAct ? '' : b.name)}
                       style={{
@@ -344,15 +357,15 @@ const ProductsPage = () => {
                         border: 'none',
                         cursor: 'pointer',
                         fontSize: '13px',
-                        fontWeight: isAct ? 700 : 500,
-                        color: isAct ? 'var(--primary, #0284C7)' : 'var(--text-secondary)',
+                        fontWeight: isAct ? 800 : 500,
+                        color: isAct ? '#FF7800' : '#475569',
                         padding: '4px 0',
                         display: 'flex',
                         justifyContent: 'space-between'
                       }}
                     >
                       <span>{b.name}</span>
-                      {count > 0 && <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>({count})</span>}
+                      {count > 0 && <span style={{ fontSize: '11px', color: '#94A3B8' }}>({count})</span>}
                     </button>
                   );
                 })}
@@ -361,29 +374,27 @@ const ProductsPage = () => {
 
             {/* Price Range Filter */}
             <div>
-              <h4 style={{ fontSize: '13px', fontWeight: 700, margin: '0 0 10px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              <h4 style={{ fontSize: '12px', fontWeight: 800, margin: '0 0 10px', textTransform: 'uppercase', color: '#64748B', letterSpacing: '0.04em' }}>
                 Price Range (₹)
               </h4>
-              <form onSubmit={handlePriceApply} style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+              <form onSubmit={handlePriceFilterSubmit} style={{ display: 'flex', gap: '6px' }}>
                 <input
                   type="number"
                   placeholder="Min"
                   value={localMin}
                   onChange={e => setLocalMin(e.target.value)}
-                  style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #D1D5DB', fontSize: '13px' }}
+                  style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '12.5px' }}
                 />
-                <span>-</span>
                 <input
                   type="number"
                   placeholder="Max"
                   value={localMax}
                   onChange={e => setLocalMax(e.target.value)}
-                  style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #D1D5DB', fontSize: '13px' }}
+                  style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '12.5px' }}
                 />
                 <button
                   type="submit"
-                  className="btn btn-secondary"
-                  style={{ padding: '6px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: 600 }}
+                  style={{ padding: '6px 12px', borderRadius: '6px', border: 'none', background: '#0F172A', color: '#FFFFFF', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
                 >
                   Go
                 </button>
@@ -391,69 +402,47 @@ const ProductsPage = () => {
             </div>
           </aside>
 
-          {/* Product Grid Area */}
+          {/* Product Grid Area (Takes 100% width on Mobile, 2-column layout!) */}
           <main className="products-main-content">
             {loading ? (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' }}>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                  <div key={i} style={{ height: '320px', background: '#F9FAFB', borderRadius: '12px', border: '1px solid #E5E7EB', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div style={{ aspectRatio: '1', background: '#E5E7EB', borderRadius: '8px' }} />
-                    <div style={{ height: '14px', width: '70%', background: '#E5E7EB', borderRadius: '4px' }} />
-                    <div style={{ height: '18px', width: '40%', background: '#E5E7EB', borderRadius: '4px' }} />
+              <div className="product-grid">
+                {[1, 2, 3, 4, 5, 6].map(i => (
+                  <div key={i} style={{ height: '260px', background: '#F8FAFC', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ aspectRatio: '1', background: '#E2E8F0', borderRadius: '10px' }} />
+                    <div style={{ height: '14px', width: '75%', background: '#E2E8F0', borderRadius: '4px' }} />
+                    <div style={{ height: '16px', width: '45%', background: '#E2E8F0', borderRadius: '4px' }} />
                   </div>
                 ))}
               </div>
             ) : products.length > 0 ? (
               <>
-                <div className="product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' }}>
+                <div className="product-grid">
                   {products.map(product => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product._id || product.id} product={product} />
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
+                {/* Pagination */}
                 {totalPages > 1 && (
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '40px' }}>
+                  <div className="catalog-pagination-row">
                     <button
                       type="button"
                       disabled={currentPage <= 1}
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      style={{
-                        padding: '8px 14px',
-                        borderRadius: '8px',
-                        border: '1px solid #D1D5DB',
-                        background: currentPage <= 1 ? '#F3F4F6' : '#FFFFFF',
-                        color: currentPage <= 1 ? '#9CA3AF' : '#1F2937',
-                        cursor: currentPage <= 1 ? 'not-allowed' : 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        fontSize: '13px'
-                      }}
+                      onClick={() => updateQuery('page', String(currentPage - 1))}
+                      className="pagination-btn"
                     >
                       <ChevronLeft size={16} /> Prev
                     </button>
 
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)', padding: '0 12px' }}>
+                    <span className="pagination-info">
                       Page {currentPage} of {totalPages}
                     </span>
 
                     <button
                       type="button"
                       disabled={currentPage >= totalPages}
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      style={{
-                        padding: '8px 14px',
-                        borderRadius: '8px',
-                        border: '1px solid #D1D5DB',
-                        background: currentPage >= totalPages ? '#F3F4F6' : '#FFFFFF',
-                        color: currentPage >= totalPages ? '#9CA3AF' : '#1F2937',
-                        cursor: currentPage >= totalPages ? 'not-allowed' : 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        fontSize: '13px'
-                      }}
+                      onClick={() => updateQuery('page', String(currentPage + 1))}
+                      className="pagination-btn"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -461,13 +450,11 @@ const ProductsPage = () => {
                 )}
               </>
             ) : (
-              <div style={{ background: 'var(--bg-card)', padding: '60px 20px', borderRadius: '12px', border: '1px solid var(--border)', textAlign: 'center' }}>
-                <ClipboardList size={48} color="var(--text-light)" style={{ margin: '0 auto 16px' }} />
-                <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 8px' }}>No materials match your filter</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: '0 0 20px' }}>
-                  Try removing filter criteria or search for materials like Cement, Rebar, or Tiles.
-                </p>
-                <button type="button" onClick={clearAllFilters} className="btn btn-primary" style={{ padding: '10px 20px', borderRadius: '8px' }}>
+              <div className="empty-catalog-state">
+                <RefreshCw size={44} color="#94A3B8" style={{ margin: '0 auto 12px' }} />
+                <h3>No materials match your filters</h3>
+                <p>Try clearing your category or brand filters to see available supplies.</p>
+                <button type="button" onClick={clearAllFilters} className="btn-primary" style={{ padding: '8px 18px', fontSize: '13px' }}>
                   Clear All Filters
                 </button>
               </div>
@@ -475,6 +462,149 @@ const ProductsPage = () => {
           </main>
         </div>
       </div>
+
+      {/* MOBILE BOTTOM-SHEET FILTER DRAWER */}
+      {mobileFilterOpen && (
+        <div className="mobile-filter-overlay" onClick={() => setMobileFilterOpen(false)}>
+          <div className="mobile-filter-sheet" onClick={e => e.stopPropagation()}>
+            {/* Sheet Header */}
+            <div className="mobile-filter-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <SlidersHorizontal size={18} color="#FF7800" />
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800 }}>Filters</h3>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <button
+                  type="button"
+                  onClick={clearAllFilters}
+                  style={{ background: 'none', border: 'none', color: '#EF4444', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+                >
+                  Reset All
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileFilterOpen(false)}
+                  style={{ background: '#F1F5F9', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Sheet Body (Scrollable) */}
+            <div className="mobile-filter-body">
+              {/* In-Stock Toggle */}
+              <div style={{ paddingBottom: '14px', borderBottom: '1px solid #E2E8F0', marginBottom: '14px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '13.5px', fontWeight: 700 }}>
+                  <span>In-Stock Supplies Only</span>
+                  <input
+                    type="checkbox"
+                    checked={inStockOnly}
+                    onChange={e => updateQuery('inStock', e.target.checked ? 'true' : '')}
+                    style={{ width: '18px', height: '18px', accentColor: '#FF7800' }}
+                  />
+                </label>
+              </div>
+
+              {/* Categories */}
+              <div style={{ marginBottom: '18px' }}>
+                <h4 style={{ fontSize: '12px', fontWeight: 800, margin: '0 0 10px', textTransform: 'uppercase', color: '#64748B' }}>
+                  Select Category
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { updateQuery('category', ''); setMobileFilterOpen(false); }}
+                    className={`mobile-sheet-item ${!selectedCategory ? 'active' : ''}`}
+                  >
+                    <span>All Categories</span>
+                    {!selectedCategory && <Check size={16} color="#FF7800" />}
+                  </button>
+                  {categories.map(c => {
+                    const isAct = selectedCategory === c.name;
+                    return (
+                      <button
+                        key={c._id || c.name}
+                        type="button"
+                        onClick={() => { updateQuery('category', isAct ? '' : c.name); setMobileFilterOpen(false); }}
+                        className={`mobile-sheet-item ${isAct ? 'active' : ''}`}
+                      >
+                        <span>{c.name}</span>
+                        {isAct && <Check size={16} color="#FF7800" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Brands */}
+              <div style={{ marginBottom: '18px' }}>
+                <h4 style={{ fontSize: '12px', fontWeight: 800, margin: '0 0 10px', textTransform: 'uppercase', color: '#64748B' }}>
+                  Select Brand
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
+                  {brands.map(b => {
+                    const isAct = selectedBrand === b.name;
+                    return (
+                      <button
+                        key={b._id || b.name}
+                        type="button"
+                        onClick={() => { updateQuery('brand', isAct ? '' : b.name); setMobileFilterOpen(false); }}
+                        className={`mobile-sheet-item ${isAct ? 'active' : ''}`}
+                      >
+                        <span>{b.name}</span>
+                        {isAct && <Check size={16} color="#FF7800" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Price Range */}
+              <div>
+                <h4 style={{ fontSize: '12px', fontWeight: 800, margin: '0 0 10px', textTransform: 'uppercase', color: '#64748B' }}>
+                  Price Range (₹)
+                </h4>
+                <form onSubmit={handlePriceFilterSubmit} style={{ display: 'flex', gap: '8px' }}>
+                  <input
+                    type="number"
+                    placeholder="Min ₹"
+                    value={localMin}
+                    onChange={e => setLocalMin(e.target.value)}
+                    style={{ flex: 1, padding: '8px 10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px' }}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Max ₹"
+                    value={localMax}
+                    onChange={e => setLocalMax(e.target.value)}
+                    style={{ flex: 1, padding: '8px 10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px' }}
+                  />
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    style={{ padding: '8px 16px', fontSize: '13px', fontWeight: 700 }}
+                  >
+                    Apply
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            {/* Sheet Footer */}
+            <div className="mobile-filter-footer">
+              <button
+                type="button"
+                onClick={() => setMobileFilterOpen(false)}
+                className="btn-primary"
+                style={{ width: '100%', padding: '12px', fontSize: '14px', fontWeight: 800 }}
+              >
+                Show {totalCount} Materials
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

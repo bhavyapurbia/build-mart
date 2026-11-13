@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Product from '../models/Product.js';
 import Coupon from '../models/Coupon.js';
 import CouponRedemption from '../models/CouponRedemption.js';
@@ -19,8 +20,15 @@ export async function computePricing({
     throw new ApiError(400, 'Cart items cannot be empty.');
   }
 
-  // Load site settings for delivery threshold & seller state
-  const settings = await SiteSetting.findOne().lean();
+  // Load site settings for delivery threshold & seller state (with offline/graceful fallback)
+  let settings = null;
+  if (mongoose.connection && mongoose.connection.readyState === 1) {
+    try {
+      settings = await SiteSetting.findOne().lean();
+    } catch {
+      settings = null;
+    }
+  }
   const sellerState = (settings?.sellerState || 'Karnataka').toLowerCase().trim();
   const customerState = (shipping.state || 'Karnataka').toLowerCase().trim();
   const isInterState = customerState !== sellerState;

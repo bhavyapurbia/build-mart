@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <radialGradient id="commodeShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.2"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop8" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="commodeWhite" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="35%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#commodeShadow)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop8)"/>
+
+  <!-- Modern White One-Piece / Wall-Hung Ceramic Commode -->
+  <g transform="translate(85, 45)">
+    <!-- Base pedestal shadow -->
+    <ellipse cx="55" cy="148" rx="42" ry="12" fill="rgba(0,0,0,0.18)"/>
+
+    <!-- Water Tank (Back) -->
+    <rect x="22" y="15" width="66" height="60" rx="8" fill="url(#commodeWhite)"/>
+    <!-- Dual Flush Chrome Button on top -->
+    <ellipse cx="55" cy="15" rx="12" ry="4" fill="#94A3B8"/>
+    <ellipse cx="55" cy="14" rx="9" ry="3" fill="#E2E8F0"/>
+    <circle cx="51" cy="14" r="2.5" fill="#CBD5E1"/>
+    <circle cx="59" cy="14" r="2.5" fill="#94A3B8"/>
+
+    <!-- Commode Bowl & Seat (Front) -->
+    <path d="M 12 70 C 12 140, 98 140, 98 70 Z" fill="url(#commodeWhite)"/>
+    <!-- Rimless Bowl Oval -->
+    <ellipse cx="55" cy="70" rx="42" ry="22" fill="#FFFFFF"/>
+    <ellipse cx="55" cy="70" rx="36" ry="18" fill="#F1F5F9"/>
+    <!-- Water Trap Deep -->
+    <ellipse cx="55" cy="76" rx="22" ry="10" fill="#38BDF8"/>
+    <ellipse cx="55" cy="76" rx="16" ry="6" fill="#0284C7"/>
+
+    <!-- Soft-Close Seat & Cover attached -->
+    <ellipse cx="55" cy="65" rx="40" ry="19" fill="none" stroke="#E2E8F0" stroke-width="4"/>
+    <rect x="34" y="55" width="42" height="6" rx="3" fill="#CBD5E1"/>
+  </g>
+
+  <!-- Health Faucet / Jet Spray on the Right -->
+  <g transform="translate(195, 105)">
+    <rect x="10" y="30" width="8" height="42" rx="3" fill="#94A3B8"/>
+    <path d="M 10 30 C 10 20, 30 20, 30 32 L 24 35 C 24 26, 16 26, 16 30 Z" fill="#CBD5E1"/>
+    <circle cx="27" cy="33" r="4" fill="#64748B"/>
+    <!-- Trigger Lever -->
+    <path d="M 8 36 L 0 46 L 4 48 L 10 40 Z" fill="#475569"/>
+    <!-- Chrome spiral hose -->
+    <path d="M 14 72 C 14 110, 2 120, -12 110" fill="none" stroke="#CBD5E1" stroke-width="4"/>
+  </g>
+</svg>

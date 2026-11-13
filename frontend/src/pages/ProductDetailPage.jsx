@@ -23,6 +23,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
+import { getAccurateProductImage } from '../components/product/ProductCard';
 import { useSettings } from '../context/SettingsContext';
 import ProductCard from '../components/product/ProductCard';
 import SEO from '../components/common/SEO';
@@ -206,9 +207,10 @@ const ProductDetailPage = () => {
   const prodId = String(product._id || product.id);
   const isSelectedInList = isMaterialSelected(prodId);
   const inWishlist = isInWishlist(prodId);
-  const images = (product.images && product.images.length > 0)
+  const rawImages = (product.images && product.images.length > 0)
     ? product.images
-    : [product.image || 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=600&q=80'];
+    : [product.image || '/placeholder-material.svg'];
+  const images = rawImages.map(img => getAccurateProductImage(product, img));
 
   const whatsappText = encodeURIComponent(`Hello BuildMart, I would like to enquire about ${product.name} (SKU: ${product.sku}) listed at ₹${product.price} / ${product.unit}.`);
 

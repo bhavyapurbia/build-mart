@@ -63,6 +63,7 @@ const AdminBulkEnquiries = lazy(() => import('./pages/admin/AdminBulkEnquiries')
 const AdminInventory = lazy(() => import('./pages/admin/AdminInventory'));
 const AdminCustomers = lazy(() => import('./pages/admin/AdminCustomers'));
 const AdminCoupons = lazy(() => import('./pages/admin/AdminCoupons'));
+const AdminCities = lazy(() => import('./pages/admin/AdminCities'));
 const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'));
 
 function App() {
@@ -161,6 +162,7 @@ function App() {
                               <Route path="inventory" element={<AdminInventory />} />
                               <Route path="customers" element={<AdminCustomers />} />
                               <Route path="coupons" element={<AdminCoupons />} />
+                              <Route path="cities" element={<AdminCities />} />
                               <Route path="settings" element={<AdminSettings />} />
                             </Route>
 

@@ -19,7 +19,8 @@ import {
   Megaphone,
   ShieldCheck,
   CreditCard,
-  FileText
+  FileText,
+  MapPin
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import NotificationBell from '../../components/common/NotificationBell';
@@ -39,6 +40,7 @@ const NAV_ITEMS = [
   { path: '/admin/inventory', label: 'Inventory & Stock', icon: Boxes },
   { path: '/admin/customers', label: 'Customers', icon: Users },
   { path: '/admin/coupons', label: 'Coupons', icon: Tag },
+  { path: '/admin/cities', label: 'Cities & PIN Codes', icon: MapPin },
   { path: '/admin/settings', label: 'Website Settings', icon: Settings }
 ];
 

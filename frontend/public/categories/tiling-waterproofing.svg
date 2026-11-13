@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <radialGradient id="twShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="roffBag" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="40%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="fixitCan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="40%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#twShadow)"/>
+
+  <!-- Round Studio Podium -->
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop2)"/>
+
+  <!-- Back Center Left: Roff Tile Fix Bag (Yellow & Blue) -->
+  <g transform="translate(90, 60)">
+    <ellipse cx="38" cy="120" rx="35" ry="10" fill="rgba(0,0,0,0.15)"/>
+    <path d="M 6 15 L 70 12 L 74 116 L 2 118 Z" fill="url(#roffBag)"/>
+    <!-- Top bag crinkle -->
+    <path d="M 6 15 Q 38 8 70 12 L 72 20 Q 38 16 4 22 Z" fill="#D97706"/>
+    <!-- Roff Blue Banner -->
+    <rect x="8" y="32" width="60" height="26" fill="#1E3A8A"/>
+    <text x="38" y="47" font-size="12" font-family="'Arial Black', sans-serif" font-weight="900" fill="#FFFFFF" text-anchor="middle">Roff</text>
+    <text x="38" y="55" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#FBBF24" text-anchor="middle">TILE FIX</text>
+    <!-- Tile graphic -->
+    <rect x="20" y="66" width="36" height="34" rx="2" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <line x1="38" y1="66" x2="38" y2="100" stroke="#0284C7" stroke-width="1.5"/>
+    <line x1="20" y1="83" x2="56" y2="83" stroke="#0284C7" stroke-width="1.5"/>
+    <text x="38" y="112" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#1E3A8A" text-anchor="middle">POLYMER ADHESIVE</text>
+  </g>
+
+  <!-- Back Center Right: Dr. Fixit Blue Can -->
+  <g transform="translate(148, 85)">
+    <ellipse cx="28" cy="98" rx="26" ry="8" fill="rgba(0,0,0,0.15)"/>
+    <path d="M 4 20 L 52 20 L 50 96 A 24 6 0 0 1 6 96 Z" fill="url(#fixitCan)"/>
+    <ellipse cx="28" cy="20" rx="24" ry="6" fill="#0284C7"/>
+    <rect x="22" y="10" width="12" height="12" rx="2" fill="#FBBF24"/>
+    <!-- Yellow Fixit Label -->
+    <rect x="8" y="36" width="40" height="42" fill="#FBBF24"/>
+    <text x="28" y="50" font-size="6.5" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" fill="#1E3A8A" text-anchor="middle">DR. FIXIT</text>
+    <text x="28" y="60" font-size="5.5" font-family="'Segoe UI', sans-serif" font-weight="900" fill="#DC2626" text-anchor="middle">PIDIFIN 2K</text>
+    <text x="28" y="72" font-size="4" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#1E3A8A" text-anchor="middle">WATERPROOFING</text>
+  </g>
+
+  <!-- Front Center: SP-100 Tile Grout White/Blue Tub -->
+  <g transform="translate(108, 118)">
+    <ellipse cx="32" cy="68" rx="30" ry="8" fill="rgba(0,0,0,0.18)"/>
+    <path d="M 4 18 L 10 66 A 22 6 0 0 0 54 66 L 60 18 Z" fill="#FFFFFF"/>
+    <ellipse cx="32" cy="18" rx="28" ry="6" fill="#3B82F6"/>
+    <rect x="10" y="30" width="44" height="28" fill="#1D4ED8"/>
+    <text x="32" y="42" font-size="7" font-family="'Impact', sans-serif" font-weight="900" fill="#FFFFFF" text-anchor="middle">SP-100</text>
+    <text x="32" y="52" font-size="4" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#93C5FD" text-anchor="middle">EPOXY GROUT</text>
+  </g>
+
+  <!-- Front Left: Small Waterproofing Chemical Box -->
+  <g transform="translate(48, 128)">
+    <path d="M 6 12 L 40 8 L 44 58 L 8 62 Z" fill="#FBBF24"/>
+    <rect x="12" y="24" width="26" height="22" fill="#1E3A8A"/>
+    <text x="25" y="35" font-size="5" font-family="'Segoe UI', sans-serif" font-weight="900" fill="#FFFFFF" text-anchor="middle">FIXIT</text>
+    <text x="25" y="42" font-size="4" font-family="'Segoe UI', sans-serif" font-weight="800" fill="#FBBF24" text-anchor="middle">LW+</text>
+  </g>
+</svg>

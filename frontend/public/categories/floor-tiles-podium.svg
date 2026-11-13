@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="tileWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_tiles" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_tiles" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_tiles)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_tiles)"/>
+
+  <g transform="translate(65, 55)">
+    <!-- Stack of 3 vitrified marble tiles in 3D isometric view -->
+    <!-- Bottom tile -->
+    <polygon points="10,85 75,50 140,85 75,120" fill="#CBD5E1" stroke="#94A3B8" stroke-width="1.5"/>
+    <polygon points="10,85 75,120 75,128 10,93" fill="#94A3B8"/>
+    <polygon points="75,120 140,85 140,93 75,128" fill="#64748B"/>
+    <!-- Middle tile -->
+    <polygon points="10,70 75,35 140,70 75,105" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"/>
+    <polygon points="10,70 75,105 75,113 10,78" fill="#CBD5E1"/>
+    <polygon points="75,105 140,70 140,78 75,113" fill="#94A3B8"/>
+    <!-- Top tile (Marble veins) -->
+    <polygon points="10,55 75,20 140,55 75,90" fill="url(#tileWhite)" stroke="#CBD5E1" stroke-width="2"/>
+    <polygon points="10,55 75,90 75,98 10,63" fill="#E2E8F0"/>
+    <polygon points="75,90 140,55 140,63 75,98" fill="#CBD5E1"/>
+    <!-- Statwario marble gray-gold veins -->
+    <path d="M 35 48 Q 65 35 85 45 Q 110 55 125 40" stroke="#94A3B8" stroke-width="2.5" fill="none" opacity="0.7"/>
+    <path d="M 50 65 Q 75 52 95 62 Q 115 72 130 58" stroke="#D97706" stroke-width="1.5" fill="none" opacity="0.6"/>
+  </g>
+</svg>

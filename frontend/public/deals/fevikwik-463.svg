@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200">
+  <defs>
+    <radialGradient id="fevikwikShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#000000" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="blisterYellow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="100%" stop-color="#EAB308"/>
+    </linearGradient>
+    <linearGradient id="bottleWhite" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F1F5F9"/>
+      <stop offset="40%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="120" cy="180" rx="60" ry="12" fill="url(#fevikwikShadow)"/>
+
+  <!-- Left: Blister Pack Card standing behind -->
+  <g transform="translate(60, 25)">
+    <!-- Backing Card (Yellow) -->
+    <rect x="0" y="0" width="55" height="150" rx="6" fill="url(#blisterYellow)" stroke="#CA8A04" stroke-width="1"/>
+    <!-- Top Hang Hole -->
+    <ellipse cx="27.5" cy="12" rx="6" ry="3" fill="#FFFFFF"/>
+
+    <!-- Fevikwik Vertical Red Band -->
+    <rect x="5" y="24" width="45" height="20" rx="3" fill="#DC2626"/>
+    <text x="27.5" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="900" fill="#FFFFFF" text-anchor="middle">Fevikwik®</text>
+
+    <!-- Product code -->
+    <text x="27.5" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="900" fill="#0F172A" text-anchor="middle">463</text>
+    <text x="27.5" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="800" fill="#B45309" text-anchor="middle">EXTRA THICK</text>
+    <text x="27.5" y="87" font-family="system-ui, -apple-system, sans-serif" font-size="5" font-weight="700" fill="#0F172A" text-anchor="middle">GEL ADHESIVE</text>
+
+    <!-- Graphic drop icon -->
+    <circle cx="27.5" cy="108" r="8" fill="#0284C7"/>
+    <path d="M 27.5 96 C 27.5 96, 21.5 106, 21.5 110 A 6 6 0 0 0 33.5 110 C 33.5 106, 27.5 96, 27.5 96 Z" fill="#38BDF8"/>
+    <text x="27.5" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="800" fill="#0F172A" text-anchor="middle">INSTANT BOND</text>
+  </g>
+
+  <!-- Right: Fevikwik Gel Applicator Bottle / Tube in foreground -->
+  <g transform="translate(125, 30)">
+    <!-- Tall Slim Bottle -->
+    <rect x="10" y="45" width="42" height="105" rx="8" fill="url(#bottleWhite)" stroke="#CBD5E1" stroke-width="1"/>
+    <!-- Yellow label on bottle -->
+    <rect x="12" y="65" width="38" height="60" rx="3" fill="#FEF08A"/>
+    <text x="31" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="900" fill="#DC2626" text-anchor="middle">Fevikwik</text>
+    <text x="31" y="93" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="900" fill="#0F172A" text-anchor="middle">463</text>
+    <text x="31" y="103" font-family="system-ui, -apple-system, sans-serif" font-size="4.5" font-weight="800" fill="#B45309" text-anchor="middle">GEL 50g</text>
+
+    <!-- Long Precision Nozzle Cap -->
+    <path d="M 24 45 L 28 8 L 34 8 L 38 45 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+    <rect x="27" y="5" width="8" height="6" rx="2" fill="#DC2626"/>
+  </g>
+</svg>

@@ -35,8 +35,8 @@ const CATEGORY_ITEMS = [
     icon: Layers
   },
   {
-    name: 'Hardware & Locks',
-    category: 'Hardware & Locks',
+    name: 'Wood & Hardware',
+    category: 'Wood and Hardware',
     icon: Lock
   },
   {
@@ -55,24 +55,9 @@ const ProjectStageStrip = ({ onOpenPaperList }) => {
   const { t } = useLanguage();
 
   return (
-    <section className="project-stage-section">
+    <section className="project-stage-section sticky-category-nav" id="sticky-trade-categories-nav">
       <div className="container">
-        {/* Header */}
-        <div className="project-stage-header">
-          <div>
-            <h3 className="stage-title">{t('stagesHeading') || 'Shop by Construction Category'}</h3>
-          </div>
-          <button
-            type="button"
-            className="snap-paper-list-trigger-btn"
-            onClick={onOpenPaperList}
-          >
-            <Camera size={16} color='var(--color-accent)' />
-            <span>{t('snapPaperList') || 'Have a paper list? Snap & Send'}</span>
-          </button>
-        </div>
-
-        {/* Horizontal Scrollable Categories (Stages Removed) */}
+        {/* Horizontal Scrollable Categories Pills Navbar (Sticky on Scroll) */}
         <div className="project-stages-scroller">
           {CATEGORY_ITEMS.map((item, idx) => {
             const Icon = item.icon;
@@ -83,7 +68,7 @@ const ProjectStageStrip = ({ onOpenPaperList }) => {
                 className="project-stage-pill"
               >
                 <div className="stage-icon-circle">
-                  <Icon size={18} />
+                  <Icon size={17} color="#D97706" />
                 </div>
                 <div className="stage-text-block">
                   <span className="stage-name-text">{item.name}</span>

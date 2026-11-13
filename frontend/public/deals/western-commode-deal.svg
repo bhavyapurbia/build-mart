@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200">
+  <defs>
+    <radialGradient id="wcShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.2"/>
+      <stop offset="65%" stop-color="#000000" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ceramicGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="25%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="lidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="120" cy="180" rx="65" ry="14" fill="url(#wcShadow)"/>
+
+  <!-- Commode Side/Angle Profile -->
+  <g id="western-commode" transform="translate(45, 20)">
+    <!-- Tank Back -->
+    <rect x="75" y="15" width="55" height="75" rx="6" fill="url(#ceramicGrad)"/>
+    <!-- Dual Flush Chrome Button on Top -->
+    <ellipse cx="102" cy="15" rx="12" ry="4" fill="#94A3B8"/>
+    <ellipse cx="102" cy="14" rx="9" ry="3" fill="#E2E8F0"/>
+    <circle cx="98" cy="14" r="2.5" fill="#CBD5E1"/>
+    <circle cx="106" cy="14" r="2.5" fill="#94A3B8"/>
+
+    <!-- Pedestal Base and Bowl -->
+    <path d="M 15 82 C 15 70, 75 70, 80 82 L 80 148 C 80 152, 75 155, 70 155 L 35 155 C 30 155, 25 152, 25 148 L 15 82 Z" fill="url(#ceramicGrad)"/>
+
+    <!-- Bowl Front Contour (Skirted Design) -->
+    <path d="M 18 82 C 18 115, 45 145, 75 148 L 78 82 Z" fill="none" stroke="#E2E8F0" stroke-width="2"/>
+
+    <!-- Soft-close Lid and Seat Contour -->
+    <rect x="12" y="76" width="70" height="9" rx="4" fill="url(#lidGrad)" stroke="#CBD5E1" stroke-width="1"/>
+    <ellipse cx="47" cy="80" rx="33" ry="5" fill="#FFFFFF"/>
+
+    <!-- Subtle Glazed Highlights -->
+    <path d="M 80 20 L 80 85" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+    <path d="M 22 84 C 22 105, 38 128, 55 138" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  </g>
+</svg>

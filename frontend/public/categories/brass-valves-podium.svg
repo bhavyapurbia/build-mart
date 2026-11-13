@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="goldBrass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="30%" stop-color="#F59E0B"/>
+      <stop offset="70%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+    <linearGradient id="orangeLever" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF5722"/>
+      <stop offset="100%" stop-color="#D84315"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_brass" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_brass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_brass)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_brass)"/>
+
+  <g transform="translate(60, 65)">
+    <!-- Zoloto Ball Valve Body -->
+    <ellipse cx="80" cy="100" rx="36" ry="24" fill="url(#goldBrass)"/>
+    <rect x="35" y="88" width="90" height="24" rx="5" fill="url(#goldBrass)" stroke="#B45309" stroke-width="2"/>
+    <ellipse cx="35" cy="100" rx="8" ry="12" fill="#78350F"/>
+    <ellipse cx="125" cy="100" rx="8" ry="12" fill="url(#goldBrass)"/>
+    <!-- Central valve neck -->
+    <rect x="70" y="65" width="20" height="25" rx="3" fill="url(#goldBrass)"/>
+    <rect x="66" y="60" width="28" height="7" rx="2" fill="#78350F"/>
+    <!-- Orange Handle Lever -->
+    <rect x="40" y="48" width="85" height="14" rx="4" fill="url(#orangeLever)" transform="rotate(-15 40 48)"/>
+    <text x="65" y="58" font-family="Arial, sans-serif" font-size="8" font-weight="900" fill="#FFFFFF" transform="rotate(-15 65 58)">ZOLOTO 1"</text>
+  </g>
+</svg>

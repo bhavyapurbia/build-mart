@@ -381,17 +381,20 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
           {/* Delivery Address Row */}
           <div className="header-address-row">
             <div className="address-meta-box">
-              <span className="address-location-title">
-                {currentCity ? `${t('deliverTo') || 'Delivering to'} ${currentCity}` : (t('selectLocation') || 'Select Job Site Location')}
-              </span>
-              <button
-                type="button"
-                className="address-edit-link"
-                onClick={onOpenLocation}
-              >
-                <span>{currentCity ? (t('changeAddress') || 'Change Site Address') : (t('addAddress') || 'Add Address')}</span>
-                <ChevronDown size={13} color='var(--color-accent)' />
-              </button>
+              <MapPin size={16} color="#FF9900" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div className="address-text-column">
+                <span className="address-location-title">
+                  {currentCity ? `${t('deliverTo') || 'Deliver to'} ${currentCity}` : (t('selectLocation') || 'Deliver to Bengaluru')}
+                </span>
+                <button
+                  type="button"
+                  className="address-edit-link"
+                  onClick={onOpenLocation}
+                >
+                  <span>{currentCity ? (t('changeAddress') || 'Change Address') : (t('addAddress') || 'Change Address')}</span>
+                  <ChevronDown size={12} color="#FF9900" />
+                </button>
+              </div>
             </div>
           </div>
 

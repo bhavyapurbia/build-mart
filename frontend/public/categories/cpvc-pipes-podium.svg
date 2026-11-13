@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="cpvcPipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="35%" stop-color="#FEF3C7"/>
+      <stop offset="70%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="50%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_cpvc" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_cpvc" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_cpvc)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_cpvc)"/>
+
+  <!-- Pipes bundle -->
+  <g transform="translate(45, 45)">
+    <!-- Back pipe -->
+    <rect x="25" y="15" width="22" height="135" rx="4" fill="url(#cpvcPipeGrad)" transform="rotate(-22 25 15)"/>
+    <!-- Center pipe -->
+    <rect x="65" y="5" width="26" height="150" rx="5" fill="url(#cpvcPipeGrad)" transform="rotate(-15 65 5)"/>
+    <rect x="74" y="25" width="8" height="110" fill="#EF4444" opacity="0.8" transform="rotate(-15 74 25)"/>
+    <!-- Front pipe -->
+    <rect x="105" y="15" width="24" height="145" rx="5" fill="url(#cpvcPipeGrad)" transform="rotate(-8 105 15)"/>
+    <!-- CPVC Brass Elbow on podium -->
+    <path d="M 120 135 L 120 175 Q 120 185 130 185 L 165 185 L 165 165 L 140 165 Q 138 165 138 160 L 138 135 Z" fill="#FBBF24" stroke="#D97706" stroke-width="2"/>
+    <circle cx="165" cy="175" r="9" fill="url(#brassGrad)"/>
+    <circle cx="165" cy="175" r="5" fill="#78350F"/>
+  </g>
+</svg>

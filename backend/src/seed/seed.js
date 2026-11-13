@@ -413,6 +413,30 @@ const seedData = async () => {
 
     // 3. Waterproofing
     {
+      name: 'Asian Paints SmartCare Damp Proof Advanced 20L',
+      category: 'Waterproofing',
+      subcategory: 'Waterproofing Coatings',
+      brand: 'Asian Paints',
+      price: 5400,
+      mrp: 6774,
+      unit: '20L Bucket',
+      stock: 150,
+      isDeal: true,
+      isFeatured: true,
+      description: 'Asian Paints SmartCare Damp Proof Advanced is an elastomeric waterproofing liquid membrane reinforced with synthetic fibers. Provides superior crack bridging up to 2mm, heat reflectance keeping interiors up to 10°C cooler, and comes with a 10-year waterproofing warranty for terraces and vertical parapets.',
+      specifications: [
+        { key: 'Warranty', value: '10 Years Waterproofing Warranty' },
+        { key: 'Coverage', value: '10 to 12 sq.ft/liter in 2 coats' },
+        { key: 'Elongation at Break', value: '300%' },
+        { key: 'Application Area', value: 'Terraces, Parapets, Chajjas, Exterior Walls' }
+      ],
+      images: [
+        'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'
+      ]
+    },
+    {
       name: 'Dr. Fixit LW+ Integral Liquid Waterproofing Compound',
       category: 'Waterproofing',
       subcategory: 'Waterproofing Chemicals',

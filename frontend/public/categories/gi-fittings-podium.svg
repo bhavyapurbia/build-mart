@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="giMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9"/>
+      <stop offset="40%" stop-color="#94A3B8"/>
+      <stop offset="80%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_gi" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_gi" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_gi)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_gi)"/>
+
+  <g transform="translate(60, 60)">
+    <!-- GI Tee Fitting -->
+    <path d="M 40 90 L 70 90 L 70 50 L 100 50 L 100 90 L 130 90 L 130 120 L 100 120 L 100 140 L 70 140 L 70 120 L 40 120 Z" fill="url(#giMetal)" stroke="#1E293B" stroke-width="2.5"/>
+    <!-- Threaded ridges -->
+    <line x1="42" y1="96" x2="42" y2="114" stroke="#475569" stroke-width="2"/>
+    <line x1="48" y1="96" x2="48" y2="114" stroke="#475569" stroke-width="2"/>
+    <line x1="128" y1="96" x2="128" y2="114" stroke="#475569" stroke-width="2"/>
+    <line x1="122" y1="96" x2="122" y2="114" stroke="#475569" stroke-width="2"/>
+    <line x1="75" y1="52" x2="95" y2="52" stroke="#475569" stroke-width="2"/>
+    <line x1="75" y1="58" x2="95" y2="58" stroke="#475569" stroke-width="2"/>
+  </g>
+</svg>

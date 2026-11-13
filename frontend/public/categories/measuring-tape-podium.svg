@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <linearGradient id="stanleyYellow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="100%" stop-color="#EAB308"/>
+    </linearGradient>
+    
+    <radialGradient id="shadow_tape" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop_tape" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <!-- 3D Pedestal Base -->
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#shadow_tape)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop_tape)"/>
+
+  <g transform="translate(65, 55)">
+    <!-- Stanley casing -->
+    <rect x="25" y="25" width="80" height="80" rx="20" fill="url(#stanleyYellow)" stroke="#0F172A" stroke-width="3"/>
+    <!-- Black rubber grip wrap -->
+    <path d="M 25 45 Q 25 25 45 25 L 85 25 Q 105 25 105 45 L 105 60 L 25 60 Z" fill="#0F172A"/>
+    <!-- Yellow blade extending -->
+    <rect x="105" y="78" width="45" height="14" rx="2" fill="#FEF08A" stroke="#CA8A04" stroke-width="1"/>
+    <line x1="115" y1="78" x2="115" y2="85" stroke="#0F172A" stroke-width="1.5"/>
+    <line x1="125" y1="78" x2="125" y2="88" stroke="#0F172A" stroke-width="1.5"/>
+    <line x1="135" y1="78" x2="135" y2="85" stroke="#0F172A" stroke-width="1.5"/>
+    <line x1="145" y1="78" x2="145" y2="90" stroke="#DC2626" stroke-width="2"/>
+    <text x="65" y="75" font-family="Arial, sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle">5M</text>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <rect width="200" height="80" fill="#FFFFFF" rx="8"/>
+  <g transform="translate(16, 12)">
+    <text x="0" y="24" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="20" fill="#0284C7" letter-spacing="1px">TATA</text>
+    <text x="62" y="24" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="20" fill="#BE123C" letter-spacing="0.5px">TISCON</text>
+    <rect x="0" y="30" width="160" height="4" rx="2" fill="#BE123C"/>
+    <text x="0" y="46" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="10" fill="#1E293B" letter-spacing="1px">550D SUPER DUCTILE</text>
+    <text x="0" y="56" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="7" fill="#64748B" letter-spacing="0.5px">GREENPRO CERTIFIED REBARS</text>
+  </g>
+</svg>
+

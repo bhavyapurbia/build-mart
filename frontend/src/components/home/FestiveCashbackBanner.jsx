@@ -1,43 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Copy, Check, ShieldCheck, Building2, Truck, Sparkles } from 'lucide-react';
-import { useNotification } from '../../context/NotificationContext';
+import { ArrowRight, Truck, ShieldCheck, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import api from '../../utils/api';
 
-const DEFAULT_BANNERS = [
+export const DEFAULT_BANNERS = [
   {
-    _id: 'banner_build50k_pro',
-    title: 'FLAT 5% CASHBACK',
-    subtitle: 'on orders above ₹50,000. No upper limits for registered contractors.',
-    badge: 'BUILDMART PRO',
-    couponCode: 'BUILD50K',
-    ctaText: 'SHOP NOW',
-    link: '/products',
-    bgGradient: 'linear-gradient(135deg, #091E3A 0%, #1B4965 100%)',
+    _id: 'banner_wirebonanza_promo',
+    id: 'banner_wirebonanza_promo',
+    title: 'Flat 5% OFF on Electrical Wires',
+    subtitle: 'on orders above 10000. Use Coupon WIREBONANZA',
+    badge: 'WIRE BONANZA',
+    couponCode: 'WIREBONANZA',
+    ctaText: 'ORDER NOW',
+    link: '/products?category=Electrical%20%26%20Automation',
+    image: '/banners/wirebonanza-offer.jpg',
+    order: 1,
     active: true,
     type: 'hero'
   },
   {
-    _id: 'banner_wholesale_club',
-    title: 'High-Volume Plant Dispatch',
-    subtitle: 'Direct truckload delivery for developers & builders. Cement bags, TMT rebars & AAC blocks with GST invoices.',
-    badge: 'COMMERCIAL & TRADE DESK',
-    couponCode: 'PROCONTRACT',
-    ctaText: 'GET WHOLESALE QUOTE',
-    link: '/bulk-enquiry',
-    bgGradient: 'linear-gradient(135deg, #14532D 0%, #15803D 100%)',
+    _id: 'banner_diwali_offer',
+    id: 'banner_diwali_offer',
+    title: 'diwali offer',
+    subtitle: 'on order above 4000 get flat 200 off',
+    badge: 'SPECIAL PROMO',
+    couponCode: 'DIWALI200',
+    ctaText: 'EXPLORE SUPPLIES',
+    link: '/products',
+    bgGradient: 'linear-gradient(135deg, #1E22AA 0%, #2A2DC9 100%)',
+    benefit1Text: '30-Min',
+    benefit1Sub: 'Site Delivery',
+    benefit2Text: '100% Factory',
+    benefit2Sub: 'GST Invoices',
+    coinText: 'OFFER',
+    order: 2,
     active: true,
-    type: 'trade'
+    type: 'hero'
   },
   {
-    _id: 'banner_express_dispatch',
-    title: 'FREE EXPRESS 30-MIN SITE DISPATCH',
-    subtitle: 'Direct from micro-fulfillment hubs across Bengaluru. Guaranteed on-site before your crew starts.',
-    badge: 'SITE DELIVERY',
-    couponCode: 'FASTSITE',
-    ctaText: 'ORDER NOW',
+    _id: 'banner_build50k_pro',
+    id: 'banner_build50k_pro',
+    title: 'FLAT 5% CASHBACK',
+    subtitle: 'on orders above ₹50,000. No limits on bulk supplies.',
+    badge: 'MEGABUILDMART',
+    couponCode: 'BUILD50K',
+    ctaText: 'SHOP NOW',
     link: '/products',
-    bgGradient: 'linear-gradient(135deg, #7F1D1D 0%, #B91C1C 100%)',
+    bgGradient: 'linear-gradient(135deg, #091E3A 0%, #1B4965 100%)',
+    benefit1Text: 'Express 30-Min',
+    benefit1Sub: 'Dispatch to Site',
+    benefit2Text: '100% Genuine',
+    benefit2Sub: 'Factory MTC',
+    coinText: '5% OFF',
+    order: 3,
     active: true,
     type: 'hero'
   }
@@ -54,10 +69,9 @@ const FestiveCashbackBanner = () => {
   });
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [copied, setCopied] = useState(false);
-  const { showToast } = useNotification();
+  const [touchStartX, setTouchStartX] = useState(null);
 
-  // Fetch live banners from backend API so admin changes reflect immediately
+  // Fetch live banners from database so admin edits reflect immediately
   useEffect(() => {
     const fetchLiveBanners = async () => {
       try {
@@ -68,7 +82,6 @@ const FestiveCashbackBanner = () => {
           localStorage.setItem('bm_admin_banners', JSON.stringify(list));
         }
       } catch (err) {
-        // Fallback to local storage if API is unreachable
         try {
           const saved = localStorage.getItem('bm_admin_banners');
           if (saved) setBanners(JSON.parse(saved));
@@ -82,21 +95,42 @@ const FestiveCashbackBanner = () => {
   const activeBanners = banners.filter(b => b.active !== false);
   const totalSlides = activeBanners.length || 1;
 
-  // Auto-rotation timer across all active banners
+  // Auto-rotation timer every 5 seconds
   useEffect(() => {
     if (totalSlides <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % totalSlides);
-    }, 6000);
+    }, 5000);
     return () => clearInterval(timer);
   }, [totalSlides]);
 
-  const handleCopyCode = (code) => {
-    if (!code) return;
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    showToast(`Coupon code ${code} copied! Apply at checkout.`, 'success');
-    setTimeout(() => setCopied(false), 2500);
+  const handlePrev = (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    setCurrentSlide(prev => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const handleNext = (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    setCurrentSlide(prev => (prev + 1) % totalSlides);
+  };
+
+  // Mobile Touch Swipe support
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX === null || totalSlides <= 1) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (diff > 40) {
+      handleNext();
+    } else if (diff < -40) {
+      handlePrev();
+    }
+    setTouchStartX(null);
   };
 
   if (activeBanners.length === 0) return null;
@@ -106,96 +140,117 @@ const FestiveCashbackBanner = () => {
   return (
     <section className="festive-carousel-section" id="home-banner-block">
       <div className="container">
-        <div className="festive-banner-slider">
-          <div
-            className="festive-cashback-card"
-            style={{
-              background: currentBanner.bgGradient || 'linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-dark) 100%)',
-              transition: 'background 0.5s ease'
-            }}
-          >
-            <div className="cashback-content-left" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: '1 1 500px' }}>
-                {/* Visual Graphic Left: Image or 3D Coin or Shield Icon */}
-                {currentBanner.image ? (
-                  <div style={{ width: '90px', height: '90px', borderRadius: '16px', overflow: 'hidden', flexShrink: 0, background: 'color-mix(in oklab, var(--bg-card) 10%, transparent)', padding: '6px' }}>
-                    <img
-                      src={currentBanner.image}
-                      alt={currentBanner.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                  </div>
-                ) : (
-                  <div className="golden-coin-graphic" style={{ flexShrink: 0 }}>
-                    <div className="coin-outer-ring">
-                      <span className="coin-pct-num">
-                        {currentBanner.title?.match(/\d+/)?.[0] || '★'}
-                      </span>
-                      <span className="coin-pct-sign">
-                        {currentBanner.title?.includes('%') ? '%' : '★'}
-                      </span>
-                    </div>
-                    <div className="coin-caption">OFFER</div>
-                  </div>
-                )}
-
-                {/* Offer Details */}
-                <div className="cashback-text-group" style={{ flex: 1 }}>
-                  {currentBanner.badge && (
-                    <div className="megabuildmart-tag" style={{ background: 'var(--primary-dark)', display: 'inline-block' }}>
-                      {currentBanner.badge}
-                    </div>
-                  )}
-
-                  <h3 className="cashback-heading" style={{ margin: '6px 0', color: 'var(--bg-card)' }}>
-                    {currentBanner.title}
-                  </h3>
-
-                  <p className="cashback-terms" style={{ color: 'var(--border)', margin: '4px 0 14px' }}>
-                    {currentBanner.subtitle}
-                  </p>
-
-                  <div className="cashback-action-group" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                    {currentBanner.couponCode && (
-                      <div
-                        className="coupon-pill-box"
-                        onClick={() => handleCopyCode(currentBanner.couponCode)}
-                        title="Click to copy coupon code"
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <span className="coupon-use-label">USE COUPON</span>
-                        <span className="coupon-code-bold">{currentBanner.couponCode}</span>
-                        {copied ? <Check size={13} color='var(--color-success)' /> : <Copy size={13} />}
+        <div
+          className="festive-banner-slider"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* If banner has an image uploaded by admin, render the image as it is */}
+          {currentBanner.image ? (
+            <Link
+              to={currentBanner.link || '/products'}
+              className="festive-image-banner-link"
+              title={currentBanner.title}
+            >
+              <img
+                src={currentBanner.image}
+                alt={currentBanner.title}
+                className="festive-image-banner-img"
+                loading="eager"
+              />
+            </Link>
+          ) : (
+            /* Fallback HTML banner for non-image promos */
+            <div
+              className="festive-promo-card-photo1"
+              style={{
+                background: currentBanner.bgGradient || 'linear-gradient(135deg, #1E22AA 0%, #2A2DC9 100%)'
+              }}
+            >
+              {/* Top Area: Gold Coin on Left + Offer Details on Right */}
+              <div className="promo-top-flex-row">
+                <div className="promo-coin-wrapper">
+                  <div className="gold-coin-circle">
+                    <div className="gold-coin-inner-disc">
+                      <div className="coin-stars-pair">
+                        <Star size={18} fill="#D97706" color="#D97706" />
+                        <Star size={18} fill="#D97706" color="#D97706" />
                       </div>
-                    )}
+                    </div>
+                  </div>
+                  <span className="coin-offer-caption">
+                    {currentBanner.coinText || 'OFFER'}
+                  </span>
+                </div>
 
-                    <Link to={currentBanner.link || '/products'} className="cashback-shop-now-btn">
-                      <span>{currentBanner.ctaText || 'SHOP NOW'}</span>
-                      <ArrowRight size={14} />
-                    </Link>
+                <div className="promo-details-stack">
+                  <span className="promo-pill-label">
+                    {currentBanner.badge || 'SPECIAL PROMO'}
+                  </span>
+                  <h3 className="promo-headline-h3">
+                    {currentBanner.title || 'diwali offer'}
+                  </h3>
+                  <p className="promo-sub-instruction">
+                    {currentBanner.subtitle || 'on order above 4000 get flat 200 off'}
+                  </p>
+                  <Link
+                    to={currentBanner.link || '/products'}
+                    className="promo-action-button"
+                  >
+                    <span>{currentBanner.ctaText || 'EXPLORE SUPPLIES'}</span>
+                    <ArrowRight size={15} strokeWidth={2.5} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Bottom Row: 2 Glassmorphic Trust Badges */}
+              <div className="promo-bottom-trust-grid">
+                <div className="trust-card-glass">
+                  <div className="trust-icon-box orange">
+                    <Truck size={18} color="#FF9900" />
+                  </div>
+                  <div className="trust-text-block">
+                    <span className="trust-bold-title">{currentBanner.benefit1Text || '30-Min'}</span>
+                    <span className="trust-sub-caption">{currentBanner.benefit1Sub || 'Site Delivery'}</span>
+                  </div>
+                </div>
+
+                <div className="trust-card-glass">
+                  <div className="trust-icon-box green">
+                    <ShieldCheck size={18} color="#22C55E" />
+                  </div>
+                  <div className="trust-text-block">
+                    <span className="trust-bold-title">{currentBanner.benefit2Text || '100% Factory'}</span>
+                    <span className="trust-sub-caption">{currentBanner.benefit2Sub || 'GST Invoices'}</span>
                   </div>
                 </div>
               </div>
-
-              {/* Right Side Stats / Trust Badges */}
-              <div className="trade-desk-right-stats" style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
-                <div className="trade-stat-box" style={{ background: 'color-mix(in oklab, var(--bg-card) 8%, transparent)', padding: '10px 14px', borderRadius: '12px', textAlign: 'center', border: '1px solid var(--border)' }}>
-                  <Truck size={20} color='var(--color-accent)' style={{ margin: '0 auto 4px' }} />
-                  <span className="stat-bold" style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: 'var(--bg-card)' }}>30-Min</span>
-                  <span className="stat-sub" style={{ fontSize: '11px', color: 'var(--color-rule)' }}>Site Delivery</span>
-                </div>
-                <div className="trade-stat-box" style={{ background: 'color-mix(in oklab, var(--bg-card) 8%, transparent)', padding: '10px 14px', borderRadius: '12px', textAlign: 'center', border: '1px solid var(--border)' }}>
-                  <ShieldCheck size={20} color='var(--color-success)' style={{ margin: '0 auto 4px' }} />
-                  <span className="stat-bold" style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: 'var(--bg-card)' }}>100% Factory</span>
-                  <span className="stat-sub" style={{ fontSize: '11px', color: 'var(--color-rule)' }}>GST Invoices</span>
-                </div>
-              </div>
-
             </div>
-          </div>
+          )}
 
-          {/* Dynamic Dots Indicator (One dot for each active banner) */}
+          {/* Left & Right Chevrons (visible on hover or tap when multiple banners exist) */}
+          {activeBanners.length > 1 && (
+            <>
+              <button
+                type="button"
+                className="festive-nav-arrow prev-arrow"
+                onClick={handlePrev}
+                aria-label="Previous promotional banner"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                type="button"
+                className="festive-nav-arrow next-arrow"
+                onClick={handleNext}
+                aria-label="Next promotional banner"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </>
+          )}
+
+          {/* Dots Indicator: Elongated Active Navy Pill + Light Gray Dots */}
           {activeBanners.length > 1 && (
             <div className="festive-dots-row">
               {activeBanners.map((b, idx) => (
@@ -204,7 +259,7 @@ const FestiveCashbackBanner = () => {
                   type="button"
                   className={`festive-dot ${currentSlide === idx ? 'active' : ''}`}
                   onClick={() => setCurrentSlide(idx)}
-                  aria-label={`Go to slide ${idx + 1}`}
+                  aria-label={`Go to banner slide ${idx + 1}`}
                 />
               ))}
             </div>

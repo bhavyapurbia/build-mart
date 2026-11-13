@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240">
+  <defs>
+    <radialGradient id="showerShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="podiumTop6" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="chromeSquare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#CBD5E1"/>
+      <stop offset="70%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="140" cy="205" rx="125" ry="25" fill="url(#showerShadow)"/>
+  <ellipse cx="140" cy="198" rx="115" ry="22" fill="#CBD5E1"/>
+  <path d="M 25 198 A 115 22 0 0 0 255 198 L 255 204 A 115 22 0 0 1 25 204 Z" fill="#94A3B8"/>
+  <ellipse cx="140" cy="197" rx="114" ry="20" fill="url(#podiumTop6)"/>
+
+  <!-- Overhead Rain Shower System -->
+  <g transform="translate(65, 30)">
+    <!-- Wall flange -->
+    <rect x="0" y="24" width="10" height="30" rx="3" fill="url(#chromeSquare)"/>
+    <!-- Curved Chrome Arm -->
+    <path d="M 10 36 L 75 36 C 85 36, 95 45, 95 60 L 95 85" fill="none" stroke="url(#chromeSquare)" stroke-width="12" stroke-linecap="round"/>
+    <rect x="85" y="80" width="20" height="10" rx="2" fill="url(#chromeSquare)"/>
+    
+    <!-- Big Square Overhead Rain Shower Head tilted -->
+    <g transform="translate(45, 90)">
+      <polygon points="10,25 90,5 110,35 30,55" fill="url(#chromeSquare)"/>
+      <polygon points="10,25 30,55 30,62 10,32" fill="#64748B"/>
+      <polygon points="30,55 110,35 110,42 30,62" fill="#475569"/>
+      <!-- Silicon rubber spray nozzles -->
+      <g fill="#93C5FD">
+        <circle cx="28" cy="38" r="1.5"/><circle cx="40" cy="35" r="1.5"/><circle cx="52" cy="32" r="1.5"/><circle cx="64" cy="29" r="1.5"/>
+        <circle cx="36" cy="45" r="1.5"/><circle cx="48" cy="42" r="1.5"/><circle cx="60" cy="39" r="1.5"/><circle cx="72" cy="36" r="1.5"/><circle cx="84" cy="33" r="1.5"/>
+        <circle cx="44" cy="51" r="1.5"/><circle cx="56" cy="48" r="1.5"/><circle cx="68" cy="45" r="1.5"/><circle cx="80" cy="42" r="1.5"/><circle cx="92" cy="39" r="1.5"/>
+      </g>
+    </g>
+
+    <!-- Hand shower beside it on the right -->
+    <g transform="translate(135, 60)">
+      <rect x="18" y="40" width="8" height="55" rx="3" fill="url(#chromeSquare)"/>
+      <ellipse cx="22" cy="35" rx="16" ry="24" fill="url(#chromeSquare)"/>
+      <ellipse cx="22" cy="35" rx="12" ry="18" fill="#475569"/>
+      <circle cx="22" cy="35" r="8" fill="#93C5FD"/>
+      <!-- Flexible chrome hose -->
+      <path d="M 22 95 C 22 135, 10 145, -10 135" fill="none" stroke="url(#chromeSquare)" stroke-width="5"/>
+    </g>
+  </g>
+</svg>

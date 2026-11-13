@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const serviceAreaSchema = new mongoose.Schema({
   city: { type: String, required: true, trim: true },
   state: { type: String, default: 'Karnataka', trim: true },
+  hub: { type: String, default: 'Central Fulfillment Hub', trim: true },
   pincodes: [{ type: String, trim: true }],
   etaLabel: { type: String, default: '⚡ 30-60 Min Express Delivery', trim: true },
   isAvailable: { type: Boolean, default: true },
@@ -16,9 +17,9 @@ const serviceAreaSchema = new mongoose.Schema({
 
 serviceAreaSchema.index({ city: 1 });
 serviceAreaSchema.index({ pincodes: 1 });
+serviceAreaSchema.index({ isAvailable: 1 });
 
 const ServiceArea = mongoose.models.ServiceArea || mongoose.model('ServiceArea', serviceAreaSchema);
 
 export default ServiceArea;
 export { ServiceArea };
-

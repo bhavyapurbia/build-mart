@@ -120,6 +120,27 @@ const CheckoutPage = () => {
       return;
     }
 
+    const cleanPin = (customer.pincode || '').trim().replace(/\D/g, '');
+    if (cleanPin.length !== 6) {
+      showToast('Please enter a valid 6-digit Indian PIN code before payment.', 'error');
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      const pinCheck = await api.get(`/serviceability?pincode=${cleanPin}`);
+      const pinData = pinCheck.data?.data || pinCheck.data;
+      if (!pinData.serviceable) {
+        showToast(pinData.message || `Delivery is not available for PIN code ${cleanPin}.`, 'error', 6000);
+        setSubmitting(false);
+        return;
+      }
+    } catch (e) {
+      showToast(`Invalid or unserviceable PIN code: ${cleanPin}.`, 'error');
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const checkoutItems = quotationData
         ? quotationData.items.map(item => ({ productId: item.productId, quantity: item.quantity }))
@@ -209,6 +230,24 @@ const CheckoutPage = () => {
         return;
       }
       await handleRazorpayPayment();
+      return;
+    }
+
+    const cleanPin = (customer.pincode || '').trim().replace(/\D/g, '');
+    if (cleanPin.length !== 6) {
+      showToast('Please enter a valid 6-digit Indian PIN code.', 'error');
+      return;
+    }
+
+    try {
+      const pinCheck = await api.get(`/serviceability?pincode=${cleanPin}`);
+      const pinData = pinCheck.data?.data || pinCheck.data;
+      if (!pinData.serviceable) {
+        showToast(pinData.message || `Delivery is not available for PIN code ${cleanPin}.`, 'error', 6000);
+        return;
+      }
+    } catch (e) {
+      showToast(`Invalid or unserviceable PIN code: ${cleanPin}.`, 'error');
       return;
     }
 
