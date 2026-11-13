@@ -1,14 +1,16 @@
 import express from 'express';
 const router = express.Router();
 import bulkEnquiryController from '../controllers/bulkEnquiry.controller.js';
-import { optionalAuth, authenticate, requireAdmin  } from '../middleware/auth.middleware.js';
+import { authenticate, requireAdmin } from '../middleware/auth.middleware.js';
 
-router.post('/', optionalAuth, bulkEnquiryController.submitBulkEnquiry);
-router.get('/my', optionalAuth, bulkEnquiryController.getMyBulkEnquiries);
+// Public/customer bulk endpoints
+router.post('/', bulkEnquiryController.submitBulkEnquiry);
+router.get('/my', authenticate, bulkEnquiryController.getMyBulkEnquiries);
+router.post('/:id/respond', authenticate, bulkEnquiryController.respondToBulkEnquiry);
 
-// Admin endpoints
-router.get('/admin/all', authenticate, requireAdmin, bulkEnquiryController.getAllBulkEnquiries);
+// Admin bulk endpoints
+router.get('/admin', authenticate, requireAdmin, bulkEnquiryController.getAllBulkEnquiries);
 router.put('/admin/:id', authenticate, requireAdmin, bulkEnquiryController.updateBulkEnquiry);
+router.post('/admin/:id/convert-to-order', authenticate, requireAdmin, bulkEnquiryController.convertBulkEnquiryToOrder);
 
 export default router;
-

@@ -10,6 +10,7 @@ import BrandShowcase from '../components/home/BrandShowcase';
 import WhatsAppBanner from '../components/home/WhatsAppBanner';
 import WhyChooseUs from '../components/home/WhyChooseUs';
 import ProductCard from '../components/product/ProductCard';
+import SEO from '../components/common/SEO';
 import api from '../utils/api';
 
 const HomePage = ({ onOpenPaperList }) => {
@@ -48,8 +49,38 @@ const HomePage = ({ onOpenPaperList }) => {
     fetchHomeData();
   }, []);
 
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'BuildMart',
+    url: 'https://buildmart.in',
+    logo: 'https://buildmart.in/placeholder-material.svg',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-1800-890-5000',
+      contactType: 'customer service',
+      areaServed: 'IN'
+    }
+  };
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    url: 'https://buildmart.in',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://buildmart.in/products?search={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
   return (
     <div className="homepage-buildmart-wrapper">
+      <SEO
+        title="Direct Job-Site Procurement & 30-60 Min Materials Delivery"
+        description="Order genuine UltraTech cement, Tata Tiscon steel rebars, Astral pipes, tiles, and waterproofing. 30-60 min job-site express delivery with verified test certificates."
+        jsonLd={[organizationJsonLd, websiteJsonLd]}
+      />
       {/* 1. 4-Pill Feature Strip (Free Delivery in 30 mins, 5% Cashback, ₹2,500 on ₹50k, Genuine Products) */}
       <FeaturePillStrip />
 

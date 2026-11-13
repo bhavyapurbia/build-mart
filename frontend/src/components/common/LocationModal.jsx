@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, X, Check } from 'lucide-react';
 
 const CITIES = [
@@ -13,6 +13,15 @@ const CITIES = [
 const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
   const [pincode, setPincode] = useState('');
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handlePincodeSubmit = (e) => {
@@ -24,14 +33,14 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="location-modal-title">
       <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px' }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <MapPin size={20} color='var(--primary-dark)' />
-            <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Choose Delivery Location</h3>
+            <h3 id="location-modal-title" style={{ fontSize: '18px', fontWeight: 700 }}>Choose Delivery Location</h3>
           </div>
-          <button onClick={onClose} style={{ background: 'transparent', cursor: 'pointer' }}>
+          <button onClick={onClose} aria-label="Close delivery location modal" style={{ background: 'transparent', cursor: 'pointer', border: 'none', padding: '4px' }}>
             <X size={20} />
           </button>
         </div>

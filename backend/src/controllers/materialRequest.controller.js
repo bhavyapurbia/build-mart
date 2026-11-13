@@ -1,6 +1,7 @@
 import MaterialRequest from '../models/MaterialRequest.js';
 import Notification from '../models/Notification.js';
 import { asyncHandler, ApiError, ApiResponse, sendEmail } from '../utils/index.js';
+import { generateRequestId } from '../utils/counter.js';
 
 export const submitMaterialRequest = asyncHandler(async (req, res) => {
   const { customer, items, isPaperList, paperListImage } = req.body;
@@ -12,6 +13,9 @@ export const submitMaterialRequest = asyncHandler(async (req, res) => {
   if (isPaperList) {
     if (!paperListImage) {
       throw new ApiError(400, 'Please provide or snap a photo of the paper material list.');
+    }
+    if (paperListImage.startsWith('data:image/')) {
+      throw new ApiError(400, 'Raw base64 images are not permitted in JSON payloads. Please upload the photo via multipart to /api/upload/paper-list first.');
     }
     if (!processedItems.length) {
       processedItems = [{
@@ -29,8 +33,7 @@ export const submitMaterialRequest = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'At least one material item must be selected.');
   }
 
-  const count = await MaterialRequest.countDocuments();
-  const requestId = `BM-REQ-${Date.now().toString().slice(-4)}-${(count + 1).toString().padStart(3, '0')}`;
+  const requestId = await generateRequestId();
 
   const newRequest = await MaterialRequest.create({
     requestId,
@@ -122,10 +125,49 @@ export const getMyMaterialRequests = asyncHandler(async (req, res) => {
 });
 
 export const getAllMaterialRequests = asyncHandler(async (req, res) => {
-  const { status } = req.query;
+  const { status, page, limit, q, sort = 'newest' } = req.query;
   const filter = {};
   if (status) filter.status = status;
-  const requests = await MaterialRequest.find(filter).sort({ createdAt: -1 });
+
+  if (q) {
+    const regex = new RegExp(q.trim(), 'i');
+    filter.$or = [
+      { requestId: regex },
+      { 'customer.name': regex },
+      { 'customer.phone': regex },
+      { 'customer.email': regex },
+      { 'customer.city': regex }
+    ];
+  }
+
+  const sortObj = sort === 'oldest' ? { createdAt: 1 } : { createdAt: -1 };
+
+  if (page || limit) {
+    const pageNum = Math.max(1, parseInt(page, 10) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit, 10) || 20));
+    const skip = (pageNum - 1) * limitNum;
+
+    const [requests, total] = await Promise.all([
+      MaterialRequest.find(filter)
+        .sort(sortObj)
+        .skip(skip)
+        .limit(limitNum)
+        .lean(),
+      MaterialRequest.countDocuments(filter)
+    ]);
+
+    return res.status(200).json(
+      new ApiResponse(200, {
+        requests,
+        total,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(total / limitNum) || 1
+      }, 'Material requests fetched successfully')
+    );
+  }
+
+  const requests = await MaterialRequest.find(filter).sort(sortObj).lean();
   return res.status(200).json(
     new ApiResponse(200, requests, 'Material requests fetched successfully')
   );

@@ -1,4 +1,5 @@
 import Coupon from '../models/Coupon.js';
+import CouponRedemption from '../models/CouponRedemption.js';
 import { asyncHandler, ApiError, ApiResponse } from '../utils/index.js';
 
 export const validateCoupon = asyncHandler(async (req, res) => {
@@ -7,13 +8,33 @@ export const validateCoupon = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'Coupon code is required.');
   }
 
-  const coupon = await Coupon.findOne({ code: code.toUpperCase().trim(), isActive: true });
+  const cleanCode = code.toUpperCase().trim();
+  const coupon = await Coupon.findOne({ code: cleanCode, isActive: true });
   if (!coupon) {
     throw new ApiError(404, 'Invalid or expired coupon code.');
   }
 
-  if (coupon.validUntil && new Date(coupon.validUntil) < new Date()) {
+  const now = new Date();
+  if (coupon.validUntil && new Date(coupon.validUntil) < now) {
     throw new ApiError(400, 'This coupon has expired.');
+  }
+  if (coupon.startsAt && new Date(coupon.startsAt) > now) {
+    throw new ApiError(400, 'This coupon campaign has not started yet.');
+  }
+
+  if (coupon.usageLimit && (coupon.usageCount || 0) >= coupon.usageLimit) {
+    throw new ApiError(400, 'This coupon has reached its maximum total redemptions.');
+  }
+
+  // Check per-user limit if user is logged in
+  if (req.user && coupon.perUserLimit) {
+    const userRedemptions = await CouponRedemption.countDocuments({
+      code: cleanCode,
+      user: String(req.user._id)
+    });
+    if (userRedemptions >= coupon.perUserLimit) {
+      throw new ApiError(400, `You have already redeemed this coupon the maximum allowed times (${coupon.perUserLimit}).`);
+    }
   }
 
   const total = Number(cartTotal) || 0;
@@ -32,36 +53,52 @@ export const validateCoupon = asyncHandler(async (req, res) => {
       code: coupon.code,
       discountPercent: coupon.discountPercent,
       discountAmount: calculatedDiscount
-    }, `Coupon applied! You save ₹${calculatedDiscount}`)
+    }, `Coupon applied! You save ₹${calculatedDiscount.toLocaleString('en-IN')}`)
   );
 });
 
 export const getCoupons = asyncHandler(async (req, res) => {
-  const coupons = await Coupon.find();
+  const coupons = await Coupon.find().sort({ createdAt: -1 });
   return res.status(200).json(
     new ApiResponse(200, coupons, 'Coupons fetched successfully')
   );
 });
 
 export const createCoupon = asyncHandler(async (req, res) => {
-  const { code, description, discountPercent, maxDiscount, minOrderValue, validUntil } = req.body;
+  const {
+    code,
+    description,
+    discountPercent,
+    maxDiscount,
+    minOrderValue,
+    startsAt,
+    validUntil,
+    usageLimit,
+    perUserLimit
+  } = req.body;
+
   if (!code || !discountPercent) {
     throw new ApiError(400, 'Code and discount percentage are required.');
   }
 
-  const existing = await Coupon.findOne({ code: code.toUpperCase().trim() });
+  const cleanCode = code.toUpperCase().trim();
+  const existing = await Coupon.findOne({ code: cleanCode });
   if (existing) {
     throw new ApiError(400, 'A coupon with this code already exists.');
   }
 
   const coupon = await Coupon.create({
-    code: code.toUpperCase().trim(),
+    code: cleanCode,
     description: description || '',
     discountPercent: Number(discountPercent),
     maxDiscount: Number(maxDiscount) || 5000,
     minOrderValue: Number(minOrderValue) || 1000,
-    validUntil: validUntil || '',
-    isActive: true
+    startsAt: startsAt ? new Date(startsAt) : null,
+    validUntil: validUntil ? new Date(validUntil) : null,
+    usageLimit: Number(usageLimit) || 1000,
+    perUserLimit: Number(perUserLimit) || 1,
+    isActive: true,
+    usageCount: 0
   });
 
   return res.status(201).json(
@@ -71,7 +108,16 @@ export const createCoupon = asyncHandler(async (req, res) => {
 
 export const updateCoupon = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const updated = await Coupon.findByIdAndUpdate(id, req.body, { new: true });
+  const updateData = { ...req.body };
+
+  if (updateData.code) updateData.code = updateData.code.toUpperCase().trim();
+  if (updateData.discountPercent) updateData.discountPercent = Number(updateData.discountPercent);
+  if (updateData.maxDiscount) updateData.maxDiscount = Number(updateData.maxDiscount);
+  if (updateData.minOrderValue) updateData.minOrderValue = Number(updateData.minOrderValue);
+  if (updateData.startsAt) updateData.startsAt = new Date(updateData.startsAt);
+  if (updateData.validUntil) updateData.validUntil = new Date(updateData.validUntil);
+
+  const updated = await Coupon.findByIdAndUpdate(id, updateData, { new: true });
   if (!updated) {
     throw new ApiError(404, 'Coupon not found.');
   }
@@ -87,7 +133,7 @@ export const toggleCoupon = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Coupon not found.');
   }
 
-  const newStatus = coupon.isActive === false ? true : false;
+  const newStatus = coupon.isActive === false;
   const updated = await Coupon.findByIdAndUpdate(
     id,
     { isActive: newStatus },

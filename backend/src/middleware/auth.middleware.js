@@ -1,101 +1,106 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-export const JWT_SECRET = process.env.JWT_SECRET || 'buildmart_master_secret_key_2026';
+// JWT secret — NEVER falls back to a hardcoded value.
+// In production, env.js already guarantees it's present and ≥32 chars.
+const JWT_SECRET = process.env.JWT_SECRET || (
+  process.env.NODE_ENV === 'production'
+    ? (() => { throw new Error('JWT_SECRET must be set in production'); })()
+    : 'dev_only_secret_do_not_use_in_production_32ch'
+);
 
+export { JWT_SECRET };
+
+/**
+ * authenticate — requires a valid JWT for a real user in the DB.
+ * No backdoors, no auto-create.
+ */
 export const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ message: 'Authentication required. No token provided.' });
+      return res.status(401).json({ success: false, message: 'Authentication required. No token provided.' });
     }
 
     const token = authHeader.split(' ')[1];
-
-    if (token === 'bm_admin_demo_jwt_token') {
-      req.user = {
-        _id: '2a48e52322fc7ceecd3231e1',
-        name: 'BuildMart Administrator',
-        email: 'admin@buildmart.com',
-        role: 'admin',
-        isActive: true
-      };
-      return next();
-    }
-
     const decoded = jwt.verify(token, JWT_SECRET);
-    let user = (await User.findById(decoded.id)) || (await User.findOne({ email: decoded.email }));
 
-    if (!user && decoded.email) {
-      user = {
-        _id: decoded.id || 'usr_' + Date.now(),
-        id: decoded.id,
-        name: decoded.name || (decoded.email === 'admin@buildmart.com' ? 'BuildMart Administrator' : 'Customer'),
-        email: decoded.email,
-        role: decoded.role || (decoded.email === 'admin@buildmart.com' ? 'admin' : 'customer'),
-        isActive: true
-      };
-      try {
-        await User.create(user);
-      } catch (e) {
-        // Ignore if already created concurrently
-      }
-    }
-
+    const user = await User.findById(decoded.id).select('-password').lean();
     if (!user || user.isActive === false) {
-      return res.status(401).json({ message: 'User not found or inactive account.' });
+      return res.status(401).json({ success: false, message: 'User not found or account is inactive.' });
     }
 
     req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid or expired token.', error: err.message });
+    return res.status(401).json({ success: false, message: 'Invalid or expired token.' });
   }
 };
 
+/**
+ * optionalAuth — attaches user if a valid token is provided, otherwise continues anonymously.
+ * No backdoors, no auto-create.
+ */
 export const optionalAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, JWT_SECRET);
-      let user = (await User.findById(decoded.id)) || (await User.findOne({ email: decoded.email }));
-      if (!user && decoded.email) {
-        user = {
-          _id: decoded.id || 'usr_' + Date.now(),
-          id: decoded.id,
-          name: decoded.name || 'Customer',
-          email: decoded.email,
-          role: decoded.role || 'customer',
-          isActive: true
-        };
-        try {
-          await User.create(user);
-        } catch (e) {}
-      }
+      const user = await User.findById(decoded.id).select('-password').lean();
       if (user && user.isActive !== false) {
         req.user = user;
       }
     }
-  } catch (err) {
-    // optional, ignore
+  } catch {
+    // Invalid token — continue as anonymous
   }
   next();
 };
 
 export const requireAdmin = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
-    return res.status(403).json({ message: 'Access denied: Admin privileges required.' });
+    return res.status(403).json({ success: false, message: 'Access denied: Admin privileges required.' });
   }
   next();
+};
+
+/**
+ * requireRole — enforces role-based access control (RBAC).
+ * Supports staff roles: 'admin', 'manager', 'support'.
+ */
+export const requireRole = (...roles) => (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ success: false, message: 'Authentication required.' });
+  }
+  // Admin always has superuser access
+  if (req.user.role === 'admin' || roles.includes(req.user.role)) {
+    return next();
+  }
+  return res.status(403).json({
+    success: false,
+    message: `Access denied: requires one of the following roles: ${roles.join(', ')}.`
+  });
 };
 
 export const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, email: user.email, role: user.role, name: user.name },
     JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: process.env.JWT_ACCESS_TTL || '7d' }
   );
 };
 
-export default { authenticate, optionalAuth, requireAdmin, generateToken, JWT_SECRET };
+/**
+ * assertOwnerOrAdmin — throws 403 if the doc's user field doesn't match the caller
+ * and caller is not an admin. Pass the doc's user field (ObjectId or string).
+ */
+export const assertOwnerOrAdmin = (docUserId, reqUser) => {
+  if (!reqUser) throw Object.assign(new Error('Authentication required.'), { statusCode: 401 });
+  if (reqUser.role === 'admin') return;
+  if (String(docUserId) !== String(reqUser._id)) {
+    throw Object.assign(new Error('Access denied: you do not own this resource.'), { statusCode: 403 });
+  }
+};
+
+export default { authenticate, optionalAuth, requireAdmin, generateToken, assertOwnerOrAdmin, JWT_SECRET };

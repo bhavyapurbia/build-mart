@@ -19,12 +19,15 @@ import {
   Camera,
   Mic,
   Globe,
-  Check
+  Check,
+  Heart
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useMaterialList } from '../../context/MaterialListContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { useWishlist } from '../../context/WishlistContext';
+import NotificationBell from './NotificationBell';
 import MobileDrawer from './MobileDrawer';
 import api from '../../utils/api';
 
@@ -45,35 +48,77 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [recentSearches, setRecentSearches] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('bm_recent_searches') || '[]');
+    } catch {
+      return [];
+    }
+  });
 
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const { currentLang, changeLanguage, t } = useLanguage();
   const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
   const { materialCount } = useMaterialList();
   const navigate = useNavigate();
   const searchRef = useRef(null);
   const userMenuRef = useRef(null);
   const langMenuRef = useRef(null);
 
-  // Live search autocomplete
+  // Live search autocomplete via /products/suggest
   useEffect(() => {
     if (searchTerm.trim().length > 1) {
       const fetchSuggestions = async () => {
         try {
-          const res = await api.get(`/products?search=${encodeURIComponent(searchTerm.trim())}&limit=6`);
-          setSuggestions(res.data.products || []);
+          const res = await api.get(`/products/suggest?q=${encodeURIComponent(searchTerm.trim())}`);
+          const list = Array.isArray(res.data) ? res.data : (res.data?.data || []);
+          setSuggestions(list);
           setShowSuggestions(true);
+          setSelectedIndex(-1);
         } catch {
           setSuggestions([]);
         }
       };
-      const debounce = setTimeout(fetchSuggestions, 250);
+      const debounce = setTimeout(fetchSuggestions, 200);
       return () => clearTimeout(debounce);
     } else {
       setSuggestions([]);
-      setShowSuggestions(false);
+      setSelectedIndex(-1);
     }
   }, [searchTerm]);
+
+  const saveRecentSearch = (term) => {
+    if (!term || !term.trim()) return;
+    const clean = term.trim();
+    const updated = [clean, ...recentSearches.filter(s => s.toLowerCase() !== clean.toLowerCase())].slice(0, 5);
+    setRecentSearches(updated);
+    try {
+      localStorage.setItem('bm_recent_searches', JSON.stringify(updated));
+    } catch (e) {}
+  };
+
+  const handleKeyDown = (e) => {
+    if (!showSuggestions && suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : 0));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev > 0 ? prev - 1 : suggestions.length - 1));
+    } else if (e.key === 'Enter' && selectedIndex >= 0 && suggestions[selectedIndex]) {
+      e.preventDefault();
+      const target = suggestions[selectedIndex];
+      setShowSuggestions(false);
+      setSearchTerm('');
+      saveRecentSearch(target.name);
+      navigate(target.slug ? `/p/${target.slug}` : `/product/${target._id}`);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+    }
+  };
 
   // Click outside listener
   useEffect(() => {
@@ -95,6 +140,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
+      saveRecentSearch(searchTerm);
       setShowSuggestions(false);
       navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
     }
@@ -245,6 +291,14 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                       <span>My Orders</span>
                     </Link>
                     <Link
+                      to="/account?tab=wishlist"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="dropdown-link"
+                    >
+                      <Heart size={16} />
+                      <span>My Wishlist ({wishlistCount})</span>
+                    </Link>
+                    <Link
                       to="/account?tab=quotations"
                       onClick={() => setUserDropdownOpen(false)}
                       className="dropdown-link"
@@ -260,6 +314,14 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                       <ClipboardList size={16} />
                       <span>Material Lists</span>
                     </Link>
+                    <Link
+                      to="/track-order"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="dropdown-link"
+                    >
+                      <Package size={16} />
+                      <span>Track Order</span>
+                    </Link>
                     <div className="dropdown-divider" />
                     <button
                       onClick={() => {
@@ -274,6 +336,22 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                   </div>
                 )}
               </div>
+
+              {/* Customer Notifications */}
+              {isAuthenticated && (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <NotificationBell />
+                </div>
+              )}
+
+              {/* Wishlist Shortcut */}
+              <Link to="/account?tab=wishlist" className="header-cart-wrap" title="View Wishlist">
+                <div className="cart-badge-container">
+                  <Heart size={20} color='var(--bg-card)' />
+                  {wishlistCount > 0 && <span className="cart-live-count">{wishlistCount}</span>}
+                </div>
+                <span className="cart-btn-caption">Wishlist</span>
+              </Link>
 
               {/* Shopping Cart Pill */}
               <Link to="/cart" className="header-cart-wrap" title="View Cart">
@@ -315,14 +393,20 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
 
           {/* Search Bar Pill with Camera & Mic */}
           <div className="header-search-row" ref={searchRef}>
-            <form onSubmit={handleSearchSubmit} className="classic-search-pill-form">
+            <form onSubmit={handleSearchSubmit} className="classic-search-pill-form" role="search">
               <Search size={18} color='var(--text-light)' className="search-pill-glass-icon" />
               <input
                 type="text"
+                role="combobox"
+                aria-expanded={showSuggestions}
+                aria-autocomplete="list"
                 placeholder={t('searchPlaceholder') || 'Search cement, steel rebars, CPVC pipes, tiles, sand...'}
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                onFocus={() => searchTerm.trim().length > 1 && setShowSuggestions(true)}
+                onFocus={() => {
+                  if (searchTerm.trim().length > 1) setShowSuggestions(true);
+                }}
+                onKeyDown={handleKeyDown}
                 className="classic-search-input"
               />
 
@@ -348,37 +432,78 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
             </form>
 
             {/* Suggestions Popup */}
-            {showSuggestions && suggestions.length > 0 && (
-              <div className="search-suggestions-dropdown">
-                <div className="search-suggestions-header">
-                  <span>Quick Dispatch Supplies</span>
-                </div>
-                {suggestions.map(p => (
-                  <div
-                    key={p._id}
-                    className="search-suggestion-item"
-                    onClick={() => {
-                      setShowSuggestions(false);
-                      setSearchTerm('');
-                      navigate(`/product/${p._id}`);
-                    }}
-                  >
-                    <img
-                      src={(p.images && p.images[0]) || p.image || 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=100&q=80'}
-                      alt={p.name}
-                      className="search-suggestion-img"
-                    />
-                    <div className="search-suggestion-info">
-                      <div className="search-suggestion-name">{p.name}</div>
-                      <div className="search-suggestion-meta">
-                        <span>{p.brand}</span>
-                        <span className="search-suggestion-price">₹{p.price}</span>
-                        <span className="search-suggestion-unit">/ {p.unit}</span>
-                      </div>
+            {showSuggestions && (
+              <div className="search-suggestions-dropdown" role="listbox">
+                {suggestions.length > 0 ? (
+                  <>
+                    <div className="search-suggestions-header">
+                      <span>Quick Dispatch Supplies</span>
+                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Use ↑↓ and Enter</span>
                     </div>
-                    <ArrowRight size={14} color='var(--text-light)' />
+                    {suggestions.map((p, idx) => (
+                      <div
+                        key={p._id}
+                        role="option"
+                        aria-selected={selectedIndex === idx}
+                        className="search-suggestion-item"
+                        style={{
+                          backgroundColor: selectedIndex === idx ? 'var(--bg-accent-subtle, #EFF6FF)' : 'transparent',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                          setShowSuggestions(false);
+                          setSearchTerm('');
+                          saveRecentSearch(p.name);
+                          navigate(p.slug ? `/p/${p.slug}` : `/product/${p._id}`);
+                        }}
+                      >
+                        <img
+                          src={p.image || (p.images && p.images[0]) || '/placeholder-material.svg'}
+                          alt={p.name}
+                          className="search-suggestion-img"
+                        />
+                        <div className="search-suggestion-info">
+                          <div className="search-suggestion-name">{p.name}</div>
+                          <div className="search-suggestion-meta">
+                            <span>{p.brand}</span>
+                            <span className="search-suggestion-price">₹{p.price}</span>
+                            {p.unit && <span className="search-suggestion-unit">/ {p.unit}</span>}
+                          </div>
+                        </div>
+                        <ArrowRight size={14} color='var(--text-light)' />
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <div style={{ padding: '20px 16px', textAlign: 'center' }}>
+                    <p style={{ margin: '0 0 10px', fontSize: '13px', color: 'var(--text-muted)' }}>
+                      No direct matches found for "{searchTerm}"
+                    </p>
+                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                      {['Cement', 'Steel', 'Tiles', 'Pipes'].map(cat => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => {
+                            setShowSuggestions(false);
+                            setSearchTerm('');
+                            navigate(`/products?search=${encodeURIComponent(cat)}`);
+                          }}
+                          style={{
+                            background: 'var(--bg-subtle, #F3F4F6)',
+                            border: '1px solid #E5E7EB',
+                            borderRadius: '16px',
+                            padding: '4px 10px',
+                            fontSize: '12px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
             )}
           </div>

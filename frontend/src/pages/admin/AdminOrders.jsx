@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   ShoppingCart,
   Eye,
@@ -11,6 +11,7 @@ import {
   HardHat
 } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
+import DataTable from '../../components/admin/DataTable';
 import api from '../../utils/api';
 
 const ORDER_STATUSES = [
@@ -63,6 +64,130 @@ const AdminOrders = () => {
     window.print();
   };
 
+  const columns = useMemo(() => [
+    {
+      header: 'Order ID & Invoice',
+      accessor: 'orderId',
+      sortable: true,
+      render: (order) => (
+        <div>
+          <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)' }}>{order.orderId}</strong>
+          <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>
+            {order.invoiceNumber || 'INV-2026-0001'}
+          </div>
+          <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
+            {new Date(order.createdAt).toLocaleDateString()}
+          </div>
+        </div>
+      )
+    },
+    {
+      header: 'Customer',
+      accessor: 'customer.name',
+      sortable: true,
+      render: (order) => (
+        <div>
+          <div style={{ fontWeight: 600 }}>{order.customer?.name}</div>
+          <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{order.customer?.phone}</div>
+          <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>{order.customer?.city}</div>
+        </div>
+      )
+    },
+    {
+      header: 'Materials Subtotal',
+      accessor: 'totalAmount',
+      sortable: true,
+      render: (order) => (
+        <div>
+          <strong style={{ color: 'var(--color-ink)' }}>₹{order.totalAmount?.toLocaleString('en-IN')}</strong>
+          <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>{order.items?.length || 0} items</div>
+        </div>
+      )
+    },
+    {
+      header: 'Labour Service',
+      accessor: (order) => (order.labourDetails?.hasLabour ? order.labourDetails.labourType : 'None'),
+      render: (order) => (
+        order.labourDetails?.hasLabour ? (
+          <div style={{ fontSize: '12px', color: 'var(--primary-dark)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <HardHat size={14} />
+            <span>{order.labourDetails.labourType} ({order.labourDetails.workersRequired})</span>
+          </div>
+        ) : (
+          <span style={{ fontSize: '12px', color: 'var(--text-light)' }}>None</span>
+        )
+      )
+    },
+    {
+      header: 'Payment',
+      accessor: 'paymentStatus',
+      sortable: true,
+      render: (order) => (
+        <span style={{
+          display: 'inline-block',
+          padding: '2px 6px',
+          borderRadius: '4px',
+          fontSize: '11px',
+          fontWeight: 700,
+          background: order.paymentStatus === 'Paid' ? 'var(--accent-green-light)' : 'var(--primary-light)',
+          color: order.paymentStatus === 'Paid' ? 'var(--color-success)' : 'var(--primary-deep)'
+        }}>
+          {order.paymentMethod} • {order.paymentStatus}
+        </span>
+      )
+    },
+    {
+      header: 'Order Status',
+      accessor: 'orderStatus',
+      sortable: true,
+      render: (order) => (
+        <select
+          value={order.orderStatus || 'Confirmed'}
+          onChange={e => handleStatusChange(order._id, e.target.value)}
+          style={{
+            padding: '5px 8px',
+            borderRadius: '6px',
+            border: '1px solid var(--color-rule)',
+            fontSize: '12px',
+            fontWeight: 700,
+            background: 'var(--bg-card)',
+            cursor: 'pointer'
+          }}
+        >
+          {ORDER_STATUSES.map(st => (
+            <option key={st} value={st}>{st}</option>
+          ))}
+        </select>
+      )
+    },
+    {
+      header: 'Actions',
+      render: (order) => (
+        <button
+          onClick={() => {
+            setSelectedOrder(order);
+            setIsInvoiceModalOpen(true);
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            padding: '6px 10px',
+            background: 'var(--color-paper-3)',
+            border: '1px solid var(--color-rule)',
+            borderRadius: '6px',
+            fontSize: '12px',
+            fontWeight: 600,
+            cursor: 'pointer'
+          }}
+        >
+          <FileText size={14} />
+          <span>Invoice</span>
+        </button>
+      )
+    }
+  ], []);
+
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
@@ -79,112 +204,16 @@ const AdminOrders = () => {
         </button>
       </div>
 
-      {/* Orders Table */}
-      <div className="admin-table-card">
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Order ID & Invoice</th>
-              <th>Customer</th>
-              <th>Materials Subtotal</th>
-              <th>Labour Service</th>
-              <th>Payment</th>
-              <th>Order Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map(order => (
-              <tr key={order._id}>
-                <td>
-                  <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)' }}>{order.orderId}</strong>
-                  <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>
-                    {order.invoiceNumber || 'INV-2026-0001'}
-                  </div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </div>
-                </td>
-                <td>
-                  <div style={{ fontWeight: 600 }}>{order.customer?.name}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>{order.customer?.phone}</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>{order.customer?.city}</div>
-                </td>
-                <td>
-                  <strong style={{ color: 'var(--color-ink)' }}>₹{order.totalAmount?.toLocaleString('en-IN')}</strong>
-                  <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>{order.items?.length || 0} items</div>
-                </td>
-                <td>
-                  {order.labourDetails?.hasLabour ? (
-                    <div style={{ fontSize: '12px', color: 'var(--primary-dark)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <HardHat size={14} />
-                      <span>{order.labourDetails.labourType} ({order.labourDetails.workersRequired})</span>
-                    </div>
-                  ) : (
-                    <span style={{ fontSize: '12px', color: 'var(--text-light)' }}>None</span>
-                  )}
-                </td>
-                <td>
-                  <span style={{
-                    display: 'inline-block',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    background: order.paymentStatus === 'Paid' ? 'var(--accent-green-light)' : 'var(--primary-light)',
-                    color: order.paymentStatus === 'Paid' ? 'var(--color-success)' : 'var(--primary-deep)'
-                  }}>
-                    {order.paymentMethod} • {order.paymentStatus}
-                  </span>
-                </td>
-                <td>
-                  {/* Status Dropdown */}
-                  <select
-                    value={order.orderStatus || 'Confirmed'}
-                    onChange={e => handleStatusChange(order._id, e.target.value)}
-                    style={{
-                      padding: '5px 8px',
-                      borderRadius: '6px',
-                      border: '1px solid var(--color-rule)',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      background: 'var(--bg-card)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {ORDER_STATUSES.map(st => (
-                      <option key={st} value={st}>{st}</option>
-                    ))}
-                  </select>
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      setSelectedOrder(order);
-                      setIsInvoiceModalOpen(true);
-                    }}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      padding: '6px 10px',
-                      background: 'var(--color-paper-3)',
-                      border: '1px solid var(--color-rule)',
-                      borderRadius: '6px',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <FileText size={14} />
-                    <span>Invoice</span>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Orders DataTable */}
+      <DataTable
+        columns={columns}
+        data={orders}
+        loading={loading}
+        searchable={true}
+        searchKeys={['orderId', 'invoiceNumber', 'customer.name', 'customer.phone', 'customer.city', 'orderStatus', 'paymentMethod', 'paymentStatus']}
+        exportFilename="buildmart-orders"
+        emptyMessage="No orders found"
+      />
 
       {/* Invoice Modal */}
       {isInvoiceModalOpen && selectedOrder && (

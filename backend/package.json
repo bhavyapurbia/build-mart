@@ -7,23 +7,39 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "seed": "node src/seed/seed.js"
+    "seed": "node src/seed/seed.js",
+    "create-admin": "node src/scripts/createAdmin.js",
+    "test": "node --test tests/**/*.test.js",
+    "worker": "node src/jobs/worker.js",
+    "sync-indexes": "node src/scripts/syncIndexes.js",
+    "migrate": "node src/scripts/migrate.js",
+    "seed:load": "node src/scripts/loadSeed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.11.0",
+    "compression": "^1.8.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.7.4",
+    "helmet": "^8.3.0",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mailgen": "^2.0.36",
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^10.3.1",
-    "razorpay": "^2.9.8"
+    "pdfkit": "^0.20.2",
+    "pino": "^10.4.0",
+    "pino-http": "^11.0.0",
+    "razorpay": "^2.9.8",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "mongodb-memory-server": "^11.3.0",
     "nodemon": "^3.1.14"
   }
 }

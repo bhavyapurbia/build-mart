@@ -13,14 +13,32 @@ import Quotation from '../models/Quotation.js';
 import Order from '../models/Order.js';
 import LabourRequest from '../models/LabourRequest.js';
 import BulkEnquiry from '../models/BulkEnquiry.js';
+import ServiceArea from '../models/ServiceArea.js';
+
+// ─── Production guard ─────────────────────────────────────────────────────────
+const isProduction = process.env.NODE_ENV === 'production';
+const hasForceFlag = process.argv.includes('--force');
+const hasConfirmWipe = process.env.CONFIRM_WIPE === 'yes';
+
+if (isProduction && !(hasForceFlag && hasConfirmWipe)) {
+  console.error('\n🚫 SEED REFUSED in production.\n');
+  console.error('   To seed a production database you must pass --force AND set CONFIRM_WIPE=yes.\n');
+  console.error('   Example: CONFIRM_WIPE=yes node src/seed/seed.js --force\n');
+  process.exit(1);
+}
 
 const seedData = async () => {
   await connectDB();
-  console.log('🌱 Starting BuildMart Database Seeding...');
 
-  // 1. Users
+  const dbName = process.env.MONGODB_URI ? 'MongoDB' : 'in-memory';
+  console.log(`🌱 Starting BuildMart Database Seeding on database: "${dbName}"...`);
+  if (isProduction) {
+    console.warn('⚠️  WARNING: Seeding a PRODUCTION database — all existing data will be wiped!');
+  }
+
+  // 1. Users — only use weak demo passwords in development
   const salt = await bcrypt.genSalt(10);
-  const adminPassword = await bcrypt.hash('admin123', salt);
+  const adminPassword = await bcrypt.hash(isProduction ? (process.env.ADMIN_PASSWORD || 'ChangeMe!!ProdAdmin2024') : 'admin123', salt);
   const customerPassword = await bcrypt.hash('customer123', salt);
 
   await User.deleteMany({});
@@ -56,7 +74,7 @@ const seedData = async () => {
     }]
   });
 
-  console.log('✅ Users seeded: admin@buildmart.com / admin123, customer@buildmart.com / customer123');
+  console.log('✅ Users seeded. Admin: admin@buildmart.com (dev password in .env.example). Customer: customer@buildmart.com');
 
   // 2. Categories (8 categories, NO ELECTRICAL)
   await Category.deleteMany({});
@@ -774,6 +792,7 @@ const seedData = async () => {
     }
   ];
 
+  const seededProducts = [];
   for (const item of productsData) {
     const slug = item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     const sku = 'BM-' + Math.floor(100000 + Math.random() * 900000);
@@ -785,17 +804,19 @@ const seedData = async () => {
       sku,
       discount,
       isActive: true,
-      rating: +(4.4 + Math.random() * 0.5).toFixed(1),
-      reviewsCount: Math.floor(12 + Math.random() * 80)
+      rating: 0,
+      reviewsCount: 0
     });
 
     await Inventory.create({
-      productId: prod._id,
+      productId: String(prod._id),
       productName: prod.name,
       sku: prod.sku,
       currentStock: prod.stock,
       unit: prod.unit
     });
+
+    seededProducts.push(prod);
   }
 
   console.log(`✅ ${productsData.length} Products and Inventories seeded across 8 Categories!`);
@@ -855,6 +876,42 @@ const seedData = async () => {
     ]
   });
 
+  // Seed Service Areas
+  await ServiceArea.deleteMany({});
+  await ServiceArea.insertMany([
+    {
+      city: 'Bengaluru',
+      state: 'Karnataka',
+      pincodes: ['560001', '560002', '560025', '560034', '560037', '560066', '560100', '560102', '560103'],
+      etaLabel: '⚡ 30-60 Min Express Site Delivery',
+      deliveryFee: 350,
+      minOrder: 1000,
+      freeDeliveryThreshold: 5000,
+      isAvailable: true
+    },
+    {
+      city: 'Mumbai',
+      state: 'Maharashtra',
+      pincodes: ['400001', '400002', '400050', '400051', '400069', '400072'],
+      etaLabel: '🚚 Same-Day Express Site Delivery',
+      deliveryFee: 450,
+      minOrder: 2000,
+      freeDeliveryThreshold: 7500,
+      isAvailable: true
+    },
+    {
+      city: 'Delhi NCR',
+      state: 'Delhi',
+      pincodes: ['110001', '110020', '122001', '201301'],
+      etaLabel: '🚚 Next-Day Morning Site Delivery',
+      deliveryFee: 400,
+      minOrder: 2000,
+      freeDeliveryThreshold: 6000,
+      isAvailable: true
+    }
+  ]);
+  console.log('✅ Service Areas seeded: Bengaluru (30-60 Min), Mumbai (Same-Day), Delhi NCR (Next-Day)');
+
   // 7. Seed Sample Material Requests, Quotations, Orders, Labour, Bulk Enquiries
   await MaterialRequest.deleteMany({});
   await Quotation.deleteMany({});
@@ -877,20 +934,22 @@ const seedData = async () => {
     },
     items: [
       {
-        name: 'UltraTech Super Portland Pozzolana Cement (PPC)',
-        brand: 'UltraTech',
-        image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80',
+        productId: String(seededProducts[0]._id),
+        name: seededProducts[0].name,
+        brand: seededProducts[0].brand,
+        image: seededProducts[0].images?.[0] || '',
         quantity: 50,
-        unit: '50kg Bag',
+        unit: seededProducts[0].unit,
         unitPrice: 395,
         estimatedTotal: 19750
       },
       {
-        name: 'Tata Tiscon 550D TMT Rebar (12mm)',
-        brand: 'Tata Tiscon',
-        image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80',
+        productId: String(seededProducts[1]._id),
+        name: seededProducts[1].name,
+        brand: seededProducts[1].brand,
+        image: seededProducts[1].images?.[0] || '',
         quantity: 20,
-        unit: '12m Piece',
+        unit: seededProducts[1].unit,
         unitPrice: 840,
         estimatedTotal: 16800
       }
@@ -907,21 +966,23 @@ const seedData = async () => {
     customer: sampleReq.customer,
     items: [
       {
-        name: 'UltraTech Super Portland Pozzolana Cement (PPC)',
-        brand: 'UltraTech',
-        image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80',
+        productId: String(seededProducts[0]._id),
+        name: seededProducts[0].name,
+        brand: seededProducts[0].brand,
+        image: seededProducts[0].images?.[0] || '',
         quantity: 50,
-        unit: '50kg Bag',
+        unit: seededProducts[0].unit,
         unitPrice: 390,
         totalPrice: 19500,
         inStock: true
       },
       {
-        name: 'Tata Tiscon 550D TMT Rebar (12mm)',
-        brand: 'Tata Tiscon',
-        image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80',
+        productId: String(seededProducts[1]._id),
+        name: seededProducts[1].name,
+        brand: seededProducts[1].brand,
+        image: seededProducts[1].images?.[0] || '',
         quantity: 20,
-        unit: '12m Piece',
+        unit: seededProducts[1].unit,
         unitPrice: 835,
         totalPrice: 16700,
         inStock: true
@@ -932,7 +993,7 @@ const seedData = async () => {
     tax: 6516,
     discount: 1000,
     totalAmount: 41716,
-    validUntil: '2026-11-15',
+    validUntil: new Date('2026-11-15'),
     notes: 'Free heavy hydraulic truck delivery included. Test certificate attached.',
     status: 'Sent'
   });
@@ -952,27 +1013,28 @@ const seedData = async () => {
     },
     items: [
       {
-        name: 'Dr. Fixit LW+ Integral Liquid Waterproofing Compound',
-        brand: 'Dr. Fixit',
-        image: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=600&q=80',
+        productId: String(seededProducts[3]._id),
+        name: seededProducts[3].name,
+        brand: seededProducts[3].brand,
+        image: seededProducts[3].images?.[0] || '',
         quantity: 5,
-        unit: '1 Liter Bottle',
-        price: 195,
-        total: 975
+        unit: seededProducts[3].unit,
+        price: seededProducts[3].price,
+        total: seededProducts[3].price * 5
       },
       {
-        name: 'Astral CPVC PRO Pipe SDR 11 (1 Inch / 3 Meter)',
-        brand: 'Astral Pipes',
-        image: 'https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=600&q=80',
+        productId: String(seededProducts[4]._id),
+        name: seededProducts[4].name,
+        brand: seededProducts[4].brand,
+        image: seededProducts[4].images?.[0] || '',
         quantity: 6,
-        unit: '3m Length',
-        price: 495,
-        total: 2970
+        unit: seededProducts[4].unit,
+        price: seededProducts[4].price,
+        total: seededProducts[4].price * 6
       }
     ],
     materialCost: 3945,
     labourCost: 0,
-    labourDetails: { hasLabour: false },
     deliveryCharge: 250,
     tax: 710,
     discount: 0,
@@ -981,7 +1043,7 @@ const seedData = async () => {
     paymentStatus: 'Pending',
     orderStatus: 'Confirmed',
     timeline: [
-      { status: 'Confirmed', note: 'Order placed by customer', timestamp: new Date().toISOString() }
+      { status: 'Confirmed', note: 'Order placed by customer', timestamp: new Date() }
     ]
   });
 

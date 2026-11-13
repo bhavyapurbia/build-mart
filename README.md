@@ -1,128 +1,230 @@
-# BuildMart — Fixxly-Style Construction Materials E-Commerce Platform
+# BuildMart — Industrial Construction Materials E-Commerce Platform
 
-A production-oriented, modern, and fully responsive construction materials and building supplies e-commerce platform inspired by [Fixxly](https://fixxly.in/).
-
----
-
-## 🏗️ Highlights & Core Features
-
-### 1. Fixxly-Style Construction Trade Experience
-- **Hyper-Local 30-60 Min Site Delivery** guarantee header and live location switcher (Bengaluru, Mumbai, Delhi NCR, Hyderabad, Pune, Chennai).
-- **8 Core Construction Categories (Electrical completely removed)**:
-  1. **Cement & Steel** (UltraTech PPC/OPC, Tata Tiscon Fe 550D TMT bars, binding wire)
-  2. **Tiles & Adhesives** (Kajaria vitrified tiles, Roff tile adhesives, epoxy grouts, spacers)
-  3. **Waterproofing** (Dr. Fixit LW+, Newcoat elastomeric roof coating, Crack-X acrylic filler)
-  4. **CPVC, PVC & GI Fittings** (Astral CPVC PRO SDR 11, brass fittings, Supreme SWR drainage)
-  5. **Hardware & Locks** (Godrej Nav-Tal padlocks, mortise locks, SS 304 bearing hinges)
-  6. **Bathware** (Jaquar single-lever basin mixers, rain showers, tabletop vanity basins)
-  7. **Tools & Accessories** (Bosch angle grinders, diamond cutting wheels, Stanley tapes)
-  8. **Construction Materials** (Washed M-Sand, 20mm blue metal aggregate, red bricks, AAC blocks)
-
-### 2. ⚡ Flagship Feature: "Click Product Image to Create Material List"
-- Customers can click on **any product image** or card button to instantly toggle items into an unconfirmed **Material Checklist**.
-- Real-time visual badge with checkmark and glowing border indicators on selected cards.
-- **Floating Material List Bar** with live counter at the bottom of the screen.
-- **Dedicated Material List Review Page** (`/material-list`):
-  - Adjust required site quantities and units.
-  - Enter project site address, preferred delivery date, and site unloading instructions.
-  - Submits enquiry generating unique Request ID (e.g. `BM-REQ-xxxx`).
-- **Official Quotation Workflow (Crucial Requirement)**:
-  - Submitting a material list does *not* automatically charge or confirm the order.
-  - The admin reviews the request, verifies warehouse stock, and issues a formal **Quotation** with locked prices and logistics delivery fees.
-  - The customer reviews the quotation in **My Quotations** and can **Accept or Reject** it.
-  - Upon acceptance, the customer proceeds to confirmed checkout.
-
-### 3. 👷 Checkout with Optional Labour Service
-- Professional checkout form (Customer Name, Phone, Email, Site Address, City, Pincode, Delivery instructions).
-- **Checkbox:** *"Do you also need labour for this work?"*
-- Interactive trade selector:
-  - **Mason**, **Tile worker**, **Plumber**, **General construction worker**, **Waterproofing worker**, **Other**.
-  - Number of workers required, preferred start date, duration, scope of work.
-- Material costs and labour charges are tracked and displayed separately.
-
-### 4. 🚛 High-Volume Bulk Order Enquiry
-- Dedicated section on homepage and `/bulk-enquiry` page for contractors, developers, and commercial builders.
-- Multi-item requirement schedule (e.g. 100 Tons TMT Steel, 2,000 Bags Cement).
-- Direct WhatsApp integration for rapid contractor negotiation.
-- Admin dashboard to manage bulk quotes and convert accepted enquiries into orders.
-
-### 5. 🛡️ Complete Admin Dashboard
-- Discrete **Admin Login** link in the footer under *Company*.
-- **Sections:**
-  - **Overview**: 9 live KPIs (Total Sales, Pending Requests, Orders, Quotations, Bulk Enquiries, Labour Bookings, Active Catalog, Customers, Low-Stock Warnings).
-  - **Material Requests Management**: Open customer requests, check stock, update unit rates, set delivery freight, and dispatch formal quotations.
-  - **Order Management**: Track status progression (`Pending Review` → `Quotation Sent` → `Confirmed` → `Processing` → `Ready for Dispatch` → `Out for Delivery` → `Delivered` → `Cancelled`), print tax invoice with GST breakdown.
-  - **Product Management**: Full CRUD with specs, prices, MRP, discounts, units, stock levels, and image URLs.
-  - **Category Management**: Manage 8 categories, subcategories, and banner images.
-  - **Labour Services**: Assign supervisor teams, calculate labour charges, and update booking status.
-  - **Bulk Enquiries**: Prepare commercial wholesale quotations.
-  - **Inventory & Stock**: Set reorder thresholds and update current stock.
-  - **Customers Directory**: View registered contractors and purchase records.
-  - **Coupons**: Manage percentage discounts (e.g. `BUILD10`, `FIRST500`, `CONTRACTOR20`).
-  - **Website Settings**: Configure announcement bar, WhatsApp hotline, support phone, and free delivery thresholds.
+A production-grade, enterprise-ready construction materials and building supplies e-commerce platform built for builders, contractors, developers, and homeowners.
 
 ---
 
-## 🗄️ Database Architecture (MongoDB)
+## 🏗️ Architecture Overview
 
-All data is structured in normalized MongoDB collections with Mongoose ODM models:
-1. `User` (Customer & Admin roles, hashed passwords)
-2. `Category` (8 categories with subcategories)
-3. `Brand` (UltraTech, Astral, Dr. Fixit, Tata Tiscon, Jaquar, etc.)
-4. `Product` (Pricing, SKU, stock, units, specs, images)
-5. `Inventory` (Current stock, thresholds)
-6. `MaterialRequest` (Request ID, customer site details, requested items, status)
-7. `Quotation` (Quotation ID, itemized rates, freight, customer approval status)
-8. `Order` (Order ID, invoice number, material + labour breakdowns, timeline)
-9. `LabourRequest` (Booking ID, trade type, worker count, supervisor assignment)
-10. `BulkEnquiry` (Commercial multi-item schedules, quote)
-11. `Cart` (User / guest cart)
-12. `Coupon` (Promotional codes, discount caps)
-13. `Notification` (Live notifications for admin and customers)
-14. `SiteSetting` (WhatsApp number, announcement bar, support phone)
+```mermaid
+graph TD
+  User([Contractor / Customer]) -->|HTTPS| Web[Frontend SPA / PWA (Vite + React)]
+  Admin([Store Administrator]) -->|HTTPS| Web
+  Web -->|REST API / JSON| API[Backend API (Node.js + Express)]
+  
+  subgraph Backend Tier
+    API --> Auth[RBAC & Auth Guard]
+    API --> Pricing[Deterministic Pricing Engine]
+    API --> Orders[Atomic Order State Machine]
+    API --> SEO[Dynamic Sitemap & Robots]
+    API --> Jobs[Background Worker Queue]
+  end
 
-> **Zero-Configuration Resiliency:** The backend connects to MongoDB at `MONGODB_URI` (default: `mongodb://127.0.0.1:27017/buildmart`). If no external MongoDB daemon is active on the host machine, it seamlessly uses a persistent local JSON document store in `backend/data/` adhering to the exact same MongoDB model APIs without crashing!
+  subgraph Data Tier
+    API --> Mongo[(MongoDB Replica Set)]
+    API --> Redis[(Redis Cache & Queues)]
+    Jobs --> Mongo
+    Jobs --> Redis
+  end
+
+  subgraph External Services
+    API --> Razorpay[Razorpay Payment Gateway]
+    API --> Cloudinary[Cloudinary Media CDN]
+    Jobs --> SMTP[SMTP / Nodemailer Mailer]
+  end
+```
 
 ---
 
-## 🚀 Getting Started
+## ⚡ Core Business Workflows
 
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm
+### 1. Quotation & Material Estimation Lifecycle
 
-### 1. Seed Database
+```mermaid
+sequenceDiagram
+    autonumber
+    actor C as Customer / Contractor
+    participant W as Storefront
+    participant S as Backend API
+    actor A as Admin / Materials Engineer
+
+    C->>W: Select Materials (or snap handwritten paper list)
+    W->>S: Submit Material Request (POST /api/material-requests)
+    S-->>A: Notify Material Request received
+    A->>S: Verify inventory & issue Quotation with locked rates (POST /api/quotations)
+    S-->>C: Quotation Ready Notification (WhatsApp / SMS / Email)
+    C->>W: Review Quotation in Account Dashboard
+    alt Accepts Quotation
+        C->>W: Click "Accept & Pay" (POST /api/quotations/:id/accept)
+        W->>S: Convert to Confirmed Order with locked unit rates
+        S->>W: Redirect to Order Confirmation
+    else Rejects or Requests Revision
+        C->>W: Decline / Request Quantity Change
+    end
+```
+
+### 2. Confirmed Order Fulfillment & Tax Invoicing
+```mermaid
+stateDiagram-v2
+    [*] --> Confirmed: Checkout Complete / Quotation Accepted
+    Confirmed --> Processing: Warehouse Picking & Quality Check
+    Processing --> ReadyForDispatch: Materials Loaded onto Delivery Truck
+    ReadyForDispatch --> OutForDelivery: In Transit to Project Site
+    OutForDelivery --> Delivered: Site Handover & Material Sign-off
+    Confirmed --> Cancelled: Customer / Admin Cancellation
+    Processing --> Cancelled: Inventory Unavailability
+    Delivered --> [*]
+    Cancelled --> [*]
+```
+
+---
+
+## 🔐 Role-Based Access Matrix
+
+| Role | Catalog Browsing & Cart | Place Orders & Track | Quotations Management | Product Catalog CRUD | User Management | System Settings |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Guest / Anonymous** | ✅ | ❌ (Prompts Login) | ❌ | ❌ | ❌ | ❌ |
+| **Customer** | ✅ | ✅ | ✅ (Own quotes) | ❌ | ❌ | ❌ |
+| **Support Staff** | ✅ | ✅ (Read-only) | ✅ (Read-only) | ❌ | ❌ (View notes) | ❌ |
+| **Operations Manager**| ✅ | ✅ | ✅ (Issue quotes) | ✅ | ❌ | ❌ |
+| **Administrator** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+---
+
+## 🚀 Quick Start Guide
+
+### Option 1: Docker Compose (Zero Configuration)
+
+Bring up the complete production-identical stack (MongoDB replica set, Redis, Node API, Worker, and Nginx frontend) with one command:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/your-org/build-mart.git
+cd build-mart
+
+# 2. Launch containerized cluster
+docker compose up -d --build
+
+# 3. Access web applications
+# Storefront: http://localhost
+# API Health: http://localhost:5000/api/health
+# OpenAPI Docs: http://localhost:5000/api/docs
+```
+
+---
+
+### Option 2: Local Developer Setup (Zero-Config In-Memory Database)
+
+The backend features an automated in-memory MongoDB engine (`mongodb-memory-server`). When `MONGODB_URI` is omitted in development, the engine spawns seamlessly without needing a local MongoDB daemon installed.
+
+#### 1. Install Dependencies
+```bash
+npm install --prefix backend
+npm install --prefix frontend
+```
+
+#### 2. Seed Database
 ```bash
 npm run seed
 ```
-Seeds 29 authentic products across all 8 categories, brands, coupons, demo customer, and admin accounts.
+*Seeds 30 high-volume construction materials across 8 categories (UltraTech, Tata Tiscon, Astral, Dr. Fixit, Jaquar), demo coupons (`BUILD10`), and admin accounts (`admin@buildmart.in` / `Admin@123456`).*
 
-### 2. Start Backend API Server
+#### 3. Start Development Servers
+Run the backend API and frontend Vite servers concurrently:
 ```bash
-npm run backend
-# or for auto-reload:
+# Terminal 1: Backend API (Port 5000)
 npm run backend:dev
-```
-The server will start at `http://localhost:5000`.
 
-### 3. Start Frontend Dev Server
-In a separate terminal:
-```bash
+# Terminal 2: Frontend Client (Port 5173)
 npm run frontend
 ```
-The Vite development server will start at `http://localhost:5173`.
+
+Storefront will be running at `http://localhost:5173`.
 
 ---
 
-## 🔑 Demo Login Credentials
+## 🧪 Testing & Verification
 
-### Administrator Account
-- **URL:** `http://localhost:5173/admin/login` (or click "Admin Login" in website footer)
-- **Email:** `admin@buildmart.com`
-- **Password:** `admin123`
+The platform includes 26 automated unit, regression, and integration tests covering:
+- Zero Client Price Trust & GST calculation (Intra-state CGST/SGST vs Inter-state IGST).
+- Gap-free sequential invoice/order counter generators.
+- Atomic stock reservations and race condition handling.
+- Locked quotation rate overrides.
+- Account recovery tokens with SHA-256 one-time hashing.
+- Review spam prevention and rating denormalization.
+- Wishlist uniqueness per user.
+- Delivery serviceability pincode lookup.
+- Streaming PDF tax invoice generation.
+- Dynamic `sitemap.xml` and `robots.txt` crawler routing.
+- Cart live inventory validation and guest cart merge on login.
 
-### Demo Contractor Account
-- **URL:** `http://localhost:5173/login`
-- **Email:** `customer@buildmart.com`
-- **Password:** `customer123`
+Run the full automated test suite:
+```bash
+npm test --prefix backend
+```
 
+Run frontend production build verification (with code-splitting and bundle budgets):
+```bash
+npm run build --prefix frontend
+```
+
+---
+
+## 📁 Repository Structure
+
+```
+build-mart/
+├── .github/
+│   ├── workflows/ci.yml       # GitHub Actions CI workflow
+│   └── dependabot.yml         # Automated dependency vulnerability updates
+├── backend/
+│   ├── src/
+│   │   ├── config/            # Database & environment configurations
+│   │   ├── constants/         # Order, enquiry, and system enums
+│   │   ├── controllers/       # Business logic controllers
+│   │   ├── jobs/              # Background queue workers (sweepers & stock releases)
+│   │   ├── middleware/        # JWT auth, validation, uploads, rate limiters
+│   │   ├── models/            # Mongoose ODM schemas & compound indexes
+│   │   ├── routes/            # Express router declarations
+│   │   ├── scripts/           # Migration runners, admin bootstrap, load test seeders
+│   │   ├── services/          # Pricing engine, PDF invoice streamer, cache wrapper
+│   │   └── utils/             # State machine, logger, counters, async helpers
+│   ├── tests/                 # Automated Node.js test suites
+│   ├── Dockerfile             # Multi-stage production container
+│   └── package.json
+├── frontend/
+│   ├── public/                # Favicon, PWA manifest, fallback SVG placeholders
+│   ├── src/
+│   │   ├── components/        # Reusable UI components, modals, and admin DataTable
+│   │   ├── context/           # Auth, Cart, Wishlist, Settings, Notifications contexts
+│   │   ├── pages/             # Lazy-loaded storefront and admin pages
+│   │   └── utils/             # Axios instance, token refresh queue, formatters
+│   ├── nginx.conf             # Production Nginx reverse proxy configuration
+│   ├── Dockerfile             # Production static SPA container
+│   └── vite.config.js         # Rollup manualChunks & code-splitting configuration
+├── docs/                      # Technical reports, OpenAPI specs & deployment runbooks
+├── docker-compose.yml         # Production multi-container orchestration
+├── docker-compose.dev.yml     # Hot-reloading development orchestration
+├── SECURITY.md                # Vulnerability disclosure & defense-in-depth policy
+└── README.md
+```
+
+---
+
+## 📜 Available NPM Scripts
+
+| Command | Scope | Description |
+| :--- | :--- | :--- |
+| `npm run seed` | Root | Seeds 30 products, brands, categories, coupons, and admin account |
+| `npm run build` | Root / Frontend | Compiles production frontend bundle with Rollup code-splitting |
+| `npm test --prefix backend` | Backend | Executes all 26 automated unit and integration tests |
+| `npm run migrate --prefix backend` | Backend | Runs database migrations (supports `--dry-run`) |
+| `npm run worker --prefix backend` | Backend | Starts standing background job worker |
+| `npm run seed:load --prefix backend`| Backend | Seeds 10,000 products & 50,000 orders for load benchmarking |
+
+---
+
+## 📄 License & Support
+
+Proprietary software — Built for BuildMart Technologies Pvt Ltd.  
+For technical support or inquiries, email `orders@buildmart.in`.

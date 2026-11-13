@@ -1,6 +1,7 @@
 import LabourRequest from '../models/LabourRequest.js';
 import Notification from '../models/Notification.js';
 import { asyncHandler, ApiError, ApiResponse, sendEmail } from '../utils/index.js';
+import { generateLabourId } from '../utils/counter.js';
 
 export const submitLabourRequest = asyncHandler(async (req, res) => {
   const {
@@ -22,8 +23,7 @@ export const submitLabourRequest = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'Labour trade, start date, and expected duration are required.');
   }
 
-  const count = await LabourRequest.countDocuments();
-  const bookingId = `BM-LBR-${Date.now().toString().slice(-4)}-${(count + 1).toString().padStart(3, '0')}`;
+  const bookingId = await generateLabourId();
 
   const newLabour = await LabourRequest.create({
     bookingId,

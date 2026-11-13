@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import {
   ShieldCheck,
   Truck,
@@ -31,6 +31,11 @@ const CheckoutPage = () => {
   const { user } = useAuth();
   const { showToast } = useNotification();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const quotationParam = searchParams.get('quotation');
+
+  const [quotationData, setQuotationData] = useState(null);
+  const [loadingQuotation, setLoadingQuotation] = useState(!!quotationParam);
 
   useEffect(() => {
     if (!user) {
@@ -38,6 +43,34 @@ const CheckoutPage = () => {
       navigate('/login', { state: { from: '/checkout', message: 'Please sign in to proceed with checkout.' } });
     }
   }, [user, navigate]);
+
+  // Load quotation checkout data if coming from formal quotation accept
+  useEffect(() => {
+    if (quotationParam) {
+      setLoadingQuotation(true);
+      api.post(`/quotations/${quotationParam}/checkout`)
+        .then(res => {
+          const qd = res.data?.data || res.data;
+          setQuotationData(qd);
+          if (qd.customer) {
+            setCustomer(prev => ({
+              ...prev,
+              name: qd.customer.name || prev.name,
+              phone: qd.customer.phone || prev.phone,
+              email: qd.customer.email || prev.email,
+              address: qd.customer.siteAddress || qd.customer.address || prev.address,
+              city: qd.customer.city || prev.city,
+              pincode: qd.customer.pincode || prev.pincode
+            }));
+          }
+        })
+        .catch(err => {
+          showToast(err.response?.data?.message || 'Failed to initialize quotation checkout.', 'error');
+          navigate('/account?tab=quotations');
+        })
+        .finally(() => setLoadingQuotation(false));
+    }
+  }, [quotationParam, navigate, showToast]);
 
   // Customer delivery details
   const [customer, setCustomer] = useState({
@@ -80,7 +113,6 @@ const CheckoutPage = () => {
   const handleRazorpayPayment = async () => {
     setSubmitting(true);
 
-    // Load Razorpay checkout script
     const loaded = await loadRazorpayScript();
     if (!loaded) {
       showToast('Payment gateway failed to load. Check internet connection.', 'error');
@@ -89,21 +121,16 @@ const CheckoutPage = () => {
     }
 
     try {
-      // Create Razorpay order on backend
+      const checkoutItems = quotationData
+        ? quotationData.items.map(item => ({ productId: item.productId, quantity: item.quantity }))
+        : cartItems.map(item => ({ productId: item.productId || item._id, quantity: item.quantity }));
+
+      // Create Razorpay order on backend (pricing computed strictly server-side)
       const { data } = await api.post('/payments/razorpay/create-order', {
         customer,
-        items: cartItems.map(item => ({
-          productId: item.productId || item._id,
-          name: item.name,
-          brand: item.brand,
-          image: item.image,
-          quantity: item.quantity,
-          unit: item.unit,
-          price: item.price
-        })),
-        discount: couponDiscount,
-        couponApplied: coupon?.code || '',
-        deliveryCharge: deliveryFee,
+        items: checkoutItems,
+        couponApplied: quotationData ? '' : (coupon?.code || ''),
+        quotationId: quotationData?.quotationId || undefined,
         labourDetails: needLabour
           ? { ...labourData, hasLabour: true, labourCharges: 0, chargesApproved: false }
           : { hasLabour: false }
@@ -116,45 +143,26 @@ const CheckoutPage = () => {
         amount: orderPayload.amount || data.amount,
         currency: orderPayload.currency || data.currency || 'INR',
         name: 'BuildMart',
-        description: 'Construction Materials Procurement',
+        description: quotationData ? `Quotation #${quotationData.quotationId} Procurement` : 'Construction Materials Procurement',
         order_id: orderPayload.razorpayOrderId || data.razorpayOrderId,
         prefill: {
           name: customer.name,
           email: customer.email,
           contact: customer.phone
         },
-        theme: { color: '#d97706' }, // amber to match brand
+        theme: { color: '#d97706' },
         handler: async function (response) {
-          // Fires on successful payment — verify on backend
+          // Verify cryptographic signature strictly without client orderData
           try {
             const verifyRes = await api.post('/payments/razorpay/verify', {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              orderData: {
-                customer,
-                items: cartItems.map(item => ({
-                  productId: item.productId || item._id,
-                  name: item.name,
-                  brand: item.brand,
-                  image: item.image,
-                  quantity: item.quantity,
-                  unit: item.unit,
-                  price: item.price
-                })),
-                paymentMethod: 'Razorpay',
-                discount: couponDiscount,
-                couponApplied: coupon?.code || '',
-                deliveryCharge: deliveryFee,
-                labourDetails: needLabour
-                  ? { hasLabour: true, ...labourData, labourCharges: 0, chargesApproved: false }
-                  : { hasLabour: false }
-              }
+              razorpay_signature: response.razorpay_signature
             });
-            clearCart();
-            const orderResult = verifyRes.data.order ? verifyRes.data : (verifyRes.data.data || verifyRes.data);
-            setConfirmedOrder(orderResult);
+            if (!quotationData) clearCart();
+            const orderResult = verifyRes.data.order ? verifyRes.data.order : (verifyRes.data.data?.order || verifyRes.data.data || verifyRes.data);
             showToast('Payment successful! Order confirmed.', 'success', 5000);
+            navigate(`/order-success/${orderResult.orderId || orderResult._id}`);
           } catch (err) {
             showToast(
               'Payment verification failed. Contact support with payment ID: ' + response.razorpay_payment_id,
@@ -186,16 +194,16 @@ const CheckoutPage = () => {
     }
   };
 
-  // ─── Main Order Handler ───────────────────────────────────────────────────
+  // ─── Main Order Handler (COD / Bank Transfer) ──────────────────────────────
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
-    if (!cartItems.length) {
-      showToast('Your cart is empty!', 'error');
+    const effectiveItems = quotationData ? quotationData.items : cartItems;
+    if (!effectiveItems.length) {
+      showToast('No items to checkout!', 'error');
       return;
     }
 
     if (paymentMethod === 'Online') {
-      // Validate required fields before opening Razorpay
       if (!customer.name || !customer.phone || !customer.email || !customer.address || !customer.city || !customer.pincode) {
         showToast('Please fill in all required delivery details before proceeding to payment.', 'error');
         return;
@@ -204,36 +212,31 @@ const CheckoutPage = () => {
       return;
     }
 
-    // COD / Bank Transfer — existing logic unchanged
     setSubmitting(true);
     try {
+      const checkoutItems = quotationData
+        ? quotationData.items.map(item => ({ productId: item.productId, quantity: item.quantity }))
+        : cartItems.map(item => ({ productId: item.productId || item._id, quantity: item.quantity }));
+
       const payload = {
         customer,
-        items: cartItems.map(item => ({
-          productId: item.productId || item._id,
-          name: item.name,
-          brand: item.brand,
-          image: item.image,
-          quantity: item.quantity,
-          unit: item.unit,
-          price: item.price
-        })),
+        items: checkoutItems,
         paymentMethod,
-        discount: couponDiscount,
-        couponApplied: coupon ? coupon.code : '',
-        deliveryCharge: deliveryFee,
+        couponApplied: quotationData ? '' : (coupon ? coupon.code : ''),
+        quotationId: quotationData?.quotationId || undefined,
         labourDetails: needLabour ? {
           hasLabour: true,
           ...labourData,
-          labourCharges: 0, // Admin sets charges upon site evaluation
+          labourCharges: 0,
           chargesApproved: false
         } : { hasLabour: false }
       };
 
       const res = await api.post('/orders', payload);
-      clearCart();
-      setConfirmedOrder(res.data);
+      if (!quotationData) clearCart();
+      const newOrder = res.data?.data || res.data;
       showToast('Order confirmed successfully!', 'success', 5000);
+      navigate(`/order-success/${newOrder.orderId || newOrder._id}`);
     } catch (err) {
       const msg = err.response?.data?.message || 'Error placing order.';
       showToast(msg, 'error');
@@ -347,12 +350,51 @@ const CheckoutPage = () => {
     );
   }
 
+  if (loadingQuotation) {
+    return (
+      <div style={{ padding: '100px 0', textAlign: 'center' }}>
+        <div style={{ width: '40px', height: '40px', border: '3px solid var(--border)', borderTopColor: 'var(--color-accent)', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px' }} />
+        <p style={{ fontWeight: 600, color: 'var(--color-muted)' }}>Loading formal quotation checkout details...</p>
+      </div>
+    );
+  }
+
+  const displayItems = quotationData ? quotationData.items : cartItems;
+  const displayItemCount = quotationData ? quotationData.items.length : cartCount;
+  const displaySubtotal = quotationData ? quotationData.pricing.subtotal : subtotal;
+  const displayTax = quotationData ? quotationData.pricing.tax : tax;
+  const displayDelivery = quotationData ? quotationData.pricing.delivery : deliveryFee;
+  const displayTotal = quotationData ? quotationData.pricing.total : totalAmount;
+
   return (
     <div style={{ padding: '28px 0 80px' }}>
       <div className="container">
+        {quotationData && (
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(217, 119, 6, 0.04))',
+            border: '2px solid var(--color-accent)',
+            borderRadius: '12px',
+            padding: '16px 20px',
+            marginBottom: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px'
+          }}>
+            <ShieldCheck size={32} color="var(--color-accent)" />
+            <div>
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--color-ink)', margin: 0 }}>
+                Formal Builder Quotation #{quotationData.quotationId} (Locked Pricing)
+              </h3>
+              <p style={{ fontSize: '13px', color: 'var(--color-muted)', margin: '4px 0 0' }}>
+                Locked prices valid until <strong>{quotationData.validUntil}</strong>. Quoted materials and freight rates are guaranteed.
+              </p>
+            </div>
+          </div>
+        )}
+
         <div style={{ marginBottom: '24px' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--color-ink)' }}>
-            Checkout & Order Confirmation
+            {quotationData ? 'Quotation Checkout & Fulfillment' : 'Checkout & Order Confirmation'}
           </h1>
           <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '4px' }}>
             Please confirm your job-site delivery location and service options.
@@ -721,38 +763,42 @@ const CheckoutPage = () => {
           {/* Right Column: Order Summary & Placement */}
           <div style={{ background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border)', padding: '24px' }}>
             <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid var(--border)' }}>
-              Order Review ({cartCount} item{cartCount > 1 ? 's' : ''})
+              Order Review ({displayItemCount} item{displayItemCount > 1 ? 's' : ''})
             </h2>
 
             {/* Item summary snippets */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '240px', overflowY: 'auto', marginBottom: '16px', paddingRight: '4px' }}>
-              {cartItems.map(item => (
-                <div key={item.productId || item._id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
-                  <span style={{ color: 'var(--secondary-light)', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {item.name} × {item.quantity}
-                  </span>
-                  <strong style={{ color: 'var(--color-ink)' }}>
-                    ₹{(item.price * item.quantity).toLocaleString('en-IN')}
-                  </strong>
-                </div>
-              ))}
+              {displayItems.map((item, idx) => {
+                const itemPrice = item.unitPrice || item.price || 0;
+                const itemTotal = item.totalPrice || (itemPrice * item.quantity);
+                return (
+                  <div key={item.productId || item._id || idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
+                    <span style={{ color: 'var(--secondary-light)', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {item.name} × {item.quantity}
+                    </span>
+                    <strong style={{ color: 'var(--color-ink)' }}>
+                      ₹{itemTotal.toLocaleString('en-IN')}
+                    </strong>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Separate Material and Labour Breakdown */}
             <div style={{ borderTop: '1px solid var(--border)', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13.5px', marginBottom: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>Material Cost:</span>
-                <span>₹{subtotal.toLocaleString('en-IN')}</span>
+                <span>₹{displaySubtotal.toLocaleString('en-IN')}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
-                <span>GST (18% ITC):</span>
-                <span>₹{tax.toLocaleString('en-IN')}</span>
+                <span>GST (ITC Eligible):</span>
+                <span>₹{displayTax.toLocaleString('en-IN')}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>Site Delivery Freight:</span>
-                <span>{deliveryFee === 0 ? <strong style={{ color: 'var(--color-success)' }}>FREE</strong> : `₹${deliveryFee}`}</span>
+                <span>{displayDelivery === 0 ? <strong style={{ color: 'var(--color-success)' }}>FREE</strong> : `₹${displayDelivery}`}</span>
               </div>
-              {couponDiscount > 0 && (
+              {!quotationData && couponDiscount > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)', fontWeight: 600 }}>
                   <span>Coupon Discount:</span>
                   <span>- ₹{couponDiscount.toLocaleString('en-IN')}</span>
@@ -767,8 +813,8 @@ const CheckoutPage = () => {
             </div>
 
             <div style={{ borderTop: '2px solid var(--color-ink)', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)', marginBottom: '20px' }}>
-              <span>Material Total:</span>
-              <span>₹{totalAmount.toLocaleString('en-IN')}</span>
+              <span>Total Payable:</span>
+              <span style={{ color: 'var(--color-accent)' }}>₹{displayTotal.toLocaleString('en-IN')}</span>
             </div>
 
             <button
@@ -780,7 +826,7 @@ const CheckoutPage = () => {
               <span>
                 {submitting
                   ? (paymentMethod === 'Online' ? 'Connecting to Razorpay...' : 'Placing Order...')
-                  : (paymentMethod === 'Online' ? `Pay Now ₹${totalAmount.toLocaleString('en-IN')} via Razorpay` : 'Confirm & Place Order →')
+                  : (paymentMethod === 'Online' ? `Pay Now ₹${displayTotal.toLocaleString('en-IN')} via Razorpay` : 'Confirm & Place Order →')
                 }
               </span>
               {!submitting && <ArrowRight size={16} />}

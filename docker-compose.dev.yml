@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: buildmart-mongo-dev
+    command: ["--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-dev-data:/data/db
+    healthcheck:
+      test: mongosh --eval "try { rs.status().ok } catch(e) { rs.initiate().ok }" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: buildmart-redis-dev
+    ports:
+      - "6379:6379"
+
+  api:
+    image: node:22-alpine
+    container_name: buildmart-api-dev
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - CLIENT_URL=http://localhost:5173
+      - MONGODB_URI=mongodb://mongo:27017/buildmart_dev?replicaSet=rs0
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=dev_only_secret_do_not_use_in_production_32ch
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  web:
+    image: node:22-alpine
+    container_name: buildmart-web-dev
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - api
+
+volumes:
+  mongo-dev-data:
+

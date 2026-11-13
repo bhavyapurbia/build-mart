@@ -13,20 +13,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       if (token) {
-        if (token === 'bm_admin_demo_jwt_token') {
-          setUser({
-            _id: 'admin_demo_bm1',
-            name: 'BuildMart Administrator',
-            email: 'admin@buildmart.com',
-            role: 'admin',
-            phone: '9876543210'
-          });
-          setLoading(false);
-          return;
-        }
         try {
           const res = await api.get('/auth/me');
-          setUser(res.data);
+          const userData = res.data?.data || res.data;
+          setUser(userData);
         } catch (err) {
           console.warn('Session expired or invalid token');
           localStorage.removeItem('bm_token');
@@ -43,11 +33,12 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const res = await api.post('/auth/login', { email, password });
-      const { token: newToken, user: userData } = res.data;
+      const payload = res.data?.data || res.data;
+      const { token: newToken, user: userData } = payload;
       localStorage.setItem('bm_token', newToken);
       setToken(newToken);
       setUser(userData);
-      showToast(`Welcome back, ${userData.name}!`, 'success');
+      showToast(`Welcome back, ${userData?.name || 'Customer'}!`, 'success');
       return { success: true };
     } catch (err) {
       const msg = err.response?.data?.message || 'Login failed. Please check credentials.';
@@ -59,28 +50,14 @@ export const AuthProvider = ({ children }) => {
   const adminLogin = async (email, password) => {
     try {
       const res = await api.post('/auth/admin-login', { email, password });
-      const { token: newToken, user: userData } = res.data;
+      const payload = res.data?.data || res.data;
+      const { token: newToken, user: userData } = payload;
       localStorage.setItem('bm_token', newToken);
       setToken(newToken);
       setUser(userData);
       showToast('Admin authorized successfully!', 'success');
       return { success: true };
     } catch (err) {
-      if (email === 'admin@buildmart.com' && (password === 'admin123' || !password)) {
-        const demoAdmin = {
-          _id: 'admin_demo_bm1',
-          name: 'BuildMart Administrator',
-          email: 'admin@buildmart.com',
-          role: 'admin',
-          phone: '9876543210'
-        };
-        const mockToken = 'bm_admin_demo_jwt_token';
-        localStorage.setItem('bm_token', mockToken);
-        setToken(mockToken);
-        setUser(demoAdmin);
-        showToast('Authorized as BuildMart Administrator!', 'success');
-        return { success: true };
-      }
       const msg = err.response?.data?.message || 'Admin authentication failed.';
       showToast(msg, 'error');
       return { success: false, message: msg };
@@ -90,7 +67,8 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const res = await api.post('/auth/register', userData);
-      const { token: newToken, user: newUser } = res.data;
+      const payload = res.data?.data || res.data;
+      const { token: newToken, user: newUser } = payload;
       localStorage.setItem('bm_token', newToken);
       setToken(newToken);
       setUser(newUser);
@@ -103,22 +81,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const ensureAdminAccess = () => {
-    const adminUser = {
-      _id: '2a48e52322fc7ceecd3231e1',
-      name: 'BuildMart Administrator',
-      email: 'admin@buildmart.com',
-      role: 'admin',
-      phone: '9876543210'
-    };
-    const mockToken = 'bm_admin_demo_jwt_token';
-    localStorage.setItem('bm_token', mockToken);
-    setToken(mockToken);
-    setUser(adminUser);
-    showToast('Authorized as BuildMart Administrator!', 'success');
-    return adminUser;
-  };
-
   const logout = () => {
     localStorage.removeItem('bm_token');
     setToken(null);
@@ -129,7 +91,8 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (profileData) => {
     try {
       const res = await api.put('/auth/profile', profileData);
-      setUser(res.data.user);
+      const payload = res.data?.data || res.data;
+      setUser(payload.user || payload);
       showToast('Profile updated!', 'success');
       return { success: true };
     } catch (err) {
@@ -144,10 +107,11 @@ export const AuthProvider = ({ children }) => {
     token,
     loading,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin',
+    isAdmin: ['admin', 'manager', 'support'].includes(user?.role),
+    isSuperAdmin: user?.role === 'admin',
+    userRole: user?.role || 'guest',
     login,
     adminLogin,
-    ensureAdminAccess,
     register,
     logout,
     updateProfile
@@ -161,4 +125,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
-

@@ -18,13 +18,16 @@ import {
   Hammer,
   Megaphone,
   ShieldCheck,
-  CreditCard
+  CreditCard,
+  FileText
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import NotificationBell from '../../components/common/NotificationBell';
 
 const NAV_ITEMS = [
   { path: '/admin/overview', label: 'Overview', icon: LayoutDashboard },
   { path: '/admin/material-requests', label: 'Material Requests', icon: ClipboardList, badge: 'Crucial' },
+  { path: '/admin/quotations', label: 'Quotations', icon: FileText },
   { path: '/admin/orders', label: 'Order Management', icon: ShoppingCart },
   { path: '/admin/payments', label: 'Payments & Gateway', icon: CreditCard },
   { path: '/admin/products', label: 'Products', icon: Package },
@@ -40,7 +43,7 @@ const NAV_ITEMS = [
 ];
 
 const AdminLayout = () => {
-  const { user, isAdmin, loading, ensureAdminAccess, logout } = useAuth();
+  const { user, isAdmin, loading, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -62,22 +65,14 @@ const AdminLayout = () => {
           </div>
           <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)', marginBottom: '8px' }}>BuildMart Admin Console</h2>
           <p style={{ color: 'var(--text-light)', fontSize: '13.5px', lineHeight: 1.5, marginBottom: '24px' }}>
-            Full access to website controls: Products, Categories, Banners, Orders, Labour, Bulk Inquiries &amp; Settings.
+            Administrator access is required. Please log in with your admin credentials.
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              ensureAdminAccess();
-            }}
-            style={{ width: '100%', padding: '14px 20px', background: 'var(--color-accent)', color: 'var(--bg-card)', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: 'var(--shadow-amber)', transition: 'all 0.2s ease' }}
+          <Link
+            to="/admin/login"
+            style={{ display: 'block', width: '100%', padding: '14px 20px', background: 'var(--color-accent)', color: 'var(--bg-card)', borderRadius: '10px', fontSize: '15px', fontWeight: 800, textAlign: 'center', textDecoration: 'none', boxShadow: 'var(--shadow-amber)' }}
           >
-            <span>Open Admin Console Instantly</span>
-          </button>
-          <div style={{ marginTop: '16px' }}>
-            <Link to="/admin/login" style={{ color: 'var(--color-accent)', fontSize: '12.5px', textDecoration: 'underline' }}>
-              Or log in with custom administrator credentials
-            </Link>
-          </div>
+            Log in to Admin Console
+          </Link>
         </div>
       </div>
     );
@@ -180,7 +175,8 @@ const AdminLayout = () => {
           <div style={{ fontSize: '14px', color: 'var(--color-muted)' }}>
             Fulfillment Operations • Central Logistics Yard - Bengaluru
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <NotificationBell isAdmin={true} />
             <div style={{ textAlign: 'right' }}>
               <strong style={{ fontSize: '13.5px', color: 'var(--color-ink)', display: 'block' }}>{user?.name}</strong>
               <span style={{ fontSize: '11.5px', color: 'var(--color-success)', fontWeight: 600 }}>Active Administrator</span>

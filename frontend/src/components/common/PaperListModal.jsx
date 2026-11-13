@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Camera, Upload, X, CheckCircle, ShieldCheck, ArrowRight, AlertCircle, FileText } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
@@ -19,6 +19,19 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setImagePreview(null);
+        setSubmittedData(null);
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -76,7 +89,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={handleClose}>
+    <div className="modal-backdrop" onClick={handleClose} role="dialog" aria-modal="true" aria-labelledby="paper-list-modal-title">
       <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px', borderRadius: '18px' }}>
         {submittedData ? (
           /* Confirmation Success Screen */
@@ -132,7 +145,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                   <Camera size={18} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '16.5px', fontWeight: 800, color: 'var(--color-ink)' }}>
+                  <h3 id="paper-list-modal-title" style={{ fontSize: '16.5px', fontWeight: 800, color: 'var(--color-ink)' }}>
                     Snap Paper Material List
                   </h3>
                   <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>
@@ -140,7 +153,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
                   </div>
                 </div>
               </div>
-              <button onClick={handleClose} style={{ background: 'transparent', cursor: 'pointer' }}>
+              <button onClick={handleClose} aria-label="Close modal" style={{ background: 'transparent', cursor: 'pointer', border: 'none', padding: '4px' }}>
                 <X size={20} color='var(--color-muted)' />
               </button>
             </div>

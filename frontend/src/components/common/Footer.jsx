@@ -8,10 +8,20 @@ import {
   Clock,
   ShieldCheck,
   Lock,
-  MessageSquare
+  MessageSquare,
+  Truck
 } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
 
 const Footer = () => {
+  const { settings } = useSettings();
+
+  const phone = settings?.supportPhone || '1800-890-5000';
+  const email = settings?.supportEmail || 'orders@buildmart.in';
+  const address = settings?.officeAddress || 'BuildMart Fulfillment Hub 01, Outer Ring Road, Bellandur, Bengaluru 560103';
+  const whatsapp = (settings?.whatsappNumber || '+919876543210').replace(/\+/g, '');
+  const gstin = settings?.sellerGstin || '29AABCB1234F1Z5';
+
   return (
     <footer className="footer-main">
       <div className="container">
@@ -33,15 +43,19 @@ const Footer = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Phone size={15} color='var(--color-accent)' />
-                <span>1800-890-5000 (Toll Free)</span>
+                <a href={`tel:${phone.replace(/\D/g, '')}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {phone} (Toll Free)
+                </a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Mail size={15} color='var(--color-accent)' />
-                <span>orders@buildmart.in</span>
+                <a href={`mailto:${email}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {email}
+                </a>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                 <MapPin size={15} color='var(--color-accent)' style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>BuildMart Central Logistics Yard, Outer Ring Road, Bellandur, Bengaluru 560103</span>
+                <span>{address}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Clock size={15} color='var(--color-success)' />
@@ -50,7 +64,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Top Categories (All 8 categories) */}
+          {/* Column 2: Top Categories */}
           <div>
             <h4 className="footer-column-title">Top Categories</h4>
             <ul className="footer-links-list">
@@ -65,18 +79,18 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: Customer Support */}
+          {/* Column 3: Customer Support & Legal */}
           <div>
             <h4 className="footer-column-title">Customer Support</h4>
             <ul className="footer-links-list">
-              <li><a href="#help">Help & Support</a></li>
-              <li><a href="#faqs">Frequently Asked Questions</a></li>
-              <li><a href="#delivery">30-Min Delivery Policy</a></li>
-              <li><a href="#return">Return & Refund Policy</a></li>
-              <li><a href="#privacy">Privacy Policy</a></li>
-              <li><a href="#terms">Terms & Conditions</a></li>
+              <li><Link to="/contact">Help & Support</Link></li>
+              <li><Link to="/faq">Frequently Asked Questions</Link></li>
+              <li><Link to="/track-order">Track Delivery Truck</Link></li>
+              <li><Link to="/shipping-and-delivery-policy">30-Min Delivery Policy</Link></li>
+              <li><Link to="/refund-and-return-policy">Return & Refund Policy</Link></li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
               <li><Link to="/labour-booking">Labour Service Booking</Link></li>
-              <li><Link to="/material-list">Material Checklist Tool</Link></li>
             </ul>
           </div>
 
@@ -85,11 +99,11 @@ const Footer = () => {
             <h4 className="footer-column-title">Company</h4>
             <ul className="footer-links-list">
               <li><Link to="/bulk-enquiry">Bulk Orders & Contractor Desk</Link></li>
-              <li><a href="#partner">Partner With Us</a></li>
-              <li><a href="#careers">Careers</a></li>
-              <li><a href="#press">Press & Media</a></li>
-              <li><a href="#about">About BuildMart</a></li>
-              {/* Discrete Admin Login link as requested */}
+              <li><Link to="/about">About BuildMart</Link></li>
+              <li><Link to="/careers">Careers at BuildMart</Link></li>
+              <li><Link to="/contact">Partner With Us</Link></li>
+              <li><Link to="/material-list">Material Checklist Tool</Link></li>
+              {/* Discrete Admin Login link */}
               <li style={{ marginTop: '16px' }}>
                 <Link to="/admin/login" className="footer-admin-link">
                   <Lock size={12} />
@@ -100,7 +114,7 @@ const Footer = () => {
 
             <div style={{ marginTop: '24px' }}>
               <a
-                href="https://wa.me/919876543210?text=Hello%20BuildMart%20Support,%20I%20need%20assistance%20with%20construction%20materials"
+                href={`https://wa.me/${whatsapp}?text=Hello%20BuildMart%20Support,%20I%20need%20assistance%20with%20construction%20materials`}
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -112,7 +126,8 @@ const Footer = () => {
                   padding: '9px 16px',
                   borderRadius: '8px',
                   fontWeight: 700,
-                  fontSize: '13px'
+                  fontSize: '13px',
+                  textDecoration: 'none'
                 }}
               >
                 <MessageSquare size={16} />
@@ -122,16 +137,16 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar with Seller GSTIN */}
         <div className="footer-bottom">
           <div>
-            © {new Date().getFullYear()} BuildMart Technologies India Private Limited. All Rights Reserved.
+            © {new Date().getFullYear()} BuildMart Technologies India Private Limited. All Rights Reserved. • GSTIN: <strong>{gstin}</strong>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span>Verified Genuine Materials</span>
-            
+            <span>•</span>
             <span>RERA Compliant Batch Certifications</span>
-            
+            <span>•</span>
             <span>SSL 256-bit Secure Checkout</span>
           </div>
         </div>
@@ -141,4 +156,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

@@ -73,3 +73,7 @@ Thumbs.db
 # AI & Audit Artifacts (Tools & Benchmark Snapshots)
 .agents/
 .hallmark/
+
+# Backend JSON fallback data store (may contain emails, hashed passwords)
+backend/src/data/
+backend/data/

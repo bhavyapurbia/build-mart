@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ShoppingCart,
@@ -8,14 +8,19 @@ import {
   ArrowRight,
   Tag,
   ShieldCheck,
-  Truck
+  Truck,
+  AlertTriangle
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import SEO from '../components/common/SEO';
+import Img from '../components/common/Img';
 
 const CartPage = () => {
   const {
     cartItems,
     cartCount,
+    validationAlerts,
+    validateCurrentCart,
     updateCartQty,
     removeFromCart,
     clearCart,
@@ -32,6 +37,10 @@ const CartPage = () => {
   const [couponCode, setCouponCode] = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    validateCurrentCart();
+  }, [validateCurrentCart]);
 
   const handleApplyCoupon = async (e) => {
     e.preventDefault();
@@ -255,8 +264,19 @@ const CartPage = () => {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-sub)' }}>
                 <span>Delivery Freight:</span>
-                <span><strong style={{ color: 'var(--color-success)' }}>FREE</strong></span>
+                <span>
+                  {deliveryFee === 0 ? (
+                    <strong style={{ color: 'var(--color-success)' }}>FREE</strong>
+                  ) : (
+                    <span>₹{deliveryFee.toLocaleString('en-IN')}</span>
+                  )}
+                </span>
               </div>
+              {deliveryFee > 0 && subtotal > 0 && subtotal < 5000 && (
+                <div style={{ fontSize: '11.5px', color: 'var(--color-muted)', textAlign: 'right', marginTop: '-4px' }}>
+                  Add ₹{(5000 - subtotal).toLocaleString('en-IN')} more for <strong>FREE Delivery</strong> (orders above ₹5,000)
+                </div>
+              )}
               {couponDiscount > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-success)', fontWeight: 600 }}>
                   <span>Coupon Discount:</span>

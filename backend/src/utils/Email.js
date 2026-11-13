@@ -1,39 +1,57 @@
 import Mailgen from 'mailgen';
 import nodemailer from 'nodemailer';
 
-const sendEmail = async (options) => {
-  const smtpHost = process.env.MAILTRAP_SMTP_HOST || process.env.NODEMAILER_SMTP_HOST;
-  const smtpPort = process.env.MAILTRAP_SMTP_PORT || process.env.NODEMAILER_SMTP_PORT || 587;
-  const smtpUser = process.env.MAILTRAP_SMTP_USER || process.env.NODEMAILER_SMTP_USER;
-  const smtpPass = process.env.MAILTRAP_SMTP_PASS || process.env.NODEMAILER_SMTP_PASS;
+let pooledTransporter = null;
+
+const getTransporter = () => {
+  if (pooledTransporter) return pooledTransporter;
+
+  const smtpHost = process.env.SMTP_HOST || process.env.MAILTRAP_SMTP_HOST || process.env.NODEMAILER_SMTP_HOST;
+  const smtpPort = parseInt(process.env.SMTP_PORT || process.env.MAILTRAP_SMTP_PORT || process.env.NODEMAILER_SMTP_PORT || '587', 10);
+  const smtpUser = process.env.SMTP_USER || process.env.MAILTRAP_SMTP_USER || process.env.NODEMAILER_SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS || process.env.MAILTRAP_SMTP_PASS || process.env.NODEMAILER_SMTP_PASS;
 
   if (!smtpHost || !smtpUser) {
-    console.warn(`⚠️ Email not sent to ${options.email}: SMTP credentials not configured in .env.`);
     return null;
   }
 
-  const mailGenerator = new Mailgen({
-    theme: 'default',
-    product: {
-      name: 'BuildMart',
-      link: process.env.CLIENT_URL || 'http://localhost:5173'
-    }
-  });
-
-  const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
-  const emailHtml = mailGenerator.generate(options.mailgenContent);
-
-  const transporter = nodemailer.createTransport({
+  pooledTransporter = nodemailer.createTransport({
+    pool: true,
+    maxConnections: 6,
+    maxMessages: 100,
     host: smtpHost,
     port: smtpPort,
+    secure: smtpPort === 465,
     auth: {
       user: smtpUser,
       pass: smtpPass
     }
   });
 
+  return pooledTransporter;
+};
+
+const mailGenerator = new Mailgen({
+  theme: 'default',
+  product: {
+    name: 'BuildMart',
+    link: process.env.CLIENT_URL || 'http://localhost:5173'
+  }
+});
+
+export const sendEmail = async (options) => {
+  const transporter = getTransporter();
+
+  if (!transporter) {
+    console.warn(`⚠️ Email not sent to ${options.email}: SMTP credentials not configured in environment.`);
+    return null;
+  }
+
+  const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
+  const emailHtml = mailGenerator.generate(options.mailgenContent);
+
   const mail = {
-    from: process.env.SMTP_FROM || 'support@buildmart.com',
+    from: process.env.SMTP_FROM || '"BuildMart Support" <support@buildmart.in>',
     to: options.email,
     subject: options.subject,
     text: emailTextual,
@@ -44,12 +62,12 @@ const sendEmail = async (options) => {
     const info = await transporter.sendMail(mail);
     return info;
   } catch (error) {
-    console.error('Email service failed silently:', error.message);
+    console.error('Email dispatch failed:', error.message);
     return null;
   }
 };
 
-const emailVerificationMailgenContent = (username, verificationUrl) => {
+export const emailVerificationMailgenContent = (username, verificationUrl) => {
   return {
     body: {
       name: username || 'Valued Customer',
@@ -67,7 +85,7 @@ const emailVerificationMailgenContent = (username, verificationUrl) => {
   };
 };
 
-const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
+export const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
   return {
     body: {
       name: username || 'User',
@@ -85,7 +103,7 @@ const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
   };
 };
 
-const welcomeMailgenContent = (username, webUrl) => {
+export const welcomeMailgenContent = (username, webUrl) => {
   return {
     body: {
       name: username || 'Valued Partner',
@@ -103,9 +121,7 @@ const welcomeMailgenContent = (username, webUrl) => {
   };
 };
 
-
-
-export  {
+export default {
   sendEmail,
   emailVerificationMailgenContent,
   forgotPasswordMailgenContent,

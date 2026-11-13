@@ -1,61 +1,95 @@
-import { createUnifiedModel } from './dbAdapter.js';
+import mongoose from 'mongoose';
+import { PAYMENT_GATEWAY_STATUS } from '../constants/enums.js';
 
-const Payment = createUnifiedModel('Payment', {
-  // Our internal order reference (BM-ORD-xxx) generated at Razorpay order creation time
-  internalOrderId: { type: String },
-
-  // MongoDB _id of the Order document (set after order is created on payment capture)
-  orderId: { type: String },
-
-  // userId — optional, null for guests
+const paymentSchema = new mongoose.Schema({
+  internalOrderId: { type: String, default: null },
+  orderId: { type: String, default: null },
   user: { type: String, default: null },
 
-  // Razorpay identifiers
-  razorpayOrderId: { type: String, required: true, unique: true },
-  razorpayPaymentId: { type: String, default: null },
+  razorpayOrderId: { type: String, required: true, unique: true, trim: true },
+  razorpayPaymentId: { type: String, default: null, trim: true },
   razorpaySignature: { type: String, default: null },
 
-  // Amount in paise (smallest currency unit)
-  amount: { type: Number, required: true },
-  currency: { type: String, default: 'INR' },
+  amount: { type: Number, required: true, min: 0 }, // in paise
+  currency: { type: String, default: 'INR', uppercase: true },
 
-  // Lifecycle status
   status: {
     type: String,
-    enum: ['created', 'authorized', 'captured', 'failed', 'refunded', 'partially_refunded'],
-    default: 'created'
+    enum: Object.values(PAYMENT_GATEWAY_STATUS),
+    default: PAYMENT_GATEWAY_STATUS.CREATED
   },
 
-  // Number of payment attempts made against this Razorpay order
   attempts: { type: Number, default: 0 },
-
-  // Webhook event IDs already processed — for idempotency
-  webhookEventIds: { type: Array, default: [] },
-
-  // Timestamps
+  webhookEventIds: [{ type: String }],
   verifiedAt: { type: Date, default: null },
+  reservedUntil: { type: Date, default: null },
 
-  // Refund details
-  refundId: { type: String, default: null },
-  refundAmount: { type: Number, default: null },
-  refundStatus: { type: String, default: null },
+  // Refunds tracking
+  refundedAmount: { type: Number, default: 0, min: 0 }, // in paise
+  refunds: [{
+    refundId: { type: String, required: true },
+    amount: { type: Number, required: true }, // in paise
+    status: { type: String, default: 'processed' },
+    reason: { type: String, default: '' },
+    createdAt: { type: Date, default: Date.now }
+  }],
 
-  // Error details when payment fails
   errorCode: { type: String, default: null },
   errorDescription: { type: String, default: null },
+  supportReference: { type: String, default: null },
 
-  // Snapshot of the order summary at the time Razorpay order was created
-  orderSummary: {
-    materialCost: { type: Number },
-    tax: { type: Number },
-    delivery: { type: Number },
-    discount: { type: Number },
-    total: { type: Number }
+  // Server-authoritative snapshots taken at payment creation
+  pricingSnapshot: {
+    materialCost: Number,
+    discount: Number,
+    tax: Number,
+    taxBreakup: {
+      cgst: Number,
+      sgst: Number,
+      igst: Number
+    },
+    delivery: Number,
+    labour: Number,
+    total: Number,
+    totalPaise: Number
   },
+  itemsSnapshot: [{
+    productId: String,
+    name: String,
+    brand: String,
+    image: String,
+    quantity: Number,
+    unit: String,
+    price: Number,
+    gstRate: Number,
+    hsnCode: String,
+    discountAllocation: Number,
+    tax: Number,
+    total: Number
+  }],
 
-  // Raw customer + item data passed in at order creation — used when creating the Order after capture
-  pendingOrderData: { type: Object, default: null }
+  customer: {
+    name: String,
+    phone: String,
+    email: String,
+    address: String,
+    city: String,
+    state: String,
+    pincode: String,
+    deliveryInstructions: String
+  },
+  couponApplied: { type: String, default: '' },
+  quotationId: { type: String, default: '' },
+  labourDetails: { type: mongoose.Schema.Types.Mixed, default: null }
+}, {
+  timestamps: true,
+  minimize: false
 });
+
+// Appendix C indexes
+paymentSchema.index({ status: 1, createdAt: -1 });
+
+const Payment = mongoose.models.Payment || mongoose.model('Payment', paymentSchema);
 
 export default Payment;
 export { Payment };

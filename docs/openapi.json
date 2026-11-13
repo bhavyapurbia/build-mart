@@ -1,0 +1,277 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "BuildMart Construction Materials API",
+    "version": "1.0.0",
+    "description": "Production-grade RESTful API for BuildMart, India's leading B2B/B2C construction materials e-commerce platform.",
+    "contact": {
+      "name": "BuildMart Engineering Team",
+      "email": "orders@buildmart.in",
+      "url": "https://buildmart.in"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "https://api.buildmart.in/api",
+      "description": "Production Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Enter your JSON Web Token (JWT) in the format 'Bearer <token>'"
+      }
+    },
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "statusCode": { "type": "integer" },
+          "message": { "type": "string" },
+          "data": { "type": "object" }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "slug": { "type": "string" },
+          "sku": { "type": "string" },
+          "category": { "type": "string" },
+          "subcategory": { "type": "string" },
+          "brand": { "type": "string" },
+          "price": { "type": "number" },
+          "mrp": { "type": "number" },
+          "discount": { "type": "number" },
+          "unit": { "type": "string" },
+          "stock": { "type": "integer" },
+          "gstRate": { "type": "number" },
+          "hsnCode": { "type": "string" },
+          "rating": { "type": "number" },
+          "reviewsCount": { "type": "integer" },
+          "images": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "orderId": { "type": "string" },
+          "invoiceNumber": { "type": "string" },
+          "customer": { "type": "object" },
+          "items": { "type": "array", "items": { "type": "object" } },
+          "subtotal": { "type": "number" },
+          "taxAmount": { "type": "number" },
+          "shippingFee": { "type": "number" },
+          "discountAmount": { "type": "number" },
+          "totalAmount": { "type": "number" },
+          "paymentMethod": { "type": "string", "enum": ["Razorpay", "COD", "BankTransfer"] },
+          "paymentStatus": { "type": "string", "enum": ["Pending", "Paid", "Failed", "Refunded"] },
+          "orderStatus": { "type": "string" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Liveness Probe",
+        "description": "Checks if the HTTP server process is alive.",
+        "responses": {
+          "200": { "description": "Server is healthy" }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "summary": "Readiness Probe",
+        "description": "Checks if MongoDB and cache connections are functional.",
+        "responses": {
+          "200": { "description": "Server is ready to accept traffic" },
+          "503": { "description": "Database or cache service unavailable" }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "password", "phone"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string", "minLength": 8 },
+                  "phone": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created successfully" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate user credentials",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Authentication successful, returns access & refresh tokens" }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "List products with filters & pagination",
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 20 } },
+          { "name": "category", "in": "query", "schema": { "type": "string" } },
+          { "name": "brand", "in": "query", "schema": { "type": "string" } },
+          { "name": "sort", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } },
+          { "name": "inStock", "in": "query", "schema": { "type": "boolean" } }
+        ],
+        "responses": {
+          "200": { "description": "Paginated list of products" }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Get product details by ID or URL slug",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Product details" },
+          "404": { "description": "Product not found" }
+        }
+      }
+    },
+    "/products/facets": {
+      "get": {
+        "summary": "Get aggregated product category counts",
+        "responses": {
+          "200": { "description": "Facet counts per category" }
+        }
+      }
+    },
+    "/products/suggest": {
+      "get": {
+        "summary": "Instant typeahead product search suggestions",
+        "parameters": [
+          { "name": "q", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Autocomplete product suggestions" }
+        }
+      }
+    },
+    "/cart/validate": {
+      "post": {
+        "summary": "Validate client cart against live inventory and prices",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "items": { "type": "array", "items": { "type": "object" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Validated items and inventory changes" }
+        }
+      }
+    },
+    "/cart/merge": {
+      "post": {
+        "summary": "Merge guest cart into authenticated user cart",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "guestItems": { "type": "array", "items": { "type": "object" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Merged user cart" }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "summary": "Create a confirmed order",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "201": { "description": "Order created" }
+        }
+      }
+    },
+    "/orders/{id}/invoice.pdf": {
+      "get": {
+        "summary": "Stream downloadable tax invoice PDF",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Binary PDF stream" }
+        }
+      }
+    },
+    "/serviceability": {
+      "get": {
+        "summary": "Check delivery SLA & freight fee by pincode",
+        "parameters": [
+          { "name": "pincode", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Serviceability status and delivery ETA" }
+        }
+      }
+    }
+  }
+}
+
