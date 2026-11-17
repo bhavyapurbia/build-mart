@@ -62,22 +62,44 @@ app.use(helmet({
 }));
 
 // ─── CORS — allowlist from CLIENT_URL env var ────────────────────────────────
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+const defaultAllowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  'https://build-mart-7ly2.vercel.app'
+];
+
+const envOrigins = (process.env.CLIENT_URL || '')
   .split(',')
-  .map(o => o.trim())
+  .map(o => o.trim().replace(/\/+$/, ''))
   .filter(Boolean);
 
-app.use(cors({
+const allowedOrigins = Array.from(new Set([...defaultAllowedOrigins, ...envOrigins]));
+
+const corsOptions = {
   origin: (origin, callback) => {
-    // Allow server-to-server (no origin) and allowed origins
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow server-to-server, curl, Postman, mobile apps (no origin)
+    if (!origin) return callback(null, true);
+
+    const cleanOrigin = origin.replace(/\/+$/, '');
+
+    // Allow configured origins or any Vercel deployment/preview domains for build-mart
+    const isAllowed = allowedOrigins.includes(cleanOrigin) ||
+      /^https:\/\/build-mart[a-z0-9-]*\.vercel\.app$/.test(cleanOrigin);
+
+    if (isAllowed) {
       callback(null, true);
     } else {
       callback(new Error(`CORS: origin '${origin}' not allowed`));
     }
   },
   credentials: true,
-}));
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  exposedHeaders: ['Set-Cookie']
+};
+
+app.use(cors(corsOptions));
 
 // ─── Compression ──────────────────────────────────────────────────────────────
 app.use(compression());
