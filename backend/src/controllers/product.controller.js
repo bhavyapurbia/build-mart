@@ -65,9 +65,29 @@ export const getProducts = asyncHandler(async (req, res) => {
     filter.$and.push({ $or: matchConditions });
   }
 
-  // Subcategory filter
+  // Subcategory filter (flexible matching by exact name, subcategory regex, or product name keywords)
   if (subcategory) {
-    filter.subcategory = subcategory;
+    const rawSub = String(subcategory).trim();
+    const cleanSub = rawSub.replace(/[-_&]/g, '.?');
+    const words = rawSub
+      .split(/[\s,&/+-]+/)
+      .map(w => w.trim())
+      .filter(w => w.length > 2);
+
+    const subConditions = [
+      { subcategory: rawSub },
+      { subcategory: { $regex: cleanSub, $options: 'i' } },
+      { name: { $regex: cleanSub, $options: 'i' } }
+    ];
+
+    words.forEach(w => {
+      const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      subConditions.push({ subcategory: { $regex: esc, $options: 'i' } });
+      subConditions.push({ name: { $regex: esc, $options: 'i' } });
+    });
+
+    filter.$and = filter.$and || [];
+    filter.$and.push({ $or: subConditions });
   }
 
   // Brand filter (supports comma-separated string, array, and flexible token matching)
@@ -476,6 +496,45 @@ const BRAND_PRODUCTS_FALLBACK = {
   let returnedProducts = products;
   let returnedTotal = total;
 
+  // If subcategory filter was applied and returned 0 products, fall back to category products so user is never left with an empty screen
+  if (returnedTotal === 0 && subcategory && category) {
+    const rawCat = String(category).trim().toLowerCase();
+    const CATEGORY_ALIASES = {
+      'wood and hardware': ['wood and hardware', 'hardware & locks', 'hardware', 'wood', 'plywood'],
+      'paint, fevicol & cement': ['paint, fevicol & cement', 'paints & wall care', 'paint', 'paints', 'waterproofing', 'cement'],
+      'kitchen, sanitary & bath fittings': ['kitchen, sanitary & bath fittings', 'bathware', 'plumbing & sanitary', 'sanitary', 'kitchen', 'bath'],
+      'pipes, plumbing & water tanks': ['pipes, plumbing & water tanks', 'cpvc, pvc & gi fittings', 'plumbing', 'pipes', 'water tanks', 'drainage'],
+      'tiles, flooring & adhesives': ['tiles, flooring & adhesives', 'tiles & adhesives', 'tiles', 'flooring', 'adhesives'],
+      'cement, steel & foundation': ['cement, steel & foundation', 'cement & steel', 'cement', 'steel', 'foundation', 'rebar'],
+      'construction materials & masonry': ['construction materials & masonry', 'construction materials', 'masonry', 'sand', 'bricks', 'blocks'],
+      'tools & jobsite equipment': ['tools & jobsite equipment', 'tools & accessories', 'tools & equipment', 'tools']
+    };
+    const aliases = CATEGORY_ALIASES[rawCat] || [rawCat];
+    const matchConditions = [
+      { category: category },
+      { category: { $regex: `^${category.replace(/[-_]/g, ' ')}$`, $options: 'i' } }
+    ];
+    aliases.forEach(alias => {
+      matchConditions.push({ category: { $regex: `^${alias.replace(/[-_&]/g, '.?')}$`, $options: 'i' } });
+    });
+
+    const fallbackFilter = { isActive: true, deletedAt: null, $or: matchConditions };
+    const [catProducts, catTotal] = await Promise.all([
+      Product.find(fallbackFilter)
+        .select(projection)
+        .sort(sortObj)
+        .skip(skip)
+        .limit(limitNum)
+        .lean(),
+      Product.countDocuments(fallbackFilter)
+    ]);
+
+    if (catTotal > 0) {
+      returnedProducts = catProducts;
+      returnedTotal = catTotal;
+    }
+  }
+
   // If DB returned 0 products for brand query, fallback to authentic brand catalog
   if (returnedTotal === 0 && brand) {
     const brandLower = String(brand).toLowerCase();
@@ -511,13 +570,32 @@ export const getProductFacets = asyncHandler(async (req, res) => {
   const match = { isActive: true, deletedAt: null };
 
   if (category) {
-    match.$or = [
+    const rawCat = String(category).trim().toLowerCase();
+    const CATEGORY_ALIASES = {
+      'wood and hardware': ['wood and hardware', 'hardware & locks', 'hardware', 'wood', 'plywood'],
+      'paint, fevicol & cement': ['paint, fevicol & cement', 'paints & wall care', 'paint', 'paints', 'waterproofing', 'cement'],
+      'kitchen, sanitary & bath fittings': ['kitchen, sanitary & bath fittings', 'bathware', 'plumbing & sanitary', 'sanitary', 'kitchen', 'bath'],
+      'pipes, plumbing & water tanks': ['pipes, plumbing & water tanks', 'cpvc, pvc & gi fittings', 'plumbing', 'pipes', 'water tanks', 'drainage'],
+      'tiles, flooring & adhesives': ['tiles, flooring & adhesives', 'tiles & adhesives', 'tiles', 'flooring', 'adhesives'],
+      'cement, steel & foundation': ['cement, steel & foundation', 'cement & steel', 'cement', 'steel', 'foundation', 'rebar'],
+      'construction materials & masonry': ['construction materials & masonry', 'construction materials', 'masonry', 'sand', 'bricks', 'blocks'],
+      'tools & jobsite equipment': ['tools & jobsite equipment', 'tools & accessories', 'tools & equipment', 'tools']
+    };
+    const aliases = CATEGORY_ALIASES[rawCat] || [rawCat];
+    const matchConditions = [
       { category },
-      { category: { $regex: `^${category.replace(/-/g, ' ')}$`, $options: 'i' } }
+      { category: { $regex: `^${category.replace(/[-_]/g, ' ')}$`, $options: 'i' } }
     ];
+    aliases.forEach(alias => {
+      matchConditions.push({ category: { $regex: `^${alias.replace(/[-_&]/g, '.?')}$`, $options: 'i' } });
+    });
+    match.$or = matchConditions;
   }
   if (subcategory) {
-    match.subcategory = subcategory;
+    const cleanSub = String(subcategory).trim().replace(/[-_&]/g, '.?');
+    match.$or = match.$or || [];
+    match.$or.push({ subcategory: { $regex: cleanSub, $options: 'i' } });
+    match.$or.push({ name: { $regex: cleanSub, $options: 'i' } });
   }
   if (brand) {
     match.brand = { $regex: brand, $options: 'i' };

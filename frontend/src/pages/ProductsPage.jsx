@@ -61,9 +61,27 @@ const ProductsPage = () => {
 
         const facetData = facetRes.data?.data || facetRes.data || {};
         if (facetData) {
+          const catMap = {};
+          if (Array.isArray(facetData.categories)) {
+            facetData.categories.forEach(item => {
+              if (item && item.name) catMap[item.name] = item.count;
+            });
+          } else if (typeof facetData.categories === 'object') {
+            Object.assign(catMap, facetData.categories);
+          }
+
+          const brandMap = {};
+          if (Array.isArray(facetData.brands)) {
+            facetData.brands.forEach(item => {
+              if (item && item.name) brandMap[item.name] = item.count;
+            });
+          } else if (typeof facetData.brands === 'object') {
+            Object.assign(brandMap, facetData.brands);
+          }
+
           setFacets({
-            categories: facetData.categories || {},
-            brands: facetData.brands || {},
+            categories: catMap,
+            brands: brandMap,
             inStockCount: facetData.inStockCount || 0
           });
         }
