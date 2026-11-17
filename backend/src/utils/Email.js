@@ -39,7 +39,7 @@ const getTransporter = () => {
 
   pooledTransporter = nodemailer.createTransport({
     pool: true,
-    maxConnections: 6,
+    maxConnections: 20,
     maxMessages: 100,
     host: smtpHost,
     port: smtpPort,
