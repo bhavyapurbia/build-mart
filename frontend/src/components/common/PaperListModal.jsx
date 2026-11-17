@@ -109,9 +109,12 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
       const res = await api.post('/material-requests', payload);
       setSubmittedData(res.data);
-      showToast('Paper material list uploaded to Cloudinary and sent directly to Admin!', 'success', 5000);
+      showToast('Paper material list uploaded and sent directly to Admin!', 'success', 5000);
     } catch (err) {
-      showToast(err.response?.data?.message || 'Error submitting paper list.', 'error');
+      const msg = err.response?.data?.message || (err.response?.status === 429 
+        ? 'Too many upload attempts. Please wait a moment and try again.'
+        : 'Error submitting paper list. Please try again.');
+      showToast(msg, 'error');
     } finally {
       setSubmitting(false);
     }

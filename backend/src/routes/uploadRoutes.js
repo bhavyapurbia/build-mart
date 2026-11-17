@@ -1,5 +1,7 @@
 import express from 'express';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import rateLimit from 'express-rate-limit';
 import upload, { detectMagic, IMAGE_MAX, PDF_MAX } from '../middleware/upload.middleware.js';
 import { authenticate } from '../middleware/auth.middleware.js';
@@ -8,25 +10,48 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { ApiError } from '../utils/ApiError.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const router = express.Router();
 
-// Strict rate limit for public paper-list photo uploads (10 uploads per 15 minutes)
+// Rate limit for public paper-list photo uploads (generous to ensure real users/contractors are never blocked)
 const paperListLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: process.env.NODE_ENV === 'production' ? 60 : 500,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS' || process.env.NODE_ENV === 'test',
   message: {
     success: false,
     statusCode: 429,
-    message: 'Too many paper-list photo uploads from this IP. Please wait 15 minutes.'
+    message: 'Too many paper-list photo uploads from this IP. Please wait a moment and try again.'
   }
 });
 
 /**
+ * Helper to save local fallback copy if cloud upload is unconfigured or unavailable
+ */
+const saveLocalFallback = (filePath, subfolder = 'uploads') => {
+  try {
+    const destDir = path.resolve(__dirname, `../uploads/${subfolder}`);
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+    const safeFilename = `${Date.now()}-${path.basename(filePath)}`;
+    const destPath = path.join(destDir, safeFilename);
+    fs.copyFileSync(filePath, destPath);
+    return `/uploads/${subfolder}/${safeFilename}`;
+  } catch (err) {
+    console.error('Local fallback storage error:', err);
+    return null;
+  }
+};
+
+/**
  * POST /api/upload/paper-list
- * Auth optional + strict rate limit + images only.
- * Stores photo in Cloudinary and returns secure URL + publicId.
+ * Auth optional + generous rate limit + images only.
+ * Stores photo in Cloudinary (with automatic local static fallback) and returns URL + publicId.
  */
 router.post('/paper-list', paperListLimiter, upload.single('file'), asyncHandler(async (req, res) => {
   if (!req.file) {
@@ -47,18 +72,38 @@ router.post('/paper-list', paperListLimiter, upload.single('file'), asyncHandler
     throw new ApiError(400, 'Paper-list image must be under 8 MB.');
   }
 
-  const cloudinaryResult = await uploadOnCloudinary(req.file.path, 'buildmart/paper-lists');
-  if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+  let fileUrl = null;
+  let publicId = null;
 
-  const fileUrl = cloudinaryResult?.secure_url;
+  // 1. Try Cloudinary upload
+  try {
+    const cloudinaryResult = await uploadOnCloudinary(req.file.path, 'buildmart/paper-lists');
+    if (cloudinaryResult?.secure_url) {
+      fileUrl = cloudinaryResult.secure_url;
+      publicId = cloudinaryResult.public_id || null;
+    }
+  } catch (cloudErr) {
+    console.warn('Cloudinary upload warning:', cloudErr.message);
+  }
+
+  // 2. Local fallback if Cloudinary didn't return a URL
+  if (!fileUrl && fs.existsSync(req.file.path)) {
+    fileUrl = saveLocalFallback(req.file.path, 'paper-lists');
+  }
+
+  // Clean up multer temporary file
+  if (fs.existsSync(req.file.path)) {
+    try { fs.unlinkSync(req.file.path); } catch {}
+  }
+
   if (!fileUrl) {
-    throw new ApiError(500, cloudinaryResult?.error ? `Cloudinary upload failed: ${cloudinaryResult.error}` : 'Failed to store image in cloud storage. Please try again.');
+    throw new ApiError(500, 'Failed to store image. Please try again.');
   }
 
   return res.status(200).json(
     new ApiResponse(200, {
       url: fileUrl,
-      publicId: cloudinaryResult.public_id || null,
+      publicId: publicId,
       filename: req.file.filename,
       size: req.file.size
     }, 'Paper-list image uploaded successfully')
@@ -94,20 +139,37 @@ router.post('/', upload.single('file'), asyncHandler(async (req, res) => {
 
   const subfolder = (req.body?.folder || 'uploads').replace(/[^a-zA-Z0-9_-]/g, '');
   const targetFolder = `buildmart/${subfolder}`;
-  const cloudinaryResult = await uploadOnCloudinary(req.file.path, targetFolder);
+  
+  let fileUrl = null;
+  let publicId = null;
+
+  try {
+    const cloudinaryResult = await uploadOnCloudinary(req.file.path, targetFolder);
+    if (cloudinaryResult?.secure_url) {
+      fileUrl = cloudinaryResult.secure_url;
+      publicId = cloudinaryResult.public_id || null;
+    }
+  } catch (cloudErr) {
+    console.warn('Cloudinary upload warning:', cloudErr.message);
+  }
+
+  if (!fileUrl && fs.existsSync(req.file.path)) {
+    fileUrl = saveLocalFallback(req.file.path, subfolder);
+  }
 
   // Clean up temp file
-  if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+  if (fs.existsSync(req.file.path)) {
+    try { fs.unlinkSync(req.file.path); } catch {}
+  }
 
-  const fileUrl = cloudinaryResult?.secure_url;
   if (!fileUrl) {
-    throw new ApiError(500, cloudinaryResult?.error ? `Cloudinary upload failed: ${cloudinaryResult.error}` : 'Upload failed. Please try again.');
+    throw new ApiError(500, 'Upload failed. Please try again.');
   }
 
   return res.status(200).json(
     new ApiResponse(200, {
       url: fileUrl,
-      publicId: cloudinaryResult?.public_id || null,
+      publicId: publicId,
       filename: req.file.filename,
       size: req.file.size
     }, 'File uploaded successfully')
@@ -130,10 +192,28 @@ router.post('/multiple', upload.array('files', 10), asyncHandler(async (req, res
       if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
       throw new ApiError(400, `Invalid or oversized file: ${file.originalname}`);
     }
-    const result = await uploadOnCloudinary(file.path, targetFolder);
-    if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
-    if (result && result.secure_url) {
-      results.push({ url: result.secure_url, publicId: result.public_id });
+
+    let itemUrl = null;
+    let itemId = null;
+
+    try {
+      const result = await uploadOnCloudinary(file.path, targetFolder);
+      if (result?.secure_url) {
+        itemUrl = result.secure_url;
+        itemId = result.public_id || null;
+      }
+    } catch (e) {}
+
+    if (!itemUrl && fs.existsSync(file.path)) {
+      itemUrl = saveLocalFallback(file.path, subfolder);
+    }
+
+    if (fs.existsSync(file.path)) {
+      try { fs.unlinkSync(file.path); } catch {}
+    }
+
+    if (itemUrl) {
+      results.push({ url: itemUrl, publicId: itemId });
     }
   }
 

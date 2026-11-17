@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -172,11 +173,14 @@ const authLimiter = rateLimit({
   message: { success: false, message: 'Too many login or registration attempts. Please wait a moment and try again.' }
 });
 
-// Upload: 20 per hour
+// Upload routes: generous limit, skip CORS preflights and dev/test environments
 const uploadLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 20,
-  message: { success: false, message: 'Upload limit reached, please try again later.' }
+  windowMs: 15 * 60 * 1000,
+  max: process.env.NODE_ENV === 'production' ? 120 : 1000,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS' || process.env.NODE_ENV === 'test',
+  message: { success: false, message: 'Upload limit reached. Please wait a moment and try again.' }
 });
 
 // Coupon validate: 30 per 15 min
@@ -187,6 +191,11 @@ const couponLimiter = rateLimit({
 });
 
 // ─── Static uploads folder ────────────────────────────────────────────────────
+const uploadsDir = path.resolve(__dirname, '../uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+app.use('/uploads', express.static(uploadsDir));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ─── Health & Readiness Checks ───────────────────────────────────────────────
