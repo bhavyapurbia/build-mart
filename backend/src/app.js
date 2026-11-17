@@ -123,6 +123,18 @@ app.use(httpLogger);
 app.get('/robots.txt', seoController.getRobotsTxt);
 app.get('/sitemap.xml', seoController.getSitemapXml);
 
+// ─── Health check endpoint (Root '/' & '/health') ───────────────────────────
+app.get(['/', '/health', '/api/health'], (req, res) => {
+  return res.status(200).json({
+    status: 'ok',
+    message: 'BuildMart API is running and healthy',
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(process.uptime()),
+    environment: process.env.NODE_ENV || 'development',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'connecting'
+  });
+});
+
 // ─── Mongo query injection sanitisation ──────────────────────────────────────
 app.use(mongoSanitize({
   replaceWith: '_',

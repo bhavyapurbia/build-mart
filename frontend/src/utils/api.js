@@ -1,7 +1,20 @@
 import axios from 'axios';
 
+const rawBaseURL = import.meta.env.VITE_API_BASE_URL || '/api';
+
+export const getNormalizedBaseURL = (url) => {
+  if (!url) return '/api';
+  const clean = url.trim().replace(/\/+$/, '');
+  if (clean.startsWith('http://') || clean.startsWith('https://')) {
+    return clean.endsWith('/api') ? clean : `${clean}/api`;
+  }
+  return clean || '/api';
+};
+
+const normalizedBaseURL = getNormalizedBaseURL(rawBaseURL);
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: normalizedBaseURL,
   timeout: 15000,
   withCredentials: true,
   headers: {
@@ -60,7 +73,8 @@ api.interceptors.response.use((response) => {
     isRefreshing = true;
 
     try {
-      const res = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
+      const refreshUrl = `${normalizedBaseURL}/auth/refresh`;
+      const res = await axios.post(refreshUrl, {}, { withCredentials: true });
       const newToken = res.data?.data?.token || res.data?.token;
 
       if (newToken) {
