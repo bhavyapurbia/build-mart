@@ -18,13 +18,14 @@ import api, { subscribeCatalogUpdates } from '../../utils/api';
 import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const CATEGORIES = [
-  'Cement & Steel',
-  'Tiles & Adhesives',
-  'Waterproofing',
-  'Plumbing & Sanitary',
-  'Hardware & Locks',
-  'Electrical & Automation',
-  'Tools & Equipment'
+  'Wood and Hardware',
+  'Paint, Fevicol & Cement',
+  'Kitchen, Sanitary & Bath Fittings',
+  'Pipes, Plumbing & Water Tanks',
+  'Tiles, Flooring & Adhesives',
+  'Cement, Steel & Foundation',
+  'Construction Materials & Masonry',
+  'Tools & Jobsite Equipment'
 ];
 
 const PRESET_IMAGE_SUGGESTIONS = [
@@ -52,7 +53,7 @@ const AdminProducts = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    category: 'Cement & Steel',
+    category: 'Wood and Hardware',
     subcategory: '',
     brand: 'UltraTech',
     price: '',

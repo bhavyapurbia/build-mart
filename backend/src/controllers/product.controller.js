@@ -37,15 +37,32 @@ export const getProducts = asyncHandler(async (req, res) => {
 
   const filter = { isActive: true, deletedAt: null };
 
-  // Category filter (by name or slug)
+  // Category filter (by name or slug, with alias support)
   if (category) {
-    filter.$and = filter.$and || [];
-    filter.$and.push({
-      $or: [
-        { category: category },
-        { category: { $regex: `^${category.replace(/-/g, ' ')}$`, $options: 'i' } }
-      ]
+    const rawCat = String(category).trim().toLowerCase();
+    const CATEGORY_ALIASES = {
+      'wood and hardware': ['wood and hardware', 'hardware & locks', 'hardware', 'wood'],
+      'paint, fevicol & cement': ['paint, fevicol & cement', 'paints & wall care', 'paint', 'paints', 'waterproofing'],
+      'kitchen, sanitary & bath fittings': ['kitchen, sanitary & bath fittings', 'bathware', 'plumbing & sanitary', 'sanitary'],
+      'pipes, plumbing & water tanks': ['pipes, plumbing & water tanks', 'cpvc, pvc & gi fittings', 'plumbing', 'pipes'],
+      'tiles, flooring & adhesives': ['tiles, flooring & adhesives', 'tiles & adhesives', 'tiles', 'flooring'],
+      'cement, steel & foundation': ['cement, steel & foundation', 'cement & steel', 'cement', 'steel'],
+      'construction materials & masonry': ['construction materials & masonry', 'construction materials', 'masonry'],
+      'tools & jobsite equipment': ['tools & jobsite equipment', 'tools & accessories', 'tools & equipment', 'tools']
+    };
+
+    const aliases = CATEGORY_ALIASES[rawCat] || [rawCat];
+    const matchConditions = [
+      { category: category },
+      { category: { $regex: `^${category.replace(/[-_]/g, ' ')}$`, $options: 'i' } }
+    ];
+
+    aliases.forEach(alias => {
+      matchConditions.push({ category: { $regex: `^${alias.replace(/[-_&]/g, '.?')}$`, $options: 'i' } });
     });
+
+    filter.$and = filter.$and || [];
+    filter.$and.push({ $or: matchConditions });
   }
 
   // Subcategory filter

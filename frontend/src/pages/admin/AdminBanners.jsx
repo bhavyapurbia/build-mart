@@ -38,12 +38,12 @@ export const DEFAULT_BANNERS = [
     type: 'hero'
   },
   {
-    id: 'b_diwali_promo',
-    _id: 'b_diwali_promo',
-    title: 'diwali offer',
-    subtitle: 'on order above 4000 get flat 200 off',
-    badge: 'SPECIAL PROMO',
-    couponCode: 'DIWALI200',
+    id: 'b_direct_mill_procure',
+    _id: 'b_direct_mill_procure',
+    title: 'Direct Factory Construction Supplies',
+    subtitle: 'UltraTech Cement, Tata Tiscon Rebars & Astral Pipes with MTC Test Reports',
+    badge: 'GENUINE FACTORY',
+    couponCode: 'BUILDPLACE',
     ctaText: 'EXPLORE SUPPLIES',
     link: '/products',
     bgGradient: 'linear-gradient(135deg, #181C9A 0%, #282DCB 100%)',
@@ -52,7 +52,7 @@ export const DEFAULT_BANNERS = [
     benefit1Sub: 'Site Delivery',
     benefit2Text: '100% Factory',
     benefit2Sub: 'GST Invoices',
-    coinText: 'OFFER',
+    coinText: 'TOP TIER',
     order: 2,
     active: true,
     type: 'hero'

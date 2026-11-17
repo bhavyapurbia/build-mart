@@ -76,12 +76,21 @@ const DEFAULT_BESTSELLERS = [
   }
 ];
 
+const loadHomeCache = () => {
+  try {
+    const raw = sessionStorage.getItem('bm_home_cache') || localStorage.getItem('bm_home_cache');
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return null;
+};
+
 const HomePage = ({ onOpenPaperList }) => {
-  const [categories, setCategories] = useState([]);
-  const [deals, setDeals] = useState([]);
-  const [bestsellers, setBestsellers] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const initialCache = loadHomeCache();
+  const [categories, setCategories] = useState(initialCache?.categories || []);
+  const [deals, setDeals] = useState(initialCache?.deals || []);
+  const [bestsellers, setBestsellers] = useState(initialCache?.bestsellers || []);
+  const [brands, setBrands] = useState(initialCache?.brands || []);
+  const [loading, setLoading] = useState(!initialCache);
 
   useEffect(() => {
     let isMounted = true;
@@ -104,6 +113,12 @@ const HomePage = ({ onOpenPaperList }) => {
         setDeals(rawDeals);
         setBestsellers(rawBest);
         setBrands(rawBrands);
+
+        try {
+          const cacheData = { categories: rawCats, deals: rawDeals, bestsellers: rawBest, brands: rawBrands };
+          sessionStorage.setItem('bm_home_cache', JSON.stringify(cacheData));
+          localStorage.setItem('bm_home_cache', JSON.stringify(cacheData));
+        } catch {}
       } catch (err) {
         console.error('Error loading homepage data:', err);
       } finally {
@@ -166,36 +181,45 @@ const HomePage = ({ onOpenPaperList }) => {
       {/* 5. Shop by Category (Orange Background + Peach Cards with Product Photos) */}
       <CategoryGrid categories={categories} />
 
-      {/* 6. Bestselling Construction Materials (Product Cards: Multi-Image Slider + Active Navy Pill Dot + Manual/Auto Slide) */}
-      {(() => {
-        const displayBestsellers = (bestsellers && bestsellers.length > 0) ? bestsellers : DEFAULT_BESTSELLERS;
-        return (
-          <section className="bestsellers-section" style={{ padding: '32px 0' }}>
-            <div className="container">
-              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <div>
-                  <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '4px' }}>
-                    Bestselling Materials
-                  </h2>
-                </div>
-                <Link
-                  to="/products?featured=true"
-                  style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13.5px', fontWeight: 700, color: 'var(--primary-dark)' }}
-                >
-                  <span>Explore All</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </div>
-
-              <div className="product-grid">
-                {displayBestsellers.map(product => (
-                  <ProductCard key={product._id || product.id} product={product} />
-                ))}
-              </div>
+      {/* 6. Bestselling Construction Materials */}
+      <section className="bestsellers-section" style={{ padding: '32px 0' }}>
+        <div className="container">
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div>
+              <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-ink)', marginTop: '4px' }}>
+                Bestselling Materials
+              </h2>
             </div>
-          </section>
-        );
-      })()}
+            <Link
+              to="/products?featured=true"
+              style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13.5px', fontWeight: 700, color: 'var(--primary-dark)' }}
+            >
+              <span>Explore All</span>
+              <ArrowRight size={15} />
+            </Link>
+          </div>
+
+          <div className="product-grid">
+            {bestsellers && bestsellers.length > 0 ? (
+              bestsellers.map(product => (
+                <ProductCard key={product._id || product.id} product={product} />
+              ))
+            ) : loading ? (
+              [1, 2, 3, 4].map(i => (
+                <div key={i} style={{ height: '300px', background: '#F8FAFC', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ aspectRatio: '1', background: '#E2E8F0', borderRadius: '10px' }} />
+                  <div style={{ height: '14px', width: '75%', background: '#E2E8F0', borderRadius: '4px' }} />
+                  <div style={{ height: '16px', width: '45%', background: '#E2E8F0', borderRadius: '4px' }} />
+                </div>
+              ))
+            ) : (
+              DEFAULT_BESTSELLERS.map(product => (
+                <ProductCard key={product._id || product.id} product={product} />
+              ))
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* 7. Shop by Brand (Peach Cards with White Logo Boxes - Clicking shows Brand Products!) */}
       <BrandShowcase brands={brands} />

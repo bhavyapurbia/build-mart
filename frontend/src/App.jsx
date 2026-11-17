@@ -22,6 +22,7 @@ import MobileBottomNav from './components/common/MobileBottomNav';
 import MaterialListFloatingBar from './components/product/MaterialListFloatingBar';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import RouteLoadingSkeleton from './components/common/RouteLoadingSkeleton';
+import ScrollToTop from './components/common/ScrollToTop';
 
 // Customer Pages (Lazy loaded for optimal code-splitting)
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -100,6 +101,7 @@ function App() {
               <WishlistProvider>
                 <MaterialListProvider>
                   <div className="app-container">
+                    <ScrollToTop />
                     {/* Only show customer headers when not in admin dashboard */}
                     {!isAdminRoute && (
                       <>

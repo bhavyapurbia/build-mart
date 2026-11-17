@@ -139,8 +139,135 @@ const enrichCategoryWithImages = (cat, activeProducts) => {
   };
 };
 
+const MASTER_CATEGORIES = [
+  {
+    name: 'Wood and Hardware',
+    slug: 'wood-and-hardware',
+    description: 'Plywood, MDF & HDHMR, architectural hinges, channels, kitchen and wardrobe hardware, locks & handles',
+    image: '/categories/plywood-mdf-hdhmr.png',
+    icon: 'Hammer',
+    order: 1,
+    subcategories: [
+      { name: 'Plywood, MDF & HDHMR', slug: 'plywood-mdf-hdhmr', description: 'Commercial & marine plywood, HDHMR boards', image: '/categories/plywood-mdf-hdhmr.png' },
+      { name: 'Hinges & Channels', slug: 'hinges-channels', description: 'Soft close hinges, telescopic drawer channels', image: '/categories/hinges-and-channels.png' },
+      { name: 'Kitchen & Wardrobe Hardware', slug: 'kitchen-wardrobe-hardware', description: 'Modular kitchen tandem boxes, wardrobe fittings', image: '/categories/kitchen-wardrobe-hardware.png' },
+      { name: 'Door Hardware, Locks & Handles', slug: 'door-hardware-locks-handles', description: 'Mortise locksets, main door handles, pull handles', image: '/categories/door-hardware-locks-handles.png' }
+    ]
+  },
+  {
+    name: 'Paint, Fevicol & Cement',
+    slug: 'paint-fevicol-cement',
+    description: 'Wall paints, primers, putty, synthetic resin adhesives, tiling waterproofing, and cement bags',
+    image: '/categories/paints-putty-sundries.svg',
+    icon: 'Building2',
+    order: 2,
+    subcategories: [
+      { name: 'Fevicol & Sealants', slug: 'fevicol-sealants', description: 'Synthetic resin adhesives, silicone sealants', image: '/categories/fevicol-sealants.svg' },
+      { name: 'Tiling and Waterproofing', slug: 'tiling-waterproofing', description: 'Waterproof coatings and tiling adhesives', image: '/categories/tiling-waterproofing.svg' },
+      { name: 'Paints, Putty & Sundries', slug: 'paints-putty-sundries', description: 'Emulsions, primers, wall putty, and rollers', image: '/categories/paints-putty-sundries.svg' },
+      { name: 'Cement', slug: 'cement', description: '50kg standard PPC, OPC 43 & 53 grade cement', image: '/categories/cement-bags-trio.svg' }
+    ]
+  },
+  {
+    name: 'Kitchen, Sanitary & Bath Fittings',
+    slug: 'kitchen-sanitary-bath-fittings',
+    description: 'Vitreous chinaware basins, single-lever brass faucets, showers, and sanitary products',
+    image: '/categories/bath-faucets-mixers.svg',
+    icon: 'Bath',
+    order: 3,
+    subcategories: [
+      { name: 'Bath Faucets & Mixers', slug: 'bath-faucets-mixers', description: 'Chrome brass basin mixers and pillar taps', image: '/categories/bath-faucets-mixers.svg' },
+      { name: 'Overhead Showers', slug: 'overhead-showers', description: 'Rain showers, multi-flow hand showers', image: '/categories/overhead-showers.svg' },
+      { name: 'Wash Basins & Sinks', slug: 'wash-basins-sinks', description: 'Tabletop, counter, and kitchen sinks', image: '/categories/wash-basins-sinks.svg' },
+      { name: 'Sanitaryware & Commodes', slug: 'sanitaryware-commodes', description: 'One-piece western commodes, wall hung toilets', image: '/categories/sanitaryware-commodes.svg' }
+    ]
+  },
+  {
+    name: 'Pipes, Plumbing & Water Tanks',
+    slug: 'pipes-plumbing-water-tanks',
+    description: 'High-pressure CPVC pipes, drainage PVC, GI pipes, brass valves, and water tanks',
+    image: '/categories/cpvc-pipes-podium.svg',
+    icon: 'Wrench',
+    order: 4,
+    subcategories: [
+      { name: 'CPVC Pipes & Fittings', slug: 'cpvc-pipes-fittings', description: 'SDR 11 & SDR 13.5 hot & cold plumbing pipes', image: '/categories/cpvc-pipes-podium.svg' },
+      { name: 'PVC Drainage & SWR Pipes', slug: 'pvc-drainage-swr-pipes', description: 'SWR drainage, rainwater, and soil pipes', image: '/categories/pvc-drainage-podium.svg' },
+      { name: 'Brass Valves & Cocks', slug: 'brass-valves-cocks', description: 'Brass ball valves, concealed stop cocks', image: '/categories/brass-valves-podium.svg' },
+      { name: 'GI Pipe Fittings', slug: 'gi-pipe-fittings', description: 'Galvanized iron pipes, heavy duty fittings', image: '/categories/gi-fittings-podium.svg' }
+    ]
+  },
+  {
+    name: 'Tiles, Flooring & Adhesives',
+    slug: 'tiles-flooring-adhesives',
+    description: 'Vitrified floor tiles, wall ceramics, heavy-duty tile adhesives, and grouts',
+    image: '/categories/floor-tiles-podium.svg',
+    icon: 'LayoutGrid',
+    order: 5,
+    subcategories: [
+      { name: 'Vitrified Floor Tiles', slug: 'vitrified-floor-tiles', description: 'Double charged vitrified & porcelain floor tiles', image: '/categories/floor-tiles-podium.svg' },
+      { name: 'Wall Ceramic Tiles', slug: 'wall-ceramic-tiles', description: 'Glossy & matte glazed wall ceramic tiles', image: '/categories/wall-tiles-podium.svg' },
+      { name: 'Tile Adhesive & Grouts', slug: 'tile-adhesive-grouts', description: 'Polymer modified cementitious tile adhesive and epoxy grout', image: '/categories/tile-adhesive-podium.svg' },
+      { name: 'Tiling Waterproofing', slug: 'tiling-waterproofing', description: 'Substrate primer and waterproofing membrane', image: '/categories/tiling-waterproofing.svg' }
+    ]
+  },
+  {
+    name: 'Cement, Steel & Foundation',
+    slug: 'cement-steel-foundation',
+    description: 'UltraTech & ACC cement, Tata Tiscon TMT rebar, binding wire, and structural steel',
+    image: '/categories/cement-bags-trio.svg',
+    icon: 'ShieldCheck',
+    order: 6,
+    subcategories: [
+      { name: 'UltraTech & ACC Cement', slug: 'ultratech-acc-cement', description: '50kg standard PPC, OPC 43 & 53 grade cement', image: '/categories/cement-bags-trio.svg' },
+      { name: 'Tata Tiscon 550D TMT Rebar', slug: 'tata-tiscon-550d-tmt-rebar', description: 'Fe 550D TMT rebar 8mm to 32mm', image: '/categories/tmt-rebar-podium.svg' },
+      { name: 'Annealed GI Binding Wire', slug: 'annealed-gi-binding-wire', description: 'Annealed GI binding wire, cover blocks', image: '/categories/binding-wire-podium.svg' },
+      { name: 'Structural Steel Bars', slug: 'structural-steel-bars', description: 'MS channels, angles, beams, and flats', image: '/categories/steel-bars.svg' }
+    ]
+  },
+  {
+    name: 'Construction Materials & Masonry',
+    slug: 'construction-materials-masonry',
+    description: 'Manufactured M-Sand, 20mm granite aggregate, red burnt clay bricks, and AAC blocks',
+    image: '/categories/red-bricks-podium.svg',
+    icon: 'HardHat',
+    order: 7,
+    subcategories: [
+      { name: 'Washed Plastering M-Sand', slug: 'washed-plastering-m-sand', description: 'Fine filtered M-sand for plastering and masonry', image: '/categories/m-sand-podium.svg' },
+      { name: '20mm Granite Aggregate', slug: '20mm-granite-aggregate', description: 'Crushed blue metal granite aggregate for RCC', image: '/categories/granite-aggregate-podium.svg' },
+      { name: 'Wire-Cut Red Clay Bricks', slug: 'wire-cut-red-clay-bricks', description: 'High-compressive chamber red bricks', image: '/categories/red-bricks-podium.svg' },
+      { name: 'AAC Lightweight Blocks', slug: 'aac-lightweight-blocks', description: 'Autoclaved aerated concrete wall blocks', image: '/categories/aac-blocks-podium.svg' }
+    ]
+  },
+  {
+    name: 'Tools & Jobsite Equipment',
+    slug: 'tools-jobsite-equipment',
+    description: 'Professional angle grinders, diamond cutting blades, measuring tape, and masonry tools',
+    image: '/categories/angle-grinder-podium.svg',
+    icon: 'Hammer',
+    order: 8,
+    subcategories: [
+      { name: 'Professional Angle Grinder', slug: 'professional-angle-grinder', description: 'Bosch / Dewalt 4-inch heavy duty angle grinders', image: '/categories/angle-grinder-podium.svg' },
+      { name: 'Diamond Cutting Blades', slug: 'diamond-cutting-blades', description: 'Laser welded 4-inch tile and granite blades', image: '/categories/cutting-blades-podium.svg' },
+      { name: 'Steel Measuring Tape', slug: 'steel-measuring-tape', description: '5m / 8m rugged shockproof steel measuring tapes', image: '/categories/measuring-tape-podium.svg' },
+      { name: 'Masonry Trowels & Tools', slug: 'masonry-trowels-tools', description: 'Forged steel masonry trowels, spirit levels', image: '/categories/masonry-tools-podium.svg' }
+    ]
+  }
+];
+
 export const getCategories = asyncHandler(async (req, res) => {
-  const categories = await Category.find({ isActive: true }).sort({ order: 1 }).lean();
+  let categories = await Category.find({ isActive: true }).sort({ order: 1 }).lean();
+
+  // If any master categories are missing from the DB, auto-populate them
+  const existingNames = new Set(categories.map(c => (c.name || '').toLowerCase().trim()));
+  const missing = MASTER_CATEGORIES.filter(m => !existingNames.has(m.name.toLowerCase().trim()));
+  if (missing.length > 0) {
+    try {
+      await Category.insertMany(missing);
+      categories = await Category.find({ isActive: true }).sort({ order: 1 }).lean();
+    } catch (e) {
+      console.error('Auto-seed missing categories warning:', e.message);
+    }
+  }
 
   const activeProducts = await Product.find({
     isActive: true,

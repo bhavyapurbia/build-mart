@@ -40,31 +40,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'paint_fevicol_cement',
     title: 'Paint, Fevicol & Cement',
-    categoryName: 'Paints & Wall Care',
-    viewAllLink: '/products?category=Paints%20%26%20Wall%20Care',
+    categoryName: 'Paint, Fevicol & Cement',
+    viewAllLink: '/products?category=Paint%2C%20Fevicol%20%26%20Cement',
     items: [
       {
         id: 'fevicol_sealants',
         name: 'Fevicol & Sealants',
-        link: '/products?category=Wood%20and%20Hardware&subcategory=Adhesives',
+        link: '/products?category=Paint%2C%20Fevicol%20%26%20Cement&subcategory=Fevicol%20%26%20Sealants',
         image: '/categories/fevicol-sealants.svg'
       },
       {
         id: 'tiling_waterproofing',
         name: 'Tiling and Waterproofing',
-        link: '/products?category=Waterproofing',
+        link: '/products?category=Paint%2C%20Fevicol%20%26%20Cement&subcategory=Tiling%20and%20Waterproofing',
         image: '/categories/tiling-waterproofing.svg'
       },
       {
         id: 'paints_putty_sundries',
         name: 'Paints, Putty & Sundries',
-        link: '/products?category=Paints%20%26%20Wall%20Care',
+        link: '/products?category=Paint%2C%20Fevicol%20%26%20Cement&subcategory=Paints%2C%20Putty%20%26%20Sundries',
         image: '/categories/paints-putty-sundries.svg'
       },
       {
         id: 'cement',
         name: 'Cement',
-        link: '/products?category=Cement%20%26%20Steel&subcategory=Cement%20Bags',
+        link: '/products?category=Paint%2C%20Fevicol%20%26%20Cement&subcategory=Cement',
         image: '/categories/cement-bags-trio.svg'
       }
     ]
@@ -74,31 +74,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'kitchen_sanitary_bath',
     title: 'Kitchen, Sanitary & Bath Fittings',
-    categoryName: 'Bathware',
-    viewAllLink: '/products?category=Bathware',
+    categoryName: 'Kitchen, Sanitary & Bath Fittings',
+    viewAllLink: '/products?category=Kitchen%2C%20Sanitary%20%26%20Bath%20Fittings',
     items: [
       {
         id: 'bath_faucets_mixers',
         name: 'Bath Faucets & Mixers',
-        link: '/products?category=Bathware&subcategory=Bathroom%20Faucets',
+        link: '/products?category=Kitchen%2C%20Sanitary%20%26%20Bath%20Fittings&subcategory=Bath%20Faucets%20%26%20Mixers',
         image: '/categories/bath-faucets-mixers.svg'
       },
       {
         id: 'overhead_showers',
         name: 'Overhead Showers',
-        link: '/products?category=Bathware&subcategory=Shower%20Fittings',
+        link: '/products?category=Kitchen%2C%20Sanitary%20%26%20Bath%20Fittings&subcategory=Overhead%20Showers',
         image: '/categories/overhead-showers.svg'
       },
       {
         id: 'wash_basins_sinks',
         name: 'Wash Basins & Sinks',
-        link: '/products?category=Bathware&subcategory=Washbasins',
+        link: '/products?category=Kitchen%2C%20Sanitary%20%26%20Bath%20Fittings&subcategory=Wash%20Basins%20%26%20Sinks',
         image: '/categories/wash-basins-sinks.svg'
       },
       {
         id: 'sanitaryware_commodes',
         name: 'Sanitaryware & Commodes',
-        link: '/products?category=Bathware&subcategory=Sanitary%20Products',
+        link: '/products?category=Kitchen%2C%20Sanitary%20%26%20Bath%20Fittings&subcategory=Sanitaryware%20%26%20Commodes',
         image: '/categories/sanitaryware-commodes.svg'
       }
     ]
@@ -108,31 +108,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'pipes_plumbing_water',
     title: 'Pipes, Plumbing & Water Tanks',
-    categoryName: 'CPVC, PVC & GI Fittings',
-    viewAllLink: '/products?category=CPVC%2C%20PVC%20%26%20GI%20Fittings',
+    categoryName: 'Pipes, Plumbing & Water Tanks',
+    viewAllLink: '/products?category=Pipes%2C%20Plumbing%20%26%20Water%20Tanks',
     items: [
       {
         id: 'cpvc_pipes_fittings',
         name: 'CPVC Pipes & Fittings',
-        link: '/products?category=CPVC%2C%20PVC%20%26%20GI%20Fittings&subcategory=CPVC%20Pipes',
+        link: '/products?category=Pipes%2C%20Plumbing%20%26%20Water%20Tanks&subcategory=CPVC%20Pipes%20%26%20Fittings',
         image: '/categories/cpvc-pipes-podium.svg'
       },
       {
         id: 'pvc_drainage_pipes',
         name: 'PVC Drainage & SWR Pipes',
-        link: '/products?category=CPVC%2C%20PVC%20%26%20GI%20Fittings&subcategory=PVC%20Pipes',
+        link: '/products?category=Pipes%2C%20Plumbing%20%26%20Water%20Tanks&subcategory=PVC%20Drainage%20%26%20SWR%20Pipes',
         image: '/categories/pvc-drainage-podium.svg'
       },
       {
         id: 'brass_valves_cocks',
         name: 'Brass Valves & Cocks',
-        link: '/products?category=CPVC%2C%20PVC%20%26%20GI%20Fittings&subcategory=Valves',
+        link: '/products?category=Pipes%2C%20Plumbing%20%26%20Water%20Tanks&subcategory=Brass%20Valves%20%26%20Cocks',
         image: '/categories/brass-valves-podium.svg'
       },
       {
         id: 'gi_pipe_fittings',
         name: 'GI Pipe Fittings',
-        link: '/products?category=CPVC%2C%20PVC%20%26%20GI%20Fittings&subcategory=GI%20Pipes',
+        link: '/products?category=Pipes%2C%20Plumbing%20%26%20Water%20Tanks&subcategory=GI%20Pipe%20Fittings',
         image: '/categories/gi-fittings-podium.svg'
       }
     ]
@@ -142,31 +142,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'tiles_flooring_adhesives',
     title: 'Tiles, Flooring & Adhesives',
-    categoryName: 'Tiles & Adhesives',
-    viewAllLink: '/products?category=Tiles%20%26%20Adhesives',
+    categoryName: 'Tiles, Flooring & Adhesives',
+    viewAllLink: '/products?category=Tiles%2C%20Flooring%20%26%20Adhesives',
     items: [
       {
         id: 'vitrified_floor_tiles',
         name: 'Vitrified Floor Tiles',
-        link: '/products?category=Tiles%20%26%20Adhesives&subcategory=Floor%20Tiles',
+        link: '/products?category=Tiles%2C%20Flooring%20%26%20Adhesives&subcategory=Vitrified%20Floor%20Tiles',
         image: '/categories/floor-tiles-podium.svg'
       },
       {
         id: 'wall_ceramic_tiles',
         name: 'Wall Ceramic Tiles',
-        link: '/products?category=Tiles%20%26%20Adhesives&subcategory=Wall%20Tiles',
+        link: '/products?category=Tiles%2C%20Flooring%20%26%20Adhesives&subcategory=Wall%20Ceramic%20Tiles',
         image: '/categories/wall-tiles-podium.svg'
       },
       {
         id: 'heavy_duty_tile_adhesive',
         name: 'Tile Adhesive & Grouts',
-        link: '/products?category=Tiles%20%26%20Adhesives&subcategory=Tile%20Adhesives',
+        link: '/products?category=Tiles%2C%20Flooring%20%26%20Adhesives&subcategory=Tile%20Adhesive%20%26%20Grouts',
         image: '/categories/tile-adhesive-podium.svg'
       },
       {
         id: 'tiling_waterproofing_solutions',
         name: 'Tiling Waterproofing',
-        link: '/products?category=Waterproofing',
+        link: '/products?category=Tiles%2C%20Flooring%20%26%20Adhesives&subcategory=Tiling%20Waterproofing',
         image: '/categories/tiling-waterproofing.svg'
       }
     ]
@@ -176,31 +176,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'cement_steel_foundation',
     title: 'Cement, Steel & Foundation',
-    categoryName: 'Cement & Steel',
-    viewAllLink: '/products?category=Cement%20%26%20Steel',
+    categoryName: 'Cement, Steel & Foundation',
+    viewAllLink: '/products?category=Cement%2C%20Steel%20%26%20Foundation',
     items: [
       {
         id: 'ultratech_acc_cement',
         name: 'UltraTech & ACC Cement',
-        link: '/products?category=Cement%20%26%20Steel&subcategory=Cement%20Bags',
+        link: '/products?category=Cement%2C%20Steel%20%26%20Foundation&subcategory=UltraTech%20%26%20ACC%20Cement',
         image: '/categories/cement-bags-trio.svg'
       },
       {
         id: 'tmt_550d_rebar',
         name: 'Tata Tiscon 550D TMT Rebar',
-        link: '/products?category=Cement%20%26%20Steel&subcategory=TMT%20Bars',
+        link: '/products?category=Cement%2C%20Steel%20%26%20Foundation&subcategory=Tata%20Tiscon%20550D%20TMT%20Rebar',
         image: '/categories/tmt-rebar-podium.svg'
       },
       {
         id: 'gi_binding_wire',
         name: 'Annealed GI Binding Wire',
-        link: '/products?category=Cement%20%26%20Steel&subcategory=Binding%20Materials',
+        link: '/products?category=Cement%2C%20Steel%20%26%20Foundation&subcategory=Annealed%20GI%20Binding%20Wire',
         image: '/categories/binding-wire-podium.svg'
       },
       {
         id: 'structural_steel_bars',
         name: 'Structural Steel Bars',
-        link: '/products?category=Cement%20%26%20Steel&subcategory=Steel%20Bars',
+        link: '/products?category=Cement%2C%20Steel%20%26%20Foundation&subcategory=Structural%20Steel%20Bars',
         image: '/categories/steel-bars.svg'
       }
     ]
@@ -210,31 +210,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'construction_materials_masonry',
     title: 'Construction Materials & Masonry',
-    categoryName: 'Construction Materials',
-    viewAllLink: '/products?category=Construction%20Materials',
+    categoryName: 'Construction Materials & Masonry',
+    viewAllLink: '/products?category=Construction%20Materials%20%26%20Masonry',
     items: [
       {
         id: 'plastering_m_sand',
         name: 'Washed Plastering M-Sand',
-        link: '/products?category=Construction%20Materials&subcategory=Sand',
+        link: '/products?category=Construction%20Materials%20%26%20Masonry&subcategory=Washed%20Plastering%20M-Sand',
         image: '/categories/m-sand-podium.svg'
       },
       {
         id: 'blue_metal_granite',
         name: '20mm Granite Aggregate',
-        link: '/products?category=Construction%20Materials&subcategory=Aggregate',
+        link: '/products?category=Construction%20Materials%20%26%20Masonry&subcategory=20mm%20Granite%20Aggregate',
         image: '/categories/granite-aggregate-podium.svg'
       },
       {
         id: 'red_burnt_clay_bricks',
         name: 'Wire-Cut Red Clay Bricks',
-        link: '/products?category=Construction%20Materials&subcategory=Bricks',
+        link: '/products?category=Construction%20Materials%20%26%20Masonry&subcategory=Wire-Cut%20Red%20Clay%20Bricks',
         image: '/categories/red-bricks-podium.svg'
       },
       {
         id: 'aac_lightweight_blocks',
         name: 'AAC Lightweight Blocks',
-        link: '/products?category=Construction%20Materials&subcategory=Blocks',
+        link: '/products?category=Construction%20Materials%20%26%20Masonry&subcategory=AAC%20Lightweight%20Blocks',
         image: '/categories/aac-blocks-podium.svg'
       }
     ]
@@ -244,31 +244,31 @@ export const ALL_SITE_SECTIONS = [
   {
     id: 'tools_equipment',
     title: 'Tools & Jobsite Equipment',
-    categoryName: 'Tools & Accessories',
-    viewAllLink: '/products?category=Tools%20%26%20Accessories',
+    categoryName: 'Tools & Jobsite Equipment',
+    viewAllLink: '/products?category=Tools%20%26%20Jobsite%20Equipment',
     items: [
       {
         id: 'bosch_angle_grinder',
         name: 'Professional Angle Grinder',
-        link: '/products?category=Tools%20%26%20Accessories&subcategory=Construction%20Tools',
+        link: '/products?category=Tools%20%26%20Jobsite%20Equipment&subcategory=Professional%20Angle%20Grinder',
         image: '/categories/angle-grinder-podium.svg'
       },
       {
         id: 'diamond_cutting_blades',
         name: 'Diamond Cutting Blades',
-        link: '/products?category=Tools%20%26%20Accessories&subcategory=Cutting%20Accessories',
+        link: '/products?category=Tools%20%26%20Jobsite%20Equipment&subcategory=Diamond%20Cutting%20Blades',
         image: '/categories/cutting-blades-podium.svg'
       },
       {
         id: 'precision_measuring_tape',
         name: 'Steel Measuring Tape',
-        link: '/products?category=Tools%20%26%20Accessories&subcategory=Measuring%20Tools',
+        link: '/products?category=Tools%20%26%20Jobsite%20Equipment&subcategory=Steel%20Measuring%20Tape',
         image: '/categories/measuring-tape-podium.svg'
       },
       {
         id: 'masonry_hand_tools',
         name: 'Masonry Trowels & Tools',
-        link: '/products?category=Tools%20%26%20Accessories&subcategory=Hand%20Tools',
+        link: '/products?category=Tools%20%26%20Jobsite%20Equipment&subcategory=Masonry%20Trowels%20%26%20Tools',
         image: '/categories/masonry-tools-podium.svg'
       }
     ]
@@ -333,99 +333,67 @@ const getFallbackSubcategoryImage = (subName) => {
 };
 
 const CategoryGrid = ({ categories = [] }) => {
-  // Combine pre-configured master construction categories with any custom categories from admin database
+  // Dynamically render categories from the database (persisted via AdminCategories)
   const renderedSections = useMemo(() => {
-    const dbByName = new Map();
-    if (Array.isArray(categories)) {
-      categories.forEach(c => {
-        if (c && c.name) dbByName.set(c.name.toLowerCase().trim(), c);
-      });
-    }
-
-    // Apply any admin-uploaded custom subcategory images onto matching standard sections
-    const list = ALL_SITE_SECTIONS.map(section => {
-      const dbCat = dbByName.get(section.categoryName.toLowerCase().trim());
-      if (!dbCat || !Array.isArray(dbCat.subcategories)) return section;
-
-      const customSubs = dbCat.subcategories.filter(s => typeof s === 'object' && isRealImg(s.customImage));
-      if (customSubs.length === 0) return section;
-
-      const usedImgs = new Set();
-      const updatedItems = section.items.map(item => {
-        const itemName = item.name.toLowerCase();
-        const match = customSubs.find(s => {
-          const sName = (s.name || '').toLowerCase();
-          return sName && (itemName.includes(sName) || sName.includes(itemName)) && !usedImgs.has(s.customImage);
-        });
-        if (match) {
-          usedImgs.add(match.customImage);
-          return { ...item, image: match.customImage };
-        }
-        return item;
-      });
-
-      return { ...section, items: updatedItems };
-    });
-
     if (Array.isArray(categories) && categories.length > 0) {
-      // Check if admin created additional categories not covered by standard sections
-      const existingNames = new Set(ALL_SITE_SECTIONS.map(s => s.categoryName.toLowerCase().trim()));
-      const customDbCats = categories.filter(c => c && c.name && !existingNames.has(c.name.toLowerCase().trim()));
-
-      customDbCats.forEach(dbCat => {
+      return categories.map((dbCat) => {
+        const catName = dbCat.name;
         const usedInSection = new Set();
-        const subItems = (dbCat.subcategories && dbCat.subcategories.length > 0)
-          ? dbCat.subcategories.slice(0, 8).map((sub, sIdx) => {
-              const subName = (typeof sub === 'object' ? sub.name : sub) || '';
-              const customSubImg = typeof sub === 'object' && isRealImg(sub.customImage) ? sub.customImage.trim() : '';
-              const backendSubImg = typeof sub === 'object' && isRealImg(sub.image) ? sub.image.trim() : '';
-              const fallbackSvg = getFallbackSubcategoryImage(subName);
+        const rawSubs = Array.isArray(dbCat.subcategories) ? dbCat.subcategories : [];
 
-              // Pick a strictly unique image for each subcategory card
-              let resolvedImg = '';
-              if (customSubImg && !usedInSection.has(customSubImg)) {
-                resolvedImg = customSubImg;
-              } else if (backendSubImg && !usedInSection.has(backendSubImg) && backendSubImg !== dbCat.customImage) {
-                resolvedImg = backendSubImg;
-              } else if (fallbackSvg && !usedInSection.has(fallbackSvg)) {
-                resolvedImg = fallbackSvg;
-              } else if (backendSubImg && !usedInSection.has(backendSubImg)) {
-                resolvedImg = backendSubImg;
-              } else {
-                resolvedImg = fallbackSvg || '/placeholder-material.svg';
-              }
+        let subItems = [];
+        if (rawSubs.length > 0) {
+          subItems = rawSubs.map((sub, sIdx) => {
+            const subName = (typeof sub === 'object' ? sub.name : sub) || '';
+            const customSubImg = typeof sub === 'object' && isRealImg(sub.customImage) ? sub.customImage.trim() : '';
+            const backendSubImg = typeof sub === 'object' && isRealImg(sub.image) ? sub.image.trim() : '';
+            const fallbackSvg = getFallbackSubcategoryImage(subName);
 
-              if (isRealImg(resolvedImg)) {
-                usedInSection.add(resolvedImg);
-              }
+            let resolvedImg = '';
+            if (customSubImg && !usedInSection.has(customSubImg)) {
+              resolvedImg = customSubImg;
+            } else if (backendSubImg && !usedInSection.has(backendSubImg)) {
+              resolvedImg = backendSubImg;
+            } else if (fallbackSvg && !usedInSection.has(fallbackSvg)) {
+              resolvedImg = fallbackSvg;
+            } else {
+              resolvedImg = customSubImg || backendSubImg || fallbackSvg || dbCat.customImage || dbCat.image || '/placeholder-material.svg';
+            }
 
-              return {
-                id: `${dbCat.slug || dbCat._id}_sub_${sIdx}`,
-                name: subName,
-                link: `/products?category=${encodeURIComponent(dbCat.name)}&subcategory=${encodeURIComponent(subName)}`,
-                image: resolvedImg
-              };
-            })
-          : [
-              {
-                id: `${dbCat.slug || dbCat._id}_main`,
-                name: dbCat.name,
-                link: `/products?category=${encodeURIComponent(dbCat.name)}`,
-                image: isRealImg(dbCat.image) ? dbCat.image : '/placeholder-material.svg'
-              }
-            ];
+            if (isRealImg(resolvedImg)) {
+              usedInSection.add(resolvedImg);
+            }
 
-        list.push({
+            return {
+              id: `${dbCat.slug || dbCat._id}_sub_${sIdx}`,
+              name: subName,
+              link: `/products?category=${encodeURIComponent(catName)}&subcategory=${encodeURIComponent(subName)}`,
+              image: resolvedImg
+            };
+          });
+        } else {
+          subItems = [
+            {
+              id: `${dbCat.slug || dbCat._id}_main`,
+              name: catName,
+              link: `/products?category=${encodeURIComponent(catName)}`,
+              image: isRealImg(dbCat.customImage) ? dbCat.customImage : (isRealImg(dbCat.image) ? dbCat.image : '/placeholder-material.svg')
+            }
+          ];
+        }
+
+        return {
           id: dbCat.slug || String(dbCat._id),
-          title: dbCat.name,
-          categoryName: dbCat.name,
-          viewAllLink: `/products?category=${encodeURIComponent(dbCat.name)}`,
+          title: catName,
+          categoryName: catName,
+          viewAllLink: `/products?category=${encodeURIComponent(catName)}`,
           items: subItems
-        });
+        };
       });
     }
 
-    return list;
+    // Fallback if categories are not yet loaded from DB
+    return ALL_SITE_SECTIONS;
   }, [categories]);
 
   return (

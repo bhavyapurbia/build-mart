@@ -4,25 +4,31 @@ import api from '../utils/api';
 const SettingsContext = createContext();
 
 export const SettingsProvider = ({ children }) => {
-  const [settings, setSettings] = useState({
-    siteName: 'BuildPlace',
-    tagline: 'Your Trusted Construction Partner',
-    whatsappNumber: '+919876543210',
-    supportPhone: '1800-890-5000',
-    supportEmail: 'orders@buildplace.in',
-    officeAddress: 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103',
-    announcementBar: '⚡ 30-60 Minute Direct Job-Site Delivery Across India | Genuine Certified Construction Supplies',
-    freeDeliveryThreshold: 5000,
-    cities: ['Bengaluru', 'Mumbai', 'Hyderabad', 'Delhi NCR', 'Pune', 'Chennai'],
-    sellerGstin: '29AABCB1234F1Z5',
-    sellerState: 'Karnataka',
-    socialLinks: {
-      facebook: 'https://facebook.com',
-      twitter: 'https://twitter.com',
-      instagram: 'https://instagram.com',
-      linkedin: 'https://linkedin.com'
-    },
-    heroBanners: []
+  const [settings, setSettings] = useState(() => {
+    try {
+      const cached = localStorage.getItem('bm_site_settings');
+      if (cached) return JSON.parse(cached);
+    } catch {}
+    return {
+      siteName: 'BuildPlace',
+      tagline: 'Your Trusted Construction Partner',
+      whatsappNumber: '+919876543210',
+      supportPhone: '1800-890-5000',
+      supportEmail: 'orders@buildplace.in',
+      officeAddress: 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103',
+      announcementBar: '⚡ 30-60 Minute Direct Job-Site Delivery Across India | Genuine Certified Construction Supplies',
+      freeDeliveryThreshold: 5000,
+      cities: ['Bengaluru', 'Mumbai', 'Hyderabad', 'Delhi NCR', 'Pune', 'Chennai'],
+      sellerGstin: '29AABCB1234F1Z5',
+      sellerState: 'Karnataka',
+      socialLinks: {
+        facebook: 'https://facebook.com',
+        twitter: 'https://twitter.com',
+        instagram: 'https://instagram.com',
+        linkedin: 'https://linkedin.com'
+      },
+      heroBanners: []
+    };
   });
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +38,13 @@ export const SettingsProvider = ({ children }) => {
         const res = await api.get('/settings/public');
         const data = res.data?.data || res.data;
         if (data && typeof data === 'object') {
-          setSettings(prev => ({ ...prev, ...data }));
+          setSettings(prev => {
+            const merged = { ...prev, ...data };
+            try {
+              localStorage.setItem('bm_site_settings', JSON.stringify(merged));
+            } catch {}
+            return merged;
+          });
           if (data.themeAccent) {
             document.documentElement.style.setProperty('--primary', data.themeAccent);
           }
