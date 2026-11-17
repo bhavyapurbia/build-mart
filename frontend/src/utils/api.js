@@ -21,6 +21,8 @@ export const notifyCatalogUpdated = () => {
   const ts = String(Date.now());
   try {
     localStorage.setItem(SYNC_KEY, ts);
+    sessionStorage.removeItem('bm_home_cache');
+    localStorage.removeItem('bm_home_cache');
   } catch {
     // ignore storage errors
   }

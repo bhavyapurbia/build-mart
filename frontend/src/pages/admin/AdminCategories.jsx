@@ -75,17 +75,22 @@ const AdminCategories = () => {
   const handleOpenEdit = (c) => {
     setEditingCategory(c);
     setNewSubInput('');
-    const subs = (c.subcategories || []).map(s => ({
-      name: typeof s === 'object' ? (s.name || '') : String(s),
-      slug: typeof s === 'object' ? (s.slug || toSlug(s.name)) : toSlug(s),
-      description: typeof s === 'object' ? (s.description || '') : `${s} products`,
-      image: cleanStoredImage(typeof s === 'object' ? (s.customImage !== undefined ? s.customImage : s.image) : '')
-    }));
+    const subs = (c.subcategories || []).map(s => {
+      const subName = typeof s === 'object' ? (s.name || '') : String(s);
+      const subImg = typeof s === 'object' ? (s.customImage || s.image || '') : '';
+      return {
+        name: subName,
+        slug: typeof s === 'object' ? (s.slug || toSlug(subName)) : toSlug(subName),
+        description: typeof s === 'object' ? (s.description || '') : `${subName} products`,
+        image: cleanStoredImage(subImg)
+      };
+    });
 
+    const catImg = c.customImage || c.image || '';
     setFormData({
       name: c.name || '',
       description: c.description || '',
-      image: cleanStoredImage(c.customImage !== undefined ? c.customImage : c.image),
+      image: cleanStoredImage(catImg),
       icon: c.icon || 'Building2',
       subcategories: subs
     });
@@ -134,19 +139,6 @@ const AdminCategories = () => {
 
   const handleSubImageChange = (idx, url) => {
     const trimmed = (url || '').trim();
-    if (trimmed) {
-      const dupIdx = formData.subcategories.findIndex(
-        (s, i) => i !== idx && (s.image || '').trim() === trimmed
-      );
-      if (dupIdx !== -1) {
-        showToast(
-          `Image already used by "${formData.subcategories[dupIdx].name}". Please upload a unique image for each subcategory.`,
-          'error'
-        );
-        return;
-      }
-    }
-
     setFormData(prev => {
       const updated = [...prev.subcategories];
       updated[idx] = { ...updated[idx], image: trimmed };
@@ -167,7 +159,7 @@ const AdminCategories = () => {
       await api.delete(`/categories/${c._id}`);
       showToast(`Category "${c.name}" deleted.`, 'success');
       notifyCatalogUpdated();
-      loadCategories();
+      await loadCategories();
     } catch (err) {
       showToast(err.response?.data?.message || 'Error deleting category', 'error');
     }
@@ -198,21 +190,6 @@ const AdminCategories = () => {
       }))
       .filter(s => s.name);
 
-    // Enforce unique images across subcategories
-    const seen = new Map();
-    for (const sub of cleanedSubs) {
-      if (sub.image) {
-        if (seen.has(sub.image)) {
-          showToast(
-            `Duplicate image detected for "${sub.name}" and "${seen.get(sub.image)}". Every subcategory must have a unique image.`,
-            'error'
-          );
-          return;
-        }
-        seen.set(sub.image, sub.name);
-      }
-    }
-
     setSaving(true);
     try {
       const payload = {
@@ -233,7 +210,7 @@ const AdminCategories = () => {
 
       notifyCatalogUpdated();
       setIsModalOpen(false);
-      loadCategories();
+      await loadCategories();
     } catch (err) {
       showToast(err.response?.data?.message || 'Error saving category', 'error');
     } finally {

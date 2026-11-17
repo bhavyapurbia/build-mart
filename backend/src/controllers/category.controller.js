@@ -24,7 +24,6 @@ const toSlug = (str) =>
 const normalizeSubcategories = (subcategories = []) => {
   if (!Array.isArray(subcategories)) return [];
 
-  const seenImages = new Map();
   const normalized = [];
 
   for (const rawSub of subcategories) {
@@ -33,18 +32,7 @@ const normalizeSubcategories = (subcategories = []) => {
 
     const slug = (typeof rawSub === 'object' && rawSub.slug ? toSlug(rawSub.slug) : toSlug(name)) || toSlug(name);
     const description = typeof rawSub === 'object' && rawSub.description ? String(rawSub.description).trim() : `${name} products`;
-    const image = typeof rawSub === 'object' && isCustomImage(rawSub.image) ? rawSub.image.trim() : '';
-
-    if (image) {
-      if (seenImages.has(image)) {
-        const prevName = seenImages.get(image);
-        throw new ApiError(
-          400,
-          `Each subcategory must use a unique image. "${name}" cannot reuse the same image as "${prevName}".`
-        );
-      }
-      seenImages.set(image, name);
-    }
+    const image = typeof rawSub === 'object' && rawSub.image ? String(rawSub.image).trim() : '';
 
     normalized.push({ name, slug, description, image });
   }
@@ -257,15 +245,16 @@ const MASTER_CATEGORIES = [
 export const getCategories = asyncHandler(async (req, res) => {
   let categories = await Category.find({ isActive: true }).sort({ order: 1 }).lean();
 
-  // If any master categories are missing from the DB, auto-populate them
-  const existingNames = new Set(categories.map(c => (c.name || '').toLowerCase().trim()));
-  const missing = MASTER_CATEGORIES.filter(m => !existingNames.has(m.name.toLowerCase().trim()));
-  if (missing.length > 0) {
-    try {
-      await Category.insertMany(missing);
-      categories = await Category.find({ isActive: true }).sort({ order: 1 }).lean();
-    } catch (e) {
-      console.error('Auto-seed missing categories warning:', e.message);
+  // ONLY auto-populate master categories if the collection is completely empty (0 categories in DB)
+  if (!categories || categories.length === 0) {
+    const totalCount = await Category.countDocuments();
+    if (totalCount === 0) {
+      try {
+        await Category.insertMany(MASTER_CATEGORIES);
+        categories = await Category.find({ isActive: true }).sort({ order: 1 }).lean();
+      } catch (e) {
+        console.error('Initial category seed warning:', e.message);
+      }
     }
   }
 
@@ -276,7 +265,7 @@ export const getCategories = asyncHandler(async (req, res) => {
     .select('name category subcategory images')
     .lean();
 
-  const enrichedCategories = categories.map((cat) => enrichCategoryWithImages(cat, activeProducts));
+  const enrichedCategories = (categories || []).map((cat) => enrichCategoryWithImages(cat, activeProducts));
 
   return res.status(200).json(
     new ApiResponse(200, enrichedCategories, 'Categories fetched successfully')
@@ -339,10 +328,17 @@ export const updateCategory = asyncHandler(async (req, res) => {
 
   if (updateData.name) {
     updateData.name = updateData.name.trim();
-    updateData.slug = toSlug(updateData.name);
+    if (updateData.name !== oldName) {
+      let slug = toSlug(updateData.name);
+      const conflict = await Category.findOne({ slug, _id: { $ne: id } });
+      if (conflict) {
+        slug = `${slug}-${Date.now().toString(36)}`;
+      }
+      updateData.slug = slug;
+    }
   }
   if ('image' in updateData) {
-    updateData.image = isCustomImage(updateData.image) ? updateData.image.trim() : '';
+    updateData.image = (updateData.image || '').trim();
   }
   if ('subcategories' in updateData) {
     updateData.subcategories = normalizeSubcategories(updateData.subcategories);
