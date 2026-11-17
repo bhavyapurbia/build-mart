@@ -36,7 +36,7 @@ const AdminOrders = () => {
   const loadOrders = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/orders/admin/all');
+      const res = await api.get('/orders/admin/all?limit=100');
       const payload = res.data?.data || res.data;
       const list = Array.isArray(payload)
         ? payload

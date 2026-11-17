@@ -31,7 +31,8 @@ export const getProducts = asyncHandler(async (req, res) => {
   } = req.query;
 
   const pageNum = Math.max(1, parseInt(page, 10) || 1);
-  const limitNum = Math.min(60, Math.max(1, parseInt(limit, 10) || 24));
+  const maxAllowedLimit = parseInt(limit, 10) > 60 ? 500 : 60;
+  const limitNum = Math.min(maxAllowedLimit, Math.max(1, parseInt(limit, 10) || 24));
   const skip = (pageNum - 1) * limitNum;
 
   const filter = { isActive: true, deletedAt: null };

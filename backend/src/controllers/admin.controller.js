@@ -27,6 +27,8 @@ export const getOverviewKPIs = asyncHandler(async (req, res) => {
     pendingQuotations,
     bulkEnquiries,
     labourRequests,
+    pendingSnapLists,
+    totalSnapLists,
     salesAgg,
     revenuePerDay,
     ordersByStatusAgg,
@@ -44,6 +46,8 @@ export const getOverviewKPIs = asyncHandler(async (req, res) => {
     Quotation.countDocuments({ status: 'Sent' }),
     BulkEnquiry.countDocuments({ status: 'Received' }),
     LabourRequest.countDocuments({ status: 'Pending Review' }),
+    MaterialRequest.countDocuments({ isPaperList: true, status: 'Pending Review' }),
+    MaterialRequest.countDocuments({ isPaperList: true }),
 
     // Total revenue aggregation (excluding cancelled orders)
     Order.aggregate([
@@ -152,6 +156,8 @@ export const getOverviewKPIs = asyncHandler(async (req, res) => {
         pendingQuotations,
         bulkEnquiries,
         labourRequests,
+        pendingSnapLists,
+        totalSnapLists,
         totalSales,
         lowStockCount
       },

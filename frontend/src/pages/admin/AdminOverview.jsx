@@ -10,7 +10,8 @@ import {
   HardHat,
   IndianRupee,
   AlertTriangle,
-  ArrowRight
+  ArrowRight,
+  Camera
 } from 'lucide-react';
 import api from '../../utils/api';
 
@@ -70,6 +71,17 @@ const AdminOverview = () => {
             <ClipboardList size={24} />
           </div>
         </div>
+
+        <Link to="/admin/snap-lists" className="kpi-card" style={{ textDecoration: 'none' }}>
+          <div>
+            <div style={{ fontSize: '12.5px', color: 'var(--color-muted)', fontWeight: 600 }}>Snap Paper Lists</div>
+            <div className="kpi-val" style={{ color: 'var(--color-accent)' }}>{metrics?.pendingSnapLists || 0}</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-muted)' }}>{metrics?.totalSnapLists || 0} total uploaded</div>
+          </div>
+          <div className="kpi-icon" style={{ background: 'rgba(224, 90, 0, 0.1)', color: 'var(--color-accent)' }}>
+            <Camera size={24} />
+          </div>
+        </Link>
 
         <div className="kpi-card">
           <div>

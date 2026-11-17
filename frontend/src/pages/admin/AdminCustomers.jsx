@@ -12,7 +12,7 @@ const AdminCustomers = () => {
     const loadCustomers = async () => {
       setLoading(true);
       try {
-        const res = await api.get('/admin/customers');
+        const res = await api.get('/admin/customers?limit=100');
         const payload = res.data?.data || res.data;
         const list = Array.isArray(payload)
           ? payload

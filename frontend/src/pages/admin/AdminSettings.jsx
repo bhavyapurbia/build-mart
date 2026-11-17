@@ -22,7 +22,19 @@ const AdminSettings = () => {
     const fetchSettings = async () => {
       try {
         const res = await api.get('/settings');
-        if (res.data) setSettings(res.data);
+        const data = res.data?.data || res.data;
+        if (data && typeof data === 'object') {
+          setSettings(prev => ({
+            ...prev,
+            siteName: data.siteName || prev.siteName,
+            whatsappNumber: data.whatsappNumber || prev.whatsappNumber,
+            supportPhone: data.supportPhone || prev.supportPhone,
+            supportEmail: data.supportEmail || prev.supportEmail,
+            officeAddress: data.officeAddress || prev.officeAddress,
+            announcementBar: data.announcementBar || prev.announcementBar,
+            freeDeliveryThreshold: data.freeDeliveryThreshold ?? prev.freeDeliveryThreshold
+          }));
+        }
       } catch (err) {
         showToast('Error loading website settings', 'error');
       } finally {
@@ -36,10 +48,23 @@ const AdminSettings = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      await api.put('/settings', settings);
-      showToast('Website settings updated successfully!', 'success');
+      const payload = {
+        siteName: settings.siteName,
+        whatsappNumber: settings.whatsappNumber,
+        supportPhone: settings.supportPhone,
+        supportEmail: settings.supportEmail,
+        officeAddress: settings.officeAddress,
+        announcementBar: settings.announcementBar,
+        freeDeliveryThreshold: Number(settings.freeDeliveryThreshold) || 5000
+      };
+      const res = await api.put('/settings', payload);
+      const updated = res.data?.data || res.data;
+      if (updated) {
+        setSettings(prev => ({ ...prev, ...updated }));
+      }
+      showToast('Website settings updated and saved to database!', 'success');
     } catch (err) {
-      showToast('Error updating settings', 'error');
+      showToast(err.response?.data?.message || 'Error updating settings in database', 'error');
     } finally {
       setSaving(false);
     }

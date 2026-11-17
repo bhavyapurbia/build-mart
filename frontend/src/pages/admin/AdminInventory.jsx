@@ -12,7 +12,7 @@ const AdminInventory = () => {
   const loadInventory = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/admin/inventory');
+      const res = await api.get('/admin/inventory?limit=100');
       const payload = res.data?.data || res.data;
       const list = Array.isArray(payload)
         ? payload

@@ -89,7 +89,7 @@ const AdminProducts = () => {
   const loadProducts = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/products?limit=100');
+      const res = await api.get('/products?limit=500');
       const payload = res.data?.data || res.data;
       const list = Array.isArray(payload)
         ? payload

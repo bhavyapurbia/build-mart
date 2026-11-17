@@ -136,7 +136,12 @@ const AdminBanners = () => {
 
   const fetchBanners = async () => {
     try {
-      const res = await api.get('/banners');
+      let res;
+      try {
+        res = await api.get('/banners/admin');
+      } catch {
+        res = await api.get('/banners');
+      }
       const list = Array.isArray(res.data) ? res.data : (res.data?.data || []);
       if (list && list.length > 0) {
         setBanners(list);
@@ -147,8 +152,22 @@ const AdminBanners = () => {
     }
   };
 
+  const fetchAnnouncement = async () => {
+    try {
+      const res = await api.get('/settings');
+      const data = res.data?.data || res.data;
+      if (data?.announcementBar) {
+        setAnnouncementText(data.announcementBar);
+        localStorage.setItem('bm_announcement', data.announcementBar);
+      }
+    } catch (err) {
+      // quiet
+    }
+  };
+
   useEffect(() => {
     fetchBanners();
+    fetchAnnouncement();
   }, []);
 
   const saveBannersLocally = (updated) => {
@@ -305,10 +324,16 @@ const AdminBanners = () => {
     }
   };
 
-  const handleSaveAnnouncement = (e) => {
+  const handleSaveAnnouncement = async (e) => {
     e.preventDefault();
-    localStorage.setItem('bm_announcement', announcementText);
-    showToast('Top Announcement Bar updated across the website!', 'success');
+    try {
+      await api.put('/settings', { announcementBar: announcementText });
+      localStorage.setItem('bm_announcement', announcementText);
+      showToast('Top Announcement Bar updated and saved to database!', 'success');
+    } catch (err) {
+      localStorage.setItem('bm_announcement', announcementText);
+      showToast('Top Announcement Bar updated across website!', 'info');
+    }
   };
 
   return (
