@@ -47,6 +47,8 @@ const AdminProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+  const [isCustomBrand, setIsCustomBrand] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -114,7 +116,10 @@ const AdminProducts = () => {
   }, []);
 
   const handleOpenAdd = () => {
+    loadMetadata();
     setEditingProduct(null);
+    setIsCustomCategory(false);
+    setIsCustomBrand(false);
     const defaultCat = categoriesList.length > 0 ? categoriesList[0].name : 'Cement & Steel';
     const defaultBrand = brandsList.length > 0 ? brandsList[0].name : 'UltraTech';
     setFormData({
@@ -135,7 +140,10 @@ const AdminProducts = () => {
   };
 
   const handleOpenEdit = (p) => {
+    loadMetadata();
     setEditingProduct(p);
+    setIsCustomCategory(false);
+    setIsCustomBrand(false);
     const existingImages = (p.images && p.images.length > 0)
       ? p.images
       : (p.image ? [p.image] : ['']);
@@ -279,6 +287,36 @@ const AdminProducts = () => {
       showToast(err.response?.data?.message || 'Error saving product', 'error');
     }
   };
+
+  // Dynamic categories list from AdminCategories
+  const dynamicCategoryNames = (categoriesList || [])
+    .map(c => typeof c === 'object' ? c.name : c)
+    .filter(Boolean);
+
+  const availableCategories = Array.from(new Set([
+    ...dynamicCategoryNames,
+    ...(formData.category ? [formData.category] : []),
+    ...CATEGORIES
+  ]));
+
+  // Dynamic brands list from AdminBrands
+  const dynamicBrandNames = (brandsList || [])
+    .map(b => typeof b === 'object' ? b.name : b)
+    .filter(Boolean);
+
+  const availableBrands = Array.from(new Set([
+    ...dynamicBrandNames,
+    ...(formData.brand ? [formData.brand] : []),
+    'UltraTech', 'Tata Tiscon', 'Asian Paints', 'Dr. Fixit by Pidilite', 'Havells India Ltd.', 'Fevicol by Pidilite', 'Jaquar Group'
+  ]));
+
+  // Selected category subcategories from AdminCategories
+  const selectedCatObj = (categoriesList || []).find(
+    c => (c.name || '').toLowerCase() === (formData.category || '').toLowerCase()
+  );
+  const availableSubcategories = (selectedCatObj?.subcategories || [])
+    .map(s => typeof s === 'object' ? s.name : s)
+    .filter(Boolean);
 
   const filtered = products.filter(p => {
     const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -463,25 +501,68 @@ const AdminProducts = () => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Category *</label>
-                    <select
-                      value={formData.category}
-                      onChange={e => setFormData({ ...formData, category: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', background: 'var(--bg-card)' }}
-                    >
-                      {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-                    </select>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                      <label style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)' }}>Category *</label>
+                      <button
+                        type="button"
+                        onClick={() => setIsCustomCategory(!isCustomCategory)}
+                        style={{ background: 'none', border: 'none', color: '#FF7800', fontSize: '11px', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                      >
+                        {isCustomCategory ? '← Choose from List' : '+ Custom Category'}
+                      </button>
+                    </div>
+                    {isCustomCategory ? (
+                      <input
+                        type="text"
+                        required
+                        placeholder="Type new category..."
+                        value={formData.category}
+                        onChange={e => setFormData({ ...formData, category: e.target.value })}
+                        style={{ width: '100%', padding: '9px 12px', border: '1px solid #FF7800', borderRadius: '6px', fontSize: '13.5px' }}
+                      />
+                    ) : (
+                      <select
+                        value={formData.category}
+                        onChange={e => {
+                          const chosen = e.target.value;
+                          setFormData({ ...formData, category: chosen, subcategory: '' });
+                        }}
+                        style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', background: 'var(--bg-card)' }}
+                      >
+                        {availableCategories.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    )}
                   </div>
+
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Manufacturer / Brand *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Asian Paints, UltraTech, Tata Tiscon"
-                      value={formData.brand}
-                      onChange={e => setFormData({ ...formData, brand: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
-                    />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                      <label style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)' }}>Manufacturer / Brand *</label>
+                      <button
+                        type="button"
+                        onClick={() => setIsCustomBrand(!isCustomBrand)}
+                        style={{ background: 'none', border: 'none', color: '#FF7800', fontSize: '11px', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                      >
+                        {isCustomBrand ? '← Choose from List' : '+ Custom Brand'}
+                      </button>
+                    </div>
+                    {isCustomBrand ? (
+                      <input
+                        type="text"
+                        required
+                        placeholder="Type new brand..."
+                        value={formData.brand}
+                        onChange={e => setFormData({ ...formData, brand: e.target.value })}
+                        style={{ width: '100%', padding: '9px 12px', border: '1px solid #FF7800', borderRadius: '6px', fontSize: '13.5px' }}
+                      />
+                    ) : (
+                      <select
+                        value={formData.brand}
+                        onChange={e => setFormData({ ...formData, brand: e.target.value })}
+                        style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', background: 'var(--bg-card)' }}
+                      >
+                        {availableBrands.map(b => <option key={b} value={b}>{b}</option>)}
+                      </select>
+                    )}
                   </div>
                 </div>
 
@@ -532,13 +613,42 @@ const AdminProducts = () => {
                   </div>
                   <div>
                     <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>Subcategory (Optional)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Waterproofing, TMT 16mm"
-                      value={formData.subcategory}
-                      onChange={e => setFormData({ ...formData, subcategory: e.target.value })}
-                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
-                    />
+                    {availableSubcategories.length > 0 ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <select
+                          value={availableSubcategories.includes(formData.subcategory) ? formData.subcategory : (formData.subcategory ? '__OTHER__' : '')}
+                          onChange={e => {
+                            if (e.target.value === '__OTHER__') {
+                              setFormData({ ...formData, subcategory: '' });
+                            } else {
+                              setFormData({ ...formData, subcategory: e.target.value });
+                            }
+                          }}
+                          style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px', background: 'var(--bg-card)' }}
+                        >
+                          <option value="">-- Select Defined Subcategory --</option>
+                          {availableSubcategories.map(s => <option key={s} value={s}>{s}</option>)}
+                          <option value="__OTHER__">+ Enter Custom Subcategory</option>
+                        </select>
+                        {(!availableSubcategories.includes(formData.subcategory) || formData.subcategory === '') && (
+                          <input
+                            type="text"
+                            placeholder="Type custom subcategory (e.g. Waterproofing, 16mm TMT)..."
+                            value={formData.subcategory}
+                            onChange={e => setFormData({ ...formData, subcategory: e.target.value })}
+                            style={{ width: '100%', padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '12.5px' }}
+                          />
+                        )}
+                      </div>
+                    ) : (
+                      <input
+                        type="text"
+                        placeholder="e.g. Waterproofing, TMT 16mm"
+                        value={formData.subcategory}
+                        onChange={e => setFormData({ ...formData, subcategory: e.target.value })}
+                        style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
+                      />
+                    )}
                   </div>
                 </div>
 

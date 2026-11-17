@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, X, Image as ImageIcon, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
 import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
-import api from '../../utils/api';
+import api, { notifyCatalogUpdated } from '../../utils/api';
 
 const PLACEHOLDERS = new Set(['/placeholder-material.svg', '/placeholder-material.jpg', '/placeholder.svg']);
 
@@ -166,6 +166,7 @@ const AdminCategories = () => {
     try {
       await api.delete(`/categories/${c._id}`);
       showToast(`Category "${c.name}" deleted.`, 'success');
+      notifyCatalogUpdated();
       loadCategories();
     } catch (err) {
       showToast(err.response?.data?.message || 'Error deleting category', 'error');
@@ -230,6 +231,7 @@ const AdminCategories = () => {
         showToast('Category created successfully!', 'success');
       }
 
+      notifyCatalogUpdated();
       setIsModalOpen(false);
       loadCategories();
     } catch (err) {

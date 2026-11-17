@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Award, Plus, Edit, Trash2, X, Check, Search, ShieldCheck } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
-import api from '../../utils/api';
+import api, { notifyCatalogUpdated } from '../../utils/api';
 import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const AdminBrands = () => {
@@ -74,6 +74,7 @@ const AdminBrands = () => {
         await api.post('/brands', formData);
         showToast('New brand added successfully!', 'success');
       }
+      notifyCatalogUpdated();
       setIsModalOpen(false);
       fetchBrands();
     } catch (err) {
@@ -88,6 +89,7 @@ const AdminBrands = () => {
     try {
       await api.delete(`/brands/${id}`);
       showToast(`Brand "${name}" removed.`, 'success');
+      notifyCatalogUpdated();
       fetchBrands();
     } catch (err) {
       showToast('Error deleting brand', 'error');
