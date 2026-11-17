@@ -66,7 +66,8 @@ const defaultAllowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173',
-  'https://build-mart-7ly2.vercel.app'
+  'https://build-mart-7ly2.vercel.app',
+  'https://build-mart-1oze.onrender.com'
 ];
 
 const envOrigins = (process.env.CLIENT_URL || '')
@@ -83,9 +84,10 @@ const corsOptions = {
 
     const cleanOrigin = origin.replace(/\/+$/, '');
 
-    // Allow configured origins or any Vercel deployment/preview domains for build-mart
+    // Allow configured origins or any Vercel/Render deployment domains for build-mart
     const isAllowed = allowedOrigins.includes(cleanOrigin) ||
-      /^https:\/\/build-mart[a-z0-9-]*\.vercel\.app$/.test(cleanOrigin);
+      /^https:\/\/build-mart[a-z0-9-]*\.vercel\.app$/.test(cleanOrigin) ||
+      /^https:\/\/build-mart[a-z0-9-]*\.onrender\.com$/.test(cleanOrigin);
 
     if (isAllowed) {
       callback(null, true);
