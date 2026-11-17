@@ -52,23 +52,44 @@ const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [pendingSnapCount, setPendingSnapCount] = useState(0);
+  const [pendingBulkCount, setPendingBulkCount] = useState(0);
 
   useEffect(() => {
     if (!isAdmin) return;
-    const fetchSnapCount = async () => {
+    const fetchCounts = async () => {
       try {
-        const res = await api.get('/material-requests/admin/all?isPaperList=true&status=Pending Review');
-        const list = Array.isArray(res.data?.data?.requests)
-          ? res.data.data.requests
-          : (Array.isArray(res.data?.data) ? res.data.data : []);
-        setPendingSnapCount(list.length);
+        const [snapRes, bulkRes] = await Promise.allSettled([
+          api.get('/material-requests/admin/all?isPaperList=true&status=Pending Review'),
+          api.get('/bulk-enquiries/admin?status=Received')
+        ]);
+
+        if (snapRes.status === 'fulfilled') {
+          const list = Array.isArray(snapRes.value.data?.data?.requests)
+            ? snapRes.value.data.data.requests
+            : (Array.isArray(snapRes.value.data?.data) ? snapRes.value.data.data : []);
+          setPendingSnapCount(list.length);
+        }
+
+        if (bulkRes.status === 'fulfilled') {
+          const payload = bulkRes.value.data?.data || bulkRes.value.data;
+          const list = Array.isArray(payload)
+            ? payload
+            : (Array.isArray(payload?.enquiries)
+              ? payload.enquiries
+              : (Array.isArray(bulkRes.value.data?.enquiries) ? bulkRes.value.data.enquiries : []));
+          setPendingBulkCount(list.length);
+        }
       } catch (e) {
         // quiet
       }
     };
-    fetchSnapCount();
-    const unsub = subscribeCatalogUpdates(fetchSnapCount);
-    return () => unsub();
+    fetchCounts();
+    const unsub = subscribeCatalogUpdates(fetchCounts);
+    const timer = setInterval(fetchCounts, 15000);
+    return () => {
+      unsub();
+      clearInterval(timer);
+    };
   }, [isAdmin]);
 
   if (loading) {
@@ -132,20 +153,32 @@ const AdminLayout = () => {
                 >
                   <Icon size={18} />
                   <span style={{ flex: 1 }}>{item.label}</span>
-                  {(item.path === '/admin/snap-lists' && pendingSnapCount > 0 ? `${pendingSnapCount} NEW` : item.badge) && (
-                    <span style={{
-                      background: item.path === '/admin/snap-lists' && pendingSnapCount > 0
-                        ? '#EA7E12'
-                        : (isActive ? 'var(--color-ink)' : 'var(--primary-dark)'),
-                      color: '#FFFFFF',
-                      fontSize: '10px',
-                      padding: '1px 6px',
-                      borderRadius: '4px',
-                      fontWeight: 800
-                    }}>
-                      {item.path === '/admin/snap-lists' && pendingSnapCount > 0 ? `${pendingSnapCount} NEW` : item.badge}
-                    </span>
-                  )}
+                  {(() => {
+                    let badgeText = item.badge;
+                    let isSpecialAlert = false;
+                    if (item.path === '/admin/snap-lists' && pendingSnapCount > 0) {
+                      badgeText = `${pendingSnapCount} NEW`;
+                      isSpecialAlert = true;
+                    } else if (item.path === '/admin/bulk' && pendingBulkCount > 0) {
+                      badgeText = `${pendingBulkCount} NEW`;
+                      isSpecialAlert = true;
+                    }
+                    if (!badgeText) return null;
+                    return (
+                      <span style={{
+                        background: isSpecialAlert
+                          ? '#EA7E12'
+                          : (isActive ? 'var(--color-ink)' : 'var(--primary-dark)'),
+                        color: '#FFFFFF',
+                        fontSize: '10px',
+                        padding: '1px 6px',
+                        borderRadius: '4px',
+                        fontWeight: 800
+                      }}>
+                        {badgeText}
+                      </span>
+                    );
+                  })()}
                 </Link>
               </li>
             );

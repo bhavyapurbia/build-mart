@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
-import api from '../utils/api';
+import api, { notifyCatalogUpdated } from '../utils/api';
 
 const CATEGORIES = [
   'Cement & Steel',
@@ -85,7 +85,9 @@ const BulkEnquiryPage = () => {
       };
 
       const res = await api.post('/bulk-enquiries', payload);
-      setSubmittedEnquiry(res.data);
+      const data = res.data?.data || res.data;
+      setSubmittedEnquiry(data.enquiry || data);
+      notifyCatalogUpdated();
       showToast('Bulk enquiry submitted! Our institutional sales team is reviewing your project.', 'success', 5000);
     } catch (err) {
       const msg = err.response?.data?.message || 'Error submitting bulk enquiry.';

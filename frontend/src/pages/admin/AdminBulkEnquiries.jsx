@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Truck, MessageSquare, Phone, Mail, FileText, CheckCircle, X } from 'lucide-react';
+import { Truck, MessageSquare, Phone, Mail, FileText, CheckCircle, X, RefreshCw } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
-import api from '../../utils/api';
+import api, { subscribeCatalogUpdates, notifyCatalogUpdated } from '../../utils/api';
 
 const AdminBulkEnquiries = () => {
   const [enquiries, setEnquiries] = useState([]);
@@ -15,10 +15,15 @@ const AdminBulkEnquiries = () => {
 
   const { showToast } = useNotification();
 
-  const loadEnquiries = async () => {
-    setLoading(true);
+  const loadEnquiries = async (quiet = false) => {
+    if (!quiet) setLoading(true);
     try {
-      const res = await api.get('/bulk-enquiries/admin/all');
+      let res;
+      try {
+        res = await api.get('/bulk-enquiries/admin');
+      } catch {
+        res = await api.get('/bulk-enquiries/admin/all');
+      }
       const payload = res.data?.data || res.data;
       const list = Array.isArray(payload)
         ? payload
@@ -27,14 +32,21 @@ const AdminBulkEnquiries = () => {
           : (Array.isArray(res.data?.enquiries) ? res.data.enquiries : []));
       setEnquiries(list);
     } catch (err) {
-      showToast('Error loading bulk enquiries', 'error');
+      console.error('Error loading bulk enquiries:', err);
+      if (!quiet) showToast('Error loading bulk enquiries', 'error');
     } finally {
-      setLoading(false);
+      if (!quiet) setLoading(false);
     }
   };
 
   useEffect(() => {
     loadEnquiries();
+    const unsub = subscribeCatalogUpdates(() => loadEnquiries(true));
+    const timer = setInterval(() => loadEnquiries(true), 12000);
+    return () => {
+      unsub();
+      clearInterval(timer);
+    };
   }, []);
 
   const handleOpenQuote = (enq) => {
@@ -59,8 +71,9 @@ const AdminBulkEnquiries = () => {
       });
 
       showToast('Bulk project quotation updated!', 'success');
+      notifyCatalogUpdated();
       setIsQuoteModalOpen(false);
-      loadEnquiries();
+      loadEnquiries(true);
     } catch (err) {
       showToast('Error updating bulk quotation', 'error');
     }
@@ -143,22 +156,33 @@ const AdminBulkEnquiries = () => {
                       <span>Prepare Quote</span>
                     </button>
 
-                    <a
-                      href={`https://wa.me/${enq.customer?.phone?.replace(/\D/g, '')}?text=Hello%20${enq.customer?.fullName},%20following%20up%20from%20BuildPlace%20regarding%20Bulk%20Enquiry%20%23${enq.enquiryId}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        background: 'var(--color-success)',
-                        color: 'var(--bg-card)',
-                        padding: '6px 10px',
-                        borderRadius: '6px',
-                        display: 'flex',
-                        alignItems: 'center'
-                      }}
-                      title="Contact on WhatsApp"
-                    >
-                      <MessageSquare size={14} />
-                    </a>
+                    {(() => {
+                      const rawPhone = (enq.customer?.phone || '').replace(/\D/g, '');
+                      const waPhone = rawPhone.length === 10 ? `91${rawPhone}` : rawPhone;
+                      return (
+                        <a
+                          href={`https://wa.me/${waPhone}?text=Hello%20${encodeURIComponent(enq.customer?.fullName || 'Sir')},%20following%20up%20from%20BuildPlace%20regarding%20Bulk%20Enquiry%20%23${enq.enquiryId}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{
+                            background: '#25D366',
+                            color: '#FFFFFF',
+                            padding: '6px 10px',
+                            borderRadius: '6px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            textDecoration: 'none'
+                          }}
+                          title="Contact Customer on WhatsApp"
+                        >
+                          <MessageSquare size={14} />
+                          <span>WhatsApp</span>
+                        </a>
+                      );
+                    })()}
                   </div>
                 </td>
               </tr>
