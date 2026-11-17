@@ -23,7 +23,7 @@ const MaterialListPage = () => {
 
   const [customer, setCustomer] = useState({
     name: user?.name || '',
-    phone: user?.phone || '',
+    phone: user?.phone || localStorage.getItem('bm_user_phone') || '',
     email: user?.email || '',
     siteAddress: (user?.addresses && user.addresses[0]?.street) || '',
     city: (user?.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
@@ -31,6 +31,20 @@ const MaterialListPage = () => {
     requiredDate: '',
     notes: ''
   });
+
+  useEffect(() => {
+    if (user) {
+      setCustomer(prev => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        phone: prev.phone || user.phone || localStorage.getItem('bm_user_phone') || '',
+        email: prev.email || user.email || '',
+        siteAddress: prev.siteAddress || (user.addresses && user.addresses[0]?.street) || '',
+        city: prev.city || (user.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
+        pincode: prev.pincode || (user.addresses && user.addresses[0]?.pincode) || ''
+      }));
+    }
+  }, [user]);
 
   const [submittedRequest, setSubmittedRequest] = useState(null);
 

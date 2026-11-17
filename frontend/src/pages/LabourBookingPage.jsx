@@ -35,12 +35,26 @@ const LabourBookingPage = () => {
 
   const [customer, setCustomer] = useState({
     name: user?.name || '',
-    phone: user?.phone || '',
+    phone: user?.phone || localStorage.getItem('bm_user_phone') || '',
     email: user?.email || '',
     workLocation: (user?.addresses && user.addresses[0]?.street) || '',
     city: (user?.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
     pincode: (user?.addresses && user.addresses[0]?.pincode) || ''
   });
+
+  useEffect(() => {
+    if (user) {
+      setCustomer(prev => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        phone: prev.phone || user.phone || localStorage.getItem('bm_user_phone') || '',
+        email: prev.email || user.email || '',
+        workLocation: prev.workLocation || (user.addresses && user.addresses[0]?.street) || '',
+        city: prev.city || (user.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
+        pincode: prev.pincode || (user.addresses && user.addresses[0]?.pincode) || ''
+      }));
+    }
+  }, [user]);
 
   const [labourType, setLabourType] = useState('Mason');
   const [workersRequired, setWorkersRequired] = useState(2);

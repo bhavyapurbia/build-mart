@@ -75,13 +75,27 @@ const CheckoutPage = () => {
   // Customer delivery details
   const [customer, setCustomer] = useState({
     name: user?.name || '',
-    phone: user?.phone || '',
+    phone: user?.phone || localStorage.getItem('bm_user_phone') || '',
     email: user?.email || '',
     address: (user?.addresses && user.addresses[0]?.street) || '',
     city: (user?.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
     pincode: (user?.addresses && user.addresses[0]?.pincode) || '',
     deliveryInstructions: ''
   });
+
+  useEffect(() => {
+    if (user) {
+      setCustomer(prev => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        phone: prev.phone || user.phone || localStorage.getItem('bm_user_phone') || '',
+        email: prev.email || user.email || '',
+        address: prev.address || (user.addresses && user.addresses[0]?.street) || '',
+        city: prev.city || (user.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
+        pincode: prev.pincode || (user.addresses && user.addresses[0]?.pincode) || ''
+      }));
+    }
+  }, [user]);
 
   // Optional Labour Service State
   const [needLabour, setNeedLabour] = useState(false);

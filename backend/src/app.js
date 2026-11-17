@@ -151,22 +151,25 @@ app.use(mongoSanitize({
 app.use(hpp());
 
 // ─── Rate limiters ────────────────────────────────────────────────────────────
-// Global: 300 requests per 15 min per IP
+// Global: generous limit so users & admins aren't blocked during normal use
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 300,
+  max: process.env.NODE_ENV === 'production' ? 1500 : 10000,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS' || process.env.NODE_ENV === 'test',
   message: { success: false, message: 'Too many requests, please try again later.' }
 }));
 
-// Auth routes: 10 per 15 min per IP
+// Auth routes: only limit repeated failed login attempts, never block GET /me, preflight, or successful requests
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: process.env.NODE_ENV === 'production' ? 120 : 1000,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Too many login attempts, please try again later.' }
+  skipSuccessfulRequests: true,
+  skip: (req) => req.method === 'GET' || req.method === 'OPTIONS' || process.env.NODE_ENV === 'test',
+  message: { success: false, message: 'Too many login or registration attempts. Please wait a moment and try again.' }
 });
 
 // Upload: 20 per hour

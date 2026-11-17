@@ -4,6 +4,22 @@ import { useNotification } from './NotificationContext';
 
 const AuthContext = createContext();
 
+const syncUserDataToStorage = (userData) => {
+  if (!userData) return;
+  try {
+    localStorage.setItem('bm_user', JSON.stringify(userData));
+    if (userData.phone) {
+      localStorage.setItem('bm_user_phone', userData.phone);
+    }
+    const userCity = userData.city || (userData.addresses && userData.addresses[0]?.city);
+    if (userCity) {
+      localStorage.setItem('bm_user_city', userCity);
+    }
+  } catch (e) {
+    // ignore local storage errors
+  }
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('bm_token') || null);
@@ -17,9 +33,11 @@ export const AuthProvider = ({ children }) => {
           const res = await api.get('/auth/me');
           const userData = res.data?.data || res.data;
           setUser(userData);
+          syncUserDataToStorage(userData);
         } catch (err) {
           console.warn('Session expired or invalid token');
           localStorage.removeItem('bm_token');
+          localStorage.removeItem('bm_user');
           setToken(null);
           setUser(null);
         }
@@ -38,6 +56,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('bm_token', newToken);
       setToken(newToken);
       setUser(userData);
+      syncUserDataToStorage(userData);
       showToast(`Welcome back, ${userData?.name || 'Customer'}!`, 'success');
       return { success: true };
     } catch (err) {
@@ -55,6 +74,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('bm_token', newToken);
       setToken(newToken);
       setUser(userData);
+      syncUserDataToStorage(userData);
       showToast('Admin authorized successfully!', 'success');
       return { success: true };
     } catch (err) {
@@ -72,6 +92,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('bm_token', newToken);
       setToken(newToken);
       setUser(newUser);
+      syncUserDataToStorage(newUser);
       showToast('Account registered successfully!', 'success');
       return { success: true };
     } catch (err) {
@@ -83,6 +104,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('bm_token');
+    localStorage.removeItem('bm_user');
     setToken(null);
     setUser(null);
     showToast('Logged out successfully.', 'info');
@@ -92,7 +114,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await api.put('/auth/profile', profileData);
       const payload = res.data?.data || res.data;
-      setUser(payload.user || payload);
+      const updatedUser = payload.user || payload;
+      setUser(updatedUser);
+      syncUserDataToStorage(updatedUser);
       showToast('Profile updated!', 'success');
       return { success: true };
     } catch (err) {

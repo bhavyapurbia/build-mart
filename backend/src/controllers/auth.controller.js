@@ -15,19 +15,57 @@ import {
 } from '../utils/Email.js';
 
 export const register = asyncHandler(async (req, res) => {
-  const { name, email, password, phone, addresses } = req.body;
-  if (!name || !email || !password) {
-    throw new ApiError(400, 'Name, email and password are required.');
+  const { name, email, password, phone, addresses, city } = req.body;
+
+  const cleanName = (name || '').trim();
+  if (!cleanName || cleanName.length < 2) {
+    throw new ApiError(400, 'Please enter your full name (at least 2 characters).');
   }
 
-  if (password.length < 8) {
-    throw new ApiError(400, 'Password must be at least 8 characters long.');
+  const cleanEmail = (email || '').toLowerCase().trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!cleanEmail || !emailRegex.test(cleanEmail)) {
+    throw new ApiError(400, 'Please enter a valid email address.');
   }
 
-  const cleanEmail = email.toLowerCase().trim();
+  if (!password || password.length < 6) {
+    throw new ApiError(400, 'Password must be at least 6 characters long.');
+  }
+
+  // Clean & validate mobile number (enforcing standard 10-digit Indian mobile)
+  let cleanPhone = (phone || '').trim();
+  if (cleanPhone) {
+    const digitsOnly = cleanPhone.replace(/\D/g, '');
+    if (digitsOnly.length === 12 && digitsOnly.startsWith('91')) {
+      cleanPhone = digitsOnly.slice(2);
+    } else if (digitsOnly.length === 11 && digitsOnly.startsWith('0')) {
+      cleanPhone = digitsOnly.slice(1);
+    } else {
+      cleanPhone = digitsOnly;
+    }
+
+    if (cleanPhone.length !== 10 || !/^[6-9]\d{9}$/.test(cleanPhone)) {
+      throw new ApiError(400, 'Please enter a valid 10-digit mobile number (starting with 6, 7, 8, or 9).');
+    }
+  }
+
   const existing = await User.findOne({ email: cleanEmail });
   if (existing) {
-    throw new ApiError(400, 'An account with this email already exists.');
+    throw new ApiError(400, 'An account with this email already exists. Please log in.');
+  }
+
+  // Build default address so future orders inherit customer details immediately
+  let userAddresses = Array.isArray(addresses) ? [...addresses] : [];
+  const defaultCity = (city || (userAddresses[0]?.city) || '').trim();
+  if (userAddresses.length === 0 && defaultCity) {
+    userAddresses = [{
+      street: '',
+      city: defaultCity,
+      pincode: '',
+      isDefault: true
+    }];
+  } else if (userAddresses.length > 0 && defaultCity && !userAddresses[0].city) {
+    userAddresses[0].city = defaultCity;
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -39,12 +77,12 @@ export const register = asyncHandler(async (req, res) => {
   const verifyExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
   const user = await User.create({
-    name,
+    name: cleanName,
     email: cleanEmail,
     password: hashedPassword,
-    phone: phone || '',
+    phone: cleanPhone || '',
     role: 'customer',
-    addresses: addresses || [],
+    addresses: userAddresses,
     emailVerified: false,
     emailVerificationTokenHash: verifyTokenHash,
     emailVerificationExpiresAt: verifyExpiresAt
@@ -71,8 +109,10 @@ export const register = asyncHandler(async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        phone: user.phone,
+        phone: user.phone || '',
         role: user.role,
+        addresses: user.addresses || [],
+        city: (user.addresses && user.addresses[0]?.city) || defaultCity || '',
         emailVerified: user.emailVerified
       }
     }, 'Account created successfully! Please check your email for the verification link.')
@@ -109,8 +149,10 @@ export const login = asyncHandler(async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        phone: user.phone,
+        phone: user.phone || '',
         role: user.role,
+        addresses: user.addresses || [],
+        city: (user.addresses && user.addresses[0]?.city) || '',
         emailVerified: user.emailVerified
       }
     }, 'Login successful!')

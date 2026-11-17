@@ -34,12 +34,24 @@ const BulkEnquiryPage = () => {
   const [customer, setCustomer] = useState({
     fullName: user?.name || '',
     companyName: '',
-    phone: user?.phone || '',
+    phone: user?.phone || localStorage.getItem('bm_user_phone') || '',
     email: user?.email || '',
-    projectLocation: '',
+    projectLocation: (user?.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
     deliveryRequirement: 'Immediate / Staggered Weekly',
     expectedPurchaseDate: ''
   });
+
+  React.useEffect(() => {
+    if (user) {
+      setCustomer(prev => ({
+        ...prev,
+        fullName: prev.fullName || user.name || '',
+        phone: prev.phone || user.phone || localStorage.getItem('bm_user_phone') || '',
+        email: prev.email || user.email || '',
+        projectLocation: prev.projectLocation || (user.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || ''
+      }));
+    }
+  }, [user]);
 
   const [items, setItems] = useState([
     { category: 'Cement & Steel', productName: 'Tata Tiscon 550D TMT Rebar (12mm)', quantity: 20, unit: 'Tons', notes: 'Mill test certificate required' }

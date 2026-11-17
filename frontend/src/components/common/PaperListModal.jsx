@@ -25,6 +25,14 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
   useEffect(() => {
     if (!isOpen) return;
+    setCustomer(prev => ({
+      ...prev,
+      name: prev.name || user?.name || '',
+      phone: prev.phone || user?.phone || localStorage.getItem('bm_user_phone') || '',
+      siteAddress: prev.siteAddress || (user?.addresses && user.addresses[0]?.street) || '',
+      city: prev.city || currentCity || localStorage.getItem('bm_user_city') || '',
+      pincode: prev.pincode || (user?.addresses && user.addresses[0]?.pincode) || ''
+    }));
     document.body.classList.add('modal-open');
 
     const handleKeyDown = (e) => {
