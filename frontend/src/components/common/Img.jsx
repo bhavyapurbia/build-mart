@@ -4,7 +4,7 @@ const FALLBACK_IMAGE = '/placeholder-material.svg';
 
 export default function Img({
   src,
-  alt = 'BuildMart construction material',
+  alt = 'BuildPlace construction material',
   width,
   height,
   aspectRatio = '1',

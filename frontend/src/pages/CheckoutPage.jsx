@@ -163,7 +163,7 @@ const CheckoutPage = () => {
         key: orderPayload.keyId || data.keyId,
         amount: orderPayload.amount || data.amount,
         currency: orderPayload.currency || data.currency || 'INR',
-        name: 'BuildMart',
+        name: 'BuildPlace',
         description: quotationData ? `Quotation #${quotationData.quotationId} Procurement` : 'Construction Materials Procurement',
         order_id: orderPayload.razorpayOrderId || data.razorpayOrderId,
         prefill: {
@@ -485,7 +485,7 @@ const CheckoutPage = () => {
                     <input
                       type="email"
                       required
-                      placeholder="site@buildmart.in"
+                      placeholder="site@buildplace.in"
                       value={customer.email}
                       onChange={e => setCustomer({ ...customer, email: e.target.value })}
                       style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13.5px' }}

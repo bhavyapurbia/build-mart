@@ -36,7 +36,7 @@ const BulkBanner = () => {
             </Link>
 
             <a
-              href="https://wa.me/919876543210?text=Hello%20BuildMart,%20I%20have%20a%20bulk%20construction%20material%20requirement"
+              href="https://wa.me/919876543210?text=Hello%20BuildPlace,%20I%20have%20a%20bulk%20construction%20material%20requirement"
               target="_blank"
               rel="noreferrer"
               className="btn-secondary"

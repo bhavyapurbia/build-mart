@@ -147,7 +147,7 @@ const ProductsPage = () => {
   return (
     <div className="products-page-container">
       <SEO
-        title={selectedCategory ? `${selectedCategory} Supplies | BuildMart` : 'Materials Catalog | BuildMart'}
+        title={selectedCategory ? `${selectedCategory} Supplies | BuildPlace` : 'Materials Catalog | BuildPlace'}
         description={`Procure genuine ${selectedCategory || 'construction'} materials directly from authorized manufacturers with 30-60 min job-site delivery.`}
       />
 

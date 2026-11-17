@@ -91,7 +91,7 @@ const AdminMaterialRequests = () => {
       ...prev,
       {
         name: 'Item from Paper List',
-        brand: 'BuildMart Certified',
+        brand: 'BuildPlace Certified',
         quantity: 1,
         unit: 'Unit',
         unitPrice: 100,

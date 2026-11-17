@@ -28,7 +28,7 @@ const WhatsAppBanner = () => {
             <div className="whatsapp-heading-wrap">
               <div
                 className="whatsapp-main-logo"
-                onClick={() => openWhatsApp("Hi BuildMart, I want to connect on WhatsApp")}
+                onClick={() => openWhatsApp("Hi BuildPlace, I want to connect on WhatsApp")}
                 title="Open WhatsApp"
               >
                 <svg viewBox="0 0 24 24" width="38" height="38" fill="#FFFFFF" aria-hidden="true">
@@ -55,7 +55,7 @@ const WhatsAppBanner = () => {
               <button
                 type="button"
                 className="whatsapp-pill-btn"
-                onClick={() => openWhatsApp("Hi BuildMart, I want to place an order via WhatsApp")}
+                onClick={() => openWhatsApp("Hi BuildPlace, I want to place an order via WhatsApp")}
               >
                 <ShoppingBag size={17} className="pill-icon" aria-hidden="true" />
                 <span className="pill-text">Order via Whatsapp</span>
@@ -64,7 +64,7 @@ const WhatsAppBanner = () => {
               <button
                 type="button"
                 className="whatsapp-pill-btn"
-                onClick={() => openWhatsApp("Hi BuildMart, I need Help & Support for my construction site")}
+                onClick={() => openWhatsApp("Hi BuildPlace, I need Help & Support for my construction site")}
               >
                 <Headphones size={17} className="pill-icon" aria-hidden="true" />
                 <span className="pill-text">Help &amp; Support</span>
@@ -73,7 +73,7 @@ const WhatsAppBanner = () => {
               <button
                 type="button"
                 className="whatsapp-pill-btn"
-                onClick={() => openWhatsApp("Hi BuildMart, please share my live Order Status")}
+                onClick={() => openWhatsApp("Hi BuildPlace, please share my live Order Status")}
               >
                 <ClipboardList size={17} className="pill-icon" aria-hidden="true" />
                 <span className="pill-text">Order Status</span>
@@ -82,7 +82,7 @@ const WhatsAppBanner = () => {
               <button
                 type="button"
                 className="whatsapp-pill-btn"
-                onClick={() => openWhatsApp("Hi BuildMart, help me discover product catalogs and bulk prices")}
+                onClick={() => openWhatsApp("Hi BuildPlace, help me discover product catalogs and bulk prices")}
               >
                 <Search size={17} className="pill-icon" aria-hidden="true" />
                 <span className="pill-text">Product Discovery</span>
@@ -100,12 +100,12 @@ const WhatsAppBanner = () => {
               <div className="whatsapp-chat-topbar">
                 <div className="chat-topbar-left">
                   <ChevronLeft size={18} className="chat-back-arrow" />
-                  <div className="chat-avatar-badge">
-                    <span className="chat-avatar-initials">BM</span>
+                  <div className="chat-avatar-badge" style={{ background: '#FFFFFF', padding: '1px', overflow: 'hidden' }}>
+                    <img src="/logo.jpg" alt="BP" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                   <div className="chat-contact-info">
                     <div className="chat-contact-name-row">
-                      <span className="chat-contact-name">BuildMart</span>
+                      <span className="chat-contact-name">BuildPlace</span>
                       <span className="chat-verified-check" title="Verified Business">
                         <Check size={10} strokeWidth={3} />
                       </span>
@@ -139,7 +139,7 @@ const WhatsAppBanner = () => {
                   <div className="menu-card-options-list">
                     <div
                       className="menu-card-option-row"
-                      onClick={() => openWhatsApp("Hi BuildMart, I want to place an order")}
+                      onClick={() => openWhatsApp("Hi BuildPlace, I want to place an order")}
                     >
                       <span className="menu-option-icon">🛒</span>
                       <span className="menu-option-label">Place an order</span>
@@ -147,7 +147,7 @@ const WhatsAppBanner = () => {
 
                     <div
                       className="menu-card-option-row"
-                      onClick={() => openWhatsApp("Hi BuildMart, track my order")}
+                      onClick={() => openWhatsApp("Hi BuildPlace, track my order")}
                     >
                       <span className="menu-option-icon">📋</span>
                       <span className="menu-option-label">Track your order</span>
@@ -155,7 +155,7 @@ const WhatsAppBanner = () => {
 
                     <div
                       className="menu-card-option-row"
-                      onClick={() => openWhatsApp("Hi BuildMart, I need help & support")}
+                      onClick={() => openWhatsApp("Hi BuildPlace, I need help & support")}
                     >
                       <span className="menu-option-icon">🎧</span>
                       <span className="menu-option-label">Get help &amp; support</span>

@@ -4,7 +4,7 @@ import Page from '../models/Page.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 
 export const getRobotsTxt = (req, res) => {
-  const host = req.get('host') || 'buildmart.in';
+  const host = req.get('host') || 'buildplace.in';
   const protocol = req.protocol || 'https';
   const robots = `User-agent: *
 Allow: /
@@ -22,7 +22,7 @@ Sitemap: ${protocol}://${host}/sitemap.xml
 };
 
 export const getSitemapXml = asyncHandler(async (req, res) => {
-  const host = req.get('host') || 'buildmart.in';
+  const host = req.get('host') || 'buildplace.in';
   const protocol = req.protocol || 'https';
   const baseUrl = `${protocol}://${host}`;
 

@@ -61,7 +61,7 @@ export const submitLabourRequest = asyncHandler(async (req, res) => {
   if (customer.email) {
     sendEmail({
       email: customer.email,
-      subject: `Labour Request Booked - #${bookingId} - BuildMart`,
+      subject: `Labour Request Booked - #${bookingId} - BuildPlace`,
       mailgenContent: {
         body: {
           name: customer.name,

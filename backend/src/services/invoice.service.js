@@ -71,13 +71,13 @@ export const generateInvoicePDF = async (order, res) => {
     .fillColor(primaryColor)
     .fontSize(20)
     .font('Helvetica-Bold')
-    .text(settings.siteName || 'BuildMart', 36, 36);
+    .text(settings.siteName || 'BuildPlace', 36, 36);
 
   doc
     .fontSize(9)
     .font('Helvetica')
     .fillColor(secondaryColor)
-    .text(settings.officeAddress || 'BuildMart HQ, Bengaluru, Karnataka 560100', 36, 60)
+    .text(settings.officeAddress || 'BuildPlace HQ, Bengaluru, Karnataka 560100', 36, 60)
     .text(`GSTIN: ${settings.sellerGstin || '29AABCB1234F1Z5'} | PAN: ${settings.sellerPan || 'AABCB1234F'}`)
     .text(`State: ${settings.sellerState || 'Karnataka'} (Code: 29) | Support: ${settings.supportPhone || '1800-890-5000'}`);
 
@@ -252,7 +252,7 @@ export const generateInvoicePDF = async (order, res) => {
     .font('Helvetica-Bold')
     .fontSize(8)
     .fillColor(primaryColor)
-    .text(`For ${settings.siteName || 'BuildMart'}`, 420, footerY + 8, { align: 'right', width: 140 })
+    .text(`For ${settings.siteName || 'BuildPlace'}`, 420, footerY + 8, { align: 'right', width: 140 })
     .font('Helvetica')
     .fontSize(7)
     .fillColor(secondaryColor)

@@ -130,7 +130,7 @@ export const checkServiceability = asyncHandler(async (req, res) => {
     new ApiResponse(200, {
       serviceable: false,
       pincode: cleanPincode,
-      message: `Direct delivery is currently unavailable for PIN code ${cleanPincode}. BuildMart is currently serving: ${activeCityNames}. You can submit a Bulk Enquiry for custom truckload freight.`
+      message: `Direct delivery is currently unavailable for PIN code ${cleanPincode}. BuildPlace is currently serving: ${activeCityNames}. You can submit a Bulk Enquiry for custom truckload freight.`
     }, 'Pincode is not currently serviceable')
   );
 });

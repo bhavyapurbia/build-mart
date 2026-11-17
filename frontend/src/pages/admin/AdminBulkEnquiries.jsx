@@ -144,7 +144,7 @@ const AdminBulkEnquiries = () => {
                     </button>
 
                     <a
-                      href={`https://wa.me/${enq.customer?.phone?.replace(/\D/g, '')}?text=Hello%20${enq.customer?.fullName},%20following%20up%20from%20BuildMart%20regarding%20Bulk%20Enquiry%20%23${enq.enquiryId}`}
+                      href={`https://wa.me/${enq.customer?.phone?.replace(/\D/g, '')}?text=Hello%20${enq.customer?.fullName},%20following%20up%20from%20BuildPlace%20regarding%20Bulk%20Enquiry%20%23${enq.enquiryId}`}
                       target="_blank"
                       rel="noreferrer"
                       style={{

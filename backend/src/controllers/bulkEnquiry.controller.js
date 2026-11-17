@@ -66,7 +66,7 @@ export const submitBulkEnquiry = asyncHandler(async (req, res) => {
   if (email) {
     sendEmail({
       email,
-      subject: `Bulk Enquiry Received - #${enquiryId} - BuildMart`,
+      subject: `Bulk Enquiry Received - #${enquiryId} - BuildPlace`,
       mailgenContent: {
         body: {
           name: fullName,
@@ -193,7 +193,7 @@ export const updateBulkEnquiry = asyncHandler(async (req, res) => {
   if (status === 'Quotation Sent' && enquiry.customer?.email) {
     sendEmail({
       email: enquiry.customer.email,
-      subject: `Commercial Quote Ready - #${enquiry.enquiryId} - BuildMart`,
+      subject: `Commercial Quote Ready - #${enquiry.enquiryId} - BuildPlace`,
       mailgenContent: {
         body: {
           name: enquiry.customer.fullName,
@@ -330,7 +330,7 @@ export const convertBulkEnquiryToOrder = asyncHandler(async (req, res) => {
   if (enquiry.customer?.email) {
     sendEmail({
       email: enquiry.customer.email,
-      subject: `Order Confirmed: #${orderId} from Bulk Enquiry - BuildMart`,
+      subject: `Order Confirmed: #${orderId} from Bulk Enquiry - BuildPlace`,
       mailgenContent: {
         body: {
           name: enquiry.customer.fullName,

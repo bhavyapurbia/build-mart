@@ -140,7 +140,7 @@ export default function ForgotPasswordPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="contractor@buildmart.in"
+                  placeholder="contractor@buildplace.in"
                   required
                   style={{
                     width: '100%',

@@ -81,7 +81,7 @@ export default function VerifyEmailPage() {
               Email Verified!
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '24px', lineHeight: 1.5 }}>
-              Your BuildMart account is now fully verified. You can now access verified contractor pricing and seamless job-site dispatch.
+              Your BuildPlace account is now fully verified. You can now access verified contractor pricing and seamless job-site dispatch.
             </p>
             <Link
               to="/products"

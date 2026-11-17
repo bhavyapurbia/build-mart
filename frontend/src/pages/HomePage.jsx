@@ -115,9 +115,9 @@ const HomePage = ({ onOpenPaperList }) => {
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'BuildMart',
-    url: 'https://buildmart.in',
-    logo: 'https://buildmart.in/placeholder-material.svg',
+    name: 'BuildPlace',
+    url: 'https://buildplace.in',
+    logo: 'https://buildplace.in/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+91-1800-890-5000',
@@ -129,10 +129,10 @@ const HomePage = ({ onOpenPaperList }) => {
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    url: 'https://buildmart.in',
+    url: 'https://buildplace.in',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://buildmart.in/products?search={search_term_string}',
+      target: 'https://buildplace.in/products?search={search_term_string}',
       'query-input': 'required name=search_term_string'
     }
   };

@@ -35,11 +35,11 @@ const LoginPage = () => {
           boxShadow: 'var(--shadow-md)'
         }}>
           <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-            <div className="brand-logo-icon" style={{ margin: '0 auto 12px', width: '48px', height: '48px' }}>
-              <Hammer size={24} />
+            <div style={{ margin: '0 auto 12px', width: '56px', height: '56px', borderRadius: '14px', background: '#FFFFFF', padding: '2px', overflow: 'hidden', boxShadow: '0 4px 14px rgba(0,0,0,0.1)', border: '1.5px solid #EA7E12', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img src="/logo.jpg" alt="BuildPlace" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
             </div>
             <h1 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--color-ink)' }}>
-              Sign in to BuildMart
+              Sign in to BuildPlace
             </h1>
             <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginTop: '4px' }}>
               Access your saved material lists, quotations, and active job-site dispatches

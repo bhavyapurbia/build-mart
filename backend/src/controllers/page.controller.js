@@ -10,11 +10,11 @@ import { NOTIFICATION_RECIPIENT, NOTIFICATION_TYPE } from '../constants/enums.js
 const DEFAULT_PAGES = {
   'privacy-policy': {
     title: 'Privacy Policy',
-    content: `# Privacy Policy\n\n**Last updated:** November 2026\n\nAt BuildMart, we value your trust and are committed to protecting your personal information. This Privacy Policy outlines how we collect, store, and process your data when you use our building materials platform.\n\n### 1. Information We Collect\nWe collect information such as your name, contact phone number, delivery job-site addresses, email address, and order records necessary for order fulfillment and site dispatch.\n\n### 2. Payment Security\nAll electronic transactions are processed through certified PCI-DSS compliant payment gateways. BuildMart never stores your credit card numbers or banking passwords.\n\n### 3. Contact Us\nFor privacy inquiries, contact our data protection team at privacy@buildmart.in.`
+    content: `# Privacy Policy\n\n**Last updated:** November 2026\n\nAt BuildPlace, we value your trust and are committed to protecting your personal information. This Privacy Policy outlines how we collect, store, and process your data when you use our building materials platform.\n\n### 1. Information We Collect\nWe collect information such as your name, contact phone number, delivery job-site addresses, email address, and order records necessary for order fulfillment and site dispatch.\n\n### 2. Payment Security\nAll electronic transactions are processed through certified PCI-DSS compliant payment gateways. BuildPlace never stores your credit card numbers or banking passwords.\n\n### 3. Contact Us\nFor privacy inquiries, contact our data protection team at privacy@buildplace.in.`
   },
   'terms-and-conditions': {
     title: 'Terms & Conditions',
-    content: `# Terms & Conditions\n\n**Last updated:** November 2026\n\nWelcome to BuildMart. By accessing or using our website, services, or purchasing materials, you agree to these terms.\n\n### 1. Quotations and Orders\nFormal material quotations are valid for 7 days unless specified otherwise. Material prices locked in formal quotations will be honored upon customer acceptance.\n\n### 2. Unloading & Job-Site Access\nCustomers are responsible for providing clear, safe vehicular access for delivery trucks to the specified site location.\n\n### 3. Governing Law\nThese terms are governed by the laws of India, under the jurisdiction of Bengaluru, Karnataka.`
+    content: `# Terms & Conditions\n\n**Last updated:** November 2026\n\nWelcome to BuildPlace. By accessing or using our website, services, or purchasing materials, you agree to these terms.\n\n### 1. Quotations and Orders\nFormal material quotations are valid for 7 days unless specified otherwise. Material prices locked in formal quotations will be honored upon customer acceptance.\n\n### 2. Unloading & Job-Site Access\nCustomers are responsible for providing clear, safe vehicular access for delivery trucks to the specified site location.\n\n### 3. Governing Law\nThese terms are governed by the laws of India, under the jurisdiction of Bengaluru, Karnataka.`
   },
   'refund-and-return-policy': {
     title: 'Refund & Return Policy',
@@ -25,16 +25,16 @@ const DEFAULT_PAGES = {
     content: `# Shipping & Delivery Policy\n\n### 1. Express Job-Site Delivery\nWe offer 30–60 minute express site dispatch in serviceable metro hubs (Bengaluru, Mumbai, Delhi NCR, Hyderabad, Pune, Chennai) for in-stock catalog materials.\n\n### 2. Delivery Charges\nOrders of ₹5,000 or above qualify for **Free Job-Site Delivery**. Orders below ₹5,000 incur a standard freight charge of ₹350.\n\n### 3. Bulk & Staggered Deliveries\nFor multi-ton steel rebar and cement truckloads, staggered dispatch schedules are coordinated directly with your project engineer.`
   },
   'about-us': {
-    title: 'About BuildMart',
-    content: `# About BuildMart\n\nBuildMart is India's premier B2B and consumer construction supplies platform, streamlining job-site procurement for contractors, home builders, and commercial developers.\n\n### Our Promise\n- **100% Genuine Certified Brands**: UltraTech, Tata Tiscon, Dr. Fixit, Astral, Jaquar, Kajaria.\n- **Lightning Site Delivery**: Materials delivered directly to your construction site.\n- **Zero-Friction Quotations**: Instant list-building with trade tier rates.`
+    title: 'About BuildPlace',
+    content: `# About BuildPlace\n\nBuildPlace is India's premier B2B and consumer construction supplies platform, streamlining job-site procurement for contractors, home builders, and commercial developers.\n\n### Our Promise\n- **100% Genuine Certified Brands**: UltraTech, Tata Tiscon, Dr. Fixit, Astral, Jaquar, Kajaria.\n- **Lightning Site Delivery**: Materials delivered directly to your construction site.\n- **Zero-Friction Quotations**: Instant list-building with trade tier rates.`
   },
   'faq': {
     title: 'Frequently Asked Questions (FAQ)',
     content: `# Frequently Asked Questions\n\n**Q: How do I get a custom quotation?**\nA: Click on products or click "Add to Material List". Go to the Material List page, input your job-site details, and submit. Our materials engineer will issue a formal quotation within 15 minutes.\n\n**Q: Can I hire workers along with materials?**\nA: Yes! Check the "Do you need labour for this work?" option during checkout to request certified masons, plumbers, tile workers, or waterproofers.\n\n**Q: What payment methods are accepted?**\nA: We accept UPI, NetBanking, Credit/Debit Cards via Razorpay, Cash on Delivery (COD), and Credit on Approval for registered trade contractors.`
   },
   'careers': {
-    title: 'Careers at BuildMart',
-    content: `# Join the BuildMart Team\n\nWe are building the digital backbone of India's construction supply chain. We are looking for talented software engineers, logistics supervisors, and procurement leads.\n\nSend your resume and portfolio to careers@buildmart.in.`
+    title: 'Careers at BuildPlace',
+    content: `# Join the BuildPlace Team\n\nWe are building the digital backbone of India's construction supply chain. We are looking for talented software engineers, logistics supervisors, and procurement leads.\n\nSend your resume and portfolio to careers@buildplace.in.`
   }
 };
 
@@ -112,16 +112,16 @@ export const submitContactForm = asyncHandler(async (req, res) => {
   if (email) {
     sendEmail({
       email,
-      subject: `Thank you for contacting BuildMart - ${subject || 'Enquiry Received'}`,
+      subject: `Thank you for contacting BuildPlace - ${subject || 'Enquiry Received'}`,
       mailgenContent: {
         body: {
           name,
-          intro: 'Thank you for reaching out to BuildMart Customer Support.',
+          intro: 'Thank you for reaching out to BuildPlace Customer Support.',
           action: {
             instructions: 'Our customer support representative will review your inquiry and get back to you within 2 business hours.',
             button: {
               color: '#e05a00',
-              text: 'Visit BuildMart Store',
+              text: 'Visit BuildPlace Store',
               link: process.env.CLIENT_URL || 'http://localhost:5173'
             }
           },

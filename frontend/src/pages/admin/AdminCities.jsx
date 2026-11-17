@@ -292,7 +292,7 @@ const AdminCities = () => {
         <div>
           <h1 className="admin-page-title">Serviceable Cities & PIN Codes</h1>
           <p className="admin-page-sub">
-            Control which cities BuildMart delivers to, manage warehouse hubs, add or modify 6-digit PIN codes, and turn delivery ON or OFF.
+            Control which cities BuildPlace delivers to, manage warehouse hubs, add or modify 6-digit PIN codes, and turn delivery ON or OFF.
           </p>
         </div>
         <button

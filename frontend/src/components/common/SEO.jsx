@@ -5,14 +5,14 @@ export default function SEO({
   title,
   description = 'Direct site procurement and express delivery of certified cement, TMT steel rebars, tiles, plumbing, and construction materials.',
   canonical,
-  image = '/placeholder-material.svg',
+  image = '/logo.png',
   type = 'website',
   jsonLd = null
 }) {
-  const siteTitle = 'BuildMart | Direct Site Procurement & Express Construction Materials';
-  const fullTitle = title ? `${title} | BuildMart` : siteTitle;
-  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://buildmart.in');
-  const fullImageUrl = image.startsWith('http') ? image : `https://buildmart.in${image}`;
+  const siteTitle = 'BuildPlace | Building Materials, Delivered';
+  const fullTitle = title ? `${title} | BuildPlace` : siteTitle;
+  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://buildplace.in');
+  const fullImageUrl = image.startsWith('http') ? image : `https://buildplace.in${image}`;
 
   return (
     <Helmet>
@@ -27,7 +27,7 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={fullImageUrl} />
-      <meta property="og:site_name" content="BuildMart" />
+      <meta property="og:site_name" content="BuildPlace" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

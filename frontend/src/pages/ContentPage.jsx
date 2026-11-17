@@ -10,7 +10,7 @@ const FALLBACK_PAGES = {
     lastUpdated: 'November 2026',
     content: `
 ### 1. Introduction
-BuildMart Technologies India Private Limited ("BuildMart", "we", "us", or "our") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, process, and safeguard your information when you access our platform, mobile application, and job-site delivery services.
+BuildPlace Technologies India Private Limited ("BuildPlace", "we", "us", or "our") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, process, and safeguard your information when you access our platform, mobile application, and job-site delivery services.
 
 ### 2. Information We Collect
 - **Personal Information:** Name, billing address, site delivery address, GSTIN, phone number, and email address.
@@ -36,7 +36,7 @@ We implement enterprise-grade 256-bit SSL encryption, hash all stored passwords 
     lastUpdated: 'November 2026',
     content: `
 ### 1. Acceptance of Terms
-By accessing or using BuildMart, you agree to be bound by these Terms of Service. If you are ordering on behalf of an enterprise, contractor firm, or real estate developer, you represent that you have legal authority to bind that entity.
+By accessing or using BuildPlace, you agree to be bound by these Terms of Service. If you are ordering on behalf of an enterprise, contractor firm, or real estate developer, you represent that you have legal authority to bind that entity.
 
 ### 2. Quotations & Bulk Pricing
 - Quotation prices are strictly valid until the expiration timestamp specified in your quote document (typically 48 hours due to commodity price fluctuations in steel and cement).
@@ -44,7 +44,7 @@ By accessing or using BuildMart, you agree to be bound by these Terms of Service
 
 ### 3. Payment Terms
 - All payments must be settled using supported UPI, Net Banking, Credit/Debit Cards, or approved Contractor Credit Lines.
-- BuildMart reserves the right to withhold dispatch if payment authentication fails or credit limits are exceeded.
+- BuildPlace reserves the right to withhold dispatch if payment authentication fails or credit limits are exceeded.
 
 ### 4. Site Access & Unloading
 - Customers are responsible for ensuring unhindered heavy vehicle access (including 10-wheeler trucks or mini-trucks) to the specified job-site address.
@@ -78,7 +78,7 @@ Approved refunds are processed back to the original source account within 3 to 5
     lastUpdated: 'November 2026',
     content: `
 ### 1. Express Delivery Fleet
-BuildMart operates dedicated heavy commercial vehicles, medium pickup trucks, and 3-wheeler express cargo vehicles equipped with real-time GPS tracking.
+BuildPlace operates dedicated heavy commercial vehicles, medium pickup trucks, and 3-wheeler express cargo vehicles equipped with real-time GPS tracking.
 
 ### 2. Delivery Timelines
 - **30-60 Minute Express Dispatch:** Available in serviceable pin codes for fast-moving items (adhesives, plumbing fittings, electricals, bagged repair mortar) from our hyper-local dark hubs.
@@ -90,12 +90,12 @@ BuildMart operates dedicated heavy commercial vehicles, medium pickup trucks, an
     `
   },
   'about': {
-    title: 'About BuildMart',
+    title: 'About BuildPlace',
     icon: Info,
     lastUpdated: 'November 2026',
     content: `
 ### Transforming Construction Procurement in India
-Founded by civil engineers and logistics veterans, BuildMart is India's leading technology-first construction materials platform.
+Founded by civil engineers and logistics veterans, BuildPlace is India's leading technology-first construction materials platform.
 
 We eliminate multiple layers of intermediaries, fraudulent sub-standard brands, and unpredictable delivery delays. By linking authorized manufacturers directly to builders, residential contractors, and individual home builders, we ensure transparent pricing, verified batch test certifications, and express delivery direct to construction sites.
 
@@ -106,7 +106,7 @@ We eliminate multiple layers of intermediaries, fraudulent sub-standard brands, 
     `
   },
   'careers': {
-    title: 'Careers at BuildMart',
+    title: 'Careers at BuildPlace',
     icon: Briefcase,
     lastUpdated: 'November 2026',
     content: `
@@ -119,19 +119,19 @@ We are an ambitious team of software engineers, logistics planners, and civil pr
 - **B2B Key Account Manager (Contractor Sales):** Location: Hyderabad, Pune
 - **Quality Assurance Materials Engineer:** Location: Bengaluru
 
-Interested candidates may email their resumes to **careers@buildmart.in** with the job title in the subject line.
+Interested candidates may email their resumes to **careers@buildplace.in** with the job title in the subject line.
     `
   }
 };
 
 const FAQ_ITEMS = [
   {
-    q: 'How does BuildMart guarantee 30-60 minute delivery?',
+    q: 'How does BuildPlace guarantee 30-60 minute delivery?',
     a: 'We operate micro-fulfillment warehouses (dark hubs) stocked with top-selling plumbing, waterproofing, electrical, and hardware supplies across serviceable city clusters. Once an order is confirmed, our automated dispatch system assigns the nearest available fleet vehicle.'
   },
   {
     q: 'Are the materials original and accompanied by manufacturer test certificates?',
-    a: 'Yes, 100%. BuildMart is an authorized Tier-1 distributor for all listed brands including UltraTech, Tata Tiscon, Astral, and Asian Paints. Every batch of structural steel and cement comes with an official manufacturer Test Certificate (MTC).'
+    a: 'Yes, 100%. BuildPlace is an authorized Tier-1 distributor for all listed brands including UltraTech, Tata Tiscon, Astral, and Asian Paints. Every batch of structural steel and cement comes with an official manufacturer Test Certificate (MTC).'
   },
   {
     q: 'Can I request a custom formal quotation for a high-volume site project?',
@@ -202,7 +202,7 @@ export default function ContentPage() {
             Frequently Asked Questions
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
-            Everything you need to know about BuildMart express procurement, pricing, and job-site delivery.
+            Everything you need to know about BuildPlace express procurement, pricing, and job-site delivery.
           </p>
         </div>
 

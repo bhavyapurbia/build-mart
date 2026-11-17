@@ -56,7 +56,7 @@ export const register = asyncHandler(async (req, res) => {
   // Send verification email
   sendEmail({
     email: user.email,
-    subject: 'Verify Your BuildMart Account',
+    subject: 'Verify Your BuildPlace Account',
     mailgenContent: emailVerificationMailgenContent(user.name, verificationUrl)
   }).catch(err => {
     console.warn('Verification email delivery skipped:', err.message);
@@ -214,7 +214,7 @@ export const forgotPassword = asyncHandler(async (req, res) => {
 
     sendEmail({
       email: user.email,
-      subject: 'BuildMart Password Reset Request',
+      subject: 'BuildPlace Password Reset Request',
       mailgenContent: forgotPasswordMailgenContent(user.name, resetUrl)
     }).catch(err => console.warn('Password reset email dispatch skipped:', err.message));
   }
@@ -337,7 +337,7 @@ export const resendVerification = asyncHandler(async (req, res) => {
 
     sendEmail({
       email: user.email,
-      subject: 'Verify Your BuildMart Account',
+      subject: 'Verify Your BuildPlace Account',
       mailgenContent: emailVerificationMailgenContent(user.name, verificationUrl)
     }).catch(err => console.warn('Resend verification email skipped:', err.message));
   }

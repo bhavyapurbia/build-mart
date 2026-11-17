@@ -22,9 +22,9 @@ export class ErrorBoundary extends React.Component {
 
   handleReport = () => {
     const errorDetails = encodeURIComponent(
-      `BuildMart Error Report:\nError: ${this.state.error?.message}\nLocation: ${window.location.href}\nStack: ${this.state.errorInfo?.componentStack?.slice(0, 300)}`
+      `BuildPlace Error Report:\nError: ${this.state.error?.message}\nLocation: ${window.location.href}\nStack: ${this.state.errorInfo?.componentStack?.slice(0, 300)}`
     );
-    window.open(`mailto:orders@buildmart.in?subject=BuildMart%20Issue%20Report&body=${errorDetails}`, '_blank');
+    window.open(`mailto:orders@buildplace.in?subject=BuildPlace%20Issue%20Report&body=${errorDetails}`, '_blank');
   };
 
   render() {

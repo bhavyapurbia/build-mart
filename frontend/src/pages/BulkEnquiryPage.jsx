@@ -142,7 +142,7 @@ const BulkEnquiryPage = () => {
 
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href={`https://wa.me/919876543210?text=Hello%20BuildMart%20Bulk%20Desk,%20following%20up%20on%20Bulk%20Enquiry%20%23${submittedEnquiry.enquiryId}`}
+                href={`https://wa.me/919876543210?text=Hello%20BuildPlace%20Bulk%20Desk,%20following%20up%20on%20Bulk%20Enquiry%20%23${submittedEnquiry.enquiryId}`}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary"

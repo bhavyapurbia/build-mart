@@ -229,7 +229,7 @@ export async function createOrderRecord({
   if (customer.email) {
     sendEmail({
       email: customer.email,
-      subject: `Order Confirmation - #${orderId} - BuildMart`,
+      subject: `Order Confirmation - #${orderId} - BuildPlace`,
       mailgenContent: {
         body: {
           name: customer.name,
@@ -242,7 +242,7 @@ export async function createOrderRecord({
               link: `${process.env.CLIENT_URL || 'http://localhost:5173'}/account`
             }
           },
-          outro: 'Thank you for choosing BuildMart for your construction materials procurement!'
+          outro: 'Thank you for choosing BuildPlace for your construction materials procurement!'
         }
       }
     }).catch(err => console.warn('[Email] Order confirmation email delivery skipped:', err.message));

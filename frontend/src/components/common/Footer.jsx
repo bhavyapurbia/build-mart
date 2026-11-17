@@ -21,8 +21,8 @@ const Footer = () => {
   const [langModalOpen, setLangModalOpen] = useState(false);
 
   const phone = settings?.supportPhone || '1800-890-5000';
-  const email = settings?.supportEmail || 'orders@buildmart.in';
-  const address = settings?.officeAddress || 'BuildMart Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103';
+  const email = settings?.supportEmail || 'orders@buildplace.in';
+  const address = settings?.officeAddress || 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103';
   const rawNum = settings?.whatsappNumber || '919876543210';
   const cleanWhatsapp = rawNum.replace(/[^0-9]/g, '') || '919876543210';
   const gstin = settings?.sellerGstin || '29AABCB1234F1Z5';
@@ -32,7 +32,7 @@ const Footer = () => {
   };
 
   const openWhatsApp = () => {
-    const url = `https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent("Hi BuildMart, I want to order materials via WhatsApp")}`;
+    const url = `https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent("Hi BuildPlace, I want to order materials via WhatsApp")}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -41,6 +41,21 @@ const Footer = () => {
   return (
     <footer className="buildmart-compact-footer" id="footer-section">
       <div className="container">
+        {/* Brand Header */}
+        <div className="footer-brand-header" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: '#FFFFFF', padding: '2px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src="/logo.jpg" alt="BuildPlace" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }} />
+          </div>
+          <div>
+            <div style={{ fontSize: '22px', fontWeight: 900, color: '#FFFFFF', letterSpacing: '-0.3px', lineHeight: 1.1 }}>
+              BUILD<span style={{ color: '#EA7E12' }}>PLACE</span>
+            </div>
+            <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.04em' }}>
+              BUILDING MATERIALS, DELIVERED
+            </div>
+          </div>
+        </div>
+
         {/* Top Tagline */}
         <h2 className="footer-hero-tagline">
           Material In Minutes.
@@ -169,7 +184,7 @@ const Footer = () => {
             {openSection === 'company' && (
               <div className="accordion-body">
                 <ul className="footer-compact-links-grid">
-                  <li><Link to="/about">About BuildMart</Link></li>
+                  <li><Link to="/about">About BuildPlace</Link></li>
                   <li><Link to="/bulk-enquiry">Bulk Orders &amp; Contractor Desk</Link></li>
                   <li><Link to="/track-order">Track Delivery Truck</Link></li>
                   <li><Link to="/shipping-and-delivery-policy">30-Min Delivery Policy</Link></li>
@@ -227,7 +242,7 @@ const Footer = () => {
 
         {/* Bottom Bar: Clean Minimal Copyright */}
         <div className="footer-clean-bottom">
-          <span>© {new Date().getFullYear()} BuildMart Technologies India Pvt Ltd. All Rights Reserved.</span>
+          <span>© {new Date().getFullYear()} BuildPlace Technologies India Pvt Ltd. All Rights Reserved.</span>
           <span>•</span>
           <span>GSTIN: {gstin}</span>
           <span>•</span>

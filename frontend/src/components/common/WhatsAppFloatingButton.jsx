@@ -18,7 +18,7 @@ const WhatsAppFloatingButton = () => {
       }}
     >
       <a
-        href="https://wa.me/919876543210?text=Hello%20BuildMart,%20I%20have%20an%20urgent%20construction%20materials%20requirement%20for%20my%20site"
+        href="https://wa.me/919876543210?text=Hello%20BuildPlace,%20I%20have%20an%20urgent%20construction%20materials%20requirement%20for%20my%20site"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

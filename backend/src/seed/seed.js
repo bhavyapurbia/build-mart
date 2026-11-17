@@ -43,8 +43,8 @@ const seedData = async () => {
 
   await User.deleteMany({});
   const adminUser = await User.create({
-    name: 'BuildMart Admin',
-    email: 'admin@buildmart.com',
+    name: 'BuildPlace Admin',
+    email: 'admin@buildplace.com',
     password: adminPassword,
     phone: '+91 98765 00001',
     role: 'admin',
@@ -857,12 +857,12 @@ const seedData = async () => {
   // 6. Site Settings
   await SiteSetting.deleteMany({});
   await SiteSetting.create({
-    siteName: 'BuildMart',
-    tagline: 'Direct Site Procurement & Express Construction Materials Platform',
+    siteName: 'BuildPlace',
+    tagline: 'Building Materials, Delivered',
     whatsappNumber: '+919876543210',
     supportPhone: '1800-890-5000',
-    supportEmail: 'orders@buildmart.in',
-    officeAddress: 'BuildMart Central Hub 01, ORR Tech Park, Bellandur, Bengaluru 560103',
+    supportEmail: 'orders@buildplace.in',
+    officeAddress: 'BuildPlace Central Hub 01, ORR Tech Park, Bellandur, Bengaluru 560103',
     announcementBar: '⚡ 30-60 Min Direct Job-Site Delivery in Bengaluru & Major Metros | Free Delivery on Orders Above ₹5,000',
     freeDeliveryThreshold: 5000,
     cities: ['Bengaluru', 'Mumbai', 'Delhi NCR', 'Hyderabad', 'Pune', 'Chennai'],

@@ -5,12 +5,12 @@ export const getSettings = asyncHandler(async (req, res) => {
   let settings = await SiteSetting.findOne();
   if (!settings) {
     settings = await SiteSetting.create({
-      siteName: 'BuildMart',
-      tagline: 'Direct Site Procurement & Express Construction Materials Platform',
+      siteName: 'BuildPlace',
+      tagline: 'Building Materials, Delivered',
       whatsappNumber: '+919876543210',
       supportPhone: '1800-890-5000',
-      supportEmail: 'orders@buildmart.in',
-      officeAddress: 'BuildMart Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103',
+      supportEmail: 'orders@buildplace.in',
+      officeAddress: 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103',
       announcementBar: '⚡ 30-60 Minute Direct Job-Site Delivery in Bengaluru | Genuine Certified Construction Supplies',
       freeDeliveryThreshold: 5000,
       cities: ['Bengaluru', 'Mumbai', 'Hyderabad', 'Delhi NCR', 'Pune', 'Chennai'],

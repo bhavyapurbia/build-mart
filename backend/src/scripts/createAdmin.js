@@ -40,7 +40,7 @@ const run = async () => {
     console.log(`✅ Admin user updated: ${email}`);
   } else {
     await User.create({
-      name: 'BuildMart Administrator',
+      name: 'BuildPlace Administrator',
       email: email.toLowerCase().trim(),
       password: hashedPassword,
       role: 'admin',

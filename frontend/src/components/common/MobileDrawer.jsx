@@ -64,15 +64,15 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
         {/* Drawer Header */}
         <div className="mobile-drawer-header">
           <div className="drawer-brand">
-            <div className="drawer-logo-badge">
-              <Zap size={18} color='var(--color-ink)' />
+            <div className="drawer-logo-badge" style={{ background: '#FFFFFF', padding: '1px', overflow: 'hidden' }}>
+              <img src="/logo.jpg" alt="BuildPlace" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
             </div>
             <div>
               <div className="drawer-brand-name">
-                BUILD<span>MART</span>
+                BUILD<span>PLACE</span>
               </div>
               <div className="drawer-tagline">
-                Material In Minutes
+                Building Materials, Delivered
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
             <div className="drawer-auth-prompt">
               <div>
                 <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)' }}>
-                  Welcome to BuildMart
+                  Welcome to BuildPlace
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--color-muted)' }}>
                   Sign in to track orders & quotations
@@ -233,7 +233,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
         <div className="drawer-section-title">HELP & SUPPORT</div>
         <div className="drawer-support-box">
           <a
-            href="https://wa.me/919876543210?text=Hi%20BuildMart,%20I%20need%20assistance%20with%20construction%20materials"
+            href="https://wa.me/919876543210?text=Hi%20BuildPlace,%20I%20need%20assistance%20with%20construction%20materials"
             target="_blank"
             rel="noreferrer"
             className="drawer-support-btn whatsapp"
@@ -253,7 +253,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
         {/* Footer */}
         <div className="drawer-footer">
           <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
-            BuildMart Technologies • Enterprise Direct Procurement
+            BuildPlace Technologies • Building Materials, Delivered
           </div>
           {isAdmin && (
             <div style={{ marginTop: '6px' }}>

@@ -212,7 +212,7 @@ export const updateOrderStatus = asyncHandler(async (req, res) => {
     if (order.customer?.email) {
       sendEmail({
         email: order.customer.email,
-        subject: `Order Update: #${order.orderId} is now ${status} - BuildMart`,
+        subject: `Order Update: #${order.orderId} is now ${status} - BuildPlace`,
         mailgenContent: {
           body: {
             name: order.customer.name,

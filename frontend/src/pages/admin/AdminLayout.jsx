@@ -53,7 +53,7 @@ const AdminLayout = () => {
     return (
       <div style={{ padding: '120px 0', textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--color-ink)' }}>
         <div style={{ width: '40px', height: '40px', border: '3px solid var(--secondary-light)', borderTopColor: 'var(--color-accent)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-        <p style={{ marginTop: '16px', color: 'var(--text-light)', fontWeight: 600 }}>Loading BuildMart Admin Console...</p>
+        <p style={{ marginTop: '16px', color: 'var(--text-light)', fontWeight: 600 }}>Loading BuildPlace Admin Console...</p>
       </div>
     );
   }
@@ -62,10 +62,10 @@ const AdminLayout = () => {
     return (
       <div style={{ minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 16px', background: 'var(--color-ink)' }}>
         <div style={{ maxWidth: '440px', width: '100%', background: 'var(--secondary)', borderRadius: '20px', padding: '36px', textAlign: 'center', border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}>
-          <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'linear-gradient(135deg, var(--color-accent), var(--primary-dark))', color: 'var(--bg-card)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: 'var(--shadow-amber)' }}>
-            <ShieldCheck size={30} />
+          <div style={{ width: '64px', height: '64px', borderRadius: '14px', background: '#FFFFFF', padding: '2px', overflow: 'hidden', margin: '0 auto 16px', boxShadow: 'var(--shadow-amber)' }}>
+            <img src="/logo.jpg" alt="BuildPlace" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
           </div>
-          <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)', marginBottom: '8px' }}>BuildMart Admin Console</h2>
+          <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)', marginBottom: '8px' }}>BuildPlace Admin Console</h2>
           <p style={{ color: 'var(--text-light)', fontSize: '13.5px', lineHeight: 1.5, marginBottom: '24px' }}>
             Administrator access is required. Please log in with your admin credentials.
           </p>
@@ -85,12 +85,12 @@ const AdminLayout = () => {
       {/* Sidebar */}
       <aside className="admin-sidebar">
         <div className="admin-sidebar-header">
-          <div className="brand-logo-icon" style={{ width: '36px', height: '36px' }}>
-            <Hammer size={18} />
+          <div className="brand-logo-icon" style={{ width: '38px', height: '38px', background: '#FFFFFF', padding: '1px', borderRadius: '8px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src="/logo.jpg" alt="BuildPlace" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
             <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--bg-card)', lineHeight: 1.1 }}>
-              Build<span style={{ color: 'var(--color-accent)' }}>Mart</span>
+              Build<span style={{ color: 'var(--color-accent)' }}>Place</span>
             </div>
             <div style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
               Admin Console

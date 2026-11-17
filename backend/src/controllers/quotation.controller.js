@@ -113,7 +113,7 @@ export const createQuotation = asyncHandler(async (req, res) => {
   if (materialRequest.customer?.email) {
     sendEmail({
       email: materialRequest.customer.email,
-      subject: `Quotation Ready: #${quotationId} - BuildMart`,
+      subject: `Quotation Ready: #${quotationId} - BuildPlace`,
       mailgenContent: {
         body: {
           name: materialRequest.customer.name || 'Valued Builder',
@@ -309,11 +309,11 @@ export const exportQuotationPDF = asyncHandler(async (req, res) => {
     .fillColor('#0F172A')
     .fontSize(20)
     .font('Helvetica-Bold')
-    .text(settings.siteName || 'BuildMart', 36, 36)
+    .text(settings.siteName || 'BuildPlace', 36, 36)
     .fontSize(9)
     .font('Helvetica')
     .fillColor('#475569')
-    .text(settings.officeAddress || 'BuildMart HQ, Bengaluru', 36, 60)
+    .text(settings.officeAddress || 'BuildPlace HQ, Bengaluru', 36, 60)
     .text(`GSTIN: ${settings.sellerGstin || '29AABCB1234F1Z5'} | Hotline: ${settings.supportPhone || '1800-890-5000'}`);
 
   doc

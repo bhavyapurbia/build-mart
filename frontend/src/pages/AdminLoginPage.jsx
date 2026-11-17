@@ -35,22 +35,23 @@ const AdminLoginPage = () => {
       }}>
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <div style={{
-            width: '54px',
-            height: '54px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, var(--color-accent), var(--primary-dark))',
-            color: 'var(--color-ink)',
+            width: '64px',
+            height: '64px',
+            borderRadius: '14px',
+            background: '#FFFFFF',
+            padding: '2px',
+            overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 14px',
-            boxShadow: '0 10px 20px rgba(217, 119, 6, 0.3)'
+            boxShadow: '0 10px 20px rgba(0, 0, 0, 0.4)'
           }}>
-            <ShieldCheck size={28} />
+            <img src="/logo.jpg" alt="BuildPlace" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
           </div>
 
           <h1 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--bg-card)' }}>
-            BuildMart Admin Portal
+            BuildPlace Admin Portal
           </h1>
           <p style={{ fontSize: '13px', color: 'var(--text-light)', marginTop: '4px' }}>
             Restricted operations management & quotation dispatch console
@@ -68,7 +69,7 @@ const AdminLoginPage = () => {
                 type="email"
                 required
                 autoComplete="email"
-                placeholder="name@buildmart.in"
+                placeholder="name@buildplace.in"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 style={{

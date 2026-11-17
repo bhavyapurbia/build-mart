@@ -140,7 +140,7 @@ const ProductDetailPage = () => {
       try {
         await navigator.share({
           title: product.name,
-          text: `Check out ${product.name} on BuildMart - express direct site procurement.`,
+          text: `Check out ${product.name} on BuildPlace - express direct site procurement.`,
           url
         });
       } catch (e) {}
@@ -212,7 +212,7 @@ const ProductDetailPage = () => {
     : [product.image || '/placeholder-material.svg'];
   const images = rawImages.map(img => getAccurateProductImage(product, img));
 
-  const whatsappText = encodeURIComponent(`Hello BuildMart, I would like to enquire about ${product.name} (SKU: ${product.sku}) listed at ₹${product.price} / ${product.unit}.`);
+  const whatsappText = encodeURIComponent(`Hello BuildPlace, I would like to enquire about ${product.name} (SKU: ${product.sku}) listed at ₹${product.price} / ${product.unit}.`);
 
   const productJsonLd = {
     '@context': 'https://schema.org/',
@@ -245,8 +245,8 @@ const ProductDetailPage = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://buildmart.in/' },
-      { '@type': 'ListItem', position: 2, name: product.category, item: `https://buildmart.in/products?category=${encodeURIComponent(product.category)}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://buildplace.in/' },
+      { '@type': 'ListItem', position: 2, name: product.category, item: `https://buildplace.in/products?category=${encodeURIComponent(product.category)}` },
       { '@type': 'ListItem', position: 3, name: product.name, item: window.location.href }
     ]
   };
@@ -255,7 +255,7 @@ const ProductDetailPage = () => {
     <div style={{ padding: '28px 0 60px' }}>
       <SEO
         title={`${product.name} - Buy Online`}
-        description={product.description?.slice(0, 160) || `Buy genuine ${product.name} (${product.brand}) online at BuildMart. 30-60 min express site delivery.`}
+        description={product.description?.slice(0, 160) || `Buy genuine ${product.name} (${product.brand}) online at BuildPlace. 30-60 min express site delivery.`}
         image={images[0]}
         type="product"
         jsonLd={[productJsonLd, breadcrumbJsonLd]}

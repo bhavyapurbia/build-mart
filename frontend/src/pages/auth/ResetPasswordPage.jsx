@@ -106,7 +106,7 @@ export default function ResetPasswordPage() {
             Set New Password
           </h1>
           <p style={{ fontSize: '14px', color: 'var(--text-secondary)', margin: 0 }}>
-            Choose a strong password to secure your BuildMart procurement account.
+            Choose a strong password to secure your BuildPlace procurement account.
           </p>
         </div>
 

@@ -217,7 +217,7 @@ const AdminOrders = () => {
         loading={loading}
         searchable={true}
         searchKeys={['orderId', 'invoiceNumber', 'customer.name', 'customer.phone', 'customer.city', 'orderStatus', 'paymentMethod', 'paymentStatus']}
-        exportFilename="buildmart-orders"
+        exportFilename="buildplace-orders"
         emptyMessage="No orders found"
       />
 
@@ -238,11 +238,11 @@ const AdminOrders = () => {
             <div className="modal-body" id="invoice-print-area">
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
                 <div>
-                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)' }}>BuildMart Technologies Pvt Ltd</h2>
+                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-ink)' }}>BuildPlace Technologies Pvt Ltd</h2>
                   <div style={{ fontSize: '12px', color: 'var(--color-muted)', lineHeight: 1.5 }}>
                     GSTIN: 29AABCB1234F1Z8<br />
                     Outer Ring Road Tech Zone, Bellandur, Bengaluru 560103<br />
-                    Toll-Free: 1800-890-5000 | orders@buildmart.in
+                    Toll-Free: 1800-890-5000 | orders@buildplace.in
                   </div>
                 </div>
                 <div style={{ textAlign: 'right', fontSize: '12px', color: 'var(--color-muted)' }}>

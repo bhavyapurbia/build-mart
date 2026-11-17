@@ -43,7 +43,7 @@ export const DEFAULT_BANNERS = [
   {
     title: 'FLAT 5% CASHBACK',
     subtitle: 'on orders above ₹50,000. No limits on bulk supplies.',
-    badge: 'MEGABUILDMART',
+    badge: 'MEGABUILDPLACE',
     couponCode: 'BUILD50K',
     ctaText: 'SHOP NOW',
     link: '/products',

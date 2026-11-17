@@ -304,7 +304,7 @@ export const exportResource = asyncHandler(async (req, res) => {
   const { resource } = req.params;
 
   res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', `attachment; filename="buildmart-${resource}-${new Date().toISOString().slice(0, 10)}.csv"`);
+  res.setHeader('Content-Disposition', `attachment; filename="buildplace-${resource}-${new Date().toISOString().slice(0, 10)}.csv"`);
 
   if (resource === 'orders') {
     res.write('Order ID,Customer Name,Customer Phone,Customer City,Total Amount,Status,Payment Status,Payment Method,Created At\r\n');

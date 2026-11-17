@@ -1,21 +1,21 @@
 {
-  "name": "BuildMart - Direct Site Procurement",
-  "short_name": "BuildMart",
+  "name": "BuildPlace - Building Materials, Delivered",
+  "short_name": "BuildPlace",
   "description": "Direct job-site construction materials procurement and express delivery.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F8FAFC",
-  "theme_color": "#0284C7",
+  "theme_color": "#EA7E12",
   "icons": [
     {
-      "src": "/placeholder-material.svg",
+      "src": "/logo.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png"
     },
     {
-      "src": "/placeholder-material.svg",
+      "src": "/logo.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
     }
   ]
 }

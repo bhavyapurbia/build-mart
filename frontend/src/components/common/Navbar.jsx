@@ -189,17 +189,21 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
               <Menu size={22} color='var(--bg-card)' />
             </button>
 
-            {/* Brand Logo: BUILDMART (Clean, Classic, Premium) */}
-            <Link to="/" className="buildmart-brand-logo">
-              <div className="brand-symbol-box">
-                <HardHat size={20} color="#0A0F1D" strokeWidth={2.5} />
+            {/* Brand Logo: BUILDPLACE */}
+            <Link to="/" className="buildmart-brand-logo" title="BuildPlace - Building Materials, Delivered">
+              <div className="brand-symbol-box brand-logo-emblem">
+                <img
+                  src="/logo.jpg"
+                  alt="BuildPlace"
+                  className="brand-logo-img"
+                />
               </div>
               <div className="brand-text-stack">
                 <span className="brand-name-gold">
-                  BUILD<span className="brand-name-light">MART</span>
+                  BUILD<span className="brand-name-light">PLACE</span>
                 </span>
                 <span className="brand-tagline-micro">
-                  DIRECT SITE PROCUREMENT
+                  BUILDING MATERIALS, DELIVERED
                 </span>
               </div>
             </Link>

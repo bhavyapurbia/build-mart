@@ -8,7 +8,7 @@ export default function OrderSuccessPage() {
 
   const handleShareWhatsApp = () => {
     const text = encodeURIComponent(
-      `I just ordered certified construction materials on BuildMart (Order #${orderId}) with 30-60 min job-site delivery! Track live at: https://buildmart.in/track-order`
+      `I just ordered certified construction materials on BuildPlace (Order #${orderId}) with 30-60 min job-site delivery! Track live at: https://buildplace.in/track-order`
     );
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };

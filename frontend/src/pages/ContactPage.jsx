@@ -46,7 +46,7 @@ export default function ContactPage() {
     <div className="container" style={{ maxWidth: '1000px', padding: '40px 16px', minHeight: '65vh' }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--text-primary)', margin: '0 0 10px' }}>
-          Contact BuildMart Materials Desk
+          Contact BuildPlace Materials Desk
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '600px', margin: '0 auto' }}>
           Have questions about material specifications, bulk site deliveries, or contractor billing? Reach our dispatch engineers today.
@@ -70,7 +70,7 @@ export default function ContactPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '14px', color: 'var(--text-secondary)' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <MapPin size={20} color="var(--primary, #0284C7)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>{settings?.officeAddress || 'BuildMart Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103'}</span>
+                <span>{settings?.officeAddress || 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103'}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Phone size={20} color="var(--primary, #0284C7)" style={{ flexShrink: 0 }} />
@@ -85,8 +85,8 @@ export default function ContactPage() {
                 <Mail size={20} color="var(--primary, #0284C7)" style={{ flexShrink: 0 }} />
                 <span>
                   <strong>Email:</strong>{' '}
-                  <a href={`mailto:${settings?.supportEmail || 'orders@buildmart.in'}`} style={{ color: 'inherit' }}>
-                    {settings?.supportEmail || 'orders@buildmart.in'}
+                  <a href={`mailto:${settings?.supportEmail || 'orders@buildplace.in'}`} style={{ color: 'inherit' }}>
+                    {settings?.supportEmail || 'orders@buildplace.in'}
                   </a>
                 </span>
               </div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
               Need fast quote turnaround or urgent job-site delivery tracking? Connect directly with our on-duty materials manager.
             </p>
             <a
-              href={`https://wa.me/${(settings?.whatsappNumber || '919876543210').replace(/\+/g, '')}?text=Hello%20BuildMart%20Support,%20I%20have%20an%20enquiry%20regarding%20construction%20materials.`}
+              href={`https://wa.me/${(settings?.whatsappNumber || '919876543210').replace(/\+/g, '')}?text=Hello%20BuildPlace%20Support,%20I%20have%20an%20enquiry%20regarding%20construction%20materials.`}
               target="_blank"
               rel="noreferrer"
               style={{
@@ -150,7 +150,7 @@ export default function ContactPage() {
               <CheckCircle size={48} color="var(--color-success, #16A34A)" style={{ marginBottom: '16px' }} />
               <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 8px' }}>Message Received!</h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: '0 0 20px' }}>
-                Thank you for contacting BuildMart. Our materials desk will get back to you within 30 minutes during working hours.
+                Thank you for contacting BuildPlace. Our materials desk will get back to you within 30 minutes during working hours.
               </p>
               <button
                 type="button"

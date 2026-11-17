@@ -77,7 +77,7 @@ export const submitMaterialRequest = asyncHandler(async (req, res) => {
   if (customer.email) {
     sendEmail({
       email: customer.email,
-      subject: `Material List Request #${requestId} - BuildMart`,
+      subject: `Material List Request #${requestId} - BuildPlace`,
       mailgenContent: {
         body: {
           name: customer.name,

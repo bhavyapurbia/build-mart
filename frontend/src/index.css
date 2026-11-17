@@ -5451,18 +5451,28 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
 }
 
 .brand-symbol-box {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--primary-dark) 100%);
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px color-mix(in oklab, var(--color-accent) 35%, transparent);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   flex-shrink: 0;
+  overflow: hidden;
+  border: 1.5px solid #EA7E12;
+}
+
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .brand-text-stack {
@@ -5473,20 +5483,22 @@ img {
 .brand-name-gold {
   font-size: 22px;
   font-weight: 900;
-  color: var(--color-accent);
+  color: #FFFFFF;
   letter-spacing: -0.4px;
   line-height: 1.1;
 }
 
 .brand-name-light {
-  color: var(--bg-card);
+  color: #EA7E12;
 }
 
 .brand-tagline-micro {
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 800;
-  color: var(--text-light);
-  letter-spacing: normal;
+  color: #CBD5E1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 2px;
 }
 
 .header-right-group {

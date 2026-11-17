@@ -34,7 +34,7 @@ const getTransporter = () => {
 const mailGenerator = new Mailgen({
   theme: 'default',
   product: {
-    name: 'BuildMart',
+    name: 'BuildPlace',
     link: process.env.CLIENT_URL || 'http://localhost:5173'
   }
 });
@@ -51,7 +51,7 @@ export const sendEmail = async (options) => {
   const emailHtml = mailGenerator.generate(options.mailgenContent);
 
   const mail = {
-    from: process.env.SMTP_FROM || '"BuildMart Support" <support@buildmart.in>',
+    from: process.env.SMTP_FROM || '"BuildPlace Support" <support@buildplace.in>',
     to: options.email,
     subject: options.subject,
     text: emailTextual,
@@ -71,7 +71,7 @@ export const emailVerificationMailgenContent = (username, verificationUrl) => {
   return {
     body: {
       name: username || 'Valued Customer',
-      intro: 'Welcome to BuildMart! We are excited to have you on board.',
+      intro: 'Welcome to BuildPlace! We are excited to have you on board.',
       action: {
         instructions: 'To verify your email address, please click the button below:',
         button: {
@@ -89,7 +89,7 @@ export const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
   return {
     body: {
       name: username || 'User',
-      intro: 'We received a request to reset the password for your BuildMart account.',
+      intro: 'We received a request to reset the password for your BuildPlace account.',
       action: {
         instructions: 'To reset your password, click the button below:',
         button: {
@@ -107,7 +107,7 @@ export const welcomeMailgenContent = (username, webUrl) => {
   return {
     body: {
       name: username || 'Valued Partner',
-      intro: 'Welcome to BuildMart - India\'s premier construction materials platform.',
+      intro: 'Welcome to BuildPlace - India\'s premier construction materials platform.',
       action: {
         instructions: 'Start exploring our materials catalog, bulk quotation tools, and contractor services:',
         button: {
