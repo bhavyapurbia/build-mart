@@ -9,6 +9,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
   const { showToast } = useNotification();
 
   const [imagePreview, setImagePreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [customer, setCustomer] = useState({
     name: user?.name || '',
     phone: user?.phone || '',
@@ -27,6 +28,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setImagePreview(null);
+        setSelectedFile(null);
         setSubmittedData(null);
         onClose();
       }
@@ -49,6 +51,12 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
       return;
     }
 
+    if (file.size > 8 * 1024 * 1024) {
+      showToast('Image size exceeds 8MB. Please select a smaller photo.', 'error');
+      return;
+    }
+
+    setSelectedFile(file);
     const reader = new FileReader();
     reader.onload = () => {
       setImagePreview(reader.result);
@@ -58,7 +66,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!imagePreview) {
+    if (!imagePreview && !selectedFile) {
       showToast('Please capture or upload a photo of your paper material list.', 'error');
       return;
     }
@@ -70,16 +78,28 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
     setSubmitting(true);
     try {
+      let finalImageUrl = imagePreview;
+
+      // Upload directly to Cloudinary via /upload/paper-list
+      if (selectedFile) {
+        const uploadData = new FormData();
+        uploadData.append('file', selectedFile);
+        const uploadRes = await api.post('/upload/paper-list', uploadData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        finalImageUrl = uploadRes.data?.data?.url || uploadRes.data?.url;
+      }
+
       const payload = {
         isPaperList: true,
-        paperListImage: imagePreview,
+        paperListImage: finalImageUrl,
         customer,
         items: []
       };
 
       const res = await api.post('/material-requests', payload);
       setSubmittedData(res.data);
-      showToast('Paper material list sent directly to Admin!', 'success', 5000);
+      showToast('Paper material list uploaded to Cloudinary and sent directly to Admin!', 'success', 5000);
     } catch (err) {
       showToast(err.response?.data?.message || 'Error submitting paper list.', 'error');
     } finally {
@@ -89,6 +109,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
 
   const handleClose = () => {
     setImagePreview(null);
+    setSelectedFile(null);
     setSubmittedData(null);
     onClose();
   };

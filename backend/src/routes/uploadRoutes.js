@@ -92,7 +92,9 @@ router.post('/', upload.single('file'), asyncHandler(async (req, res) => {
     throw new ApiError(400, 'Image files must be under 8 MB.');
   }
 
-  const cloudinaryResult = await uploadOnCloudinary(req.file.path, 'buildmart/uploads');
+  const subfolder = (req.body?.folder || 'uploads').replace(/[^a-zA-Z0-9_-]/g, '');
+  const targetFolder = `buildmart/${subfolder}`;
+  const cloudinaryResult = await uploadOnCloudinary(req.file.path, targetFolder);
 
   // Clean up temp file
   if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
@@ -118,6 +120,8 @@ router.post('/multiple', upload.array('files', 10), asyncHandler(async (req, res
     throw new ApiError(400, 'No files uploaded.');
   }
 
+  const subfolder = (req.body?.folder || 'uploads').replace(/[^a-zA-Z0-9_-]/g, '');
+  const targetFolder = `buildmart/${subfolder}`;
   const results = [];
   for (const file of req.files) {
     const buffer = fs.readFileSync(file.path);
@@ -126,7 +130,7 @@ router.post('/multiple', upload.array('files', 10), asyncHandler(async (req, res
       if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
       throw new ApiError(400, `Invalid or oversized file: ${file.originalname}`);
     }
-    const result = await uploadOnCloudinary(file.path, 'buildmart/uploads');
+    const result = await uploadOnCloudinary(file.path, targetFolder);
     if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
     if (result) results.push({ url: result.secure_url, publicId: result.public_id });
   }

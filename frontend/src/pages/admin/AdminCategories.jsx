@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layers, Plus, Edit2, Trash2, X } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
 import api from '../../utils/api';
+import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -51,7 +52,7 @@ const AdminCategories = () => {
     setFormData({
       name: '',
       description: '',
-      image: 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=600&q=80',
+      image: '',
       icon: 'Building2',
       subcategoriesText: ''
     });
@@ -215,17 +216,14 @@ const AdminCategories = () => {
                   />
                 </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
-                    Banner Image URL
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.image}
-                    onChange={e => setFormData({ ...formData, image: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
-                  />
-                </div>
+                <CloudinaryImageUpload
+                  label="Banner Image"
+                  value={formData.image}
+                  onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
+                  folder="categories"
+                  helpText="Upload category banner (JPEG, PNG, WebP)"
+                  previewHeight="120px"
+                />
 
                 <div>
                   <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>

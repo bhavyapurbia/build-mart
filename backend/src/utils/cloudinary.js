@@ -2,14 +2,20 @@ import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
 // Configure Cloudinary from environment variables
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+const initCloudinary = () => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  });
+  return cloudinary;
+};
+
+initCloudinary();
 
 const uploadOnCloudinary = async (localFilePath, folder = 'buildmart') => {
   if (!localFilePath) return null;
+  initCloudinary();
   try {
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: 'auto',
@@ -18,7 +24,7 @@ const uploadOnCloudinary = async (localFilePath, folder = 'buildmart') => {
 
     // Remove the locally saved temporary file after successful upload
     if (fs.existsSync(localFilePath)) {
-      fs.unlinkSync(localFilePath);
+      try { fs.unlinkSync(localFilePath); } catch {}
     }
 
     return response;
@@ -38,6 +44,7 @@ const uploadOnCloudinary = async (localFilePath, folder = 'buildmart') => {
 
 const deleteFromCloudinary = async (publicId) => {
   if (!publicId) return null;
+  initCloudinary();
   try {
     const response = await cloudinary.uploader.destroy(publicId);
     return response;
@@ -47,10 +54,7 @@ const deleteFromCloudinary = async (publicId) => {
   }
 };
 
-
-
-
-export  {
+export {
   cloudinary,
   uploadOnCloudinary,
   deleteFromCloudinary

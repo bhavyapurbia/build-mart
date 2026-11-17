@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Plus,
   Search,
@@ -6,6 +6,8 @@ import {
   Trash2,
   X,
   Upload,
+  UploadCloud,
+  Loader2,
   Image as ImageIcon,
   ArrowUp,
   ArrowDown,
@@ -13,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
 import api from '../../utils/api';
+import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const CATEGORIES = [
   'Cement & Steel',
@@ -126,6 +129,42 @@ const AdminProducts = () => {
   };
 
   // Multiple image helpers
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const bulkFileInputRef = useRef(null);
+
+  const handleBulkUploadFiles = async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    setBulkUploading(true);
+    try {
+      const uploadData = new FormData();
+      files.forEach(f => uploadData.append('files', f));
+      uploadData.append('folder', 'products');
+
+      const res = await api.post('/upload/multiple', uploadData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      const uploadedUrls = res.data?.data?.urls || res.data?.urls || [];
+      if (uploadedUrls.length > 0) {
+        setFormData(prev => {
+          const filtered = prev.images.filter(img => img && img.trim() !== '');
+          return {
+            ...prev,
+            images: [...filtered, ...uploadedUrls]
+          };
+        });
+        showToast(`${uploadedUrls.length} product images uploaded to Cloudinary!`, 'success');
+      }
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Error uploading product images to Cloudinary', 'error');
+    } finally {
+      setBulkUploading(false);
+      if (bulkFileInputRef.current) bulkFileInputRef.current.value = '';
+    }
+  };
+
   const handleAddImageSlot = () => {
     setFormData(prev => ({
       ...prev,
@@ -476,58 +515,89 @@ const AdminProducts = () => {
 
                 {/* --- MULTIPLE IMAGES SECTION (AUTO/MANUAL SLIDER READY) --- */}
                 <div style={{ background: '#F8FAFC', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                  <input
+                    type="file"
+                    ref={bulkFileInputRef}
+                    multiple
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    onChange={handleBulkUploadFiles}
+                    style={{ display: 'none' }}
+                  />
+
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
                     <div>
                       <strong style={{ fontSize: '13px', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <ImageIcon size={16} color="#FF7800" />
                         Product Images Slider ({formData.images.length} images)
                       </strong>
                       <span style={{ fontSize: '11px', color: '#64748B', display: 'block' }}>
-                        Add multiple photos for auto-sliding and touch/click carousel on the website.
+                        Upload multiple photos to Cloudinary CDN for auto-sliding and touch/click carousel.
                       </span>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={handleAddImageSlot}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        background: '#0F172A',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        padding: '6px 12px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      <Plus size={14} /> Add Image
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <button
+                        type="button"
+                        onClick={() => bulkFileInputRef.current?.click()}
+                        disabled={bulkUploading}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          background: '#059669',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          cursor: bulkUploading ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        {bulkUploading ? (
+                          <>
+                            <Loader2 size={13} style={{ animation: 'spin 0.8s linear infinite' }} />
+                            <span>Uploading to Cloudinary...</span>
+                          </>
+                        ) : (
+                          <>
+                            <UploadCloud size={14} />
+                            <span>Upload Images (Cloudinary)</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleAddImageSlot}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          background: '#0F172A',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <Plus size={14} /> Add Slot
+                      </button>
+                    </div>
                   </div>
 
                   {/* List of images with thumbnail & reorder controls */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {formData.images.map((imgUrl, idx) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#FFFFFF', padding: '8px 10px', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
-                        {/* Live Thumbnail */}
-                        <div style={{ width: '38px', height: '38px', borderRadius: '6px', overflow: 'hidden', background: '#F1F5F9', border: '1px solid #E2E8F0', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          {imgUrl ? (
-                            <img src={imgUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onError={(e) => { e.target.style.display = 'none'; }} />
-                          ) : (
-                            <ImageIcon size={16} color="#94A3B8" />
-                          )}
-                        </div>
-
-                        {/* Input */}
-                        <input
-                          type="text"
-                          placeholder={idx === 0 ? "Primary image URL (https://...)" : `Image ${idx + 1} URL (https://...)`}
+                        <CloudinaryImageUpload
+                          compact={true}
+                          folder="products"
                           value={imgUrl}
-                          onChange={e => handleUpdateImage(idx, e.target.value)}
-                          style={{ flex: 1, padding: '7px 10px', fontSize: '12.5px', border: '1px solid #E2E8F0', borderRadius: '6px' }}
+                          onChange={val => handleUpdateImage(idx, val)}
                         />
 
                         {/* Primary Badge */}

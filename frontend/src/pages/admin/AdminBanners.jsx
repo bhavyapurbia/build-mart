@@ -14,7 +14,10 @@ import {
   Tablet,
   Laptop,
   Sparkles,
-  Link as LinkIcon
+  Link as LinkIcon,
+  UploadCloud,
+  Loader2,
+  CheckCircle2
 } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
 import api from '../../utils/api';
@@ -189,8 +192,10 @@ const AdminBanners = () => {
     setIsModalOpen(true);
   };
 
-  // Image File Upload Handler
-  const handleImageFileUpload = (e) => {
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  // Image File Upload Handler - directly to Cloudinary
+  const handleImageFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -204,19 +209,33 @@ const AdminBanners = () => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (uploadEvent) => {
-      const dataUrl = uploadEvent.target?.result;
-      if (typeof dataUrl === 'string') {
+    setUploadingImage(true);
+    try {
+      const uploadData = new FormData();
+      uploadData.append('file', file);
+      uploadData.append('folder', 'banners');
+
+      const res = await api.post('/upload', uploadData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      const uploadedUrl = res.data?.data?.url || res.data?.url;
+      if (uploadedUrl) {
         setFormData(prev => ({
           ...prev,
-          image: dataUrl,
+          image: uploadedUrl,
           title: prev.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ')
         }));
-        showToast('Banner image uploaded successfully!', 'success');
+        showToast('Banner image uploaded to Cloudinary successfully!', 'success');
+      } else {
+        throw new Error('No URL returned from upload');
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Error uploading banner to Cloudinary', 'error');
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
   const handleSelectPreset = (preset) => {
@@ -507,6 +526,7 @@ const AdminBanners = () => {
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
+                      disabled={uploadingImage}
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -518,11 +538,37 @@ const AdminBanners = () => {
                         borderRadius: '8px',
                         fontSize: '13px',
                         fontWeight: 700,
-                        cursor: 'pointer'
+                        cursor: uploadingImage ? 'not-allowed' : 'pointer'
                       }}
                     >
-                      <Upload size={16} /> Choose Image from Device
+                      {uploadingImage ? (
+                        <>
+                          <Loader2 size={16} style={{ animation: 'spin 0.8s linear infinite' }} />
+                          <span>Uploading to Cloudinary...</span>
+                        </>
+                      ) : (
+                        <>
+                          <UploadCloud size={16} />
+                          <span>Upload Image to Cloudinary</span>
+                        </>
+                      )}
                     </button>
+
+                    {formData.image && formData.image.includes('res.cloudinary.com') && (
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        background: '#DCFCE7',
+                        color: '#166534',
+                        padding: '4px 10px',
+                        borderRadius: '999px',
+                        fontSize: '11.5px',
+                        fontWeight: 700
+                      }}>
+                        <CheckCircle2 size={13} /> Cloudinary CDN
+                      </span>
+                    )}
 
                     <span style={{ fontSize: '12px', color: '#94A3B8' }}>or enter image URL below:</span>
                   </div>

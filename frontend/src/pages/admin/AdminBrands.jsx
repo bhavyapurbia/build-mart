@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Award, Plus, Edit, Trash2, X, Check, Search, ShieldCheck } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
 import api from '../../utils/api';
+import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const AdminBrands = () => {
   const [brands, setBrands] = useState([]);
@@ -40,7 +41,7 @@ const AdminBrands = () => {
     setFormData({
       name: '',
       description: '',
-      logo: 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=200&q=80',
+      logo: '',
       isFeatured: true
     });
     setIsModalOpen(true);
@@ -238,17 +239,14 @@ const AdminBrands = () => {
                   />
                 </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
-                    Logo Image URL
-                  </label>
-                  <input
-                    type="url"
-                    value={formData.logo}
-                    onChange={e => setFormData({ ...formData, logo: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', border: '1px solid var(--color-rule)', borderRadius: '8px', fontSize: '13px' }}
-                  />
-                </div>
+                <CloudinaryImageUpload
+                  label="Brand Logo"
+                  value={formData.logo}
+                  onChange={(url) => setFormData(prev => ({ ...prev, logo: url }))}
+                  folder="brands"
+                  helpText="Upload brand logo graphic (PNG, WebP, JPG)"
+                  previewHeight="100px"
+                />
 
                 <div>
                   <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '6px' }}>
