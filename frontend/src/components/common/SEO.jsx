@@ -9,7 +9,7 @@ export default function SEO({
   type = 'website',
   jsonLd = null
 }) {
-  const siteTitle = 'BuildPlace | Building Materials, Delivered';
+  const siteTitle = 'BuildPlace | Your Trusted Construction Partner';
   const fullTitle = title ? `${title} | BuildPlace` : siteTitle;
   const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://buildplace.in');
   const fullImageUrl = image.startsWith('http') ? image : `https://buildplace.in${image}`;

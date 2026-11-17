@@ -29,6 +29,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useWishlist } from '../../context/WishlistContext';
 import NotificationBell from './NotificationBell';
 import MobileDrawer from './MobileDrawer';
+import ImageSearchModal from './ImageSearchModal';
 import api from '../../utils/api';
 
 const LANGUAGES = [
@@ -47,6 +48,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [isImageSearchOpen, setIsImageSearchOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [recentSearches, setRecentSearches] = useState(() => {
@@ -190,7 +192,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
             </button>
 
             {/* Brand Logo: BUILDPLACE */}
-            <Link to="/" className="buildmart-brand-logo" title="BuildPlace - Building Materials, Delivered">
+            <Link to="/" className="buildmart-brand-logo" title="BuildPlace - Your Trusted Construction Partner">
               <div className="brand-symbol-box brand-logo-emblem">
                 <img
                   src="/logo.jpg"
@@ -203,7 +205,7 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                   BUILD<span className="brand-name-light">PLACE</span>
                 </span>
                 <span className="brand-tagline-micro">
-                  BUILDING MATERIALS, DELIVERED
+                  YOUR TRUSTED CONSTRUCTION PARTNER
                 </span>
               </div>
             </Link>
@@ -388,14 +390,14 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
               <MapPin size={16} color="#FF9900" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div className="address-text-column">
                 <span className="address-location-title">
-                  {currentCity ? `${t('deliverTo') || 'Deliver to'} ${currentCity}` : (t('selectLocation') || 'Deliver to Bengaluru')}
+                  {currentCity ? `${t('deliverTo') || 'Deliver to'} ${currentCity}` : (t('selectLocation') || 'Select Location')}
                 </span>
                 <button
                   type="button"
                   className="address-edit-link"
                   onClick={onOpenLocation}
                 >
-                  <span>{currentCity ? (t('changeAddress') || 'Change Address') : (t('addAddress') || 'Change Address')}</span>
+                  <span>{currentCity ? (t('changeAddress') || 'Change') : (t('selectCity') || 'Select City')}</span>
                   <ChevronDown size={12} color="#FF9900" />
                 </button>
               </div>
@@ -421,12 +423,12 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
                 className="classic-search-input"
               />
 
-              {/* Snap Paper Material List Camera Button (Direct to Admin) */}
+              {/* Visual Product Search Camera Button */}
               <button
                 type="button"
                 className="search-camera-action-btn"
-                onClick={onOpenPaperList}
-                title="Click photo of handwritten paper material list to send directly to Admin"
+                onClick={() => setIsImageSearchOpen(true)}
+                title="Search products by photo or image upload"
               >
                 <Camera size={19} color='var(--primary-dark)' />
               </button>
@@ -527,6 +529,12 @@ const Navbar = ({ onOpenLocation, currentCity, onOpenPaperList }) => {
         onClose={() => setMobileDrawerOpen(false)}
         currentCity={currentCity}
         onOpenLocation={onOpenLocation}
+      />
+
+      {/* Visual Photo Search Modal */}
+      <ImageSearchModal
+        isOpen={isImageSearchOpen}
+        onClose={() => setIsImageSearchOpen(false)}
       />
     </>
   );

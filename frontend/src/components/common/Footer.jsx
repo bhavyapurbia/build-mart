@@ -51,7 +51,7 @@ const Footer = () => {
               BUILD<span style={{ color: '#EA7E12' }}>PLACE</span>
             </div>
             <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.04em' }}>
-              BUILDING MATERIALS, DELIVERED
+              YOUR TRUSTED CONSTRUCTION PARTNER
             </div>
           </div>
         </div>

@@ -6,12 +6,12 @@ const SettingsContext = createContext();
 export const SettingsProvider = ({ children }) => {
   const [settings, setSettings] = useState({
     siteName: 'BuildPlace',
-    tagline: 'Building Materials, Delivered',
+    tagline: 'Your Trusted Construction Partner',
     whatsappNumber: '+919876543210',
     supportPhone: '1800-890-5000',
     supportEmail: 'orders@buildplace.in',
     officeAddress: 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bengaluru 560103',
-    announcementBar: '⚡ 30-60 Minute Direct Job-Site Delivery in Bengaluru | Genuine Certified Construction Supplies',
+    announcementBar: '⚡ 30-60 Minute Direct Job-Site Delivery Across India | Genuine Certified Construction Supplies',
     freeDeliveryThreshold: 5000,
     cities: ['Bengaluru', 'Mumbai', 'Hyderabad', 'Delhi NCR', 'Pune', 'Chennai'],
     sellerGstin: '29AABCB1234F1Z5',

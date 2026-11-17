@@ -6,7 +6,9 @@ const TopAnnouncementBar = ({ onOpenLocation, currentCity }) => {
   const { settings } = useSettings();
 
   const phone = settings?.supportPhone || '1800-890-5000';
-  const announcementText = settings?.announcementBar || `⚡ 30-60 Minute Direct Job-Site Delivery in ${currentCity || 'Bengaluru'} | Genuine Certified Construction Supplies`;
+  const announcementText = settings?.announcementBar || (currentCity
+    ? `⚡ 30-60 Minute Direct Job-Site Delivery in ${currentCity} | Genuine Certified Construction Supplies`
+    : '⚡ 30-60 Minute Direct Job-Site Delivery Across India | Genuine Certified Construction Supplies');
 
   return (
     <div className="announcement-bar">
@@ -40,7 +42,7 @@ const TopAnnouncementBar = ({ onOpenLocation, currentCity }) => {
             }}
           >
             <MapPin size={12} />
-            <span>{currentCity || 'Change City'}</span>
+            <span>{currentCity || 'Select City'}</span>
           </button>
         </div>
       </div>

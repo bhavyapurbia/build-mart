@@ -9,7 +9,7 @@ const RegisterPage = () => {
     email: '',
     password: '',
     phone: '',
-    city: 'Bengaluru'
+    city: localStorage.getItem('bm_user_city') || ''
   });
   const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();

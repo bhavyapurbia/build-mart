@@ -2209,21 +2209,33 @@ img {
   color: var(--primary-deep);
 }
 
-/* Products Layout */
+/* Products Layout - Mobile First */
 .products-layout-grid {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: var(--space-lg);
-  align-items: start;
+  display: block;
+  width: 100%;
 }
 
 .products-desktop-sidebar {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 18px;
-  position: sticky;
-  top: 90px;
+  display: none !important;
+}
+
+@media (min-width: 992px) {
+  .products-layout-grid {
+    display: grid !important;
+    grid-template-columns: 260px 1fr !important;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .products-desktop-sidebar {
+    display: block !important;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    position: sticky;
+    top: 90px;
+  }
 }
 
 .sidebar-header {
@@ -7307,12 +7319,18 @@ body.modal-open .bm-whatsapp-fixed-wrapper {
    PRODUCTS PAGE MOBILE CATEGORY PILL STRIP & BOTTOM SHEET
    ======================================================== */
 .mobile-category-pill-strip {
-  display: none;
+  display: flex;
   overflow-x: auto;
   gap: 8px;
-  padding: 4px 0 14px;
+  padding: 6px 0 14px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 992px) {
+  .mobile-category-pill-strip {
+    display: none !important;
+  }
 }
 
 .mobile-category-pill-strip::-webkit-scrollbar {
@@ -7377,17 +7395,23 @@ body.modal-open .bm-whatsapp-fixed-wrapper {
 }
 
 .mobile-filter-trigger-btn {
-  display: none;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   background: #FFF4ED;
   color: #FF7800;
   border: 1.5px solid #FFD8BE;
-  padding: 7px 12px;
+  padding: 7px 14px;
   border-radius: 8px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 800;
   cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .mobile-filter-trigger-btn {
+    display: none !important;
+  }
 }
 
 .filter-badge-count {
@@ -7590,8 +7614,9 @@ body.modal-open .bm-whatsapp-fixed-wrapper {
 }
 
 /* RESPONSIVE OVERRIDES FOR MOBILE & TABLET */
-@media (max-width: 900px) {
+@media (max-width: 991px) {
   .products-layout-grid {
+    display: block !important;
     grid-template-columns: 1fr !important;
   }
   .products-desktop-sidebar {

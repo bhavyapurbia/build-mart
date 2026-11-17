@@ -71,7 +71,22 @@ const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'));
 function App() {
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [isPaperListOpen, setIsPaperListOpen] = useState(false);
-  const [currentCity, setCurrentCity] = useState('Bengaluru');
+  const [currentCity, setCurrentCity] = useState(() => {
+    try {
+      return localStorage.getItem('bm_user_city') || '';
+    } catch {
+      return '';
+    }
+  });
+
+  const handleSelectCity = (city) => {
+    setCurrentCity(city || '');
+    try {
+      if (city) localStorage.setItem('bm_user_city', city);
+      else localStorage.removeItem('bm_user_city');
+    } catch {}
+  };
+
   const location = useLocation();
 
   const isAdminRoute = location.pathname.startsWith('/admin') && location.pathname !== '/admin/login';
@@ -189,7 +204,7 @@ function App() {
                           isOpen={isLocationOpen}
                           currentCity={currentCity}
                           onClose={() => setIsLocationOpen(false)}
-                          onSelectCity={city => setCurrentCity(city)}
+                          onSelectCity={handleSelectCity}
                         />
                         <PaperListModal
                           isOpen={isPaperListOpen}

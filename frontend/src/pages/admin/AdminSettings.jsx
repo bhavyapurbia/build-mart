@@ -10,7 +10,7 @@ const AdminSettings = () => {
     supportPhone: '1800-890-5000',
     supportEmail: 'orders@buildplace.in',
     officeAddress: 'BuildPlace Fulfillment Hub 01, Outer Ring Road, Bellandur, Bengaluru 560103',
-    announcementBar: '30-60 Minute Direct Job-Site Delivery in Bengaluru | Genuine Certified Construction Supplies',
+    announcementBar: '30-60 Minute Direct Job-Site Delivery Across India | Genuine Certified Construction Supplies',
     freeDeliveryThreshold: 5000
   });
 

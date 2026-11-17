@@ -72,7 +72,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
                 BUILD<span>PLACE</span>
               </div>
               <div className="drawer-tagline">
-                Building Materials, Delivered
+                Your Trusted Construction Partner
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span className="drawer-pulse-dot" />
             <strong style={{ fontSize: '12.5px', color: 'var(--color-ink)' }}>
-              Delivering to: <span style={{ color: 'var(--primary-dark)' }}>{currentCity}</span>
+              Delivering to: <span style={{ color: 'var(--primary-dark)' }}>{currentCity || 'Select City'}</span>
             </strong>
           </div>
           <span style={{ fontSize: '11px', color: 'var(--color-muted)', display: 'flex', alignItems: 'center', gap: '2px' }}>
@@ -253,7 +253,7 @@ const MobileDrawer = ({ isOpen, onClose, currentCity, onOpenLocation }) => {
         {/* Footer */}
         <div className="drawer-footer">
           <div style={{ fontSize: '11px', color: 'var(--text-light)' }}>
-            BuildPlace Technologies • Building Materials, Delivered
+            BuildPlace Technologies • Your Trusted Construction Partner
           </div>
           {isAdmin && (
             <div style={{ marginTop: '6px' }}>

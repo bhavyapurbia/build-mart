@@ -16,7 +16,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
     name: user?.name || '',
     phone: user?.phone || '',
     siteAddress: (user?.addresses && user.addresses[0]?.street) || '',
-    city: currentCity || 'Bengaluru',
+    city: currentCity || localStorage.getItem('bm_user_city') || '',
     pincode: (user?.addresses && user.addresses[0]?.pincode) || '',
     notes: ''
   });

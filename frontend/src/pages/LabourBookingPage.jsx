@@ -38,7 +38,7 @@ const LabourBookingPage = () => {
     phone: user?.phone || '',
     email: user?.email || '',
     workLocation: (user?.addresses && user.addresses[0]?.street) || '',
-    city: (user?.addresses && user.addresses[0]?.city) || 'Bengaluru',
+    city: (user?.addresses && user.addresses[0]?.city) || localStorage.getItem('bm_user_city') || '',
     pincode: (user?.addresses && user.addresses[0]?.pincode) || ''
   });
 
