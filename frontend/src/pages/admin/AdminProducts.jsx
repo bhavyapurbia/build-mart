@@ -14,7 +14,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
-import api from '../../utils/api';
+import api, { subscribeCatalogUpdates } from '../../utils/api';
 import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const CATEGORIES = [
@@ -40,6 +40,8 @@ const PRESET_IMAGE_SUGGESTIONS = [
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [brandsList, setBrandsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
@@ -63,6 +65,25 @@ const AdminProducts = () => {
 
   const { showToast } = useNotification();
 
+  const loadMetadata = async () => {
+    try {
+      const [catRes, brandRes] = await Promise.all([
+        api.get('/categories'),
+        api.get('/brands')
+      ]);
+      const cats = Array.isArray(catRes.data)
+        ? catRes.data
+        : (Array.isArray(catRes.data?.data) ? catRes.data.data : []);
+      const brs = Array.isArray(brandRes.data)
+        ? brandRes.data
+        : (Array.isArray(brandRes.data?.data) ? brandRes.data.data : []);
+      setCategoriesList(cats);
+      setBrandsList(brs);
+    } catch (e) {
+      console.error('Error loading categories and brands in AdminProducts:', e);
+    }
+  };
+
   const loadProducts = async () => {
     setLoading(true);
     try {
@@ -84,15 +105,23 @@ const AdminProducts = () => {
 
   useEffect(() => {
     loadProducts();
+    loadMetadata();
+    const unsubscribe = subscribeCatalogUpdates(() => {
+      loadProducts();
+      loadMetadata();
+    });
+    return () => unsubscribe();
   }, []);
 
   const handleOpenAdd = () => {
     setEditingProduct(null);
+    const defaultCat = categoriesList.length > 0 ? categoriesList[0].name : 'Cement & Steel';
+    const defaultBrand = brandsList.length > 0 ? brandsList[0].name : 'UltraTech';
     setFormData({
       name: '',
-      category: 'Cement & Steel',
+      category: defaultCat,
       subcategory: '',
-      brand: 'UltraTech',
+      brand: defaultBrand,
       price: '',
       mrp: '',
       unit: 'Piece',
@@ -294,7 +323,7 @@ const AdminProducts = () => {
             >
               All Categories
             </button>
-            {CATEGORIES.map(c => (
+            {(categoriesList.length > 0 ? categoriesList.map(c => c.name) : CATEGORIES).map(c => (
               <button
                 key={c}
                 type="button"

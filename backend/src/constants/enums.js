@@ -52,6 +52,7 @@ export const QUOTATION_STATUS = {
 
 export const MATERIAL_REQUEST_STATUS = {
   PENDING_REVIEW: 'Pending Review',
+  BILL_GENERATED: 'Bill Generated',
   QUOTATION_SENT: 'Quotation Sent',
   QUOTATION_ACCEPTED: 'Quotation Accepted',
   QUOTATION_REJECTED: 'Quotation Rejected',

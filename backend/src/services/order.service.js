@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Product from '../models/Product.js';
 import Inventory from '../models/Inventory.js';
 import Order from '../models/Order.js';
@@ -20,7 +21,11 @@ export async function atomicDecrementStock(items, orderId) {
   const decrementedLines = [];
 
   for (const item of items) {
-    const pId = String(item.productId || item._id);
+    const pId = String(item.productId || item._id || '');
+    if (!pId || !mongoose.Types.ObjectId.isValid(pId)) {
+      // Custom or paper list quoted item without a catalog ObjectId
+      continue;
+    }
     const qty = Number(item.quantity);
 
     // Atomically decrement stock if stock >= qty
@@ -87,7 +92,8 @@ export async function atomicDecrementStock(items, orderId) {
  */
 export async function restoreStock(items, orderId, reason = 'Order cancelled') {
   for (const item of items) {
-    const pId = String(item.productId || item._id);
+    const pId = String(item.productId || item._id || '');
+    if (!pId || !mongoose.Types.ObjectId.isValid(pId)) continue;
     const qty = Number(item.quantity);
     if (!pId || !qty) continue;
 

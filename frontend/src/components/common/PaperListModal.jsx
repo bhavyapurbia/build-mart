@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Upload, X, CheckCircle, ShieldCheck, ArrowRight, RefreshCw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Camera, Upload, X, CheckCircle, ShieldCheck, ArrowRight, RefreshCw, FileText } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import api from '../../utils/api';
 
 const PaperListModal = ({ isOpen, onClose, currentCity }) => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { showToast } = useNotification();
 
@@ -141,19 +143,37 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
             </span>
 
             <h3 className="sheet-success-title">
-              List #{submittedData.requestId || 'PRO-LIST'} Sent to Admin!
+              List #{submittedData.data?.requestId || submittedData.requestId || 'PRO-LIST'} Sent to Admin!
             </h3>
 
             <p className="sheet-success-desc">
-              Thank you, <strong>{customer.name}</strong>. Your paper list photo has been delivered to our materials desk. We will review your items, prepare factory slab pricing, and WhatsApp/call you shortly.
+              Thank you, <strong>{customer.name}</strong>. Your paper list photo has been delivered to our materials desk. We will review your items, verify warehouse stock, and send your itemized bill via WhatsApp.
             </p>
 
-            <button
-              onClick={handleClose}
-              className="sheet-submit-btn"
-            >
-              Done & Return to Shopping
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginTop: '16px' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  const reqId = submittedData.data?.requestId || submittedData.requestId;
+                  handleClose();
+                  if (reqId) navigate(`/snap-list/bill/${reqId}`);
+                }}
+                className="sheet-submit-btn"
+                style={{ background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+              >
+                <FileText size={16} />
+                <span>Track My Bill Online</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleClose}
+                className="btn-secondary"
+                style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '13px' }}
+              >
+                Done & Return to Shopping
+              </button>
+            </div>
           </div>
         ) : (
           /* Paper List Upload Form (Mobile Section Layout) */

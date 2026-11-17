@@ -47,11 +47,7 @@ const AdminCategories = () => {
         : (Array.isArray(payload?.categories)
           ? payload.categories
           : (Array.isArray(res.data?.categories) ? res.data.categories : []));
-      const safe = list.filter(c =>
-        !c.name.toLowerCase().includes('electrical') &&
-        !c.slug.toLowerCase().includes('electrical')
-      );
-      setCategories(safe);
+      setCategories(list);
     } catch (err) {
       showToast('Error loading categories', 'error');
     } finally {

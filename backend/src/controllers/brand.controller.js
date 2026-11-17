@@ -1,4 +1,5 @@
 import Brand from '../models/Brand.js';
+import Product from '../models/Product.js';
 import { asyncHandler, ApiError, ApiResponse } from '../utils/index.js';
 
 export const DEFAULT_BRANDS = [
@@ -169,13 +170,31 @@ export const createBrand = asyncHandler(async (req, res) => {
 export const updateBrand = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const updateData = { ...req.body };
+
+  const existingBrand = await Brand.findById(id);
+  if (!existingBrand) {
+    throw new ApiError(404, 'Brand not found.');
+  }
+  const oldName = existingBrand.name;
+
   if (updateData.name) {
+    updateData.name = updateData.name.trim();
     updateData.slug = updateData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   }
+
   const updated = await Brand.findByIdAndUpdate(id, updateData, { new: true });
   if (!updated) {
     throw new ApiError(404, 'Brand not found.');
   }
+
+  // Update products referencing this brand if renamed
+  if (updateData.name && updateData.name !== oldName) {
+    await Product.updateMany(
+      { brand: oldName },
+      { $set: { brand: updateData.name } }
+    );
+  }
+
   return res.status(200).json(
     new ApiResponse(200, { brand: updated }, 'Brand updated successfully')
   );
@@ -187,6 +206,13 @@ export const deleteBrand = asyncHandler(async (req, res) => {
   if (!deleted) {
     throw new ApiError(404, 'Brand not found.');
   }
+
+  // Update products referencing this deleted brand
+  await Product.updateMany(
+    { brand: deleted.name },
+    { $set: { brand: 'Other' } }
+  );
+
   return res.status(200).json(
     new ApiResponse(200, null, 'Brand deleted successfully.')
   );

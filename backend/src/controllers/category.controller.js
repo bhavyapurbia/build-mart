@@ -204,6 +204,12 @@ export const updateCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const updateData = { ...req.body };
 
+  const existingCategory = await Category.findById(id);
+  if (!existingCategory) {
+    throw new ApiError(404, 'Category not found.');
+  }
+  const oldName = existingCategory.name;
+
   if (updateData.name) {
     updateData.name = updateData.name.trim();
     updateData.slug = toSlug(updateData.name);
@@ -219,6 +225,15 @@ export const updateCategory = asyncHandler(async (req, res) => {
   if (!updated) {
     throw new ApiError(404, 'Category not found.');
   }
+
+  // Synchronously update products assigned to this category if renamed
+  if (updateData.name && updateData.name !== oldName) {
+    await Product.updateMany(
+      { category: oldName },
+      { $set: { category: updateData.name } }
+    );
+  }
+
   return res.status(200).json(
     new ApiResponse(200, { category: updated }, 'Category updated successfully')
   );
@@ -230,6 +245,13 @@ export const deleteCategory = asyncHandler(async (req, res) => {
   if (!deleted) {
     throw new ApiError(404, 'Category not found.');
   }
+
+  // Update existing products referencing this deleted category
+  await Product.updateMany(
+    { category: deleted.name },
+    { $set: { category: 'General Construction', subcategory: '' } }
+  );
+
   return res.status(200).json(
     new ApiResponse(200, null, 'Category deleted successfully.')
   );

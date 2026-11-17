@@ -29,6 +29,7 @@ const ProductsPage = lazy(() => import('./pages/ProductsPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const OrderSuccessPage = lazy(() => import('./pages/OrderSuccessPage'));
 const MaterialListPage = lazy(() => import('./pages/MaterialListPage'));
+const SnapListBillPage = lazy(() => import('./pages/SnapListBillPage'));
 const CartPage = lazy(() => import('./pages/CartPage'));
 const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
 const BulkEnquiryPage = lazy(() => import('./pages/BulkEnquiryPage'));
@@ -50,6 +51,7 @@ const VerifyEmailPage = lazy(() => import('./pages/auth/VerifyEmailPage'));
 const AdminLoginPage = lazy(() => import('./pages/AdminLoginPage'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview'));
+const AdminSnapLists = lazy(() => import('./pages/admin/AdminSnapLists'));
 const AdminMaterialRequests = lazy(() => import('./pages/admin/AdminMaterialRequests'));
 const AdminQuotationsPage = lazy(() => import('./pages/admin/AdminQuotationsPage'));
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'));
@@ -111,6 +113,8 @@ function App() {
                             <Route path="/p/:slug" element={<ProductDetailPage />} />
                             <Route path="/order-success/:orderId" element={<OrderSuccessPage />} />
                             <Route path="/material-list" element={<MaterialListPage />} />
+                            <Route path="/snap-list/:id" element={<SnapListBillPage />} />
+                            <Route path="/snap-list/bill/:id" element={<SnapListBillPage />} />
                             <Route path="/cart" element={<CartPage />} />
                             <Route
                               path="/checkout"
@@ -149,6 +153,7 @@ function App() {
                             <Route path="/admin" element={<AdminLayout />}>
                               <Route index element={<Navigate to="/admin/overview" replace />} />
                               <Route path="overview" element={<AdminOverview />} />
+                              <Route path="snap-lists" element={<AdminSnapLists />} />
                               <Route path="material-requests" element={<AdminMaterialRequests />} />
                               <Route path="quotations" element={<AdminQuotationsPage />} />
                               <Route path="orders" element={<AdminOrders />} />

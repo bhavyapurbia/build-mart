@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import api, { subscribeCatalogUpdates } from '../../utils/api';
 import {
   LayoutDashboard,
   Package,
@@ -20,14 +21,16 @@ import {
   ShieldCheck,
   CreditCard,
   FileText,
-  MapPin
+  MapPin,
+  Camera
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import NotificationBell from '../../components/common/NotificationBell';
 
 const NAV_ITEMS = [
   { path: '/admin/overview', label: 'Overview', icon: LayoutDashboard },
-  { path: '/admin/material-requests', label: 'Material Requests', icon: ClipboardList, badge: 'Crucial' },
+  { path: '/admin/snap-lists', label: 'Snap Lists', icon: Camera, badge: 'Crucial' },
+  { path: '/admin/material-requests', label: 'Material Requests', icon: ClipboardList },
   { path: '/admin/quotations', label: 'Quotations', icon: FileText },
   { path: '/admin/orders', label: 'Order Management', icon: ShoppingCart },
   { path: '/admin/payments', label: 'Payments & Gateway', icon: CreditCard },
@@ -48,6 +51,25 @@ const AdminLayout = () => {
   const { user, isAdmin, loading, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const [pendingSnapCount, setPendingSnapCount] = useState(0);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    const fetchSnapCount = async () => {
+      try {
+        const res = await api.get('/material-requests/admin/all?isPaperList=true&status=Pending Review');
+        const list = Array.isArray(res.data?.data?.requests)
+          ? res.data.data.requests
+          : (Array.isArray(res.data?.data) ? res.data.data : []);
+        setPendingSnapCount(list.length);
+      } catch (e) {
+        // quiet
+      }
+    };
+    fetchSnapCount();
+    const unsub = subscribeCatalogUpdates(fetchSnapCount);
+    return () => unsub();
+  }, [isAdmin]);
 
   if (loading) {
     return (
@@ -110,16 +132,18 @@ const AdminLayout = () => {
                 >
                   <Icon size={18} />
                   <span style={{ flex: 1 }}>{item.label}</span>
-                  {item.badge && (
+                  {(item.path === '/admin/snap-lists' && pendingSnapCount > 0 ? `${pendingSnapCount} NEW` : item.badge) && (
                     <span style={{
-                      background: isActive ? 'var(--color-ink)' : 'var(--primary-dark)',
-                      color: 'var(--bg-card)',
+                      background: item.path === '/admin/snap-lists' && pendingSnapCount > 0
+                        ? '#EA7E12'
+                        : (isActive ? 'var(--color-ink)' : 'var(--primary-dark)'),
+                      color: '#FFFFFF',
                       fontSize: '10px',
                       padding: '1px 6px',
                       borderRadius: '4px',
                       fontWeight: 800
                     }}>
-                      {item.badge}
+                      {item.path === '/admin/snap-lists' && pendingSnapCount > 0 ? `${pendingSnapCount} NEW` : item.badge}
                     </span>
                   )}
                 </Link>
