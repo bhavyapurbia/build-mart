@@ -67,7 +67,9 @@ const defaultAllowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:5173',
   'https://build-mart-7ly2.vercel.app',
-  'https://build-mart-1oze.onrender.com'
+  'https://build-mart-1oze.onrender.com',
+  'https://buildplace.in',
+  'https://www.buildplace.in'
 ];
 
 const envOrigins = (process.env.CLIENT_URL || '')

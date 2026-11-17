@@ -9,7 +9,8 @@ const categorySchema = new mongoose.Schema({
   subcategories: [{
     name: { type: String, required: true, trim: true },
     slug: { type: String, required: true, lowercase: true, trim: true },
-    description: { type: String, default: '' }
+    description: { type: String, default: '' },
+    image: { type: String, default: '' }
   }],
   order: { type: Number, default: 0 },
   isActive: { type: Boolean, default: true }

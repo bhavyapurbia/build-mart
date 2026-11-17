@@ -1,20 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Layers, Plus, Edit2, Trash2, X, Sparkles, Image as ImageIcon, CheckCircle2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Image as ImageIcon, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
+import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 import api from '../../utils/api';
+
+const PLACEHOLDERS = new Set(['/placeholder-material.svg', '/placeholder-material.jpg', '/placeholder.svg']);
+
+const toSlug = (str) =>
+  String(str || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+const cleanStoredImage = (url) => {
+  if (!url || typeof url !== 'string') return '';
+  const trimmed = url.trim();
+  return PLACEHOLDERS.has(trimmed) ? '' : trimmed;
+};
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
+  const [newSubInput, setNewSubInput] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     image: '',
     icon: 'Building2',
-    subcategoriesText: ''
+    subcategories: []
   });
 
   const { showToast } = useNotification();
@@ -29,7 +47,6 @@ const AdminCategories = () => {
         : (Array.isArray(payload?.categories)
           ? payload.categories
           : (Array.isArray(res.data?.categories) ? res.data.categories : []));
-      // No electrical
       const safe = list.filter(c =>
         !c.name.toLowerCase().includes('electrical') &&
         !c.slug.toLowerCase().includes('electrical')
@@ -48,47 +65,165 @@ const AdminCategories = () => {
 
   const handleOpenAdd = () => {
     setEditingCategory(null);
+    setNewSubInput('');
     setFormData({
       name: '',
       description: '',
       image: '',
       icon: 'Building2',
-      subcategoriesText: ''
+      subcategories: []
     });
     setIsModalOpen(true);
   };
 
   const handleOpenEdit = (c) => {
     setEditingCategory(c);
+    setNewSubInput('');
+    const subs = (c.subcategories || []).map(s => ({
+      name: typeof s === 'object' ? (s.name || '') : String(s),
+      slug: typeof s === 'object' ? (s.slug || toSlug(s.name)) : toSlug(s),
+      description: typeof s === 'object' ? (s.description || '') : `${s} products`,
+      image: cleanStoredImage(typeof s === 'object' ? (s.customImage !== undefined ? s.customImage : s.image) : '')
+    }));
+
     setFormData({
-      name: c.name,
+      name: c.name || '',
       description: c.description || '',
-      image: c.productImageReference || c.image || '',
+      image: cleanStoredImage(c.customImage !== undefined ? c.customImage : c.image),
       icon: c.icon || 'Building2',
-      subcategoriesText: (c.subcategories || []).map(s => s.name).join(', ')
+      subcategories: subs
     });
     setIsModalOpen(true);
   };
 
+  const handleAddSubcategories = () => {
+    const names = newSubInput
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    if (names.length === 0) return;
+
+    setFormData(prev => {
+      const existingNames = new Set(prev.subcategories.map(s => s.name.toLowerCase()));
+      const additions = [];
+      for (const n of names) {
+        if (!existingNames.has(n.toLowerCase())) {
+          existingNames.add(n.toLowerCase());
+          additions.push({
+            name: n,
+            slug: toSlug(n),
+            description: `${n} products`,
+            image: ''
+          });
+        }
+      }
+      return { ...prev, subcategories: [...prev.subcategories, ...additions] };
+    });
+    setNewSubInput('');
+  };
+
+  const handleSubNameChange = (idx, value) => {
+    setFormData(prev => {
+      const updated = [...prev.subcategories];
+      updated[idx] = {
+        ...updated[idx],
+        name: value,
+        slug: toSlug(value),
+        description: `${value} products`
+      };
+      return { ...prev, subcategories: updated };
+    });
+  };
+
+  const handleSubImageChange = (idx, url) => {
+    const trimmed = (url || '').trim();
+    if (trimmed) {
+      const dupIdx = formData.subcategories.findIndex(
+        (s, i) => i !== idx && (s.image || '').trim() === trimmed
+      );
+      if (dupIdx !== -1) {
+        showToast(
+          `Image already used by "${formData.subcategories[dupIdx].name}". Please upload a unique image for each subcategory.`,
+          'error'
+        );
+        return;
+      }
+    }
+
+    setFormData(prev => {
+      const updated = [...prev.subcategories];
+      updated[idx] = { ...updated[idx], image: trimmed };
+      return { ...prev, subcategories: updated };
+    });
+  };
+
+  const handleRemoveSub = (idx) => {
+    setFormData(prev => ({
+      ...prev,
+      subcategories: prev.subcategories.filter((_, i) => i !== idx)
+    }));
+  };
+
+  const handleDeleteCategory = async (c) => {
+    if (!window.confirm(`Delete category "${c.name}"? This cannot be undone.`)) return;
+    try {
+      await api.delete(`/categories/${c._id}`);
+      showToast(`Category "${c.name}" deleted.`, 'success');
+      loadCategories();
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Error deleting category', 'error');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const subcategories = formData.subcategoriesText
-        .split(',')
-        .map(s => s.trim())
-        .filter(Boolean)
-        .map(name => ({
-          name,
-          slug: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-          description: `${name} products`
-        }));
 
+    // If user typed something in quick-add input without clicking Add, include it automatically
+    let finalSubs = [...formData.subcategories];
+    if (newSubInput.trim()) {
+      const extraNames = newSubInput.split(',').map(s => s.trim()).filter(Boolean);
+      const existing = new Set(finalSubs.map(s => s.name.toLowerCase()));
+      extraNames.forEach(n => {
+        if (!existing.has(n.toLowerCase())) {
+          existing.add(n.toLowerCase());
+          finalSubs.push({ name: n, slug: toSlug(n), description: `${n} products`, image: '' });
+        }
+      });
+    }
+
+    const cleanedSubs = finalSubs
+      .map(s => ({
+        name: (s.name || '').trim(),
+        slug: toSlug(s.name),
+        description: (s.description || `${s.name} products`).trim(),
+        image: cleanStoredImage(s.image)
+      }))
+      .filter(s => s.name);
+
+    // Enforce unique images across subcategories
+    const seen = new Map();
+    for (const sub of cleanedSubs) {
+      if (sub.image) {
+        if (seen.has(sub.image)) {
+          showToast(
+            `Duplicate image detected for "${sub.name}" and "${seen.get(sub.image)}". Every subcategory must have a unique image.`,
+            'error'
+          );
+          return;
+        }
+        seen.set(sub.image, sub.name);
+      }
+    }
+
+    setSaving(true);
+    try {
       const payload = {
-        name: formData.name,
-        description: formData.description,
-        image: formData.image,
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        image: cleanStoredImage(formData.image),
         icon: formData.icon,
-        subcategories
+        subcategories: cleanedSubs
       };
 
       if (editingCategory) {
@@ -103,6 +238,8 @@ const AdminCategories = () => {
       loadCategories();
     } catch (err) {
       showToast(err.response?.data?.message || 'Error saving category', 'error');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -114,7 +251,7 @@ const AdminCategories = () => {
             Category & Subcategory Management
           </h1>
           <p style={{ fontSize: '13.5px', color: 'var(--color-muted)', marginTop: '2px' }}>
-            Manage the 8 core construction categories, upload banners, and configure subcategories
+            Upload unique Cloudinary images for each category and subcategory
           </p>
         </div>
         <button onClick={handleOpenAdd} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -129,7 +266,7 @@ const AdminCategories = () => {
             <tr>
               <th>Category</th>
               <th>Description</th>
-              <th>Subcategories</th>
+              <th>Subcategories & Unique Images</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -138,24 +275,20 @@ const AdminCategories = () => {
               <tr key={c._id}>
                 <td>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '46px', height: '46px', borderRadius: '8px', overflow: 'hidden', background: '#F8FAFC', border: '1px solid var(--border)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '8px', overflow: 'hidden', background: '#F8FAFC', border: '1px solid var(--border)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <img
-                        src={c.productImageReference || c.image || '/placeholder-material.jpg'}
+                        src={c.image || '/placeholder-material.svg'}
                         alt={c.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                        onError={(e) => { e.target.src = '/placeholder-material.jpg'; }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        onError={(e) => { e.target.src = '/placeholder-material.svg'; }}
                       />
                     </div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
-                        {c.productCount > 0 ? (
+                        {c.customImage && c.customImage.includes('res.cloudinary.com') && (
                           <span style={{ fontSize: '10px', background: '#DCFCE7', color: '#166534', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
-                            {c.productCount} Products
-                          </span>
-                        ) : (
-                          <span style={{ fontSize: '10px', background: '#F1F5F9', color: '#64748B', padding: '1px 6px', borderRadius: '4px' }}>
-                            Auto-Ref
+                            Cloudinary
                           </span>
                         )}
                       </div>
@@ -163,26 +296,58 @@ const AdminCategories = () => {
                     </div>
                   </div>
                 </td>
-                <td style={{ fontSize: '12.5px', color: 'var(--text-sub)', maxWidth: '240px' }}>
+                <td style={{ fontSize: '12.5px', color: 'var(--text-sub)', maxWidth: '220px' }}>
                   {c.description}
                 </td>
                 <td>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', maxWidth: '320px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', maxWidth: '380px' }}>
                     {c.subcategories?.map((sub, i) => (
-                      <span key={i} style={{ background: 'var(--color-paper-3)', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', color: 'var(--secondary-light)' }}>
-                        {sub.name}
+                      <span
+                        key={i}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          background: 'var(--color-paper-3)',
+                          border: sub.customImage ? '1px solid #BBF7D0' : '1px solid var(--color-rule)',
+                          padding: '3px 7px 3px 4px',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          color: 'var(--secondary-light)'
+                        }}
+                      >
+                        {sub.image ? (
+                          <img
+                            src={sub.image}
+                            alt={sub.name}
+                            style={{ width: '18px', height: '18px', borderRadius: '4px', objectFit: 'cover', flexShrink: 0 }}
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                          />
+                        ) : (
+                          <ImageIcon size={13} color="#94A3B8" />
+                        )}
+                        <span>{sub.name}</span>
                       </span>
                     ))}
                   </div>
                 </td>
                 <td>
-                  <button
-                    onClick={() => handleOpenEdit(c)}
-                    style={{ background: 'var(--color-paper-3)', border: '1px solid var(--color-rule)', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}
-                  >
-                    <Edit2 size={13} />
-                    <span>Edit</span>
-                  </button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button
+                      onClick={() => handleOpenEdit(c)}
+                      style={{ background: 'var(--color-paper-3)', border: '1px solid var(--color-rule)', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}
+                    >
+                      <Edit2 size={13} />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDeleteCategory(c)}
+                      style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', padding: '6px 8px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                      title="Delete Category"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -190,95 +355,187 @@ const AdminCategories = () => {
         </table>
       </div>
 
-      {/* Modal */}
+      {/* Add / Edit Modal */}
       {isModalOpen && (
         <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-card" onClick={e => e.stopPropagation()}>
+          <div
+            className="modal-card"
+            onClick={e => e.stopPropagation()}
+            style={{ maxWidth: '680px', width: '94%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
+          >
             <div className="modal-header">
               <h3 style={{ fontSize: '18px', fontWeight: 800 }}>
-                {editingCategory ? 'Edit Category' : 'Add Category'}
+                {editingCategory ? `Edit Category: ${editingCategory.name}` : 'Add Category'}
               </h3>
-              <button onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', cursor: 'pointer' }}>
+              <button type="button" onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', cursor: 'pointer', border: 'none' }}>
                 <X size={20} />
               </button>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
-                    Category Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
-                  />
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', flex: 1 }}>
+              <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '16px', overflowY: 'auto', paddingRight: '6px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
+                      Category Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Paint"
+                      value={formData.name}
+                      onChange={e => setFormData({ ...formData, name: e.target.value })}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Short category description"
+                      value={formData.description}
+                      onChange={e => setFormData({ ...formData, description: e.target.value })}
+                      style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
-                    Description
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.description}
-                    onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
-                  />
-                </div>
+                {/* Category Main Cloudinary Image Upload */}
+                <CloudinaryImageUpload
+                  label="Category Main Image (Cloudinary)"
+                  value={formData.image}
+                  onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
+                  folder="categories"
+                  helpText="Upload category cover image to Cloudinary (JPEG, PNG, WebP)"
+                  previewHeight="130px"
+                />
 
-                {/* Image Reference Notice - No manual image upload needed */}
+                {/* Subcategories Section with Unique Cloudinary Image Per Subcategory */}
                 <div style={{ background: '#F8FAFC', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                    <strong style={{ fontSize: '13px', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Sparkles size={16} color="#FF7800" />
-                      Product Image Auto-Referencing
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <strong style={{ fontSize: '13px', color: '#0F172A' }}>
+                      Subcategories ({formData.subcategories.length}) — Unique Image per Subcategory
                     </strong>
-                    <span style={{ fontSize: '11px', background: '#DCFCE7', color: '#166534', padding: '2px 8px', borderRadius: '999px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <CheckCircle2 size={12} /> Real Product Images
+                    <span style={{ fontSize: '11px', background: '#DBEAFE', color: '#1E40AF', padding: '2px 8px', borderRadius: '999px', fontWeight: 700 }}>
+                      Cloudinary CDN
                     </span>
                   </div>
-                  <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0', lineHeight: 1.45 }}>
-                    Categories and subcategories automatically display the real product photos from your product catalog. No manual category image upload is needed!
+
+                  <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0' }}>
+                    Add subcategories below and upload a separate, unique Cloudinary image for each card.
                   </p>
 
-                  {formData.image && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#FFFFFF', padding: '8px 12px', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '6px', overflow: 'hidden', background: '#F1F5F9', border: '1px solid #E2E8F0', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <img src={formData.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onError={e => e.target.style.display = 'none'} />
-                      </div>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#334155', display: 'block' }}>Active Reference Image</span>
-                        <span style={{ fontSize: '11px', color: '#64748B', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {formData.image}
-                        </span>
-                      </div>
+                  {/* Quick-Add Bar (supports single or comma-separated names) */}
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+                    <input
+                      type="text"
+                      placeholder="Add subcategory (or comma separated: paint, primer, putti, damproof)"
+                      value={newSubInput}
+                      onChange={e => setNewSubInput(e.target.value)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddSubcategories();
+                        }
+                      }}
+                      style={{ flex: 1, padding: '8px 11px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px', background: '#FFFFFF' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddSubcategories}
+                      style={{
+                        background: '#0F172A',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        padding: '8px 14px',
+                        borderRadius: '6px',
+                        fontSize: '12.5px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      <Plus size={14} />
+                      <span>Add</span>
+                    </button>
+                  </div>
+
+                  {/* Individual Subcategory Rows with Unique Cloudinary Upload */}
+                  {formData.subcategories.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '16px', color: '#94A3B8', fontSize: '12.5px', border: '1px dashed #CBD5E1', borderRadius: '8px', background: '#FFFFFF' }}>
+                      No subcategories added yet. Type names above and click <strong>Add</strong>.
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {formData.subcategories.map((sub, idx) => (
+                        <div
+                          key={idx}
+                          style={{
+                            background: '#FFFFFF',
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '8px',
+                            padding: '10px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '8px'
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748B', minWidth: '22px' }}>
+                              #{idx + 1}
+                            </span>
+                            <input
+                              type="text"
+                              required
+                              value={sub.name}
+                              onChange={e => handleSubNameChange(idx, e.target.value)}
+                              placeholder="Subcategory name"
+                              style={{ flex: 1, padding: '6px 10px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '13px', fontWeight: 600 }}
+                            />
+                            {sub.image ? (
+                              <span style={{ fontSize: '10.5px', color: '#166534', background: '#DCFCE7', padding: '2px 7px', borderRadius: '999px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                <CheckCircle2 size={11} /> Unique Image
+                              </span>
+                            ) : (
+                              <span style={{ fontSize: '10.5px', color: '#B45309', background: '#FEF3C7', padding: '2px 7px', borderRadius: '999px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                <AlertCircle size={11} /> Upload Image
+                              </span>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveSub(idx)}
+                              style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', padding: '5px 7px', borderRadius: '6px', cursor: 'pointer' }}
+                              title="Remove subcategory"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          </div>
+
+                          <CloudinaryImageUpload
+                            compact
+                            value={sub.image}
+                            onChange={(url) => handleSubImageChange(idx, url)}
+                            folder="categories/subcategories"
+                          />
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>
-                    Subcategories (Comma separated)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Floor tiles, Wall tiles, Adhesives, Grout"
-                    value={formData.subcategoriesText}
-                    onChange={e => setFormData({ ...formData, subcategoriesText: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', border: '1px solid var(--color-rule)', borderRadius: '6px', fontSize: '13.5px' }}
-                  />
-                </div>
               </div>
 
-              <div className="modal-footer">
+              <div className="modal-footer" style={{ marginTop: '12px' }}>
                 <button type="button" onClick={() => setIsModalOpen(false)} className="btn-secondary" style={{ background: 'var(--color-paper-3)', color: 'var(--color-ink)', border: '1px solid var(--color-rule)' }}>
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary">
-                  <span>Save Category</span>
+                <button type="submit" disabled={saving} className="btn-primary">
+                  <span>{saving ? 'Saving...' : 'Save Category'}</span>
                 </button>
               </div>
             </form>
@@ -290,4 +547,3 @@ const AdminCategories = () => {
 };
 
 export default AdminCategories;
-

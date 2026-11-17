@@ -307,8 +307,20 @@ const SUBCATEGORY_FALLBACK_IMAGES = {
   'bricks': '/categories/red-bricks-podium.svg',
   'blocks': '/categories/aac-blocks-podium.svg',
   'sand': '/categories/m-sand-podium.svg',
-  'aggregate': '/categories/granite-aggregate-podium.svg'
+  'aggregate': '/categories/granite-aggregate-podium.svg',
+  'paint': '/categories/interior-emulsion.svg',
+  'primer': '/categories/exterior-paint.svg',
+  'putti': '/categories/birla-wall-putty.svg',
+  'putty': '/categories/birla-wall-putty.svg',
+  'damproof': '/categories/damp-proof.svg',
+  'damp proof': '/categories/damp-proof.svg'
 };
+
+const isRealImg = (url) =>
+  typeof url === 'string' &&
+  url.trim().length > 0 &&
+  url !== '/placeholder-material.svg' &&
+  url !== '/placeholder-material.jpg';
 
 const getFallbackSubcategoryImage = (subName) => {
   if (!subName) return null;
@@ -323,21 +335,69 @@ const getFallbackSubcategoryImage = (subName) => {
 const CategoryGrid = ({ categories = [] }) => {
   // Combine pre-configured master construction categories with any custom categories from admin database
   const renderedSections = useMemo(() => {
-    const list = [...ALL_SITE_SECTIONS];
+    const dbByName = new Map();
+    if (Array.isArray(categories)) {
+      categories.forEach(c => {
+        if (c && c.name) dbByName.set(c.name.toLowerCase().trim(), c);
+      });
+    }
+
+    // Apply any admin-uploaded custom subcategory images onto matching standard sections
+    const list = ALL_SITE_SECTIONS.map(section => {
+      const dbCat = dbByName.get(section.categoryName.toLowerCase().trim());
+      if (!dbCat || !Array.isArray(dbCat.subcategories)) return section;
+
+      const customSubs = dbCat.subcategories.filter(s => typeof s === 'object' && isRealImg(s.customImage));
+      if (customSubs.length === 0) return section;
+
+      const usedImgs = new Set();
+      const updatedItems = section.items.map(item => {
+        const itemName = item.name.toLowerCase();
+        const match = customSubs.find(s => {
+          const sName = (s.name || '').toLowerCase();
+          return sName && (itemName.includes(sName) || sName.includes(itemName)) && !usedImgs.has(s.customImage);
+        });
+        if (match) {
+          usedImgs.add(match.customImage);
+          return { ...item, image: match.customImage };
+        }
+        return item;
+      });
+
+      return { ...section, items: updatedItems };
+    });
 
     if (Array.isArray(categories) && categories.length > 0) {
       // Check if admin created additional categories not covered by standard sections
-      const existingNames = new Set(ALL_SITE_SECTIONS.map(s => s.categoryName.toLowerCase()));
-      const customDbCats = categories.filter(c => c && c.name && !existingNames.has(c.name.toLowerCase()));
+      const existingNames = new Set(ALL_SITE_SECTIONS.map(s => s.categoryName.toLowerCase().trim()));
+      const customDbCats = categories.filter(c => c && c.name && !existingNames.has(c.name.toLowerCase().trim()));
 
       customDbCats.forEach(dbCat => {
+        const usedInSection = new Set();
         const subItems = (dbCat.subcategories && dbCat.subcategories.length > 0)
-          ? dbCat.subcategories.slice(0, 4).map((sub, sIdx) => {
+          ? dbCat.subcategories.slice(0, 8).map((sub, sIdx) => {
               const subName = (typeof sub === 'object' ? sub.name : sub) || '';
-              // Prefer real product image reference attached by backend, then dedicated subcategory icon, never repeat category image
-              const resolvedImg = (typeof sub === 'object' && sub.image && sub.image !== dbCat.image)
-                ? sub.image
-                : getFallbackSubcategoryImage(subName) || (typeof sub === 'object' && sub.image) || '/placeholder-material.svg';
+              const customSubImg = typeof sub === 'object' && isRealImg(sub.customImage) ? sub.customImage.trim() : '';
+              const backendSubImg = typeof sub === 'object' && isRealImg(sub.image) ? sub.image.trim() : '';
+              const fallbackSvg = getFallbackSubcategoryImage(subName);
+
+              // Pick a strictly unique image for each subcategory card
+              let resolvedImg = '';
+              if (customSubImg && !usedInSection.has(customSubImg)) {
+                resolvedImg = customSubImg;
+              } else if (backendSubImg && !usedInSection.has(backendSubImg) && backendSubImg !== dbCat.customImage) {
+                resolvedImg = backendSubImg;
+              } else if (fallbackSvg && !usedInSection.has(fallbackSvg)) {
+                resolvedImg = fallbackSvg;
+              } else if (backendSubImg && !usedInSection.has(backendSubImg)) {
+                resolvedImg = backendSubImg;
+              } else {
+                resolvedImg = fallbackSvg || '/placeholder-material.svg';
+              }
+
+              if (isRealImg(resolvedImg)) {
+                usedInSection.add(resolvedImg);
+              }
 
               return {
                 id: `${dbCat.slug || dbCat._id}_sub_${sIdx}`,
@@ -351,7 +411,7 @@ const CategoryGrid = ({ categories = [] }) => {
                 id: `${dbCat.slug || dbCat._id}_main`,
                 name: dbCat.name,
                 link: `/products?category=${encodeURIComponent(dbCat.name)}`,
-                image: dbCat.image || '/placeholder-material.svg'
+                image: isRealImg(dbCat.image) ? dbCat.image : '/placeholder-material.svg'
               }
             ];
 
