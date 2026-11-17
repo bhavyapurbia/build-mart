@@ -2,9 +2,8 @@ import express from 'express';
 const router = express.Router();
 import bannerController from '../controllers/banner.controller.js';
 import { authenticate, requireAdmin } from '../middleware/auth.middleware.js';
-import { cacheControlPublic } from '../utils/cache.js';
 
-router.get('/', cacheControlPublic(60, 300), bannerController.getBanners);
+router.get('/', bannerController.getBanners);
 router.get('/admin', authenticate, requireAdmin, bannerController.getAllBanners);
 router.post('/', authenticate, requireAdmin, bannerController.createBanner);
 router.put('/:id', authenticate, requireAdmin, bannerController.updateBanner);

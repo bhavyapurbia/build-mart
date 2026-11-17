@@ -3,7 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Filter, X, ChevronLeft, ChevronRight, SlidersHorizontal, Check, RefreshCw } from 'lucide-react';
 import ProductCard from '../components/product/ProductCard';
 import SEO from '../components/common/SEO';
-import api from '../utils/api';
+import api, { subscribeCatalogUpdates } from '../utils/api';
 
 const ITEMS_PER_PAGE = 24;
 
@@ -14,6 +14,11 @@ const ProductsPage = () => {
   const [facets, setFacets] = useState({ categories: {}, brands: {}, inStockCount: 0 });
   const [loading, setLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
+  const [syncTick, setSyncTick] = useState(0);
+
+  useEffect(() => {
+    return subscribeCatalogUpdates(() => setSyncTick(t => t + 1));
+  }, []);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,7 +74,7 @@ const ProductsPage = () => {
     fetchMeta();
 
     return () => { isMounted = false; };
-  }, []);
+  }, [syncTick]);
 
   // Fetch products with AbortController for race-free fetching
   useEffect(() => {
@@ -100,7 +105,7 @@ const ProductsPage = () => {
 
     fetchProducts();
     return () => controller.abort();
-  }, [location.search, currentPage]);
+  }, [location.search, currentPage, syncTick]);
 
   const updateQuery = (key, value) => {
     const params = new URLSearchParams(location.search);

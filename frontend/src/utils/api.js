@@ -13,6 +13,86 @@ export const getNormalizedBaseURL = (url) => {
 
 const normalizedBaseURL = getNormalizedBaseURL(rawBaseURL);
 
+// Cross-tab & same-tab instant catalog sync when admin adds/edits/deletes items
+const SYNC_KEY = 'bm_catalog_updated_at';
+const CATALOG_PATHS = ['/products', '/categories', '/brands', '/banners', '/settings', '/pages', '/coupons'];
+
+export const notifyCatalogUpdated = () => {
+  const ts = String(Date.now());
+  try {
+    localStorage.setItem(SYNC_KEY, ts);
+  } catch {
+    // ignore storage errors
+  }
+  try {
+    if (typeof BroadcastChannel !== 'undefined') {
+      const ch = new BroadcastChannel('buildmart_catalog_sync');
+      ch.postMessage({ type: 'CATALOG_UPDATED', ts });
+      ch.close();
+    }
+  } catch {
+    // ignore BroadcastChannel errors
+  }
+  try {
+    window.dispatchEvent(new CustomEvent('buildmart:catalog-updated', { detail: { ts } }));
+  } catch {
+    // ignore window event errors
+  }
+};
+
+export const subscribeCatalogUpdates = (onUpdate) => {
+  if (typeof window === 'undefined' || typeof onUpdate !== 'function') {
+    return () => {};
+  }
+
+  let lastTrigger = 0;
+  const triggerSafely = () => {
+    const now = Date.now();
+    if (now - lastTrigger < 500) return;
+    lastTrigger = now;
+    onUpdate();
+  };
+
+  let bc = null;
+  try {
+    if (typeof BroadcastChannel !== 'undefined') {
+      bc = new BroadcastChannel('buildmart_catalog_sync');
+      bc.onmessage = (event) => {
+        if (event?.data?.type === 'CATALOG_UPDATED') {
+          triggerSafely();
+        }
+      };
+    }
+  } catch {
+    bc = null;
+  }
+
+  const handleStorage = (e) => {
+    if (e.key === SYNC_KEY) triggerSafely();
+  };
+
+  const handleCustomEvent = () => triggerSafely();
+
+  const handleVisibility = () => {
+    if (document.visibilityState === 'visible') {
+      triggerSafely();
+    }
+  };
+
+  window.addEventListener('storage', handleStorage);
+  window.addEventListener('buildmart:catalog-updated', handleCustomEvent);
+  document.addEventListener('visibilitychange', handleVisibility);
+
+  return () => {
+    if (bc) {
+      try { bc.close(); } catch { /* noop */ }
+    }
+    window.removeEventListener('storage', handleStorage);
+    window.removeEventListener('buildmart:catalog-updated', handleCustomEvent);
+    document.removeEventListener('visibilitychange', handleVisibility);
+  };
+};
+
 const api = axios.create({
   baseURL: normalizedBaseURL,
   timeout: 15000,
@@ -22,7 +102,7 @@ const api = axios.create({
   }
 });
 
-// Attach JWT token and automatically handle multipart boundary for FormData
+// Attach JWT token, handle FormData multipart boundaries, and bust stale GET caches
 api.interceptors.request.use((config) => {
   if (config.data instanceof FormData) {
     delete config.headers['Content-Type'];
@@ -30,6 +110,13 @@ api.interceptors.request.use((config) => {
   const token = localStorage.getItem('bm_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+  }
+  // Cache-bust all GET requests so admin edits/adds/deletes reflect immediately everywhere
+  if ((config.method || 'get').toLowerCase() === 'get') {
+    config.params = {
+      ...(config.params || {}),
+      _t: Date.now()
+    };
   }
   return config;
 }, (error) => {
@@ -51,8 +138,15 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
-// Response interceptor with 401 token refresh & seamless ApiResponse unwrapping
+// Response interceptor with 401 token refresh & instant catalog sync broadcast
 api.interceptors.response.use((response) => {
+  const method = (response.config?.method || '').toLowerCase();
+  const reqUrl = response.config?.url || '';
+  if (['post', 'put', 'patch', 'delete'].includes(method)) {
+    if (CATALOG_PATHS.some((p) => reqUrl.includes(p))) {
+      notifyCatalogUpdated();
+    }
+  }
   return response;
 }, async (error) => {
   const originalRequest = error.config;

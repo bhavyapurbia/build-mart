@@ -10,7 +10,7 @@ import BrandShowcase from '../components/home/BrandShowcase';
 import WhatsAppBanner from '../components/home/WhatsAppBanner';
 import ProductCard from '../components/product/ProductCard';
 import SEO from '../components/common/SEO';
-import api from '../utils/api';
+import api, { subscribeCatalogUpdates } from '../utils/api';
 
 const DEFAULT_BESTSELLERS = [
   {
@@ -84,6 +84,7 @@ const HomePage = ({ onOpenPaperList }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchHomeData = async () => {
       try {
         const [catRes, dealsRes, bestRes, brandsRes] = await Promise.all([
@@ -93,6 +94,7 @@ const HomePage = ({ onOpenPaperList }) => {
           api.get('/brands')
         ]);
 
+        if (!isMounted) return;
         const rawCats = Array.isArray(catRes.data) ? catRes.data : (Array.isArray(catRes.data?.data) ? catRes.data.data : []);
         const rawDeals = Array.isArray(dealsRes.data) ? dealsRes.data : (Array.isArray(dealsRes.data?.data) ? dealsRes.data.data : []);
         const rawBest = Array.isArray(bestRes.data) ? bestRes.data : (Array.isArray(bestRes.data?.data) ? bestRes.data.data : []);
@@ -105,11 +107,16 @@ const HomePage = ({ onOpenPaperList }) => {
       } catch (err) {
         console.error('Error loading homepage data:', err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     fetchHomeData();
+    const unsubscribe = subscribeCatalogUpdates(fetchHomeData);
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
 
   const organizationJsonLd = {

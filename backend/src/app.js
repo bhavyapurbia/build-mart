@@ -264,6 +264,16 @@ app.get('/api/docs', (req, res) => {
 </html>`);
 });
 
+// ─── Disable HTTP Caching on Dynamic API Responses ────────────────────────────
+// Ensures all Admin panel add/edit/delete updates reflect immediately on the storefront
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  next();
+});
+
 // ─── API Routes ───────────────────────────────────────────────────────────────
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/products', productRoutes);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Truck, ShieldCheck, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import api from '../../utils/api';
+import api, { subscribeCatalogUpdates } from '../../utils/api';
 
 export const DEFAULT_BANNERS = [
   {
@@ -73,15 +73,21 @@ const FestiveCashbackBanner = () => {
 
   // Fetch live banners from database so admin edits reflect immediately
   useEffect(() => {
+    let isMounted = true;
     const fetchLiveBanners = async () => {
       try {
         const res = await api.get('/banners');
+        if (!isMounted) return;
         const list = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
         if (list.length > 0) {
           setBanners(list);
           localStorage.setItem('bm_admin_banners', JSON.stringify(list));
+        } else {
+          setBanners(DEFAULT_BANNERS);
+          localStorage.removeItem('bm_admin_banners');
         }
       } catch (err) {
+        if (!isMounted) return;
         try {
           const saved = localStorage.getItem('bm_admin_banners');
           if (saved) setBanners(JSON.parse(saved));
@@ -90,6 +96,11 @@ const FestiveCashbackBanner = () => {
     };
 
     fetchLiveBanners();
+    const unsubscribe = subscribeCatalogUpdates(fetchLiveBanners);
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
 
   const activeBanners = banners.filter(b => b.active !== false);
