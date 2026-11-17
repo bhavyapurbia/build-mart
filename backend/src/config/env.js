@@ -27,12 +27,18 @@ const envSchema = z.object({
   CLOUDINARY_API_KEY: z.string().optional(),
   CLOUDINARY_API_SECRET: z.string().optional(),
 
-  // Mailer — optional in dev
+  // Mailer (SMTP / Brevo) — optional in dev
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.string().default('587'),
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
   SMTP_FROM: z.string().default('BuildMart <support@buildmart.com>'),
+  BREVO_SMTP_HOST: z.string().optional(),
+  BREVO_SMTP_PORT: z.string().optional(),
+  BREVO_SMTP_USER: z.string().optional(),
+  BREVO_SMTP_PASS: z.string().optional(),
+  BREVO_FROM_EMAIL: z.string().optional(),
+  BREVO_FROM_NAME: z.string().optional(),
 
   LOG_LEVEL: z.string().default('info'),
 });

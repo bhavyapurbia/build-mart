@@ -3,13 +3,35 @@ import nodemailer from 'nodemailer';
 
 let pooledTransporter = null;
 
+export const getPrimaryClientUrl = () => {
+  const raw = process.env.CLIENT_URL || 'http://localhost:5173';
+  const urls = raw.split(',').map(u => u.trim()).filter(Boolean);
+  if (process.env.NODE_ENV === 'production') {
+    const prodUrl = urls.find(u => !u.includes('localhost') && !u.includes('127.0.0.1'));
+    if (prodUrl) return prodUrl.replace(/\/+$/, '');
+  }
+  return (urls[0] || 'http://localhost:5173').replace(/\/+$/, '');
+};
+
+export const getSenderFromAddress = () => {
+  if (process.env.SMTP_FROM) return process.env.SMTP_FROM;
+
+  let email = process.env.BREVO_FROM_EMAIL || 'support@buildplace.com';
+  // If only domain was provided like 'buildplace.com', ensure valid email format
+  if (email && !email.includes('@')) {
+    email = `support@${email.replace(/["']/g, '').trim()}`;
+  }
+  const name = process.env.BREVO_FROM_NAME || 'BuildPlace';
+  return `"${name}" <${email}>`;
+};
+
 const getTransporter = () => {
   if (pooledTransporter) return pooledTransporter;
 
-  const smtpHost = process.env.SMTP_HOST || process.env.MAILTRAP_SMTP_HOST || process.env.NODEMAILER_SMTP_HOST;
-  const smtpPort = parseInt(process.env.SMTP_PORT || process.env.MAILTRAP_SMTP_PORT || process.env.NODEMAILER_SMTP_PORT || '587', 10);
-  const smtpUser = process.env.SMTP_USER || process.env.MAILTRAP_SMTP_USER || process.env.NODEMAILER_SMTP_USER;
-  const smtpPass = process.env.SMTP_PASS || process.env.MAILTRAP_SMTP_PASS || process.env.NODEMAILER_SMTP_PASS;
+  const smtpHost = process.env.BREVO_SMTP_HOST || process.env.SMTP_HOST || process.env.MAILTRAP_SMTP_HOST || process.env.NODEMAILER_SMTP_HOST;
+  const smtpPort = parseInt(process.env.BREVO_SMTP_PORT || process.env.SMTP_PORT || process.env.MAILTRAP_SMTP_PORT || process.env.NODEMAILER_SMTP_PORT || '587', 10);
+  const smtpUser = process.env.BREVO_SMTP_USER || process.env.SMTP_USER || process.env.MAILTRAP_SMTP_USER || process.env.NODEMAILER_SMTP_USER;
+  const smtpPass = process.env.BREVO_SMTP_PASS || process.env.SMTP_PASS || process.env.MAILTRAP_SMTP_PASS || process.env.NODEMAILER_SMTP_PASS;
 
   if (!smtpHost || !smtpUser) {
     return null;
@@ -34,8 +56,8 @@ const getTransporter = () => {
 const mailGenerator = new Mailgen({
   theme: 'default',
   product: {
-    name: 'BuildPlace',
-    link: process.env.CLIENT_URL || 'http://localhost:5173'
+    name: process.env.BREVO_FROM_NAME || 'BuildPlace',
+    link: getPrimaryClientUrl()
   }
 });
 
@@ -51,7 +73,7 @@ export const sendEmail = async (options) => {
   const emailHtml = mailGenerator.generate(options.mailgenContent);
 
   const mail = {
-    from: process.env.SMTP_FROM || '"BuildPlace Support" <support@buildplace.in>',
+    from: getSenderFromAddress(),
     to: options.email,
     subject: options.subject,
     text: emailTextual,
@@ -113,7 +135,7 @@ export const welcomeMailgenContent = (username, webUrl) => {
         button: {
           color: '#e05a00',
           text: 'Explore Catalog',
-          link: webUrl || (process.env.CLIENT_URL || 'http://localhost:5173')
+          link: webUrl || getPrimaryClientUrl()
         }
       },
       outro: 'Need wholesale quotes or special contractor rates? Reach out to our procurement team anytime.'
@@ -123,6 +145,8 @@ export const welcomeMailgenContent = (username, webUrl) => {
 
 export default {
   sendEmail,
+  getPrimaryClientUrl,
+  getSenderFromAddress,
   emailVerificationMailgenContent,
   forgotPasswordMailgenContent,
   welcomeMailgenContent

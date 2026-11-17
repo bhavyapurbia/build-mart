@@ -8,6 +8,7 @@ import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import {
   sendEmail,
+  getPrimaryClientUrl,
   welcomeMailgenContent,
   forgotPasswordMailgenContent,
   emailVerificationMailgenContent
@@ -50,7 +51,7 @@ export const register = asyncHandler(async (req, res) => {
   });
 
   const token = generateToken(user);
-  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const clientUrl = getPrimaryClientUrl();
   const verificationUrl = `${clientUrl}/verify-email/${verifyRawToken}`;
 
   // Send verification email
@@ -209,7 +210,7 @@ export const forgotPassword = asyncHandler(async (req, res) => {
     user.passwordResetExpiresAt = expiresAt;
     await user.save();
 
-    const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+    const clientUrl = getPrimaryClientUrl();
     const resetUrl = `${clientUrl}/reset-password/${rawResetToken}`;
 
     sendEmail({
@@ -332,7 +333,7 @@ export const resendVerification = asyncHandler(async (req, res) => {
     user.emailVerificationExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
     await user.save();
 
-    const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+    const clientUrl = getPrimaryClientUrl();
     const verificationUrl = `${clientUrl}/verify-email/${verifyRawToken}`;
 
     sendEmail({
