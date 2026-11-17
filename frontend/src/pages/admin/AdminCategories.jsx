@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Layers, Plus, Edit2, Trash2, X } from 'lucide-react';
+import { Layers, Plus, Edit2, Trash2, X, Sparkles, Image as ImageIcon, CheckCircle2 } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
 import api from '../../utils/api';
-import CloudinaryImageUpload from '../../components/common/CloudinaryImageUpload';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -64,7 +63,7 @@ const AdminCategories = () => {
     setFormData({
       name: c.name,
       description: c.description || '',
-      image: c.image || '',
+      image: c.productImageReference || c.image || '',
       icon: c.icon || 'Building2',
       subcategoriesText: (c.subcategories || []).map(s => s.name).join(', ')
     });
@@ -139,13 +138,27 @@ const AdminCategories = () => {
               <tr key={c._id}>
                 <td>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <img
-                      src={c.image || '/placeholder-material.jpg'}
-                      alt={c.name}
-                      style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover' }}
-                    />
+                    <div style={{ width: '46px', height: '46px', borderRadius: '8px', overflow: 'hidden', background: '#F8FAFC', border: '1px solid var(--border)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <img
+                        src={c.productImageReference || c.image || '/placeholder-material.jpg'}
+                        alt={c.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        onError={(e) => { e.target.src = '/placeholder-material.jpg'; }}
+                      />
+                    </div>
                     <div>
-                      <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <strong style={{ fontSize: '14px', color: 'var(--color-ink)' }}>{c.name}</strong>
+                        {c.productCount > 0 ? (
+                          <span style={{ fontSize: '10px', background: '#DCFCE7', color: '#166534', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                            {c.productCount} Products
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: '10px', background: '#F1F5F9', color: '#64748B', padding: '1px 6px', borderRadius: '4px' }}>
+                            Auto-Ref
+                          </span>
+                        )}
+                      </div>
                       <div style={{ fontSize: '11.5px', color: 'var(--color-muted)' }}>slug: {c.slug}</div>
                     </div>
                   </div>
@@ -216,14 +229,35 @@ const AdminCategories = () => {
                   />
                 </div>
 
-                <CloudinaryImageUpload
-                  label="Banner Image"
-                  value={formData.image}
-                  onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
-                  folder="categories"
-                  helpText="Upload category banner (JPEG, PNG, WebP)"
-                  previewHeight="120px"
-                />
+                {/* Image Reference Notice - No manual image upload needed */}
+                <div style={{ background: '#F8FAFC', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                    <strong style={{ fontSize: '13px', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Sparkles size={16} color="#FF7800" />
+                      Product Image Auto-Referencing
+                    </strong>
+                    <span style={{ fontSize: '11px', background: '#DCFCE7', color: '#166534', padding: '2px 8px', borderRadius: '999px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <CheckCircle2 size={12} /> Real Product Images
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0', lineHeight: 1.45 }}>
+                    Categories and subcategories automatically display the real product photos from your product catalog. No manual category image upload is needed!
+                  </p>
+
+                  {formData.image && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#FFFFFF', padding: '8px 12px', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
+                      <div style={{ width: '38px', height: '38px', borderRadius: '6px', overflow: 'hidden', background: '#F1F5F9', border: '1px solid #E2E8F0', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src={formData.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onError={e => e.target.style.display = 'none'} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#334155', display: 'block' }}>Active Reference Image</span>
+                        <span style={{ fontSize: '11px', color: '#64748B', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {formData.image}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 <div>
                   <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--secondary-light)', marginBottom: '4px' }}>

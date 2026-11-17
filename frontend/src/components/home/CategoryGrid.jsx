@@ -275,6 +275,51 @@ export const ALL_SITE_SECTIONS = [
   }
 ];
 
+const SUBCATEGORY_FALLBACK_IMAGES = {
+  'cement bags': '/categories/cement-bags-ultratech.png',
+  'different cement brands': '/categories/cement-bags-trio.svg',
+  'steel bars': '/categories/steel-bars.svg',
+  'tmt bars': '/categories/tmt-rebar-podium.svg',
+  'binding materials': '/categories/binding-wire-podium.svg',
+  'waterproofing chemicals': '/categories/dr-fixit-can.svg',
+  'waterproofing coatings': '/categories/damp-proof.svg',
+  'roof waterproofing': '/categories/roof-membrane.svg',
+  'crack fillers': '/categories/crack-filler.svg',
+  'floor tiles': '/categories/floor-tiles-podium.svg',
+  'wall tiles': '/categories/wall-tiles-podium.svg',
+  'tile adhesives': '/categories/tile-adhesive-podium.svg',
+  'tile grout': '/categories/tile-grout.svg',
+  'tile spacers': '/categories/tile-adhesive.svg',
+  'cpvc pipes': '/categories/cpvc-pipes-podium.svg',
+  'pvc pipes': '/categories/pvc-drainage-podium.svg',
+  'gi pipes': '/categories/gi-fittings-podium.svg',
+  'valves': '/categories/brass-valves-podium.svg',
+  'door locks': '/categories/door-hardware-locks-handles.png',
+  'handles': '/categories/door-handle.svg',
+  'hinges': '/categories/hinges-and-channels.png',
+  'bathroom faucets': '/categories/bath-faucets-mixers.svg',
+  'shower fittings': '/categories/overhead-showers.svg',
+  'washbasins': '/categories/wash-basins-sinks.svg',
+  'sanitaryware': '/categories/sanitaryware-commodes.svg',
+  'construction tools': '/categories/angle-grinder-podium.svg',
+  'cutting accessories': '/categories/cutting-blades-podium.svg',
+  'measuring tools': '/categories/measuring-tape-podium.svg',
+  'bricks': '/categories/red-bricks-podium.svg',
+  'blocks': '/categories/aac-blocks-podium.svg',
+  'sand': '/categories/m-sand-podium.svg',
+  'aggregate': '/categories/granite-aggregate-podium.svg'
+};
+
+const getFallbackSubcategoryImage = (subName) => {
+  if (!subName) return null;
+  const key = subName.toLowerCase().trim();
+  if (SUBCATEGORY_FALLBACK_IMAGES[key]) return SUBCATEGORY_FALLBACK_IMAGES[key];
+  for (const [k, v] of Object.entries(SUBCATEGORY_FALLBACK_IMAGES)) {
+    if (key.includes(k) || k.includes(key)) return v;
+  }
+  return null;
+};
+
 const CategoryGrid = ({ categories = [] }) => {
   // Combine pre-configured master construction categories with any custom categories from admin database
   const renderedSections = useMemo(() => {
@@ -287,12 +332,20 @@ const CategoryGrid = ({ categories = [] }) => {
 
       customDbCats.forEach(dbCat => {
         const subItems = (dbCat.subcategories && dbCat.subcategories.length > 0)
-          ? dbCat.subcategories.slice(0, 4).map((sub, sIdx) => ({
-              id: `${dbCat.slug || dbCat._id}_sub_${sIdx}`,
-              name: sub.name || sub,
-              link: `/products?category=${encodeURIComponent(dbCat.name)}&subcategory=${encodeURIComponent(sub.name || sub)}`,
-              image: sub.image || dbCat.image || '/placeholder-material.svg'
-            }))
+          ? dbCat.subcategories.slice(0, 4).map((sub, sIdx) => {
+              const subName = (typeof sub === 'object' ? sub.name : sub) || '';
+              // Prefer real product image reference attached by backend, then dedicated subcategory icon, never repeat category image
+              const resolvedImg = (typeof sub === 'object' && sub.image && sub.image !== dbCat.image)
+                ? sub.image
+                : getFallbackSubcategoryImage(subName) || (typeof sub === 'object' && sub.image) || '/placeholder-material.svg';
+
+              return {
+                id: `${dbCat.slug || dbCat._id}_sub_${sIdx}`,
+                name: subName,
+                link: `/products?category=${encodeURIComponent(dbCat.name)}&subcategory=${encodeURIComponent(subName)}`,
+                image: resolvedImg
+              };
+            })
           : [
               {
                 id: `${dbCat.slug || dbCat._id}_main`,
