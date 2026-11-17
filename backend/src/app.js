@@ -259,6 +259,16 @@ app.use((err, req, res, next) => {
     return res.status(403).json({ success: false, message: err.message });
   }
 
+  // Multer / Busboy upload errors
+  if (err.name === 'MulterError' || (err.message && err.message.toLowerCase().includes('multipart'))) {
+    return res.status(400).json({
+      statusCode: 400,
+      success: false,
+      message: err.message || 'File upload failed: invalid format or size limit exceeded.',
+      data: null
+    });
+  }
+
   const statusCode = err.statusCode || (err instanceof ApiError ? err.statusCode : (err.status || 500));
   const message = err.message || 'Internal Server Error';
 

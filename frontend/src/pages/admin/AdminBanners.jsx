@@ -216,7 +216,7 @@ const AdminBanners = () => {
       uploadData.append('folder', 'banners');
 
       const res = await api.post('/upload', uploadData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        timeout: 120000
       });
 
       const uploadedUrl = res.data?.data?.url || res.data?.url;

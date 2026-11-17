@@ -85,7 +85,7 @@ const PaperListModal = ({ isOpen, onClose, currentCity }) => {
         const uploadData = new FormData();
         uploadData.append('file', selectedFile);
         const uploadRes = await api.post('/upload/paper-list', uploadData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          timeout: 120000
         });
         finalImageUrl = uploadRes.data?.data?.url || uploadRes.data?.url;
       }

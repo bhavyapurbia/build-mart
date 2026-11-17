@@ -19,7 +19,8 @@ const uploadOnCloudinary = async (localFilePath, folder = 'buildmart') => {
   try {
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: 'auto',
-      folder
+      folder,
+      timeout: 60000
     });
 
     // Remove the locally saved temporary file after successful upload
@@ -29,7 +30,7 @@ const uploadOnCloudinary = async (localFilePath, folder = 'buildmart') => {
 
     return response;
   } catch (error) {
-    console.error('Cloudinary upload error:', error.message);
+    console.error('Cloudinary upload error:', error.message || error);
     // Clean up local temp file on failure as well
     if (fs.existsSync(localFilePath)) {
       try {
@@ -38,7 +39,7 @@ const uploadOnCloudinary = async (localFilePath, folder = 'buildmart') => {
         // ignore unlink error
       }
     }
-    return null;
+    return { error: error.message || 'Cloudinary upload error' };
   }
 };
 

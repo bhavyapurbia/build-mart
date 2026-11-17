@@ -143,7 +143,7 @@ const AdminProducts = () => {
       uploadData.append('folder', 'products');
 
       const res = await api.post('/upload/multiple', uploadData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        timeout: 180000
       });
 
       const uploadedUrls = res.data?.data?.urls || res.data?.urls || [];

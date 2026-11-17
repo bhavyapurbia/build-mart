@@ -46,9 +46,7 @@ const CloudinaryImageUpload = ({
       formData.append('folder', folder);
 
       const res = await api.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        timeout: 120000
       });
 
       const uploadedUrl = res.data?.data?.url || res.data?.url;
@@ -60,7 +58,8 @@ const CloudinaryImageUpload = ({
       }
     } catch (err) {
       console.error('Upload failed:', err);
-      showToast(err.response?.data?.message || err.message || 'Image upload failed. Please try again.', 'error');
+      const serverMsg = err.response?.data?.message || (err.code === 'ECONNABORTED' ? 'Upload timed out. Please try a smaller image or faster connection.' : err.message);
+      showToast(serverMsg || 'Image upload failed. Please try again.', 'error');
     } finally {
       setUploading(false);
       if (fileInputRef.current) {

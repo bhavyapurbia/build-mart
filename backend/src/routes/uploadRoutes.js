@@ -50,9 +50,9 @@ router.post('/paper-list', paperListLimiter, upload.single('file'), asyncHandler
   const cloudinaryResult = await uploadOnCloudinary(req.file.path, 'buildmart/paper-lists');
   if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
 
-  const fileUrl = cloudinaryResult ? cloudinaryResult.secure_url : null;
+  const fileUrl = cloudinaryResult?.secure_url;
   if (!fileUrl) {
-    throw new ApiError(500, 'Failed to store image in cloud storage. Please try again.');
+    throw new ApiError(500, cloudinaryResult?.error ? `Cloudinary upload failed: ${cloudinaryResult.error}` : 'Failed to store image in cloud storage. Please try again.');
   }
 
   return res.status(200).json(
@@ -99,9 +99,9 @@ router.post('/', upload.single('file'), asyncHandler(async (req, res) => {
   // Clean up temp file
   if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
 
-  const fileUrl = cloudinaryResult ? cloudinaryResult.secure_url : null;
+  const fileUrl = cloudinaryResult?.secure_url;
   if (!fileUrl) {
-    throw new ApiError(500, 'Upload failed. Please try again.');
+    throw new ApiError(500, cloudinaryResult?.error ? `Cloudinary upload failed: ${cloudinaryResult.error}` : 'Upload failed. Please try again.');
   }
 
   return res.status(200).json(
@@ -132,7 +132,9 @@ router.post('/multiple', upload.array('files', 10), asyncHandler(async (req, res
     }
     const result = await uploadOnCloudinary(file.path, targetFolder);
     if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
-    if (result) results.push({ url: result.secure_url, publicId: result.public_id });
+    if (result && result.secure_url) {
+      results.push({ url: result.secure_url, publicId: result.public_id });
+    }
   }
 
   return res.status(200).json(

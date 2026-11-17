@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { ApiError } from '../utils/ApiError.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,7 +32,8 @@ const storage = multer.diskStorage({
  * Extension alone is insufficient — browsers allow renaming files.
  */
 const ALLOWED_IMAGE_MAGIC = {
-  'ffd8ff': 'image/jpeg',  // JPEG
+  'ffd8ff': 'image/jpeg',  // JPEG / JPG / JFIF
+  'ffd8': 'image/jpeg',    // JPEG generic
   '89504e47': 'image/png', // PNG
   '52494646': 'image/webp',// WEBP (RIFF header)
   '47494638': 'image/gif', // GIF
@@ -53,10 +55,10 @@ const GLOBAL_MAX = PDF_MAX;
 
 const fileFilter = (req, file, cb) => {
   // Allow only safe types — no svg, doc, docx, csv, xlsx on public routes
-  const allowedExts = /jpeg|jpg|png|webp|gif|pdf/;
+  const allowedExts = /jpeg|jpg|png|webp|gif|pdf|jfif/;
   const ext = path.extname(file.originalname).toLowerCase().replace('.', '');
   if (!allowedExts.test(ext)) {
-    return cb(new Error('Only images (JPEG, PNG, WebP, GIF) and PDFs are permitted.'));
+    return cb(new ApiError(400, 'Only images (JPEG, PNG, WebP, GIF) and PDFs are permitted.'));
   }
   // Magic-byte check runs in the route after file is written (see uploadRoutes.js)
   cb(null, true);

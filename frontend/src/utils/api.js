@@ -9,8 +9,11 @@ const api = axios.create({
   }
 });
 
-// Attach JWT token from localStorage if present
+// Attach JWT token and automatically handle multipart boundary for FormData
 api.interceptors.request.use((config) => {
+  if (config.data instanceof FormData) {
+    delete config.headers['Content-Type'];
+  }
   const token = localStorage.getItem('bm_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
