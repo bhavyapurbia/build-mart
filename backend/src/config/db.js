@@ -5,7 +5,12 @@ let mongodInstance = null;
 let isConnected = false;
 
 export const connectDB = async (retryCount = 0) => {
-  let mongoUri = env.MONGODB_URI || process.env.MONGODB_URI;
+  const isTestRun =
+    process.env.NODE_ENV === 'test' ||
+    process.execArgv.includes('--test') ||
+    process.argv.some((a) => a.includes('.test.'));
+
+  let mongoUri = isTestRun ? '' : (env.MONGODB_URI || process.env.MONGODB_URI);
 
   if (!mongoUri) {
     if (env.NODE_ENV === 'production') {
