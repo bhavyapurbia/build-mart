@@ -5480,7 +5480,7 @@ img {
   border: 1.5px solid #EA7E12;
 }
 
-.brand-logo-img {
+.brand-symbol-box .brand-logo-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -7753,6 +7753,40 @@ body.modal-open .bm-whatsapp-fixed-wrapper {
 
   .category-showcase-title {
     font-size: 22px;
+  }
+
+  /* Shop by Brand: 4 crisp columns on desktop with uncropped logos */
+  .brand-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 18px;
+  }
+
+  .brand-peach-box {
+    height: 112px;
+    padding: 12px;
+  }
+
+  .brand-white-tile {
+    width: 86%;
+    height: 76px;
+    padding: 10px 14px;
+  }
+}
+
+/* Brand Showcase Logo: always contain full logo without cropping */
+.brand-white-tile .brand-logo-img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 52px;
+  object-fit: contain;
+  border-radius: 0;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .brand-white-tile .brand-logo-img {
+    max-height: 38px;
   }
 }
 
