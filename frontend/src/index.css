@@ -6626,6 +6626,7 @@ img {
 /* 3. PHOTO 3: TODAY'S DEALS SLIDING FROM RIGHT TO LEFT */
 .deals-slider-track {
   display: flex;
+  align-items: stretch;
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -6640,7 +6641,7 @@ img {
 }
 
 .deal-slide-item {
-  flex: 0 0 280px;
+  flex: 0 0 360px;
   scroll-snap-align: start;
 }
 
@@ -7644,5 +7645,140 @@ body.modal-open .bm-whatsapp-fixed-wrapper {
   .sort-select-input {
     font-size: 11.5px;
     padding: 6px 8px;
+  }
+}
+
+/* ========================================================
+   LARGE SCREEN & DESKTOP POLISH + FLOATING WHATSAPP FIX
+   ======================================================== */
+
+/* Floating WhatsApp Button: bottom-right on desktop so it never overlaps left headings */
+.bm-whatsapp-fixed-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  left: auto;
+  z-index: 9999;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .bm-whatsapp-fixed-wrapper {
+    bottom: 78px;
+    right: 14px;
+    left: auto;
+  }
+}
+
+/* Today's Deals Cards: Prevent timer/price overflow & enforce equal card heights */
+.deal-split-card {
+  grid-template-columns: 132px minmax(0, 1fr);
+  overflow: hidden;
+  box-sizing: border-box;
+  align-items: stretch;
+}
+
+.deal-split-card .deal-col-left {
+  min-width: 0;
+  justify-content: space-between;
+}
+
+.deal-split-card .deal-dual-badges {
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+
+.deal-split-card .deal-green-off-badge,
+.deal-split-card .deal-orange-speed-badge {
+  font-size: 10px;
+  padding: 2.5px 5px;
+  line-height: 1.2;
+}
+
+.deal-split-card .deal-col-right {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.deal-split-card .deal-navy-timer-badge {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  padding: 4px 7px;
+  gap: 3px;
+  box-sizing: border-box;
+}
+
+.deal-split-card .timer-text-label {
+  white-space: nowrap;
+  font-size: 10.5px;
+  margin-right: 2px;
+}
+
+.deal-split-card .timer-white-digit-box {
+  padding: 1.5px 4.5px;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.deal-split-card .deal-price-wrapper {
+  flex-wrap: wrap;
+  row-gap: 2px;
+  column-gap: 7px;
+}
+
+/* Large Desktop (>= 1024px): Clean 3-up Deals Track, Balanced Category Boxes, Even Nav Strip */
+@media (min-width: 1024px) {
+  .deal-split-card.deal-slide-item {
+    flex: 0 0 calc((100% - 32px) / 3);
+    min-width: 345px;
+    max-width: 410px;
+  }
+
+  .category-peach-box {
+    aspect-ratio: 4 / 3;
+    max-height: 215px;
+    padding: 14px;
+  }
+
+  .category-peach-label {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .category-showcase-title {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sticky-category-nav .project-stages-scroller {
+    justify-content: space-between;
+  }
+}
+
+/* Mobile Today's Deals safety so timer never overflows small screens either */
+@media (max-width: 640px) {
+  .deal-split-card.deal-slide-item {
+    flex: 0 0 88%;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .deal-split-card .deal-navy-timer-badge {
+    padding: 3px 6px;
+    gap: 2px;
+  }
+
+  .deal-split-card .timer-text-label,
+  .deal-split-card .timer-white-digit-box,
+  .deal-split-card .timer-colon-sep {
+    font-size: 10px;
   }
 }

@@ -4,19 +4,7 @@ const WhatsAppFloatingButton = () => {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div
-      className="bm-whatsapp-fixed-wrapper"
-      style={{
-        position: 'fixed',
-        bottom: '80px',
-        left: '18px',
-        zIndex: 99999,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        pointerEvents: 'auto'
-      }}
-    >
+    <div className="bm-whatsapp-fixed-wrapper">
       <a
         href="https://wa.me/919876543210?text=Hello%20BuildPlace,%20I%20have%20an%20urgent%20construction%20materials%20requirement%20for%20my%20site"
         target="_blank"
@@ -25,8 +13,9 @@ const WhatsAppFloatingButton = () => {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          width: '56px',
-          height: '56px',
+          position: 'relative',
+          width: '54px',
+          height: '54px',
           borderRadius: '50%',
           backgroundColor: 'var(--color-success)',
           boxShadow: '0 8px 24px rgba(37, 211, 102, 0.45), 0 2px 6px rgba(0,0,0,0.15)',
@@ -34,9 +23,10 @@ const WhatsAppFloatingButton = () => {
           alignItems: 'center',
           justifyContent: 'center',
           transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          transform: hovered ? 'scale(1.1) translateY(-2px)' : 'scale(1)',
+          transform: hovered ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
           cursor: 'pointer',
-          textDecoration: 'none'
+          textDecoration: 'none',
+          flexShrink: 0
         }}
       >
         {/* Official WhatsApp SVG Icon */}

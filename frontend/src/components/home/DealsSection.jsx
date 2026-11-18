@@ -112,7 +112,9 @@ const DealsSection = ({ deals = [] }) => {
 
   const handleScroll = (direction) => {
     if (sliderRef.current) {
-      const scrollAmount = direction === 'left' ? -360 : 360;
+      const card = sliderRef.current.querySelector('.deal-slide-item');
+      const step = card ? card.offsetWidth + 16 : 400;
+      const scrollAmount = direction === 'left' ? -step : step;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
