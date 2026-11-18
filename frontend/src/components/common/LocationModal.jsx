@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { MapPin, X, Check, AlertCircle, CheckCircle, Clock } from 'lucide-react';
 import api from '../../utils/api';
 
@@ -123,9 +124,16 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
     onClose();
   };
 
-  return (
-    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="location-modal-title">
-      <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px', borderRadius: '16px' }}>
+  return createPortal(
+    <div
+      className="modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="location-modal-title"
+      style={{ zIndex: 10050 }}
+    >
+      <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px', borderRadius: '16px', maxHeight: '88vh' }}>
         {/* Header */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -282,7 +290,8 @@ const LocationModal = ({ isOpen, onClose, currentCity, onSelectCity }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
