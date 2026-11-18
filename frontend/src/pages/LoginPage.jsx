@@ -111,18 +111,7 @@ const LoginPage = () => {
             </button>
           </form>
 
-          <div style={{
-            background: 'var(--bg-page)',
-            border: '1px solid var(--border)',
-            borderRadius: '8px',
-            padding: '10px 14px',
-            marginTop: '20px',
-            fontSize: '12px',
-            color: 'var(--color-muted)'
-          }}>
-            <strong>Demo Customer Account:</strong><br />
-            Email: <code>customer@buildmart.com</code> | Pass: <code>customer123</code>
-          </div>
+          
 
           <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: 'var(--color-muted)' }}>
             New to BuildMart?{' '}
