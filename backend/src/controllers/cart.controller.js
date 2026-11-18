@@ -3,6 +3,79 @@ import Product from '../models/Product.js';
 import { asyncHandler, ApiResponse } from '../utils/index.js';
 import { ApiError } from '../utils/ApiError.js';
 
+const MAX_ITEM_QTY = 999;
+
+const sanitizeCartItems = async (rawItems = []) => {
+  if (!Array.isArray(rawItems) || rawItems.length === 0) {
+    return { items: [], repaired: false };
+  }
+
+  let repaired = false;
+  const deduped = new Map();
+
+  for (const raw of rawItems) {
+    const it = raw?.toObject ? raw.toObject() : raw;
+    const pId = String(it?.productId || it?._id || it?.product || '').trim();
+    if (!pId) {
+      repaired = true;
+      continue;
+    }
+
+    let qty = Number(it.quantity);
+    if (!Number.isFinite(qty) || qty < 1) {
+      qty = 1;
+      repaired = true;
+    }
+
+    // Self-heal corrupted runaway quantities caused by legacy merge bug
+    if (qty > MAX_ITEM_QTY) {
+      qty = 1;
+      repaired = true;
+    }
+
+    let maxAllowed = MAX_ITEM_QTY;
+    let prodDoc = null;
+    try {
+      prodDoc = await Product.findById(pId).select('name price mrp unit brand images stock isActive deletedAt').lean();
+    } catch {
+      prodDoc = null;
+    }
+
+    if (prodDoc) {
+      if (!prodDoc.isActive || prodDoc.deletedAt) {
+        repaired = true;
+        continue;
+      }
+      if (typeof prodDoc.stock === 'number' && prodDoc.stock > 0) {
+        maxAllowed = Math.min(prodDoc.stock, MAX_ITEM_QTY);
+      }
+    }
+
+    const boundedQty = Math.min(Math.max(1, Math.floor(qty)), maxAllowed);
+    if (boundedQty !== Number(it.quantity)) {
+      repaired = true;
+    }
+
+    if (deduped.has(pId)) {
+      repaired = true;
+      continue;
+    }
+
+    deduped.set(pId, {
+      productId: pId,
+      name: it.name || prodDoc?.name || 'Construction Material',
+      brand: it.brand || prodDoc?.brand || '',
+      image: it.image || (prodDoc?.images && prodDoc.images[0]) || '',
+      unit: it.unit || prodDoc?.unit || 'Piece',
+      price: Number(it.price) || Number(prodDoc?.price) || 0,
+      mrp: Number(it.mrp) || Number(prodDoc?.mrp) || Number(it.price) || Number(prodDoc?.price) || 0,
+      quantity: boundedQty
+    });
+  }
+
+  return { items: Array.from(deduped.values()), repaired };
+};
+
 export const getCart = asyncHandler(async (req, res) => {
   if (!req.user) throw new ApiError(401, 'Authentication required to access server cart.');
   const userId = String(req.user._id);
@@ -10,7 +83,14 @@ export const getCart = asyncHandler(async (req, res) => {
   let cart = await Cart.findOne({ user: userId });
   if (!cart) {
     cart = await Cart.create({ user: userId, items: [] });
+  } else if (cart.items && cart.items.length > 0) {
+    const { items, repaired } = await sanitizeCartItems(cart.items);
+    if (repaired) {
+      cart.items = items;
+      await cart.save();
+    }
   }
+
   return res.status(200).json(
     new ApiResponse(200, cart, 'Cart fetched successfully')
   );
@@ -19,13 +99,15 @@ export const getCart = asyncHandler(async (req, res) => {
 export const syncCart = asyncHandler(async (req, res) => {
   if (!req.user) throw new ApiError(401, 'Authentication required.');
   const userId = String(req.user._id);
-  const { items } = req.body;
+  const { items: rawItems = [] } = req.body;
+
+  const { items } = await sanitizeCartItems(rawItems);
 
   let cart = await Cart.findOne({ user: userId });
   if (cart) {
-    cart = await Cart.findByIdAndUpdate(cart._id, { items: items || [] }, { new: true });
+    cart = await Cart.findByIdAndUpdate(cart._id, { items }, { new: true });
   } else {
-    cart = await Cart.create({ user: userId, items: items || [] });
+    cart = await Cart.create({ user: userId, items });
   }
 
   return res.status(200).json(
@@ -43,35 +125,43 @@ export const mergeCart = asyncHandler(async (req, res) => {
     cart = await Cart.create({ user: userId, items: [] });
   }
 
+  // First sanitize existing server cart items so corrupted quantities cannot compound
+  const { items: cleanExisting } = await sanitizeCartItems(cart.items || []);
+
   const existingMap = new Map();
-  (cart.items || []).forEach(it => {
-    existingMap.set(String(it.productId || it._id), it.toObject ? it.toObject() : it);
+  cleanExisting.forEach(it => {
+    existingMap.set(String(it.productId || it._id), { ...it });
   });
 
   for (const guestItem of items) {
-    const pId = String(guestItem.productId || guestItem._id || guestItem.product);
+    const pId = String(guestItem.productId || guestItem._id || guestItem.product || '').trim();
     if (!pId) continue;
+
+    let guestQty = Number(guestItem.quantity) || 1;
+    if (!Number.isFinite(guestQty) || guestQty < 1 || guestQty > MAX_ITEM_QTY) {
+      guestQty = 1;
+    }
+
+    let pDoc = null;
+    try {
+      pDoc = await Product.findById(pId).select('name price mrp unit brand images stock isActive deletedAt').lean();
+    } catch {
+      pDoc = null;
+    }
+
+    const maxStock = (pDoc && typeof pDoc.stock === 'number' && pDoc.stock > 0)
+      ? Math.min(pDoc.stock, MAX_ITEM_QTY)
+      : MAX_ITEM_QTY;
 
     if (existingMap.has(pId)) {
       const existing = existingMap.get(pId);
-      existing.quantity = (existing.quantity || 1) + (Number(guestItem.quantity) || 1);
+      existing.quantity = Math.min(maxStock, (Number(existing.quantity) || 1) + Math.floor(guestQty));
     } else {
-      let prodName = guestItem.name;
-      let prodPrice = Number(guestItem.price) || 0;
-      let prodUnit = guestItem.unit || 'Piece';
-      let prodBrand = guestItem.brand || '';
-      let prodImage = guestItem.image || '';
-
-      if (!prodName || !prodPrice) {
-        const pDoc = await Product.findById(pId).select('name price unit brand images').lean();
-        if (pDoc) {
-          prodName = prodName || pDoc.name;
-          prodPrice = prodPrice || pDoc.price;
-          prodUnit = prodUnit || pDoc.unit;
-          prodBrand = prodBrand || pDoc.brand;
-          prodImage = prodImage || (pDoc.images && pDoc.images[0]) || '';
-        }
-      }
+      const prodName = guestItem.name || pDoc?.name;
+      const prodPrice = Number(guestItem.price) || Number(pDoc?.price) || 0;
+      const prodUnit = guestItem.unit || pDoc?.unit || 'Piece';
+      const prodBrand = guestItem.brand || pDoc?.brand || '';
+      const prodImage = guestItem.image || (pDoc?.images && pDoc.images[0]) || '';
 
       existingMap.set(pId, {
         productId: pId,
@@ -80,8 +170,8 @@ export const mergeCart = asyncHandler(async (req, res) => {
         image: prodImage,
         unit: prodUnit,
         price: prodPrice,
-        mrp: Number(guestItem.mrp) || prodPrice,
-        quantity: Math.max(1, Number(guestItem.quantity) || 1)
+        mrp: Number(guestItem.mrp) || Number(pDoc?.mrp) || prodPrice,
+        quantity: Math.min(maxStock, Math.max(1, Math.floor(guestQty)))
       });
     }
   }

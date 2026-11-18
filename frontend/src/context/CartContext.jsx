@@ -1,35 +1,87 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import api from '../utils/api';
 import { useNotification } from './NotificationContext';
 import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
+const GUEST_CART_KEY = 'bm_guest_cart';
+const LEGACY_CART_KEY = 'bm_cart';
+const MAX_ITEM_QTY = 999;
+
+const readGuestCart = () => {
+  try {
+    const saved = localStorage.getItem(GUEST_CART_KEY);
+    if (!saved) return [];
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+const writeGuestCart = (items) => {
+  try {
+    if (!items || items.length === 0) {
+      localStorage.removeItem(GUEST_CART_KEY);
+    } else {
+      localStorage.setItem(GUEST_CART_KEY, JSON.stringify(items));
+    }
+  } catch (e) {
+    console.error('Failed to save guest cart to localStorage', e);
+  }
+};
+
+const normalizeClientItems = (items = []) => {
+  if (!Array.isArray(items)) return [];
+  return items
+    .filter(Boolean)
+    .map(item => {
+      const pId = String(item.productId || item._id || item.product?._id || '');
+      const rawQty = Number(item.quantity);
+      const safeQty = (!Number.isFinite(rawQty) || rawQty < 1 || rawQty > MAX_ITEM_QTY)
+        ? 1
+        : Math.floor(rawQty);
+      return {
+        ...item,
+        productId: pId,
+        _id: pId,
+        price: Number(item.price) || 0,
+        mrp: Number(item.mrp) || Number(item.price) || 0,
+        quantity: safeQty
+      };
+    })
+    .filter(item => item.productId);
+};
+
 export const CartProvider = ({ children }) => {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const { showToast } = useNotification();
 
   const [cartItems, setCartItems] = useState(() => {
-    try {
-      const saved = localStorage.getItem('bm_cart');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
+    // Only initialize from guest storage if no auth token is present
+    const hasToken = Boolean(localStorage.getItem('bm_token'));
+    return hasToken ? [] : normalizeClientItems(readGuestCart());
   });
 
   const [coupon, setCoupon] = useState(null);
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [validationAlerts, setValidationAlerts] = useState([]);
+  const wasAuthenticatedRef = useRef(false);
 
-  // Save to localStorage whenever cartItems change
-  useEffect(() => {
-    try {
-      localStorage.setItem('bm_cart', JSON.stringify(cartItems));
-    } catch (e) {
-      console.error('Failed to save cart to localStorage', e);
+  // Sync updated items to server (when logged in) or guest storage (when logged out)
+  const persistCart = useCallback((nextItems) => {
+    const clean = normalizeClientItems(nextItems);
+    if (isAuthenticated) {
+      localStorage.removeItem(LEGACY_CART_KEY);
+      localStorage.removeItem(GUEST_CART_KEY);
+      api.post('/cart/sync', { items: clean }).catch((err) => {
+        console.warn('Failed to sync cart to server:', err.message);
+      });
+    } else {
+      writeGuestCart(clean);
     }
-  }, [cartItems]);
+  }, [isAuthenticated]);
 
   // Validate cart against server prices and stock
   const validateCurrentCart = useCallback(async (itemsToValidate = cartItems) => {
@@ -41,85 +93,104 @@ export const CartProvider = ({ children }) => {
     try {
       const res = await api.post('/cart/validate', { items: itemsToValidate });
       const data = res.data?.data || res.data;
-      if (data) {
-        if (Array.isArray(data.items) && data.hasChanges) {
-          setCartItems(data.items);
-          setValidationAlerts(data.changes || []);
-          if (coupon) {
-            setCoupon(null);
-            setCouponDiscount(0);
-          }
+      if (data && Array.isArray(data.items) && data.hasChanges) {
+        const cleaned = normalizeClientItems(data.items);
+        setCartItems(cleaned);
+        persistCart(cleaned);
+        setValidationAlerts(data.changes || []);
+        if (coupon) {
+          setCoupon(null);
+          setCouponDiscount(0);
         }
       }
-    } catch (err) {
+    } catch {
       // Quiet fail if offline
     }
-  }, [cartItems, coupon]);
+  }, [cartItems, coupon, persistCart]);
 
-  // On mount or user auth change, validate cart or merge guest cart
+  // On auth resolution: fetch server cart (and merge true guest cart ONCE if present)
   useEffect(() => {
+    if (authLoading) return;
     let isMounted = true;
 
-    const syncOrMerge = async () => {
-      const saved = localStorage.getItem('bm_cart');
-      let localItems = [];
-      if (saved) {
-        try {
-          localItems = JSON.parse(saved);
-        } catch (e) {}
-      }
-
+    const loadCartForSession = async () => {
       if (isAuthenticated) {
+        wasAuthenticatedRef.current = true;
+        // Remove legacy shared key so previously saved server carts can NEVER re-merge into themselves
+        localStorage.removeItem(LEGACY_CART_KEY);
+
+        const guestItems = normalizeClientItems(readGuestCart());
         try {
-          if (localItems.length > 0) {
-            const res = await api.post('/cart/merge', { items: localItems });
+          if (guestItems.length > 0) {
+            // Clear guest cart immediately before/after merging so it can never merge twice
+            localStorage.removeItem(GUEST_CART_KEY);
+            const res = await api.post('/cart/merge', { guestItems });
             const cartData = res.data?.data || res.data;
-            if (isMounted && cartData?.items) {
-              setCartItems(cartData.items);
+            if (isMounted && Array.isArray(cartData?.items)) {
+              setCartItems(normalizeClientItems(cartData.items));
             }
           } else {
             const res = await api.get('/cart');
             const cartData = res.data?.data || res.data;
-            if (isMounted && cartData?.items) {
-              setCartItems(cartData.items);
+            if (isMounted && Array.isArray(cartData?.items)) {
+              setCartItems(normalizeClientItems(cartData.items));
             }
           }
         } catch (err) {
-          console.warn('Failed to sync server cart on login', err);
+          console.warn('Failed to load server cart:', err);
         }
-      } else if (localItems.length > 0) {
-        validateCurrentCart(localItems);
+      } else {
+        // If user just logged out, reset state to empty guest cart
+        if (wasAuthenticatedRef.current) {
+          wasAuthenticatedRef.current = false;
+          localStorage.removeItem(LEGACY_CART_KEY);
+          if (isMounted) {
+            setCartItems([]);
+            setCoupon(null);
+            setCouponDiscount(0);
+            setValidationAlerts([]);
+          }
+          return;
+        }
+
+        const guestItems = normalizeClientItems(readGuestCart());
+        if (isMounted) {
+          setCartItems(guestItems);
+        }
+        if (guestItems.length > 0) {
+          validateCurrentCart(guestItems);
+        }
       }
     };
 
-    syncOrMerge();
+    loadCartForSession();
 
     return () => { isMounted = false; };
-  }, [isAuthenticated]);
+  }, [isAuthenticated, authLoading]);
 
-  // Add to cart (Guest-friendly, no login required, pure state update)
+  // Add to cart (syncs immediately to server if authenticated, else guest localStorage)
   const addToCart = (product, quantity = 1) => {
     if (!product) return;
 
     const productId = String(product._id || product.id);
-    const numQty = Math.max(1, Number(quantity) || 1);
-    const maxStock = Number(product.stock != null ? product.stock : 9999);
+    const numQty = Math.max(1, Math.floor(Number(quantity) || 1));
+    const maxStock = Math.min(Number(product.stock != null ? product.stock : MAX_ITEM_QTY), MAX_ITEM_QTY);
 
     setCartItems(prev => {
       const idx = prev.findIndex(item => String(item.productId || item._id || item.product?._id) === productId);
+      let nextItems;
       if (idx > -1) {
         const existing = prev[idx];
-        const newQty = Math.min(maxStock, existing.quantity + numQty);
-        const updated = [...prev];
-        updated[idx] = {
+        const newQty = Math.min(maxStock, (Number(existing.quantity) || 1) + numQty);
+        nextItems = [...prev];
+        nextItems[idx] = {
           ...existing,
           quantity: newQty,
           price: Number(product.price != null ? product.price : existing.price)
         };
-        return updated;
       } else {
         const effectiveQty = Math.min(maxStock, numQty);
-        return [
+        nextItems = [
           ...prev,
           {
             productId,
@@ -135,9 +206,11 @@ export const CartProvider = ({ children }) => {
           }
         ];
       }
+
+      persistCart(nextItems);
+      return nextItems;
     });
 
-    // Clear applied coupon if line items change to prevent stale discount amounts
     if (coupon) {
       setCoupon(null);
       setCouponDiscount(0);
@@ -148,20 +221,24 @@ export const CartProvider = ({ children }) => {
 
   const updateCartQty = (productId, quantity) => {
     const pId = String(productId);
-    const numQty = Number(quantity);
+    const numQty = Math.floor(Number(quantity));
 
-    if (numQty <= 0) {
+    if (!Number.isFinite(numQty) || numQty <= 0) {
       removeFromCart(pId);
       return;
     }
 
-    setCartItems(prev => prev.map(item => {
-      if (String(item.productId || item._id || item.product?._id) === pId) {
-        const maxStock = Number(item.stock != null ? item.stock : 9999);
-        return { ...item, quantity: Math.min(maxStock, numQty) };
-      }
-      return item;
-    }));
+    setCartItems(prev => {
+      const nextItems = prev.map(item => {
+        if (String(item.productId || item._id || item.product?._id) === pId) {
+          const maxStock = Math.min(Number(item.stock != null ? item.stock : MAX_ITEM_QTY), MAX_ITEM_QTY);
+          return { ...item, quantity: Math.min(maxStock, numQty) };
+        }
+        return item;
+      });
+      persistCart(nextItems);
+      return nextItems;
+    });
 
     if (coupon) {
       setCoupon(null);
@@ -171,7 +248,11 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (productId) => {
     const pId = String(productId);
-    setCartItems(prev => prev.filter(item => String(item.productId || item._id || item.product?._id) !== pId));
+    setCartItems(prev => {
+      const nextItems = prev.filter(item => String(item.productId || item._id || item.product?._id) !== pId);
+      persistCart(nextItems);
+      return nextItems;
+    });
     if (coupon) {
       setCoupon(null);
       setCouponDiscount(0);
@@ -184,14 +265,15 @@ export const CartProvider = ({ children }) => {
     setCoupon(null);
     setCouponDiscount(0);
     setValidationAlerts([]);
-    localStorage.removeItem('bm_cart');
+    localStorage.removeItem(GUEST_CART_KEY);
+    localStorage.removeItem(LEGACY_CART_KEY);
     if (isAuthenticated) {
       api.post('/cart/clear').catch(() => {});
     }
   };
 
   // Pricing calculations
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + ((Number(item.price) || 0) * (Number(item.quantity) || 0)), 0);
   const tax = Math.round(subtotal * 0.18);
   const deliveryFee = (subtotal >= 5000 || subtotal === 0) ? 0 : 350;
   const totalAmount = Math.max(0, subtotal + tax + deliveryFee - couponDiscount);
@@ -238,7 +320,7 @@ export const CartProvider = ({ children }) => {
 
   const value = {
     cartItems,
-    cartCount: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+    cartCount: cartItems.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0),
     validationAlerts,
     validateCurrentCart,
     addToCart,
